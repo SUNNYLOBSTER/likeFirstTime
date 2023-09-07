@@ -6,4 +6,5 @@ public class UsersVO {
 	private String addr;
 	private String age;
 	private String email;
+	private String delflag;
 }
