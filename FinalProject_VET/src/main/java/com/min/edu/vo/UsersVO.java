@@ -8,4 +8,5 @@ public class UsersVO {
 	private String email;
 	private String delflag;
 	private String head;
+	private String shoulder;
 }
