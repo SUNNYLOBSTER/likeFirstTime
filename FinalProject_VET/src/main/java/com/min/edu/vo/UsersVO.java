@@ -9,6 +9,8 @@ public class UsersVO {
 	private String delflag;
 	private String head;
 	private String shoulder;
+	private String foot;
+	
 	public UsersVO() {
 		// TODO Auto-generated constructor stub
 	}
