@@ -10,5 +10,11 @@ public class Users_ServiceImpl implements IUsers_Service {
 
 	@Autowired
 	private IUsers_Dao dao;
+
+	@Override
+	public void user() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
