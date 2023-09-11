@@ -15,4 +15,8 @@ public class HomeController {
 		return "home";
 	}
 	
+	public String homehome() {
+		return "hone";
+	}
+	
 }
