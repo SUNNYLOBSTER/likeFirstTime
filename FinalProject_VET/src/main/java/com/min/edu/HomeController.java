@@ -16,6 +16,7 @@ public class HomeController {
 	}
 	
 	public String homehome() {
+		log.info("&&&&& git test &&&&&");
 		return "hone";
 	}
 	
