@@ -16,3 +16,4 @@ local.properties
 target/
 .springBeans
 MANIFEST,MF
+.dbeaver/
