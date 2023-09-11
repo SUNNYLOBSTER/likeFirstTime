@@ -19,6 +19,7 @@ public class HomeController {
 		log.info("&&&&& git test &&&&&");
 		log.info("&&&&& git test2 &&&&&");
 		log.info("&&&&& git test3 &&&&&");
+		log.info("&&&&& git test4 &&&&&");
 		return "hone";
 	}
 	
