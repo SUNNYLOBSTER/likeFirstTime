@@ -18,6 +18,7 @@ public class HomeController {
 	public String homehome() {
 		log.info("&&&&& git test &&&&&");
 		log.info("&&&&& git test2 &&&&&");
+		log.info("&&&&& git test3 &&&&&");
 		return "hone";
 	}
 	
