@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
+  
+<typeAliases>
+	<typeAlias type="com.min.edu.vo.Reservation_VO" alias="Reservation_VO"/>
+</typeAliases>
 
-	<typeAliases>
-		<typeAlias type="com.min.edu.vo.Reservation_VO" alias="Reservation_VO"/>
-	</typeAliases>
+<mappers>
+	<mapper resource="sqls/MediChart_Statement.xml"/>
+  	<mapper resource="sqls/Reservation_Statement.xml"/>
+</mappers>
 
-	<mappers>
-		<mapper resource="sqls/Reservation_Statement.xml"/>
-	</mappers>
 
 </configuration>

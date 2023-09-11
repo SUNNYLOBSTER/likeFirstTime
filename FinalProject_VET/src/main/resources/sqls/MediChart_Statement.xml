@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.MediChart_DaoImpl">
-	
+	<!-- 반려동물 수 체크 -->
+	<select id="countPet" resultType="java.lang.Integer">
+		SELECT COUNT(PET_SEQ) AS CNT
+			FROM PETSINFO
+			WHERE PET_OWNER =#{id}
+	</select>
+	<!-- 반려동물명 리스트 조회 -->
+	<select id="searchPet" resultType="com.min.edu.vo.PetsInfo_VO">
+		SELECT PET_NAME 
+			FROM PETSINFO
+			WHERE PET_OWNER = #{id}
+	</select>
 
+	<insert id="insertNewPet" parameterType="com.min.edu.vo.PetsInfo_VO">
+	<selectKey keyProperty="seq" resultType="java.lang.Integer" order="BEFORE">
+		SELECT MAX(PET_SEQ)+1 FROM PETSINFO
+	</selectKey>
+		INSERT INTO PETSINFO
+			(PET_SEQ, PET_OWNER, PET_NAME, PET_BDAY, PET_SPECIES, PET_GENDER, PET_NEUT, PET_REPORT)
+			VALUES(#{seq},#{pet_owner}, #{pet_name}, #{pet_bday}, #{pet_species}, #{pet_gender}, #{pet_neut}, #{pet_report})
+	</insert>
 
 </mapper>

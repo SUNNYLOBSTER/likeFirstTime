@@ -1,6 +1,14 @@
 package com.min.edu.model.mapper;
 
+import java.util.List;
+
+import com.min.edu.vo.PetsInfo_VO;
+
 public interface IMediChart_Dao {
 
-	public int countPet(String users_id);
+	public int countPet(String id);
+	
+	public List<PetsInfo_VO> searchPet(String id);
+	
+	public int insertNewPet(PetsInfo_VO pvo);
 }
