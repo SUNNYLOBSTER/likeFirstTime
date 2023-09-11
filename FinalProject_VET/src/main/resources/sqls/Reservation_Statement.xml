@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.mapper.Reservation_DaoImpl">
+
+	<select id="resrv_monthYNCount" resultType="java.util.Map">
+		SELECT  MM, NVL(Y_COUNT, 0) AS Y_COUNT
+			FROM(
+				SELECT "MONTH", COUNT(*) AS Y_COUNT
+					FROM (
+						SELECT TO_CHAR(RESRV_VISIT, 'MM') AS "MONTH" , RESRV_HOPS ,  RESRV_STATUS 
+							FROM RESERVATION r 
+							WHERE TO_CHAR(RESRV_VISIT, 'YYYY') = '2023'
+								AND RESRV_STATUS ='Y'
+								AND RESRV_HOPS = 'gana@naver.com'
+					)
+					GROUP BY "MONTH"
+				) M1
+			RIGHT JOIN 
+				(SELECT LPAD(LEVEL,2,0) MM
+					FROM DUAL
+					<![CDATA[
+						CONNECT BY LEVEL <=12) M2
+					]]>
+			ON M1."MONTH" = M2.MM
+			ORDER BY MM
+	</select>
+
+</mapper>
