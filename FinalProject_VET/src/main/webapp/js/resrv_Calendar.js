@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			var today = new Date(); // 오늘 날짜 가져오기
 			var calendarEl = document.getElementById('calendar'); //캘린더 뿌려질 위치
 			
-
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 				initialDate: today,
 				editable: false, // 일정 수정 기능 못쓰게
