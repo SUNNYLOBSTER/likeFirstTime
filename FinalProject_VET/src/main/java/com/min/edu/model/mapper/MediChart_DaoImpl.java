@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.min.edu.vo.MediChart_VO;
+import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -79,6 +80,11 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	@Override
 	public int deleteChart(String medi_num) {
 		return session.delete(NS+"deleteChart",medi_num);
+	}
+
+	@Override
+	public List<MediCode_VO> selectAllMediCode() {
+		return session.selectList(NS+"selectAllMediCode");
 	}
 
 }
