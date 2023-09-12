@@ -9,9 +9,9 @@
 					FROM (
 						SELECT TO_CHAR(RESRV_VISIT, 'MM') AS "MONTH" , RESRV_HOPS ,  RESRV_STATUS 
 							FROM RESERVATION r 
-							WHERE TO_CHAR(RESRV_VISIT, 'YYYY') = '2023'
+							WHERE TO_CHAR(RESRV_VISIT, 'YYYY') = #{yyyy}
 								AND RESRV_STATUS ='Y'
-								AND RESRV_HOPS = 'gana@naver.com'
+								AND RESRV_HOPS = #{RESRV_HOPS}
 					)
 					GROUP BY "MONTH"
 				) M1
@@ -24,5 +24,58 @@
 			ON M1."MONTH" = M2.MM
 			ORDER BY MM
 	</select>
-
+	
+	<select id="resrv_monthResrvLists" resultType="Reservation_VO">
+		SELECT TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_NUM, RESRV_NAME  
+			FROM RESERVATION r 
+			WHERE TO_CHAR(RESRV_VISIT, 'YYYY') = #{yyyy}
+				AND TO_CHAR(RESRV_VISIT, 'MM') = #{mm}
+				AND RESRV_HOPS = #{resrv_hops}
+				AND RESRV_STATUS = 'Y'
+	</select>
+	
+	<select id="resrv_dayYCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+			FROM RESERVATION r 
+			WHERE RESRV_VISIT = #{resrv_visit}
+				AND RESRV_HOPS = #{resrv_hops}
+				AND RESRV_STATUS = 'Y'
+	</select>
+	
+	<select id="resrv_dayTimeLists" resultType="Reservation_VO">
+		SELECT RESRV_NAME , RESRV_TIME, TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT
+			FROM RESERVATION r 
+			WHERE RESRV_VISIT = #{resrv_visit}
+				AND RESRV_HOPS = #{resrv_hops}
+				AND RESRV_STATUS = 'Y'
+	</select>
+	
+	<select id="resrv_detail" resultType="Reservation_VO">
+		SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_MEMO 
+			FROM RESERVATION r 
+				WHERE RESRV_NUM = #{resrv_num}
+	</select>
+	
+	<select id="resrv_dayStatus" resultType="Reservation_VO">
+		SELECT RESRV_NUM, RESRV_TIME, RESRV_NAME, RESRV_TEL, RESRV_STATUS 
+			FROM RESERVATION r 
+			WHERE RESRV_VISIT = #{resrv_visit}
+				AND RESRV_HOPS = #{resrv_hops}
+				AND RESRV_STATUS = #{resrv_status}
+	</select>
+	
+	<insert id="resrv_insert">
+		<selectKey keyProperty="resrv_num" resultType="java.lang.String" order="BEFORE">
+				SELECT CONCAT('RSV',NVL(MAX(TO_NUMBER(SUBSTR(RESRV_NUM, 4))),0)+1) AS RESRV_NUM FROM RESERVATION r
+		</selectKey>
+		INSERT INTO RESERVATION (RESRV_NUM, 
+						RESRV_HOPS, RESRV_VISIT, RESRV_TIME, 
+						RESRV_NAME, RESRV_TEL, RESRV_MEMO, 
+						RESRV_STATUS, RESRV_REGDATE) 
+			VALUES(#{resrv_num}, 
+					#{resrv_hops}, #{resrv_visit}, #{resrv_time}, 
+					#{resrv_name}, #{resrv_tel}, #{resrv_memo}, 
+					'W',(SYSDATE))
+	</insert>
+	
 </mapper>
