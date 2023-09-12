@@ -19,6 +19,7 @@
 		<c:set var="chart" value="${allPetChart}"/>
 		${chart}
 	</c:otherwise>
-</c:choose>
+</c:choose><br>
+<button onclick="window.history.back()">전체목록으로 돌아가기</button>
 </body>
 </html>

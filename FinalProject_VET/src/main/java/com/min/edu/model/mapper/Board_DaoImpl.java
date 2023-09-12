@@ -1,5 +1,6 @@
 package com.min.edu.model.mapper;
 
+
 import org.springframework.stereotype.Repository;
 
 @Repository

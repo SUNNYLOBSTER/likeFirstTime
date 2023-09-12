@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>첫 페이지</title>
+<title>새 진료기록 작성</title>
 </head>
 <body>
-<h2>홈 페이지</h2>
-<a href="./selectAllChart.do">진료기록</a>
-<br>
-<a href="./loginForm.do">로그인</a>
+<h1>ck editor 사용</h1>
 </body>
 </html>
