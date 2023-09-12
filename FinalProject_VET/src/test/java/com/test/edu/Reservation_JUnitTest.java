@@ -105,4 +105,25 @@ public class Reservation_JUnitTest {
 		assertEquals(1, n);
 	}
 	
+//	@Test
+	public void resrv_updateTest() {
+//		int n = service.resrv_updateToY("RSV2");
+		int m = service.resrv_updateToN("RSV1");
+//		assertEquals(1, n);
+		assertEquals(1, m);
+	}
+	
+//	@Test
+	public void resrv_deleteTest() {
+		int n = service.resrv_delete("RSV21");
+		assertEquals(1, n);
+	}
+	
+	@Test
+	public void resrv_test() {
+		List<Reservation_VO> lists = service.resrv_test("gana@naver.com");
+		assertNotNull(lists);
+	}
+	
+	
 }

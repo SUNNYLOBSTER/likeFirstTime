@@ -78,4 +78,27 @@
 					'W',(SYSDATE))
 	</insert>
 	
+	<update id="resrv_updateToY">
+		UPDATE RESERVATION 
+			SET RESRV_STATUS = 'Y'  
+				WHERE RESRV_NUM = #{resrv_num}
+	</update>
+	
+	<update id="resrv_updateToN">
+		UPDATE RESERVATION 
+			SET RESRV_STATUS = 'N'  
+				WHERE RESRV_NUM = #{resrv_num}
+	</update>
+	
+	<delete id="resrv_delete">
+		DELETE FROM RESERVATION WHERE RESRV_NUM = #{resrv_num}
+	</delete>
+	
+	<select id="resrv_test" resultType="Reservation_VO">
+		SELECT TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_NUM, RESRV_NAME  
+			FROM RESERVATION r 
+			WHERE RESRV_HOPS = #{resrv_hops}
+				AND RESRV_STATUS = 'Y'
+	</select>
+	
 </mapper>

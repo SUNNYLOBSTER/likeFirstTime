@@ -9,5 +9,7 @@
 <body>
 <h2>홈 페이지</h2>
 <a href="./selectAllChart.do">진료기록</a>
+<br>
+<a href="./resrv_Select.do">진료예약조회</a>
 </body>
 </html>

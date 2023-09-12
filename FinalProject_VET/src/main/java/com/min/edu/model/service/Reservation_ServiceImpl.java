@@ -74,6 +74,34 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", rvo);
 		return dao.resrv_insert(rvo);
 	}
+
+	@Override
+	public int resrv_updateToY(String resrv_num) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_updateToY &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		return dao.resrv_updateToY(resrv_num);
+	}
+
+	@Override
+	public int resrv_updateToN(String resrv_num) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_updateToN &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		return dao.resrv_updateToN(resrv_num);
+	}
+
+	@Override
+	public int resrv_delete(String resrv_num) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_delete &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		return dao.resrv_delete(resrv_num);
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_test(String resrv_hops) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_test &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
+		return dao.resrv_test(resrv_hops);
+	}
 	
 	
 	
