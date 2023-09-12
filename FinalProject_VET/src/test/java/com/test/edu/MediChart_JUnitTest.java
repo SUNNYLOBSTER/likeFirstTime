@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.min.edu.model.service.IMediChart_Service;
 import com.min.edu.vo.MediChart_VO;
+import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -132,6 +133,12 @@ public class MediChart_JUnitTest {
 		String medi_num = "M7";
 		int n =  service.deleteChart(medi_num);
 		assertEquals(n, 1);
+	}
+	
+	@Test
+	public void selectAllMediCode() {
+		List<MediCode_VO> lists = service.selectAllMediCode();
+		assertNotNull(lists);;
 	}
 
 }
