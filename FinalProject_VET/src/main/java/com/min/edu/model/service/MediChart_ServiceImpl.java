@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.min.edu.model.mapper.IMediChart_Dao;
 import com.min.edu.vo.MediChart_VO;
+import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -99,6 +100,12 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		log.info("&&&&& MediChart_ServiceImpl deleteChart &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", medi_num);
 		return dao.deleteChart(medi_num);
+	}
+
+	@Override
+	public List<MediCode_VO> selectAllMediCode() {
+		log.info("&&&&& MediChart_ServiceImpl selectAllMediCode &&&&&");
+		return dao.selectAllMediCode();
 	}
 	
 
