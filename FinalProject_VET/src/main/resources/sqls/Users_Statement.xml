@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.mapper.Users_DaoImpl">
+
+<!-- 전체 회원 조회 -->
+<select id="selectAllUsers" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_TEL, USERS_JOINDATE, USERS_STATUS, USERS_AUTH
+	FROM USERSINFO
+	ORDER BY USERS_JOINDATE DESC
+</select>
+
+<!-- 권한별 회원 조회 -->
+<select id="selectUsersAuth" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_TEL, USERS_JOINDATE, USERS_STATUS
+	FROM USERSINFO
+	WHERE USERS_AUTH = #{users_auth}
+	ORDER BY USERS_JOINDATE DESC
+</select>
+
+<!-- 상태별 회원 조회 -->
+<select id="selectUsersStatus" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_TEL, USERS_JOINDATE, USERS_STATUS
+	FROM USERSINFO
+	WHERE USERS_STATUS  = #{users_status}
+	ORDER BY USERS_JOINDATE DESC
+</select>
+
+<!-- 아이디로 회원 검색 -->
+<select id="searchUsers" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_TEL, USERS_JOINDATE, USERS_STATUS
+	FROM USERSINFO
+	WHERE LOWER(USERS_ID) LIKE LOWER('%'||#{keyword}||'%')
+	ORDER BY USERS_JOINDATE DESC
+</select>
+
+
+<!-- 회원상세조회(일반사용자) -->
+<select id="selectUserDetail" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_TEL,
+	   USERS_STATUS, USERS_JOINDATE, USERS_SUBTEL,
+	   USERS_ADDR,
+	   PET_NAME, PET_BDAY, PET_SPECIES,
+	   PET_GENDER, PET_NEUT, PET_REPORT,
+	   BM_HOSPID
+	FROM USERSINFO LEFT JOIN PETSINFO p
+	ON PET_OWNER = USERS_ID
+	LEFT JOIN BOOKMARK b 
+	ON BM_USERSID = USERS_ID
+	WHERE USERS_ID = #{users_id}
+</select>
+
+<!-- 회원상세조회 (병원 관계자) -->
+<select id="selectHospitalDetail" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_TEL,
+	   USERS_STATUS, USERS_JOINDATE,  USERS_SUBTEL,
+	   USERS_ADDR, USERS_CRN,
+	   HOSP_OFF, HOSP_TIME, HOSP_PARK,
+	   HOSP_ETC, ANM_SPECIES
+	FROM USERSINFO u JOIN HOSPITAL h
+	ON USERS_ID = HOSP_ID
+	LEFT JOIN ANIMALCONNECT a
+	ON U.USERS_ID = A.HOSP_ID
+	LEFT JOIN ANIMALCODE a2
+	ON a.ANM_CODE = a2.ANM_CODE
+	WHERE USERS_ID = #{users_id}
+</select>
+
+<!-- 로그인 -->
+<select id="loginUser" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID, USERS_NAME, USERS_STATUS, USERS_AUTH
+	FROM USERSINFO u
+	WHERE USERS_ID = #{users_id} AND USERS_PW = #{users_pw}
+</select>
+
+</mapper>
