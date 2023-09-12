@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.min.edu.vo.MediChart_VO;
+import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 
 public interface IMediChart_Service {
@@ -31,5 +32,7 @@ public interface IMediChart_Service {
 	public int modifyChart(Map<String, Object> map);
 	
 	public int deleteChart(String medi_num);
+	
+	public List<MediCode_VO> selectAllMediCode();
 
 }
