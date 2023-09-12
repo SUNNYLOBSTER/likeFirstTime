@@ -56,5 +56,25 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 		return session.insert(NS+"resrv_insert", rvo);
 	}
 
+	@Override
+	public int resrv_updateToY(String resrv_num) {
+		return session.update(NS+"resrv_updateToY",resrv_num);
+	}
+
+	@Override
+	public int resrv_updateToN(String resrv_num) {
+		return session.update(NS+"resrv_updateToN",resrv_num);
+	}
+
+	@Override
+	public int resrv_delete(String resrv_num) {
+		return session.delete(NS+"resrv_delete",resrv_num);
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_test(String resrv_hops) {
+		return session.selectList(NS+"resrv_test",resrv_hops);
+	}
+
 	
 }

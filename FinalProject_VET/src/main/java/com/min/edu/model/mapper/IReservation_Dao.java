@@ -26,6 +26,17 @@ public interface IReservation_Dao {
 	//일별 예약상태에 따른 조회
 	public List<Reservation_VO> resrv_dayStatus(Reservation_VO rvo);
 	
+	//진료예약 등록
 	public int resrv_insert(Reservation_VO rvo);
 	
+	//예약대기(W)에서 예약확정(Y) 상태로 변경
+	public int resrv_updateToY(String resrv_num);
+	
+	//예약확정(Y) 상태에서 예약취소(N) 상태로 변경
+	public int resrv_updateToN(String resrv_num);
+	
+	//예약을 거절/취소한 경우 예약목록에서 삭제
+	public int resrv_delete(String resrv_num);
+	
+	public List<Reservation_VO> resrv_test(String resrv_hops);
 }
