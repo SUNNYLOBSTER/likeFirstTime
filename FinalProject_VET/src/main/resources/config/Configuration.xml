@@ -8,8 +8,7 @@
 
 <mappers>
 	<mapper resource="sqls/MediChart_Statement.xml"/>
-  	<mapper resource="sqls/Reservation_Statement.xml"/>
+ 	<mapper resource="sqls/Reservation_Statement.xml"/>
 </mappers>
-
 
 </configuration>

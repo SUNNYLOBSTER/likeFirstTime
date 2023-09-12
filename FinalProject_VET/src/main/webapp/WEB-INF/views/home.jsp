@@ -8,5 +8,6 @@
 </head>
 <body>
 <h2>홈 페이지</h2>
+<a href="./selectAllChart.do">진료기록</a>
 </body>
 </html>
