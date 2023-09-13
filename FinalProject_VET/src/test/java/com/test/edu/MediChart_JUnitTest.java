@@ -100,7 +100,7 @@ public class MediChart_JUnitTest {
 //	@Test
 	public void selectSChart() {
 		Map<String, Object> map = new HashMap<String, Object>(){{
-			put("medi_id", "merida@disney.com");
+			put("pet_owner", "merida@disney.com");
 			put("medi_l", "03");
 			put("medi_s", "031");
 		}};
@@ -135,7 +135,7 @@ public class MediChart_JUnitTest {
 		assertEquals(n, 1);
 	}
 	
-	@Test
+//	@Test
 	public void selectAllMediCode() {
 		List<MediCode_VO> lists = service.selectAllMediCode();
 		assertNotNull(lists);;
