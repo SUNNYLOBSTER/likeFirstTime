@@ -82,4 +82,9 @@ public class Users_Controller {
 		return "adminPage";
 	}
 	
+	@RequestMapping(path="/selectUserDetail.do")
+	public String selectUserDetail () {
+		return null;
+	}
+	
 }
