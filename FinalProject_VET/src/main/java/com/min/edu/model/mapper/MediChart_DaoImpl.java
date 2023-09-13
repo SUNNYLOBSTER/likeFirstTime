@@ -48,7 +48,7 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	}
 
 	@Override
-	public List<MediChart_VO> selectAllChart(String medi_id) {
+	public List<PetsInfo_VO> selectAllChart(String medi_id) {
 		return session.selectList(NS+"selectAllChart",medi_id);
 	}
 
@@ -63,7 +63,7 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	}
 
 	@Override
-	public List<MediChart_VO> selectSChart(Map<String, Object> map) {
+	public List<PetsInfo_VO> selectSChart(Map<String, Object> map) {
 		return session.selectList(NS+"selectSChart", map);
 	}
 

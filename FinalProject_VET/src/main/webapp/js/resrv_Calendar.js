@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				},
 				eventClick: function(info) {
 				    console.log("일정 클릭이벤트 :",info.event.title);
+				    console.log("일정 클릭이벤트 :",info.event.start);
+				    console.log("일정 클릭이벤트 :",info.event.resrv_num);
 				    // change the border color just for fun
 				    info.el.style.borderColor = 'red';
 				},

@@ -60,6 +60,7 @@ public class Reservation_Controller {
 			FullCalendar_VO fvo = new FullCalendar_VO();
 			fvo.setTitle(rvo.getResrv_name());
 			fvo.setStart(rvo.getResrv_visit());
+			fvo.setResrv_num(rvo.getResrv_num());
 			resultList.add(fvo);
 		}
 		
