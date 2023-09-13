@@ -73,7 +73,7 @@ public class MediChart_JUnitTest {
 //	@Test
 	public void selectAllChart() {
 		String medi_id = "elsa@disney.com";
-		List<MediChart_VO> lists = service.selectAllChart(medi_id);
+		List<PetsInfo_VO> lists = service.selectAllChart(medi_id);
 		assertNotNull(lists);
 	}
 	
@@ -104,7 +104,7 @@ public class MediChart_JUnitTest {
 			put("medi_l", "03");
 			put("medi_s", "031");
 		}};
-		List<MediChart_VO> lists = service.selectSChart(map);
+		List<PetsInfo_VO> lists = service.selectSChart(map);
 		assertNotNull(lists);
 	}
 	

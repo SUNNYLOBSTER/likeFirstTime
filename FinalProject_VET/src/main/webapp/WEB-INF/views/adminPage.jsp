@@ -14,6 +14,7 @@ ${loginVo}
 <hr>
 <h2>관리자 페이지 입니다.</h2>
 <%-- ${listsVo} --%>
+
 <table>
 	<thead>
 		<tr>
