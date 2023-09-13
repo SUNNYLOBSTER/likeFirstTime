@@ -1,5 +1,8 @@
 package com.min.edu;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.google.gson.Gson;
 import com.min.edu.model.service.IReservation_Service;
+import com.min.edu.vo.FullCalendar_VO;
+import com.min.edu.vo.Reservation_VO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +52,25 @@ public class Reservation_Controller {
 	}
 	
 	@GetMapping(value = "/fullCalendar.do")
-	public void fullCalendar(HttpServletResponse response) {
+	public void fullCalendar(HttpServletResponse response) throws IOException {
+		List<FullCalendar_VO> resultList = new ArrayList<>();
+		
+		List<Reservation_VO> resrvList = service.resrv_test("gana@naver.com");
+		for (Reservation_VO rvo : resrvList) {
+			FullCalendar_VO fvo = new FullCalendar_VO();
+			fvo.setTitle(rvo.getResrv_name());
+			fvo.setStart(rvo.getResrv_visit());
+			resultList.add(fvo);
+		}
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(resultList);
+		PrintWriter out = response.getWriter();
+		
+		out.print(json);
+		out.flush();
+		out.close();
+		log.info("&&&&& json 호출 :{}",json);
 	}
 	
 }
