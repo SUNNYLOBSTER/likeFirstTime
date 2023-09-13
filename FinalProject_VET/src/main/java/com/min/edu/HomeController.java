@@ -14,9 +14,5 @@ public class HomeController {
 		log.info("첫 페이지 호출 Controller");
 		return "home";
 	}
-	
-	public String homehome() {
-		return "hone";
-	}
-	
+  
 }

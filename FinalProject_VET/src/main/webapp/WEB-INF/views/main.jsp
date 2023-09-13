@@ -25,11 +25,12 @@ ${loginVo}
 	</c:if>
 	<c:if test="${loginVo.users_auth eq 'U' }">
 		<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
+		<br><br>
+		<a href="./selectAllChart.do">진료기록</a>
 	</c:if>
 </div>
 <hr>
-
-
-
+<a href="./resrv_Select.do">진료예약조회</a>
+<br>
 </body>
 </html>

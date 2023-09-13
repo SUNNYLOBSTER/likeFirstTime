@@ -19,13 +19,13 @@ public interface IMediChart_Dao {
 	
 	public int insertNewChart(MediChart_VO mvo);
 	
-	public List<MediChart_VO> selectAllChart(String medi_id);
+	public List<PetsInfo_VO> selectAllChart(String medi_id);
 	
 	public List<MediChart_VO> selectPetChart(Map<String, Object> map);
 	
 	public List<MediChart_VO> selectLChart(Map<String, Object> map);
 	
-	public List<MediChart_VO> selectSChart(Map<String,Object> map);
+	public List<PetsInfo_VO> selectSChart(Map<String,Object> map);
 	
 	public MediChart_VO selectOneChart(Map<String, Object> map);
 	
