@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import com.min.edu.model.service.IMediChart_Service;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
+import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,15 +33,16 @@ public class MediChartController {
 	private IMediChart_Service service;
 	
 	@GetMapping(value = "/selectAllChart.do")
-	public String selectAllChart(Model model) {
+	public String selectAllChart(HttpSession session, Model model) {
 		log.info("&&&&& MediChartController 메인화면 -> 전체진료기록페이지 &&&&&");
 		
-		String medi_id = "elsa@disney.com";
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String medi_id = loginVo.getUsers_id();
 		
 		List<PetsInfo_VO> allPets = service.searchPet(medi_id);
 		model.addAttribute("allPets",allPets);
 		
-		List<MediChart_VO> allCharts = service.selectAllChart(medi_id);
+		List<PetsInfo_VO> allCharts = service.selectAllChart(medi_id);
 		model.addAttribute("allCharts",allCharts);
 		
 		List<MediCode_VO> lists = new ArrayList<MediCode_VO>();
@@ -84,11 +88,12 @@ public class MediChartController {
 	
 	
 	@GetMapping(value = "/selectPetChart.do")
-	public String selectPetChart(String pet_name, Model model) {
+	public String selectPetChart(HttpSession session, String pet_name, Model model) {
 		log.info("&&&&& MediChartController 전체진료기록 -> 반려동물별 진료기록페이지 &&&&&");
 		log.info("&&&&& MediChartController selectPetChart 전달받은 parameter값 : {} &&&&&",pet_name);
 		
-		String pet_owner = "elsa@disney.com";
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String pet_owner = loginVo.getUsers_id();
 		
 		Map<String, Object> map = new HashMap<String, Object>(){{
 			put("pet_owner", pet_owner);
@@ -106,6 +111,28 @@ public class MediChartController {
 		log.info("&&&&& MediChartController 반려동물별 진료기록 -> 새 진료기록 작성페이지 &&&&&");
 		
 		return "insertNewChartForm";
+	}
+	
+	@PostMapping(value = "/selectSChart.do")
+	public Map<String, Object> selectSChart(HttpSession session, String medi_l, String medi_s){
+		log.info("&&&&& MediChartController selectSChart 전달받은 parameter값 : {} {}&&&&&",medi_l,medi_s);
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String pet_owner = loginVo.getUsers_id();
+		
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("medi_l", medi_l);
+			put("medi_s", medi_s);
+			put("pet_owner", pet_owner);
+		}};
+		List<PetsInfo_VO> slists = service.selectSChart(map);
+		
+		Map<String, Object> map2 = new HashMap<String, Object>(){{
+			put("slists", slists);
+		}};
+		
+		
+		return map2;
 	}
 	
 	
