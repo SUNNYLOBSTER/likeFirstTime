@@ -2,10 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.Board_DaoImpl">
 
-
+<!-- <resultMap type="com.min.edu.vo.QuestBoard_Vo" id="BoardMap"> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- 	<result column="" property=""/> -->
+<!-- </resultMap> -->
 
 <!--  게시글 전체조회  -->
-<select id="selectQuest" >
+<select id="selectQuest" resultType="BoardVO">
 SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
@@ -14,7 +24,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QS
 </select>
 
 <!-- 대분류 선택 게시글 전체조회 -->
-<select id="selectCodeQuest">
+<select id="selectCodeQuest" resultType="BoardVO">
 SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
 	WHERE q.QST_ID = u.USERS_ID 
@@ -25,7 +35,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.P
 </select>
 
 <!-- 대분류/소분류 선택 전체조회 -->
-<select id="selectPartQuest" >
+<select id="selectPartQuest" resultType="BoardVO">
 SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
 	WHERE q.QST_ID = u.USERS_ID 
@@ -36,7 +46,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.P
 </select>
 
 <!-- 모든 게시글/답글 조회 (관리자) -->
-<select id="selectAllBoard" >
+<select id="selectAllBoard" resultType="BoardVO">
 SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE, 
 	q.QST_CONTENT, q.QST_REGDATE, q.QST_FAST, 
 	r.RPY_SEQ, r.RPY_ID , r.RPY_REF , r.RPY_CONTENT , r.RPY_STATUS, r.RPY_CHOSEN 
@@ -47,7 +57,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 </select>
    
 <!-- 신고글 전체조회 (관리자) -->
-<select id="selectReportBoard" >
+<select id="selectReportBoard" resultType="BoardVO">
 SELECT q.QST_SEQ,u.USERS_ID, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID , RPY_CONTENT , r.RPY_REGDATE ,r.RPY_CHOSEN 
 	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r 
 	WHERE q.QST_ID = u.USERS_ID 
