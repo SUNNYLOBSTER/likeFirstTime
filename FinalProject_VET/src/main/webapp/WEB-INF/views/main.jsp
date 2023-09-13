@@ -31,6 +31,9 @@ ${loginVo}
 </div>
 <hr>
 <a href="./resrv_Select.do">진료예약조회</a>
+<a href="./questBoard.do">진료문의게시판</a>
 <br>
+
+
 </body>
 </html>
