@@ -12,13 +12,7 @@ public interface IReservation_Dao {
 	public Map<Object, Object> resrv_monthYNCount(Map<String, Object> map);
 	
 	//해당 월에 등록된 예약자 명단
-	public List<Hospital_VO> resrv_monthResrvLists(Map<String, Object> map);
-	
-	//해당날짜에 등록된 확정예약 건수 조회
-	public int resrv_dayYCount(Reservation_VO rvo);
-	
-	//해당날짜의 각 시간대에 예약확정된 예약자 조회
-	public List<Reservation_VO> resrv_dayTimeLists(Reservation_VO rvo);
+	public List<Reservation_VO> resrv_ResrvLists(String resrv_hops);
 	
 	//예약 상세정보를 조회
 	public Reservation_VO resrv_detail(String resrv_num);
@@ -38,5 +32,4 @@ public interface IReservation_Dao {
 	//예약을 거절/취소한 경우 예약목록에서 삭제
 	public int resrv_delete(String resrv_num);
 	
-	public List<Reservation_VO> resrv_test(String resrv_hops);
 }
