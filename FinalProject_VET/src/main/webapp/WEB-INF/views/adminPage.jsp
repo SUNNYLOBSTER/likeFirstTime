@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
+<script type="text/javascript" src="./js/adminPage.js"></script>
 </head>
 <body>
 ${loginVo}
