@@ -19,4 +19,5 @@ public class FullCalendar_VO {
 	private String start;
 	private String end;
 	private String description;
+	private String resrv_num;
 }
