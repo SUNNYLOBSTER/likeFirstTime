@@ -35,25 +35,26 @@
 		<button id="selectMediCode" onclick="selectCode()">조회</button>
 	<hr>
 	<h1>일반사용자별 진료기록 전체리스트</h1>
-	${allCharts}
-	<c:forEach var="clist" items="${allCharts}" varStatus="vs">
-		<div style="border: 10x solid black;">
-			<table>
-				<tr>
-					<th>반려동물명</th>
-					<td>${clist.pet_name}</td>
-				</tr>
-				<tr>
-					<th>진료기록명</th>
-					<td>${clist.medichart_vo}</td>
-				</tr>
-				<tr>
-					<th>진료날짜</th>
-<%-- 					<td>${clist.medichart_vo.medi_visit}</td> --%>
-				</tr>
-			</table>
-		</div>
-	</c:forEach>
+		<c:forEach var="clist" items="${allCharts}" varStatus="vs">
+			<c:forEach var="list" items="${clist.medichart_vo}">
+				<div style="border-collapse: collapse; border: 1px solid black;">
+					<table>
+							<tr>
+								<th>반려동물명</th>
+								<td>${clist.pet_name}</td>
+							</tr>
+							<tr>
+								<th>진료기록명</th>
+								<td>${list.medi_title}</td>
+							</tr>
+							<tr>
+								<th>진료날짜</th>
+								<td>${list.medi_visit}</td>
+							</tr>
+					</table>
+				</div>
+			</c:forEach>
+		</c:forEach>
 <button onclick="window.history.back()">전체목록으로 돌아가기</button>
 
 
