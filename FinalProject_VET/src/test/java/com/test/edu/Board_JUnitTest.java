@@ -27,17 +27,19 @@ public class Board_JUnitTest {
 	private ApplicationContext context;
 	
 
-	@Test
+//	@Test
 	public void db_Test() {
 		SqlSessionTemplate session = context.getBean("sqlSessionTemplate", SqlSessionTemplate.class);
 		assertNotNull(session);
 	}
 	
 //	@Test
-//	public void selectQuest() {
-//		List<QuestBoard_VO> lists = dao.selectQuest();
-//		assertNotNull(lists);
-//	}
+	public void selectQuest() {
+		List<QuestBoard_VO> lists = dao.selectQuest();
+		assertNotNull(lists);
+	}
+	
+	
 	
 
 

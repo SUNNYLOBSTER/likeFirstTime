@@ -12,7 +12,7 @@ import com.min.edu.vo.QuestBoard_VO;
 @Repository
 public class Board_DaoImpl implements IBoard_Dao {
 	
-	private static final String NS = "com.min.edu.model.mapper.Board_DaoImpl";
+	private static final String NS = "com.min.edu.model.mapper.Board_DaoImpl.";
 	
 	@Autowired
 	SqlSessionTemplate session;
@@ -22,5 +22,14 @@ public class Board_DaoImpl implements IBoard_Dao {
 	public List<QuestBoard_VO> selectQuest() {
 		return session.selectList(NS+"selectQuest");
 	}
+
+
+//	@Override
+//	public List<QuestBoard_VO> selectCodeQuest(String qst_species) {
+//		return null;
+//	}
+	
+	
+	
 
 }

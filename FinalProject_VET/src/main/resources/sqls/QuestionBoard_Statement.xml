@@ -13,9 +13,7 @@
 	<result column="QST_FAST" property="qst_fast"/>
 	<result column="QST_STATUS" property="qst_status"/>
 	
-
 </resultMap>
-
 
 
 <!--  게시글 전체조회  -->

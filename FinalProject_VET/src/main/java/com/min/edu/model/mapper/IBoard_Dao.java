@@ -12,6 +12,8 @@ public interface IBoard_Dao {
 	
 	public List<QuestBoard_VO> selectQuest();
 	
+//	public List<QuestBoard_VO> selectCodeQuest(String qst_species);
+	
 	
 	
 	
