@@ -66,7 +66,7 @@ SELECT q.QST_SEQ,u.USERS_ID, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SP
 </select>
 
 <!-- 게시글 입력 -->
-<insert id="insertQuest"  >
+<insert id="insertQuest">
 	<selectKey>
 	SELECT CONCAT('Q',NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD
 	</selectKey>
