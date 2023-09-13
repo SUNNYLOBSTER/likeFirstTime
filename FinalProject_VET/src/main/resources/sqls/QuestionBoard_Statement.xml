@@ -82,7 +82,7 @@ SELECT u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 </select>
 
 <!-- 게시글 입력 -->
-<insert id="insertQuest"  >
+<insert id="insertQuest">
 	<selectKey>
 	SELECT CONCAT('Q',NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD
 	</selectKey>

@@ -37,12 +37,12 @@ public class MediChartController {
 		log.info("&&&&& MediChartController 메인화면 -> 전체진료기록페이지 &&&&&");
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-		String medi_id = loginVo.getUsers_id();
+		String pet_owner = loginVo.getUsers_id();
 		
-		List<PetsInfo_VO> allPets = service.searchPet(medi_id);
+		List<PetsInfo_VO> allPets = service.searchPet(pet_owner);
 		model.addAttribute("allPets",allPets);
 		
-		List<PetsInfo_VO> allCharts = service.selectAllChart(medi_id);
+		List<PetsInfo_VO> allCharts = service.selectAllChart(pet_owner);
 		model.addAttribute("allCharts",allCharts);
 		
 		List<MediCode_VO> lists = new ArrayList<MediCode_VO>();
@@ -114,6 +114,7 @@ public class MediChartController {
 	}
 	
 	@PostMapping(value = "/selectSChart.do")
+	@ResponseBody
 	public Map<String, Object> selectSChart(HttpSession session, String medi_l, String medi_s){
 		log.info("&&&&& MediChartController selectSChart 전달받은 parameter값 : {} {}&&&&&",medi_l,medi_s);
 		
@@ -126,12 +127,14 @@ public class MediChartController {
 			put("pet_owner", pet_owner);
 		}};
 		List<PetsInfo_VO> slists = service.selectSChart(map);
+		List<PetsInfo_VO> lists = new ArrayList<PetsInfo_VO>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
 		
-		Map<String, Object> map2 = new HashMap<String, Object>(){{
-			put("slists", slists);
-		}};
-		
-		
+		for(int i=0; i<slists.size();i++ ) {
+			lists.add(slists.get(i));
+		}
+		map2.put("lists", lists);
+	
 		return map2;
 	}
 	

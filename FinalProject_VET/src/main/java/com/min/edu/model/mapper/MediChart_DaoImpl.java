@@ -48,8 +48,8 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	}
 
 	@Override
-	public List<PetsInfo_VO> selectAllChart(String medi_id) {
-		return session.selectList(NS+"selectAllChart",medi_id);
+	public List<PetsInfo_VO> selectAllChart(String pet_owner) {
+		return session.selectList(NS+"selectAllChart",pet_owner);
 	}
 
 	@Override
