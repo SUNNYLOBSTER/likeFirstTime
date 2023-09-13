@@ -44,21 +44,13 @@ public class MediChartController {
 		List<MediCode_VO> lists = new ArrayList<MediCode_VO>();
 		
 		List<MediCode_VO> mlists =  service.selectAllMediCode();
-		for(int i=0; i<mlists.size();i++) {
-			if (mlists.get(i).getMedi_code().length()==2) {
-				
+		
+		for(int i=0; i< mlists.size();i++) {
+			if (mlists.get(i).getMedi_code().length() == 2) {
+				lists.add(mlists.get(i));
 			}
 		}
 		
-		
-		MediCode_VO v0 = new MediCode_VO("00", "일반진료", "");
-		MediCode_VO v1 = new MediCode_VO("01", "내과", "");
-		MediCode_VO v2 = new MediCode_VO("02", "외과", "");
-		MediCode_VO v3 = new MediCode_VO("03", "접종", "");
-		lists.add(v0);
-		lists.add(v1);
-		lists.add(v2);
-		lists.add(v3);
 		
 		model.addAttribute("codelists",lists);
 		
@@ -73,35 +65,21 @@ public class MediChartController {
 		log.info("&&&&& MediChartController listByCodeS 전달받은 parameter 값 : {} &&&&&",medicodeL);
 		
 		// 서비스 실행 쿼리 결과
+		List<MediCode_VO> mlists = service.selectAllMediCode();
+		List<MediCode_VO> list = new ArrayList<MediCode_VO>();
 		
-		Map<String, Object> mide = new HashMap<String, Object>();
+		for (int i=0; i < mlists.size(); i++) {
+			if(mlists.get(i).getMedi_top().equals(medicodeL)) {
+					list.add(mlists.get(i));
+			}
+		}
 		
-		List<MediCode_VO> lists = new ArrayList<MediCode_VO>();
-		MediCode_VO v1 = new MediCode_VO("011", "FF", "DD");
-		MediCode_VO v2 = new MediCode_VO("012", "HH", "DD");
-		MediCode_VO v3 = new MediCode_VO("013", "CC", "DD");
-		lists.add(v1);
-		lists.add(v2);
-		lists.add(v3);
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		mide.put("name", lists);
+		map.put("list", list);
 		
-//		List<MediCode_VO> lists = service.selectAllMediCode();
-//		if(medicodeL == lists.get(0).getMedi_name()) {
-//			
-//			
-//		}
-//		for (MediCode_VO m : lists) {
-//			String code = m.getMedi_code();
-//			System.out.println(code);
-//		}
-//		
-//		if(medicodeL=="접종") {
-//			String meditop = lists.get(3).getMedi_top();
-//			System.out.println(meditop);
-//		}
 		
-		return mide;
+		return map;
 	}
 	
 	
