@@ -16,7 +16,26 @@
 		<p>등록된 진료기록이 없습니다</p>
 	</c:when>
 	<c:otherwise>
-		<c:set var="chart" value="${allPetChart}"/>
+		<c:forEach var="alist" items="${allPetChart}">
+			<c:forEach var="plist" items="${alist.medichart_vo}">
+				<div style="border-collapse: collapse; border: 1px solid black;">
+					<table>
+							<tr>
+								<th>반려동물명</th>
+								<td>${alist.pet_name}</td>
+							</tr>
+							<tr>
+								<th>진료기록명</th>
+								<td>${plist.medi_title}</td>
+							</tr>
+							<tr>
+								<th>진료날짜</th>
+								<td>${plist.medi_visit}</td>
+							</tr>
+						</table>
+				</div>
+			</c:forEach>
+		</c:forEach>
 		${chart}
 	</c:otherwise>
 </c:choose><br>
