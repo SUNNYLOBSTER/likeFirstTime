@@ -54,7 +54,7 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 	}
 
 	@Override
-	public List<MediChart_VO> selectAllChart(String medi_id) {
+	public List<PetsInfo_VO> selectAllChart(String medi_id) {
 		log.info("&&&&& MediChart_ServiceImpl selectAllChart &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", medi_id);
 		return dao.selectAllChart(medi_id);
@@ -75,7 +75,7 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 	}
 
 	@Override
-	public List<MediChart_VO> selectSChart(Map<String, Object> map) {
+	public List<PetsInfo_VO> selectSChart(Map<String, Object> map) {
 		log.info("&&&&& MediChart_ServiceImpl selectSChart &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", map);
 		return dao.selectSChart(map);
