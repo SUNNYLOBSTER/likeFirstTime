@@ -27,18 +27,8 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 	}
 
 	@Override
-	public List<Hospital_VO> resrv_monthResrvLists(Map<String, Object> map) {
-		return session.selectList(NS+"resrv_monthResrvLists",map);
-	}
-
-	@Override
-	public int resrv_dayYCount(Reservation_VO rvo) {
-		return session.selectOne(NS+"resrv_dayYCount",rvo);
-	}
-
-	@Override
-	public List<Reservation_VO> resrv_dayTimeLists(Reservation_VO rvo) {
-		return session.selectList(NS+"resrv_dayTimeLists",rvo);
+	public List<Reservation_VO> resrv_ResrvLists(String resrv_hops) {
+		return session.selectList(NS+"resrv_ResrvLists",resrv_hops);
 	}
 
 	@Override
@@ -69,11 +59,6 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 	@Override
 	public int resrv_delete(String resrv_num) {
 		return session.delete(NS+"resrv_delete",resrv_num);
-	}
-
-	@Override
-	public List<Reservation_VO> resrv_test(String resrv_hops) {
-		return session.selectList(NS+"resrv_test",resrv_hops);
 	}
 
 	

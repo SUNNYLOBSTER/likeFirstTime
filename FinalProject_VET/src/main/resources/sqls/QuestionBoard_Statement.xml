@@ -2,30 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.Board_DaoImpl">
 
-<!-- <resultMap type="com.min.edu.vo.QuestBoard_Vo" id="BoardMap"> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- </resultMap> -->
+<resultMap type="com.min.edu.vo.QuestBoard_VO" id="BoardMap">
+	<result column="QST_SEQ" property="qst_seq"/>
+	<result column="QST_ID" property="qst_id"/>
+	<result column="QST_TITLE" property="qst_title"/>
+	<result column="QST_CONTENT" property="qst_content"/>
+	<result column="QST_SPECIES" property="qst_species"/>
+	<result column="QST_PART" property="qst_part"/>
+	<result column="QST_REGDATE" property="qst_regdate"/>
+	<result column="QST_FAST" property="qst_fast"/>
+	<result column="QST_STATUS" property="qst_status"/>
+	
+</resultMap>
+
 
 <!--  게시글 전체조회  -->
-<select id="selectQuest" resultType="BoardVO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
-	FROM QUESTBOARD q JOIN USERSINFO u  
+<select id="selectQuest" resultType="QuestBoard_VO">
+SELECT q.QST_SEQ, q.QST_ID , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
+	FROM QUESTBOARD q
+	JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
-	WHERE q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R'
+	WHERE (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R')
     ORDER BY q.QST_REGDATE DESC 
 </select>
 
 <!-- 대분류 선택 게시글 전체조회 -->
-<select id="selectCodeQuest" resultType="BoardVO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
+<select id="selectCodeQuest" resultType="QuestBoard_VO">
+SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
 	WHERE q.QST_ID = u.USERS_ID 
 	AND q.QST_SPECIES = a.ANM_CODE
@@ -35,7 +38,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.P
 </select>
 
 <!-- 대분류/소분류 선택 전체조회 -->
-<select id="selectPartQuest" resultType="BoardVO">
+<select id="selectPartQuest" resultType="QuestBoard_VO">
 SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
 	WHERE q.QST_ID = u.USERS_ID 
@@ -46,7 +49,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.P
 </select>
 
 <!-- 모든 게시글/답글 조회 (관리자) -->
-<select id="selectAllBoard" resultType="BoardVO">
+<select id="selectAllBoard" resultType="QuestBoard_VO">
 SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE, 
 	q.QST_CONTENT, q.QST_REGDATE, q.QST_FAST, 
 	r.RPY_SEQ, r.RPY_ID , r.RPY_REF , r.RPY_CONTENT , r.RPY_STATUS, r.RPY_CHOSEN 
@@ -55,18 +58,31 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 	AND q.QST_STATUS = 'Y'
     ORDER BY q.QST_SEQ
 </select>
-   
+
+<!-- 게시글 상세조회 및 해당 게시글의 답글 전체조회 -->
+<select id="selectOneBoard" resultType="QuestBoard_VO">
+SELECT u.USERS_NAME , q.QST_ID, q.QST_TITLE, 
+	q.QST_CONTENT, q.QST_REGDATE, r.RPY_ID , 
+	r.RPY_REF , r.RPY_CONTENT , r.RPY_STATUS 
+	FROM QUESTBOARD q ,USERSINFO u, REPLYBOARD r 
+	WHERE q.QST_ID = u.USERS_ID 
+	AND q.QST_SEQ = r.RPY_REF
+	AND (q.QST_STATUS = 'Y' OR r.RPY_STATUS = 'Y')
+	AND q.QST_SEQ = #{qst_seq}
+    ORDER BY r.RPY_SEQ DESC
+</select>
+  
 <!-- 신고글 전체조회 (관리자) -->
-<select id="selectReportBoard" resultType="BoardVO">
-SELECT q.QST_SEQ,u.USERS_ID, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID , RPY_CONTENT , r.RPY_REGDATE ,r.RPY_CHOSEN 
+<select id="selectReportBoard" resultType="QuestBoard_VO">
+  SELECT q.QST_ID, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_STATUS, r.RPY_SEQ, r.RPY_ID , RPY_CONTENT , r.RPY_REGDATE, r.RPY_STATUS
 	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r 
 	WHERE q.QST_ID = u.USERS_ID 
 	AND q.QST_SEQ = RPY_REF 
-	AND q.QST_SEQ = #{qst_seq} AND (q.QST_STATUS = 'R' OR r.RPY_STATUS ='R')
+	AND q.QST_STATUS = 'R' OR r.RPY_STATUS ='R'
 </select>
 
 <!-- 게시글 입력 -->
-<insert id="insertQuest"  >
+<insert id="insertQuest">
 	<selectKey>
 	SELECT CONCAT('Q',NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD
 	</selectKey>
