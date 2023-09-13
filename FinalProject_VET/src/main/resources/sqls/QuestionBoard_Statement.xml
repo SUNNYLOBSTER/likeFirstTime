@@ -2,183 +2,188 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.Board_DaoImpl">
 
-<!-- <resultMap type="com.min.edu.vo.QuestBoard_Vo" id="BoardMap"> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- 	<result column="" property=""/> -->
-<!-- </resultMap> -->
+<resultMap type="com.min.edu.vo.QuestBoard_VO" id="BoardMap">
+	<result column="QST_SEQ" property="qst_seq"/>
+	<result column="QST_ID" property="qst_id"/>
+	<result column="QST_TITLE" property="qst_title"/>
+	<result column="QST_CONTENT" property="qst_content"/>
+	<result column="QST_SPECIES" property="qst_species"/>
+	<result column="QST_PART" property="qst_part"/>
+	<result column="QST_REGDATE" property="qst_regdate"/>
+	<result column="QST_FAST" property="qst_fast"/>
+	<result column="QST_STATUS" property="qst_status"/>
+	
+
+</resultMap>
+
+
 
 <!--  게시글 전체조회  -->
-<select id="selectQuest" resultType="BoardVO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
-	FROM QUESTBOARD q JOIN USERSINFO u  
+<select id="selectQuest" resultType="QuestBoard_VO">
+SELECT q.QST_SEQ, q.QST_ID , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
+	FROM QUESTBOARD q
+	JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
-	WHERE q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R'
+	WHERE (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R')
     ORDER BY q.QST_REGDATE DESC 
 </select>
 
 <!-- 대분류 선택 게시글 전체조회 -->
-<select id="selectCodeQuest" resultType="BoardVO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
-	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
-	WHERE q.QST_ID = u.USERS_ID 
-	AND q.QST_SPECIES = a.ANM_CODE
-	AND q.QST_PART = a2.PART_CODE
-	AND (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R') AND q.QST_SPECIES = #{qst_species}
-	ORDER BY q.QST_REGDATE DESC
-</select>
+<!-- <select id="selectCodeQuest" resultType="BoardVO"> -->
+<!-- SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST -->
+<!-- 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2 -->
+<!-- 	WHERE q.QST_ID = u.USERS_ID  -->
+<!-- 	AND q.QST_SPECIES = a.ANM_CODE -->
+<!-- 	AND q.QST_PART = a2.PART_CODE -->
+<!-- 	AND (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R') AND q.QST_SPECIES = #{qst_species} -->
+<!-- 	ORDER BY q.QST_REGDATE DESC -->
+<!-- </select> -->
 
 <!-- 대분류/소분류 선택 전체조회 -->
-<select id="selectPartQuest" resultType="BoardVO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
-	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
-	WHERE q.QST_ID = u.USERS_ID 
-	AND q.QST_SPECIES = a.ANM_CODE
-	AND q.QST_PART = a2.PART_CODE
-	AND (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R') AND q.QST_SPECIES = #{qst_species} AND q.QST_PART = #{qst_part}
-    ORDER BY q.QST_REGDATE DESC
-</select>
+<!-- <select id="selectPartQuest" resultType="BoardVO"> -->
+<!-- SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST -->
+<!-- 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2 -->
+<!-- 	WHERE q.QST_ID = u.USERS_ID  -->
+<!-- 	AND q.QST_SPECIES = a.ANM_CODE -->
+<!-- 	AND q.QST_PART = a2.PART_CODE -->
+<!-- 	AND (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R') AND q.QST_SPECIES = #{qst_species} AND q.QST_PART = #{qst_part} -->
+<!--     ORDER BY q.QST_REGDATE DESC -->
+<!-- </select> -->
 
 <!-- 모든 게시글/답글 조회 (관리자) -->
-<select id="selectAllBoard" resultType="BoardVO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE, 
-	q.QST_CONTENT, q.QST_REGDATE, q.QST_FAST, 
-	r.RPY_SEQ, r.RPY_ID , r.RPY_REF , r.RPY_CONTENT , r.RPY_STATUS, r.RPY_CHOSEN 
-	FROM QUESTBOARD q ,USERSINFO u, REPLYBOARD r 
-	WHERE q.QST_SEQ = r.RPY_REF 
-	AND q.QST_STATUS = 'Y'
-    ORDER BY q.QST_SEQ
-</select>
+<!-- <select id="selectAllBoard" resultType="BoardVO"> -->
+<!-- SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,  -->
+<!-- 	q.QST_CONTENT, q.QST_REGDATE, q.QST_FAST,  -->
+<!-- 	r.RPY_SEQ, r.RPY_ID , r.RPY_REF , r.RPY_CONTENT , r.RPY_STATUS, r.RPY_CHOSEN  -->
+<!-- 	FROM QUESTBOARD q ,USERSINFO u, REPLYBOARD r  -->
+<!-- 	WHERE q.QST_SEQ = r.RPY_REF  -->
+<!-- 	AND q.QST_STATUS = 'Y' -->
+<!--     ORDER BY q.QST_SEQ -->
+<!-- </select> -->
    
 <!-- 신고글 전체조회 (관리자) -->
-<select id="selectReportBoard" resultType="BoardVO">
-SELECT q.QST_SEQ,u.USERS_ID, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID , RPY_CONTENT , r.RPY_REGDATE ,r.RPY_CHOSEN 
-	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r 
-	WHERE q.QST_ID = u.USERS_ID 
-	AND q.QST_SEQ = RPY_REF 
-	AND q.QST_SEQ = #{qst_seq} AND (q.QST_STATUS = 'R' OR r.RPY_STATUS ='R')
-</select>
+<!-- <select id="selectReportBoard" resultType="BoardVO"> -->
+<!-- SELECT q.QST_SEQ,u.USERS_ID, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID , RPY_CONTENT , r.RPY_REGDATE ,r.RPY_CHOSEN  -->
+<!-- 	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r  -->
+<!-- 	WHERE q.QST_ID = u.USERS_ID  -->
+<!-- 	AND q.QST_SEQ = RPY_REF  -->
+<!-- 	AND q.QST_SEQ = #{qst_seq} AND (q.QST_STATUS = 'R' OR r.RPY_STATUS ='R') -->
+<!-- </select> -->
 
 <!-- 게시글 입력 -->
-<insert id="insertQuest"  >
-	<selectKey>
-	SELECT CONCAT('Q',NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD
-	</selectKey>
-INSERT INTO QUESTBOARD
-(QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_SPECIES, QST_PART, QST_REGDATE, QST_FAST, QST_STATUS)
-VALUES(
-		#{qst_seq},
-		#{qst_id}, #{qst_title}, 
-		#{qst_content}, #{qst_species}, #{qst_part}, 
-		SYSDATE , 'N' , 'Y' )
-</insert>
+<!-- <insert id="insertQuest"  > -->
+<!-- 	<selectKey> -->
+<!-- 	SELECT CONCAT('Q',NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD -->
+<!-- 	</selectKey> -->
+<!-- INSERT INTO QUESTBOARD -->
+<!-- (QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_SPECIES, QST_PART, QST_REGDATE, QST_FAST, QST_STATUS) -->
+<!-- VALUES( -->
+<!-- 		#{qst_seq}, -->
+<!-- 		#{qst_id}, #{qst_title},  -->
+<!-- 		#{qst_content}, #{qst_species}, #{qst_part},  -->
+<!-- 		SYSDATE , 'N' , 'Y' ) -->
+<!-- </insert> -->
 
 <!-- 우선게시글 전환 -->
-<update id="updateFastQuest" >
-UPDATE QUESTBOARD
-SET QST_FAST='Y'
-WHERE QST_SEQ=#{qst_seq}
-</update>
+<!-- <update id="updateFastQuest" > -->
+<!-- UPDATE QUESTBOARD -->
+<!-- SET QST_FAST='Y' -->
+<!-- WHERE QST_SEQ=#{qst_seq} -->
+<!-- </update> -->
 
 <!-- 게시글 수정 -->
-<update id="modifyQuest" >
-UPDATE QUESTBOARD
-SET QST_CONTENT=#{qst_content}, QST_SPECIES=#{qst_species}, QST_PART=#{qst_part}
-WHERE QST_SEQ=#{qst_seq}
-</update>
+<!-- <update id="modifyQuest" > -->
+<!-- UPDATE QUESTBOARD -->
+<!-- SET QST_CONTENT=#{qst_content}, QST_SPECIES=#{qst_species}, QST_PART=#{qst_part} -->
+<!-- WHERE QST_SEQ=#{qst_seq} -->
+<!-- </update> -->
 
 <!-- 게시글 신고 -->
-<update id="reportQuest">
-UPDATE QUESTBOARD
-SET QST_STATUS ='R'
-WHERE QST_SEQ=#{qst_seq}
-</update>
+<!-- <update id="reportQuest"> -->
+<!-- UPDATE QUESTBOARD -->
+<!-- SET QST_STATUS ='R' -->
+<!-- WHERE QST_SEQ=#{qst_seq} -->
+<!-- </update> -->
 
 <!-- 게시글 삭제 -->
-<update id="deleteQuest">
-UPDATE QUESTBOARD
-SET QST_STATUS ='N'
-WHERE QST_SEQ=#{qst_seq}
-</update>
+<!-- <update id="deleteQuest"> -->
+<!-- UPDATE QUESTBOARD -->
+<!-- SET QST_STATUS ='N' -->
+<!-- WHERE QST_SEQ=#{qst_seq} -->
+<!-- </update> -->
 
 <!-- 답글 입력 -->
-<insert id="insertReply" >
-	<selectKey>
-	(SELECT CONCAT('R',NVL(MAX(TO_NUMBER(SUBSTR(RPY_SEQ,2))), 0)+1) AS RPY_SEQ FROM REPLYBOARD)
-	</selectKey>
-INSERT INTO REPLYBOARD 
-(RPY_SEQ, RPY_ID, RPY_REF, RPY_CONTENT, RPY_REGDATE, RPY_STATUS, RPY_CHOSEN)
-VALUES( 
-		#{rpy_id},  
-		rpy_ref, #{rpy_content}, SYSDATE, 
-		'Y' , 'N' )
-</insert>
+<!-- <insert id="insertReply" > -->
+<!-- 	<selectKey> -->
+<!-- 	(SELECT CONCAT('R',NVL(MAX(TO_NUMBER(SUBSTR(RPY_SEQ,2))), 0)+1) AS RPY_SEQ FROM REPLYBOARD) -->
+<!-- 	</selectKey> -->
+<!-- INSERT INTO REPLYBOARD  -->
+<!-- (RPY_SEQ, RPY_ID, RPY_REF, RPY_CONTENT, RPY_REGDATE, RPY_STATUS, RPY_CHOSEN) -->
+<!-- VALUES(  -->
+<!-- 		#{rpy_id},   -->
+<!-- 		rpy_ref, #{rpy_content}, SYSDATE,  -->
+<!-- 		'Y' , 'N' ) -->
+<!-- </insert> -->
 
 <!-- 답글 수정 -->
-<update id="modifyReply" >
-UPDATE REPLYBOARD
-SET RPY_CONTENT=#{rpy_content}
-WHERE RPY_SEQ = #{rpy_seq}
-</update>
+<!-- <update id="modifyReply" > -->
+<!-- UPDATE REPLYBOARD -->
+<!-- SET RPY_CONTENT=#{rpy_content} -->
+<!-- WHERE RPY_SEQ = #{rpy_seq} -->
+<!-- </update> -->
 
 <!-- 답글 삭제 -->
-<update id="deleteReply">
-UPDATE REPLYBOARD 
-SET RPY_STATUS ='N'
-WHERE RPY_REF = #{rpy_ref}
-</update>
+<!-- <update id="deleteReply"> -->
+<!-- UPDATE REPLYBOARD  -->
+<!-- SET RPY_STATUS ='N' -->
+<!-- WHERE RPY_REF = #{rpy_ref} -->
+<!-- </update> -->
 
 <!-- 답글 신고 -->
-<update id="reportReply">
-UPDATE REPLYBOARD 
-SET QST_STATUS ='R'
-WHERE QST_SEQ = #{qst_seq}
-</update>
+<!-- <update id="reportReply"> -->
+<!-- UPDATE REPLYBOARD  -->
+<!-- SET QST_STATUS ='R' -->
+<!-- WHERE QST_SEQ = #{qst_seq} -->
+<!-- </update> -->
 
 <!-- 답글 채택 -->
-<update id="chooseReply">
-UPDATE REPLYBOARD 
-SET RPY_CHOSEN ='Y'
-WHERE RPY_SEQ = #{rpy_seq}
-</update>
+<!-- <update id="chooseReply"> -->
+<!-- UPDATE REPLYBOARD  -->
+<!-- SET RPY_CHOSEN ='Y' -->
+<!-- WHERE RPY_SEQ = #{rpy_seq} -->
+<!-- </update> -->
 
 <!-- 전체 답글 수 -->
-<select id="countReply" resultType="java.lang.Integer">
-SELECT COUNT(r.RPY_SEQ)
-FROM HOSPITAL h
-JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID
-WHERE r.RPY_STATUS = 'Y'
-AND h.HOSP_ID = #{hosp_id}
-</select>
+<!-- <select id="countReply" resultType="java.lang.Integer"> -->
+<!-- SELECT COUNT(r.RPY_SEQ) -->
+<!-- FROM HOSPITAL h -->
+<!-- JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID -->
+<!-- WHERE r.RPY_STATUS = 'Y' -->
+<!-- AND h.HOSP_ID = #{hosp_id} -->
+<!-- </select> -->
 
 <!-- 해당 병원의 전체 답글 수 -->
-<select id="countChosenReply" resultType="java.lang.Integer">
-SELECT COUNT(r.RPY_SEQ)
-FROM HOSPITAL h
-JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID
-WHERE r.RPY_CHOSEN = 'Y'
-AND h.HOSP_ID = #{hosp_id}
-</select>
+<!-- <select id="countChosenReply" resultType="java.lang.Integer"> -->
+<!-- SELECT COUNT(r.RPY_SEQ) -->
+<!-- FROM HOSPITAL h -->
+<!-- JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID -->
+<!-- WHERE r.RPY_CHOSEN = 'Y' -->
+<!-- AND h.HOSP_ID = #{hosp_id} -->
+<!-- </select> -->
 
 <!-- 채택률 -->
-<select id="calChoiceRate" resultType="java.lang.Integer">
-SELECT
-    h.HOSP_ID,
-    COUNT(r.RPY_SEQ) AS 전체_작성_글_수,
-    SUM(CASE WHEN r.RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) AS 채택된_글_수,
-    (SUM(CASE WHEN r.RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) / COUNT(r.RPY_SEQ)) * 100 AS 채택율
-FROM HOSPITAL h
-JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID
-WHERE r.RPY_STATUS = 'Y'
-AND h.HOSP_ID = #{hosp_id}
-GROUP BY h.HOSP_ID
-</select>
+<!-- <select id="calChoiceRate" resultType="java.lang.Integer"> -->
+<!-- SELECT -->
+<!--     h.HOSP_ID, -->
+<!--     COUNT(r.RPY_SEQ) AS 전체_작성_글_수, -->
+<!--     SUM(CASE WHEN r.RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) AS 채택된_글_수, -->
+<!--     (SUM(CASE WHEN r.RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) / COUNT(r.RPY_SEQ)) * 100 AS 채택율 -->
+<!-- FROM HOSPITAL h -->
+<!-- JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID -->
+<!-- WHERE r.RPY_STATUS = 'Y' -->
+<!-- AND h.HOSP_ID = #{hosp_id} -->
+<!-- GROUP BY h.HOSP_ID -->
+<!-- </select> -->
 
 </mapper>
 

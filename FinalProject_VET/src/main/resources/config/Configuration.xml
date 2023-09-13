@@ -4,6 +4,7 @@
   
 <typeAliases>
 	<typeAlias type="com.min.edu.vo.Reservation_VO" alias="Reservation_VO"/>
+	<typeAlias type="com.min.edu.vo.QuestBoard_VO" alias="QuestBoard_VO"/>
 </typeAliases>
 
 <mappers>
@@ -12,6 +13,5 @@
  	<mapper resource="sqls/Users_Statement.xml"/>
    	<mapper resource="sqls/QuestionBoard_Statement.xml"/>
 </mappers>
-<!--  	<mapper resource="sqls/QuestionBoard_Statement.xml"/> -->
 
 </configuration>
