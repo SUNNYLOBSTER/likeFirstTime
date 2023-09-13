@@ -8,5 +8,7 @@
 </head>
 <body>
 <h2>홈 페이지</h2>
+
+<a href="./loginForm.do">로그인</a>
 </body>
 </html>
