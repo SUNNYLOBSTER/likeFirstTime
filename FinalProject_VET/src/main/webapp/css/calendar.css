@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .sidenav {
   height: 100%;
-  width: 160px;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -14,7 +14,7 @@
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 20px;
   color: #818181;
   display: block;
 }
@@ -28,7 +28,7 @@
 	width: 1000px;
 	margin: 0px auto;
 	padding: 0px;
-	padding-left: 160px;
+	padding-left: 200px;
 }
 
 #calendar{
@@ -51,9 +51,4 @@
 }
 .fc-day-sat a div {
   color: black;
-}
-.fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
-    background-color: #BCAAA4;
-    border-color: #BCAAA4;
-    color: var(--fc-button-text-color);
 }

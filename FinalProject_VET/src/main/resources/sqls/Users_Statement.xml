@@ -2,6 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.Users_DaoImpl">
 
+<resultMap type="com.min.edu.vo.Users_VO" id="UsersVoMap">
+	<result column="USERS_ID" property="users_id" />
+	<result column="USERS_PW" property="users_pw" />
+	<result column="USERS_NAME" property="users_name" />
+	<result column="USERS_TEL" property="users_tel" />
+	<result column="USERS_STATUS" property="users_status" />
+	<result column="USERS_JOINDATE" property="users_joindate" />
+	<result column="USERS_ADDR" property="users_addr" />
+	<result column="USERS_SUBTEL" property="users_subtel" />
+	<result column="USERS_AUTH" property="users_auth" />
+	<result column="USERS_CRN" property="users_crn" />
+	
+	<collection property="petsinfo_vo" resultMap="petsInfoVoMap"/>
+	<collection property="bookmark_vo" resultMap="bookMarkVoMap"/>
+	<collection property="hospital_vo" resultMap="hospitalVoMap"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.PetsInfo_VO" id="petsInfoVoMap">
+	<result column="PET_SEQ" property="pet_seq"/>
+	<result column="PET_OWNER" property="pet_owner"/>
+	<result column="PET_NAME" property="pet_name"/>
+	<result column="PET_BDAY" property="pet_bday"/>
+	<result column="PET_SPECIES" property="pet_species"/>
+	<result column="PET_GENDER" property="pet_gender"/>
+	<result column="PET_NEUT" property="pet_neut"/>
+	<result column="PET_REPORT" property="pet_report"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.BookMark_VO" id="bookMarkVoMap">
+	<result column="BM_USERSID" property="bm_usersid"/>
+	<result column="BM_HOSPID" property="bm_hospid"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.Hospital_VO" id="hospitalVoMap">
+	<result column="HOSP_ID" property="hosp_id"/>
+	<result column="HOSP_NAME" property="hosp_name"/>
+	<result column="HOSP_TIME" property="hosp_time"/>
+	<result column="HOSP_OFF" property="hosp_off"/>
+	<result column="HOSP_PARK" property="hosp_park"/>
+	<result column="HOSP_ETC" property="hosp_etc"/>
+	<result column="HOSP_MNG" property="hosp_mng"/>
+	
+	<collection property="animalconn_vo" resultMap="animalCodeConnMap"/>
+	<collection property="mediconn_vo" resultMap="mediConnMap"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.AnimalConn_VO" id="animalCodeConnMap">
+	<result column="ANM_CODE" property="anm_code"/>
+	<result column="HOSP_ID"  property="hosp_id"/>
+	
+	<collection property="animalcode_vo" resultMap="animalCodeMap"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.AnimalCode_VO" id="animalCodeMap">
+	<result column="ANM_CODE" property="anm_code"/>
+	<result column="ANM_SPECIES" property="anm_species"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.MediConn_VO" id="mediConnMap">
+	<result column="MEDI_CODE" property="medi_code"/>
+	<result column="HOSP_ID" property="hosp_id"/>
+	
+	<collection property="medicode_vo" resultMap="mediCodeMap"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.MediCode_VO" id="mediCodeMap">
+	<result column ="MEDI_CODE" property="medi_code"/>
+	<result column ="MEDI_NAME" property="medi_name"/>
+	<result column ="MEDI_TOP " property="medi_top "/>
+</resultMap>
+
+
+
 <!-- 전체 회원 조회 -->
 <select id="selectAllUsers" resultType="com.min.edu.vo.Users_VO">
 	SELECT USERS_ID, USERS_NAME, USERS_TEL, USERS_JOINDATE, USERS_STATUS, USERS_AUTH
@@ -34,26 +107,26 @@
 </select>
 
 
-<!-- 회원상세조회(일반사용자) -->
-<select id="selectUserDetail" resultType="com.min.edu.vo.Users_VO">
-	SELECT USERS_ID, USERS_NAME, USERS_TEL,
-	   USERS_STATUS, USERS_JOINDATE, USERS_SUBTEL,
-	   USERS_ADDR,
-	   PET_NAME, PET_BDAY, PET_SPECIES,
-	   PET_GENDER, PET_NEUT, PET_REPORT,
-	   BM_HOSPID
-	FROM USERSINFO LEFT JOIN PETSINFO p
-	ON PET_OWNER = USERS_ID
+<!-- 회원상세조회(일반사용자) userinfo, petsinfo, bookmark 조인-->
+<select id="selectUserDetail" resultMap="UsersVoMap">
+	SELECT u.USERS_ID, u.USERS_NAME, u.USERS_TEL,
+	   u.USERS_STATUS, u.USERS_JOINDATE, u.USERS_SUBTEL,
+	   u.USERS_ADDR, u.USERS_AUTH,
+	   p.PET_NAME, p.PET_BDAY, p.PET_SPECIES,
+	   p.PET_GENDER, p.PET_NEUT, p.PET_REPORT,
+	   b.BM_HOSPID
+	FROM USERSINFO u LEFT JOIN PETSINFO p
+	ON p.PET_OWNER = u.USERS_ID
 	LEFT JOIN BOOKMARK b 
-	ON BM_USERSID = USERS_ID
-	WHERE USERS_ID = #{users_id}
+	ON b.BM_USERSID = u.USERS_ID
+	WHERE u.USERS_ID = #{users_id}
 </select>
 
-<!-- 회원상세조회 (병원 관계자) -->
-<select id="selectHospitalDetail" resultType="com.min.edu.vo.Users_VO">
+<!-- 회원상세조회 (병원 관계자) userinfo, hospital, animalconnect, animalcode 조인 -->
+<select id="selectHospitalDetail" resultMap="UsersVoMap">
 	SELECT USERS_ID, USERS_NAME, USERS_TEL,
 	   USERS_STATUS, USERS_JOINDATE,  USERS_SUBTEL,
-	   USERS_ADDR, USERS_CRN,
+	   USERS_ADDR, USERS_AUTH, USERS_CRN,
 	   HOSP_OFF, HOSP_TIME, HOSP_PARK,
 	   HOSP_ETC, ANM_SPECIES
 	FROM USERSINFO u JOIN HOSPITAL h

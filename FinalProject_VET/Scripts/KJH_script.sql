@@ -43,11 +43,12 @@ SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RE
 		WHERE RESRV_NUM = 'RSV8';
 	
 -- 일별 예약상태에 따라 조회할 수 있다.
-SELECT RESRV_NUM, RESRV_TIME, RESRV_NAME, RESRV_TEL, RESRV_STATUS 
+--
+SELECT RESRV_NUM,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_NAME, RESRV_STATUS, TO_CHAR(RESRV_REGDATE,'YYYY-MM-DD HH24:MI:SS') AS RESRV_REGDATE 
 	FROM RESERVATION r 
-	WHERE RESRV_VISIT = '2023-09-09'
-		AND RESRV_HOPS = 'gana@naver.com'
-		AND RESRV_STATUS = 'W';
+	WHERE RESRV_HOPS = 'gana@naver.com'
+		AND RESRV_STATUS = 'W'
+		ORDER BY RESRV_VISIT ;
 
 ------------------------------------- 등록 --------------------------------------------
 -- 진료예약 등록 (예약번호, 예약대기, 예약자 이름, 전화번호 , 예약시간, 메모, 병원ID)

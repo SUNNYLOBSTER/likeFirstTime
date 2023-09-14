@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.min.edu.model.service.IUsers_Service;
@@ -37,11 +40,13 @@ public class Users_Controller {
 	public String login(@RequestParam Map<String, Object> map, HttpSession session,
 									  HttpServletResponse response) throws IOException {
 		log.info("&&&&& Users_Controller login 로그인 처리 {} &&&&&", map);
+		response.setContentType("text/html; charset=UTF-8");
 		
 		try {
 			Users_VO loginVo = service.loginUser(map);
 			if(loginVo != null) {
 				session.setAttribute("loginVo", loginVo);
+				session.setMaxInactiveInterval(1800);
 				
 				PrintWriter out;
 				out = response.getWriter();
@@ -82,9 +87,27 @@ public class Users_Controller {
 		return "adminPage";
 	}
 	
-	@RequestMapping(path="/selectUserDetail.do")
-	public String selectUserDetail () {
-		return null;
+	@GetMapping(path="/selectUserDetail.do")
+	public String selectUserDetail (@RequestParam("users_id") String id,
+									HttpSession session, Model model) {
+		log.info("&&&&& Users_Controller 관리자페이지 -> 회원상세조회페이지 {} {} &&&&&", session.getAttribute("loginVo"));
+		
+		List<Users_VO> usersDetail = service.selectUserDetail(id);
+		Users_VO hospDetail = service.selectHospitalDetail(id);
+		
+		String auth = usersDetail.get(0).getUsers_auth();
+
+		if(auth.equals("A")||auth.equals("U")) {
+			model.addAttribute("usersDetail", usersDetail);
+			return null;
+		
+		} else if (auth.equals("A")||auth.equals("H")){
+			model.addAttribute("hospDetail", hospDetail);
+			return null;
+		}
+		
+		return "selectUserDetail";
+			
 	}
 	
 }
