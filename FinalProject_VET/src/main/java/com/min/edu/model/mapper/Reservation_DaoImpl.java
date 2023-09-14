@@ -37,8 +37,8 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 	}
 
 	@Override
-	public List<Reservation_VO> resrv_dayStatus(Reservation_VO rvo) {
-		return session.selectList(NS+"resrv_dayStatus", rvo);
+	public List<Reservation_VO> resrv_dayStatus(Map<String, Object> map) {
+		return session.selectList(NS+"resrv_dayStatus", map);
 	}
 
 	@Override

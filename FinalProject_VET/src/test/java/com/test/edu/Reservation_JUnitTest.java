@@ -48,7 +48,7 @@ public class Reservation_JUnitTest {
 		assertNotNull(resultMap);
 	}
 	
-	@Test
+//	@Test
 	public void resrv_monthResrvListsTest() {
 		List<Reservation_VO> lists = service.resrv_ResrvLists("gana@naver.com");
 		assertNotNull(lists);
@@ -61,13 +61,13 @@ public class Reservation_JUnitTest {
 		assertNotNull(rvo);
 	}
 	
-//	@Test
+	@Test
 	public void resrv_dayStatusTest() {
-		Reservation_VO rvo = new Reservation_VO();
-		rvo.setResrv_hops("gana@naver.com");
-		rvo.setResrv_visit("2023-09-09");
-		rvo.setResrv_status("W");
-		List<Reservation_VO> lists = service.resrv_dayStatus(rvo);
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("resrv_hops", "gana@naver.com");
+			put("resrv_status", "W");
+		}};
+		List<Reservation_VO> lists = service.resrv_dayStatus(map);
 		assertNotNull(lists);
 	}
 

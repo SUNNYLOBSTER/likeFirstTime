@@ -58,8 +58,10 @@ public class Reservation_Controller {
 	
 	@GetMapping(value = "/fullCalendar.do")
 	public void fullCalendar(HttpServletResponse response, HttpSession session) throws IOException {
+		log.info("&&&&& Reservation_Controller fullCalendar 호출 &&&&&");
 		Users_VO User_id = (Users_VO) session.getAttribute("loginVo");
 		String hosp_id = User_id.getUsers_id();
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
 		
 		List<FullCalendar_VO> resultList = new ArrayList<>();
 		List<Reservation_VO> resrvList = service.resrv_ResrvLists(hosp_id);
@@ -74,17 +76,35 @@ public class Reservation_Controller {
 		Gson gson = new Gson();
 		String json = gson.toJson(resultList);
 		PrintWriter out = response.getWriter();
-		
 		out.print(json);
 		out.flush();
 		out.close();
-		log.info("&&&&& json 호출 :{}",json);
 	}
 	
 	@GetMapping(value = "/resrv_detail.do")
-	public String resrv_detail(String resrv_num) {
+	public String resrv_detail(String resrv_num, Model model) {
+		log.info("&&&&& Reservation_Controller resrv_detail 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
 		Reservation_VO rvo = service.resrv_detail(resrv_num);
-		return null;
+		model.addAttribute("resrv_detail", rvo);
+		return "resrv_detail";
+	}
+	
+	@PostMapping(value = "/resrv_waitLists.do")
+	@ResponseBody
+	public Map<String, Object> resrv_waitList(HttpSession session, String resrv_status) {
+		log.info("&&&&& Reservation_Controller resrv_detail 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_status);
+		Users_VO User_id = (Users_VO)session.getAttribute("loginVo");
+		String hosp_id = User_id.getUsers_id();
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("resrv_hops", hosp_id);
+			put("resrv_status", resrv_status);
+		}};
+		List<Reservation_VO> lists = service.resrv_dayStatus(map);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("waitLists", lists);
+		return resultMap;
 	}
 	
 }
