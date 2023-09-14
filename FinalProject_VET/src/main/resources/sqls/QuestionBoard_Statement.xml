@@ -13,7 +13,29 @@
 	<result column="QST_FAST" property="qst_fast"/>
 	<result column="QST_STATUS" property="qst_status"/>
 	
+	<collection property="replyboard_vo" resultMap="ReplyVOMap"/>
+	<collection property="fileboard_vo" resultMap="FileVoMap"/>
 </resultMap>
+
+<resultMap type="com.min.edu.vo.ReplyBoard_VO" id="ReplyVOMap">
+	<result column="RPY_SEQ" property="rpy_seq"/>
+	<result column="RPY_ID" property="rpy_id"/>
+	<result column="RPY_REF" property="rpy_ref"/>
+	<result column="RPY_CONTENT" property="rpy_content"/>
+	<result column="RPY_REGDATE" property="rpy_regdate"/>
+	<result column="RPY_STATUS" property="rpy_status"/>
+	<result column="RPY_CHOSEN" property="rpy_chosen"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.FileBoard_VO" id="FileVoMap">
+	<result column="F_SEQ" property="f_seq"/>
+	<result column="F_REF" property="f_ref"/>
+	<result column="F_ORIGINNAME" property="f_originname"/>
+	<result column="F_STOREDNAME" property="f_storedname"/>
+	<result column="F_SIZE" property="f_size"/>
+	<result column="F_DELFLAG" property="f_delflag"/>
+</resultMap>
+
 
 
 <!--  게시글 전체조회  -->

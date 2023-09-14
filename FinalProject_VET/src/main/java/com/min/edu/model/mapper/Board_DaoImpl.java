@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.min.edu.vo.QuestBoard_VO;
+import com.min.edu.vo.ReplyBoard_VO;
 
 @Repository
 public class Board_DaoImpl implements IBoard_Dao {
@@ -40,75 +41,67 @@ public class Board_DaoImpl implements IBoard_Dao {
 	}
 
 	@Override
-	public List<QuestBoard_VO> selectOneBoard(String seq) {
-		return session.selectList(NS+"selectOneBoard", seq);
-	}
-	
-	@Override
 	public List<QuestBoard_VO> selectReportBoard() {
 		return session.selectList(NS+"selectReportBoard");
 	}
 	
 	@Override
-	public int insertQuest() {
-		
-		return session.insert(NS+"insertQuest");
+	public List<QuestBoard_VO> selectOneBoard(String seq) {
+		return session.selectList(NS+"selectOneBoard", seq);
 	}
 
 	@Override
-	public int updateFastQuest() {
-		
-		return session.update(NS+"updateFastQuest");
+	public int insertQuest(QuestBoard_VO vo) {
+		return session.insert(NS+"insertQuest", vo);
 	}
 
 	@Override
-	public int modifyQuest() {
-		
-		return session.update(NS+"modifyQuest");
+	public int updateFastQuest(String seq) {
+		return session.update(NS+"updateFastQuest", seq);
 	}
 
 	@Override
-	public int reportQuest() {
-		
-		return session.update(NS+"reportQuest");
+	public int modifyQuest(Map<String, Object> map) {
+		return session.update(NS+"modifyQuest", map);
 	}
 
 	@Override
-	public int deleteQuest() {
-		
-		return session.update(NS+"deleteQuest");
+	public int reportQuest(String seq) {
+		return session.update(NS+"reportQuest", seq);
 	}
 
 	@Override
-	public int insertReply() {
-		return session.insert(NS+"insertReply");
+	public int deleteQuest(String seq) {
+		return session.update(NS+"deleteQuest", seq);
 	}
 
 	@Override
-	public int modifyReply() {
-		return session.update(NS+"modifyReply");
+	public int insertReply(ReplyBoard_VO vo) {
+		return session.insert(NS+"insertReply", vo);
 	}
 
 	@Override
-	public int deleteReply() {
-		
-		return session.update(NS+"deleteReply");
+	public int modifyReply(Map<String, Object> map) {
+		return session.update(NS+"modifyReply", map);
 	}
 
 	@Override
-	public int reportReply() {
-		return session.update(NS+"reportReply");
+	public int deleteReply(String seq) {
+		return session.update(NS+"deleteReply", seq);
 	}
 
 	@Override
-	public int chooseReply() {
-		
-		return session.update(NS+"chooseReply");
+	public int reportReply(String seq) {
+		return session.update(NS+"reportReply", seq);
 	}
 
+	@Override
+	public int chooseReply(String seq) {
+		return session.update("chooseReply", seq);
+	}
+	
 	@Override
 	public int countReply(String id) {
-		
 		return session.selectOne(NS+"countReply", id);
 	}
 
@@ -121,7 +114,6 @@ public class Board_DaoImpl implements IBoard_Dao {
 	public int calChoiceRate(String id) {
 		return session.selectOne(NS+"calChoiceRate", id);
 	}
-
 
 	
 	
