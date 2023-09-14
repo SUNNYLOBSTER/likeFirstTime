@@ -37,7 +37,7 @@ public interface IBoard_Dao {
 	public int modifyReply(Map<String, Object> map);
 	
 	public int deleteReply(String seq);
-	
+
 	public int reportReply(String seq);
 	
 	public int chooseReply(String seq);

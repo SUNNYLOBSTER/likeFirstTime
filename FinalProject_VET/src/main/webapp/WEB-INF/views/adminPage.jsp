@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript" src="./js/adminPage.js"></script>
 </head>
 <body>
@@ -29,9 +30,11 @@ ${loginVo}
 	<option value="Y">탈퇴</option>
 </select>
 
-<input type="text" name="keyword" id="searchUser">
-<input type="button" value="검색" onclick="searchUser()">
+<input type="text" name="keyword" id="keyword">
+<input type="button" onclick="searchUserId()" value="검색" id="searchUserId">
+<p id="info"></p>
 
+<div id="userList">
 <table>
 	<thead>
 		<tr>
@@ -55,13 +58,11 @@ ${loginVo}
 				<td>${vo.users_status}</td>
 				<td>${vo.users_auth}</td>
 				<td>${vo.users_crn}</td>
-				<td>
-					<fmt:parseDate var="jDate" value="${vo.users_joindate}" pattern="yyyy-MM-dd"/>
-					<fmt:formatDate value="${jDate}"/>
-				</td>
+				<td>${vo.users_joindate}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
+</div>
 </body>
 </html>
