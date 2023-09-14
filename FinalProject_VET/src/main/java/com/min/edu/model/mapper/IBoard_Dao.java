@@ -6,6 +6,7 @@ import java.util.Map;
 
 
 import com.min.edu.vo.QuestBoard_VO;
+import com.min.edu.vo.ReplyBoard_VO;
 
 public interface IBoard_Dao {
 	
@@ -21,25 +22,25 @@ public interface IBoard_Dao {
 	
 	public List<QuestBoard_VO> selectOneBoard(String seq);
 	
-	public int insertQuest();
+	public int insertQuest(QuestBoard_VO vo);
 	
-	public int updateFastQuest();
+	public int updateFastQuest(String seq);
 	
-	public int modifyQuest();
+	public int modifyQuest(Map<String, Object> map);
 	
-	public int reportQuest();
+	public int reportQuest(String seq);
 	
-	public int deleteQuest();
+	public int deleteQuest(String seq);
 	
-	public int insertReply();
+	public int insertReply(ReplyBoard_VO vo);
 	
-	public int modifyReply();
+	public int modifyReply(Map<String, Object> map);
 	
-	public int deleteReply();
+	public int deleteReply(String seq);
 	
-	public int reportReply();
+	public int reportReply(String seq);
 	
-	public int chooseReply();
+	public int chooseReply(String seq);
 	
 	public int countReply(String id);
 	
