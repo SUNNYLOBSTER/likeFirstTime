@@ -15,7 +15,8 @@
 	<result column="USERS_CRN" property="users_crn" />
 	
 	<collection property="petsinfo_vo" resultMap="petsInfoVoMap"/>
-	<collection property="hospital_vo" resultMap="HospitalVoMap"/>
+	<collection property="bookmark_vo" resultMap="bookMarkVoMap"/>
+	<collection property="hospital_vo" resultMap="hospitalVoMap"/>
 </resultMap>
 
 <resultMap type="com.min.edu.vo.PetsInfo_VO" id="petsInfoVoMap">
@@ -29,7 +30,12 @@
 	<result column="PET_REPORT" property="pet_report"/>
 </resultMap>
 
-<resultMap type="com.min.edu.vo.Hospital_VO" id="HospitalVoMap">
+<resultMap type="com.min.edu.vo.BookMark_VO" id="bookMarkVoMap">
+	<result column="BM_USERSID" property="bm_usersid"/>
+	<result column="BM_HOSPID" property="bm_hospid"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.Hospital_VO" id="hospitalVoMap">
 	<result column="HOSP_ID" property="hosp_id"/>
 	<result column="HOSP_NAME" property="hosp_name"/>
 	<result column="HOSP_TIME" property="hosp_time"/>
@@ -38,30 +44,30 @@
 	<result column="HOSP_ETC" property="hosp_etc"/>
 	<result column="HOSP_MNG" property="hosp_mng"/>
 	
-	<collection property="animalconn_vo" resultMap="AnimalCodeConnMap"/>
-	<collection property="mediconn_vo" resultMap="MediConnMap"/>
+	<collection property="animalconn_vo" resultMap="animalCodeConnMap"/>
+	<collection property="mediconn_vo" resultMap="mediConnMap"/>
 </resultMap>
 
-<resultMap type="com.min.edu.vo.AnimalConn_VO" id="AnimalCodeConnMap">
+<resultMap type="com.min.edu.vo.AnimalConn_VO" id="animalCodeConnMap">
 	<result column="ANM_CODE" property="anm_code"/>
 	<result column="HOSP_ID"  property="hosp_id"/>
 	
-	<collection property="animalcode_vo" resultMap="AnimalCodeMap"/>
+	<collection property="animalcode_vo" resultMap="animalCodeMap"/>
 </resultMap>
 
-<resultMap type="com.min.edu.vo.AnimalCode_VO" id="AnimalCodeMap">
+<resultMap type="com.min.edu.vo.AnimalCode_VO" id="animalCodeMap">
 	<result column="ANM_CODE" property="anm_code"/>
 	<result column="ANM_SPECIES" property="anm_species"/>
 </resultMap>
 
-<resultMap type="com.min.edu.vo.MediConn_VO" id="MediConnMap">
+<resultMap type="com.min.edu.vo.MediConn_VO" id="mediConnMap">
 	<result column="MEDI_CODE" property="medi_code"/>
 	<result column="HOSP_ID" property="hosp_id"/>
 	
-	<collection property="medicode_vo" resultMap="MediCodeMap"/>
+	<collection property="medicode_vo" resultMap="mediCodeMap"/>
 </resultMap>
 
-<resultMap type="com.min.edu.vo.MediCode_VO" id="MediCodeMap">
+<resultMap type="com.min.edu.vo.MediCode_VO" id="mediCodeMap">
 	<result column ="MEDI_CODE" property="medi_code"/>
 	<result column ="MEDI_NAME" property="medi_name"/>
 	<result column ="MEDI_TOP " property="medi_top "/>
@@ -102,10 +108,10 @@
 
 
 <!-- 회원상세조회(일반사용자) userinfo, petsinfo, bookmark 조인-->
-<select id="selectUserDetail" resultType="com.min.edu.vo.Users_VO">
+<select id="selectUserDetail" resultMap="UsersVoMap">
 	SELECT u.USERS_ID, u.USERS_NAME, u.USERS_TEL,
 	   u.USERS_STATUS, u.USERS_JOINDATE, u.USERS_SUBTEL,
-	   u.USERS_ADDR,
+	   u.USERS_ADDR, u.USERS_AUTH,
 	   p.PET_NAME, p.PET_BDAY, p.PET_SPECIES,
 	   p.PET_GENDER, p.PET_NEUT, p.PET_REPORT,
 	   b.BM_HOSPID
@@ -117,10 +123,10 @@
 </select>
 
 <!-- 회원상세조회 (병원 관계자) userinfo, hospital, animalconnect, animalcode 조인 -->
-<select id="selectHospitalDetail" resultType="com.min.edu.vo.Users_VO">
+<select id="selectHospitalDetail" resultMap="UsersVoMap">
 	SELECT USERS_ID, USERS_NAME, USERS_TEL,
 	   USERS_STATUS, USERS_JOINDATE,  USERS_SUBTEL,
-	   USERS_ADDR, USERS_CRN,
+	   USERS_ADDR, USERS_AUTH, USERS_CRN,
 	   HOSP_OFF, HOSP_TIME, HOSP_PARK,
 	   HOSP_ETC, ANM_SPECIES
 	FROM USERSINFO u JOIN HOSPITAL h
