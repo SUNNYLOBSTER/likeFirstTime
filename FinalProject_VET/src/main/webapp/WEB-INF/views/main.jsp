@@ -21,7 +21,7 @@ ${loginVo}
 		<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
 	</c:if>
 	<c:if test="${loginVo.users_auth eq 'H' }">
-		<input type="button" value="병원 마이페이지" onclick="location.href='./hospitalMyPage.do'">
+		<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
 	</c:if>
 	<c:if test="${loginVo.users_auth eq 'U' }">
 		<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
@@ -31,6 +31,9 @@ ${loginVo}
 </div>
 <hr>
 <a href="./resrv_Select.do">진료예약조회</a>
+<a href="./questBoard.do">진료문의게시판</a>
 <br>
+
+
 </body>
 </html>

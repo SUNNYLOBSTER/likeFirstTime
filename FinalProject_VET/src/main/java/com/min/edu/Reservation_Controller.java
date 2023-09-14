@@ -8,16 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Reservation_VO;
+import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,28 +38,34 @@ public class Reservation_Controller {
 		return "hosp_resrvMNG";
 	}
 	
-	@GetMapping(value = "/resrv_monthCount.do")
-	public String resrv_MonthCount(Model model) {
+	@PostMapping(value = "/resrv_monthCount.do")
+	@ResponseBody
+	public Map<Object, Object> resrv_MonthCount(HttpSession session, String yyyy, Model model) {
+		log.info("&&&&& Reservation_Controller resrv_monthCount 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", yyyy);
 		// 받아올 값
-		String hosp_id = "gana@naver.com";
-		String yyyy = "2023";
+		Users_VO hosp_id = (Users_VO) session.getAttribute("loginVo");
 		
 		Map<String, Object> map = new HashMap<String, Object>(){{
 			put("yyyy",yyyy);
-			put("RESRV_HOPS",hosp_id);
+			put("RESRV_HOPS",hosp_id.getUsers_id());
 		}};
 		
 		Map<Object, Object> resultMap = service.resrv_monthYNCount(map);
-		model.addAttribute("monthYLists", resultMap.get("lists"));
 		
-		return "monthYLists";
+		return resultMap;
 	}
 	
 	@GetMapping(value = "/fullCalendar.do")
-	public void fullCalendar(HttpServletResponse response) throws IOException {
-		List<FullCalendar_VO> resultList = new ArrayList<>();
+	public void fullCalendar(HttpServletResponse response, HttpSession session) throws IOException {
+		log.info("&&&&& Reservation_Controller fullCalendar 호출 &&&&&");
+		Users_VO User_id = (Users_VO) session.getAttribute("loginVo");
+		String hosp_id = User_id.getUsers_id();
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
 		
-		List<Reservation_VO> resrvList = service.resrv_test("gana@naver.com");
+		List<FullCalendar_VO> resultList = new ArrayList<>();
+		List<Reservation_VO> resrvList = service.resrv_ResrvLists(hosp_id);
+		
 		for (Reservation_VO rvo : resrvList) {
 			FullCalendar_VO fvo = new FullCalendar_VO();
 			fvo.setTitle(rvo.getResrv_name());
@@ -63,15 +73,38 @@ public class Reservation_Controller {
 			fvo.setResrv_num(rvo.getResrv_num());
 			resultList.add(fvo);
 		}
-		
 		Gson gson = new Gson();
 		String json = gson.toJson(resultList);
 		PrintWriter out = response.getWriter();
-		
 		out.print(json);
 		out.flush();
 		out.close();
-		log.info("&&&&& json 호출 :{}",json);
+	}
+	
+	@GetMapping(value = "/resrv_detail.do")
+	public String resrv_detail(String resrv_num, Model model) {
+		log.info("&&&&& Reservation_Controller resrv_detail 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		Reservation_VO rvo = service.resrv_detail(resrv_num);
+		model.addAttribute("resrv_detail", rvo);
+		return "resrv_detail";
+	}
+	
+	@PostMapping(value = "/resrv_waitLists.do")
+	@ResponseBody
+	public Map<String, Object> resrv_waitList(HttpSession session, String resrv_status) {
+		log.info("&&&&& Reservation_Controller resrv_detail 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_status);
+		Users_VO User_id = (Users_VO)session.getAttribute("loginVo");
+		String hosp_id = User_id.getUsers_id();
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("resrv_hops", hosp_id);
+			put("resrv_status", resrv_status);
+		}};
+		List<Reservation_VO> lists = service.resrv_dayStatus(map);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("waitLists", lists);
+		return resultMap;
 	}
 	
 }

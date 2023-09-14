@@ -35,7 +35,7 @@
 			<option>--질환--</option>
 		</select>
 		<button id="selectMediCode" onclick="selectCode()">조회</button>
-		
+
 	<hr>
 	
 	<button onclick="location.href='./insertNewChartForm.do'">새 진료기록 작성</button>
@@ -44,7 +44,6 @@
 	
 	<h1 id="listname">진료기록 전체목록</h1>
 	<div id="chartPart" style="border-collapse: collapse; border: 1px solid black;">
-	<div id="modal"></div>
 		<c:choose>
 			<c:when test="${empty allCharts}">
 				<p>등록된 진료기록이 없습니다</p>
@@ -52,13 +51,8 @@
 			<c:otherwise>
 				<c:forEach var="clist" items="${allCharts}" varStatus="vs">
 					<c:forEach var="mlist" items="${clist.medichart_vo}">
-							<div style="border-collapse: collapse; border: 1px solid black;" class="detail">
+							<div style="border-collapse: collapse; border: 1px solid black;">
 								<table>
-										<tr>
-											<td>
-												<input type="hidden" value="${mlist.medi_num}"class="medi_num">
-											</td>
-										</tr>
 										<tr>
 											<th>반려동물명</th>
 											<td>${clist.pet_name}</td>

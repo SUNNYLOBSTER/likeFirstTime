@@ -50,31 +50,10 @@ public class Reservation_JUnitTest {
 	
 //	@Test
 	public void resrv_monthResrvListsTest() {
-		Map<String, Object> map = new HashMap<String, Object>(){{
-			put("date", "2023-09-11");
-			put("resrv_hops", "gana@naver.com");
-		}};
-		service.resrv_monthResrvLists(map);
-		assertNotNull(map);
-	}
-	
-//	@Test
-	public void resrv_dayYCountTest() {
-		Reservation_VO rvo = new Reservation_VO();
-		rvo.setResrv_hops("gana@naver.com");
-		rvo.setResrv_visit("2023-09-09");
-		int n = service.resrv_dayYCount(rvo);
-		assertEquals(3, n);
-	}
-	
-//	@Test
-	public void resrv_dayTimeListsTest() {
-		Reservation_VO rvo = new Reservation_VO();
-		rvo.setResrv_hops("gana@naver.com");
-		rvo.setResrv_visit("2023-09-09");
-		List<Reservation_VO> lists = service.resrv_dayTimeLists(rvo);
+		List<Reservation_VO> lists = service.resrv_ResrvLists("gana@naver.com");
 		assertNotNull(lists);
 	}
+	
 	
 //	@Test
 	public void resrv_detailTest() {
@@ -82,13 +61,13 @@ public class Reservation_JUnitTest {
 		assertNotNull(rvo);
 	}
 	
-//	@Test
+	@Test
 	public void resrv_dayStatusTest() {
-		Reservation_VO rvo = new Reservation_VO();
-		rvo.setResrv_hops("gana@naver.com");
-		rvo.setResrv_visit("2023-09-09");
-		rvo.setResrv_status("W");
-		List<Reservation_VO> lists = service.resrv_dayStatus(rvo);
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("resrv_hops", "gana@naver.com");
+			put("resrv_status", "W");
+		}};
+		List<Reservation_VO> lists = service.resrv_dayStatus(map);
 		assertNotNull(lists);
 	}
 
@@ -119,11 +98,6 @@ public class Reservation_JUnitTest {
 		assertEquals(1, n);
 	}
 	
-	@Test
-	public void resrv_test() {
-		List<Reservation_VO> lists = service.resrv_test("gana@naver.com");
-		assertNotNull(lists);
-	}
 	
 	
 }
