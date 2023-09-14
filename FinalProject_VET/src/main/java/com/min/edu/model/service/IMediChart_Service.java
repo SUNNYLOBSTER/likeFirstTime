@@ -17,7 +17,7 @@ public interface IMediChart_Service {
 	
 	public int deletePet(int pet_seq);
 	
-	public int insertNewChart(MediChart_VO mvo);
+	public String insertNewChart(MediChart_VO mvo);
 	
 	public List<PetsInfo_VO> selectAllChart(String pet_owner);
 	
@@ -27,7 +27,7 @@ public interface IMediChart_Service {
 	
 	public List<PetsInfo_VO> selectSChart(Map<String,Object> map);
 	
-	public MediChart_VO selectOneChart(Map<String, Object> map);
+	public PetsInfo_VO selectOneChart(String medi_num);
 	
 	public int modifyChart(Map<String, Object> map);
 	

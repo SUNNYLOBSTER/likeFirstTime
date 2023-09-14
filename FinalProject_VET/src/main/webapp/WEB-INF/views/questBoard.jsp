@@ -8,7 +8,10 @@
 </head>
 <body>
 <table>
-	<thead>${qstVo}</thead>
+	
+	<thead>
+	${qstVo}
+	</thead>
 	
 	<tbody>
 	</tbody>

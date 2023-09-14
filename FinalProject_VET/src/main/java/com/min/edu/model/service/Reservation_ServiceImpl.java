@@ -42,10 +42,10 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 	}
 
 	@Override
-	public List<Reservation_VO> resrv_dayStatus(Reservation_VO rvo) {
+	public List<Reservation_VO> resrv_dayStatus(Map<String, Object> map) {
 		log.info("&&&&& Reservation_ServiceImpl resrv_dayStatus &&&&&");
-		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", rvo);
-		return dao.resrv_dayStatus(rvo);
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.resrv_dayStatus(map);
 	}
 
 	@Override

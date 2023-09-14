@@ -68,8 +68,8 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	}
 
 	@Override
-	public MediChart_VO selectOneChart(Map<String, Object> map) {
-		return session.selectOne(NS+"selectOneChart", map);
+	public PetsInfo_VO selectOneChart(String medi_num) {
+		return session.selectOne(NS+"selectOneChart", medi_num);
 	}
 
 	@Override
@@ -85,6 +85,11 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	@Override
 	public List<MediCode_VO> selectAllMediCode() {
 		return session.selectList(NS+"selectAllMediCode");
+	}
+
+	@Override
+	public String getMaxSeq() {
+		return session.selectOne(NS+"getMaxSeq");
 	}
 
 }

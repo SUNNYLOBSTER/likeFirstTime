@@ -1,8 +1,136 @@
 package com.min.edu.model.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.min.edu.model.mapper.IBoard_Dao;
+import com.min.edu.vo.QuestBoard_VO;
+import com.min.edu.vo.ReplyBoard_VO;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class Board_ServiceImpl implements IBoard_Service {
+
+	@Autowired
+	private IBoard_Dao dao;
+	
+	@Override
+	public List<QuestBoard_VO> selectQuest() {
+		log.info("&&&&& Board_ServiceImpl selectQuest &&&&&");
+		return dao.selectQuest();
+	}
+
+	@Override
+	public List<QuestBoard_VO> selectCodeQuest(Map<String, Object> map) {
+		log.info("&&&&& Board_ServiceImpl selectCodeQuest 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.selectCodeQuest(map);
+	}
+
+	@Override
+	public List<QuestBoard_VO> selectPartQuest(Map<String, Object> map) {
+		log.info("&&&&& Board_ServiceImpl selectPartQuest 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.selectPartQuest(map);
+	}
+
+	@Override
+	public List<QuestBoard_VO> selectAllBoard() {
+		log.info("&&&&& Board_ServiceImpl selectAllBoard &&&&&");
+		return dao.selectAllBoard();
+	}
+
+	@Override
+	public List<QuestBoard_VO> selectReportBoard() {
+		log.info("&&&&& Board_ServiceImpl selectReportBoard &&&&&");
+		return dao.selectReportBoard();
+	}
+//
+	@Override
+	public List<QuestBoard_VO> selectOneBoard(String seq) {
+		log.info("&&&&& Board_ServiceImpl selectOneBoard 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.selectOneBoard(seq);
+	}
+
+	@Override
+	public int insertQuest(QuestBoard_VO vo) {
+		log.info("&&&&& Board_ServiceImpl insertQuest 전달받은 파라미터 값 : {} &&&&&", vo);
+		return dao.insertQuest(vo);
+	}
+
+	@Override
+	public int updateFastQuest(String seq) {
+		log.info("&&&&& Board_ServiceImpl updateFastQuest 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.updateFastQuest(seq);
+	}
+
+	@Override
+	public int modifyQuest(Map<String, Object> map) {
+		log.info("&&&&& Board_ServiceImpl modifyQuest 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.modifyQuest(map);
+	}
+
+	@Override
+	public int reportQuest(String seq) {
+		log.info("&&&&& Board_ServiceImpl reportQuest 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.reportQuest(seq);
+	}
+
+	@Override
+	public int deleteQuest(String seq) {
+		log.info("&&&&& Board_ServiceImpl deleteQuest 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.deleteQuest(seq);
+	}
+
+	@Override
+	public int insertReply(ReplyBoard_VO vo) {
+		log.info("&&&&& Board_ServiceImpl insertReply 전달받은 파라미터 값 : {} &&&&&", vo);
+		return dao.insertReply(vo);
+	}
+
+	@Override
+	public int modifyReply(Map<String, Object> map) {
+		log.info("&&&&& Board_ServiceImpl modifyReply 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.modifyReply(map);
+	}
+
+	@Override
+	public int deleteReply(String seq) {
+		log.info("&&&&& Board_ServiceImpl deleteReply 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.deleteReply(seq);
+	}
+
+	@Override
+	public int reportReply(String seq) {
+		log.info("&&&&& Board_ServiceImpl reportReply 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.reportReply(seq);
+	}
+
+	@Override
+	public int chooseReply(String seq) {
+		log.info("&&&&& Board_ServiceImpl chooseReply 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.chooseReply(seq);
+	}
+
+	@Override
+	public int countReply(String id) {
+		log.info("&&&&& Board_ServiceImpl countReply 전달받은 파라미터 값 : {} &&&&&", id);
+		return dao.countReply(id);
+	}
+
+	@Override
+	public int countChosenReply(String id) {
+		log.info("&&&&& Board_ServiceImpl countChosenReply 전달받은 파라미터 값 : {} &&&&&", id);
+		return dao.countChosenReply(id);
+	}
+
+	@Override
+	public int calChoiceRate(String id) {
+		log.info("&&&&& Board_ServiceImpl calChoiceRate 전달받은 파라미터 값 : {} &&&&&", id);
+		return dao.calChoiceRate(id);
+	}
 
 }

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>allPetChart</title>
+<script type="text/javascript" src="./js/medichart.js"></script>
 </head>
 <body>
 <h1>일반사용자의 반려동물별 진료기록 리스트</h1>
