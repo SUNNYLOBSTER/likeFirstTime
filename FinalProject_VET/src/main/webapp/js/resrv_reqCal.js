@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	$(function() {
 		var request = $.ajax({
 			url: "./resrv_requestAjax.do",
-			method: "post",
+			method: "get",
 			dataType: "json"
 		});
 

@@ -15,7 +15,7 @@
 	${user_vo.users_id}
 	<a href="./main.do">메인화면</a>
 	<div class="container">
-		<h1>${resrv_hops} 예약페이지</h1>
+		<h1>${requestParam.resrv_hops} 예약페이지</h1>
 		<div id="calendar"></div>
 	</div>
 </body>
