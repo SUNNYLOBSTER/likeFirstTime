@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 	$(function() {
 		var request = $.ajax({
-			url: "./fullCalendar.do",
-			method: "GET",
+			url: "./resrv_requestAjax.do",
+			method: "post",
 			dataType: "json"
 		});
 
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				navLinks: true, // 날짜 선택시 Day 캘린더나 Week 캘린더로 링크
 				locale: "ko",
 				headerToolbar: {
-					left: 'dayGridMonth,dayGridWeek,listWeek',
+					left: 'dayGridMonth',
 					center: 'title',
 					right: 'prev,next today'
 				},

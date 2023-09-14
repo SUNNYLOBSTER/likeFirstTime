@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -92,19 +93,67 @@ public class Reservation_Controller {
 	
 	@PostMapping(value = "/resrv_waitLists.do")
 	@ResponseBody
-	public Map<String, Object> resrv_waitList(HttpSession session, String resrv_status) {
+	public String resrv_waitList(HttpSession session, String resrv_status) {
 		log.info("&&&&& Reservation_Controller resrv_detail 호출 &&&&&");
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_status);
+		
 		Users_VO User_id = (Users_VO)session.getAttribute("loginVo");
 		String hosp_id = User_id.getUsers_id();
+		
 		Map<String, Object> map = new HashMap<String, Object>(){{
 			put("resrv_hops", hosp_id);
 			put("resrv_status", resrv_status);
 		}};
 		List<Reservation_VO> lists = service.resrv_dayStatus(map);
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("waitLists", lists);
-		return resultMap;
+		Gson gson = new Gson();
+		String json = gson.toJson(lists);
+		return json;
 	}
 	
+	@PostMapping(value = "/resrv_confirm.do")
+	@ResponseBody
+	public String resrv_confirm(String resrv_num) {
+		log.info("&&&&& Reservation_Controller resrv_confirm 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		int n = service.resrv_updateToY(resrv_num);
+		return (n>0)?"confirm":"false";
+	}
+	
+	@PostMapping(value = "resrv_refuse.do")
+	@ResponseBody
+	public String resrv_refuse(String resrv_num) {
+		log.info("&&&&& Reservation_Controller resrv_refuse 호출 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		int n = service.resrv_updateToN(resrv_num);
+		return (n>0)?"resrv_refuse":"false";
+	}
+	
+	@RequestMapping(value = "resrv_requestPage.do")
+	public String resrv_requestPage(HttpSession session, HttpServletResponse response, String resrv_hops, Model model) throws IOException {
+		log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
+		model.addAttribute("resrv_hops", resrv_hops);
+		
+		return "resrv_requestPage";
+	}
+	
+	@PostMapping(value = "resrv_requestAjax.do")
+	@ResponseBody
+	public void resrv_requestAjax(HttpServletResponse response, Model model) throws IOException {
+		String resrv_hops = (String)model.getAttribute("resrv_hops");
+		log.info(resrv_hops);
+		List<FullCalendar_VO> resultList = new ArrayList<>();
+		List<Reservation_VO> resrvList = service.resrv_ResrvLists(resrv_hops);
+		
+		for (Reservation_VO rvo : resrvList) {
+			FullCalendar_VO fvo = new FullCalendar_VO();
+			fvo.setTitle(rvo.getResrv_name());
+			fvo.setStart(rvo.getResrv_visit());
+			resultList.add(fvo);
+		}
+		Gson gson = new Gson();
+		String json = gson.toJson(resultList);
+		PrintWriter out = response.getWriter();
+		out.print(json);
+	}
 }

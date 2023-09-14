@@ -27,6 +27,7 @@ public class QuestBoard_VO {
 	private String qst_fast;
 	private String qst_status;
 
+	private List<ReplyBoard_VO> replyboard_vo;
 	private List<FileBoard_VO> fileboard_vo;
 	private List<AnimalPart_VO> animalpart_vo;
 	private List<AnimalCode_VO> animalcode_vo;

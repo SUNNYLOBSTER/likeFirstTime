@@ -21,11 +21,65 @@ function codeLChange(){
 				}
 				obj.empty().append(html);
 			},
-			error:function(error){
+			error:function(){
 				console.log("값 전달 오류");
 			}
 		});
 	}
+	
+	$(document).on("click",".selectPet", function(){
+		console.log("selectPet 실행");
+		var petValue = $(this).val();
+		console.log("선택된 pet_seq : ", petValue);
+		
+		$.ajax({
+			url:'selectPetChart.do',
+			method:'post',
+			data:{pet_seq : petValue},
+			success:function(data){
+				console.log("전달받은 리스트 : ", data);
+				
+				var listname = document.getElementById('listname');
+				listname.innerHTML = '<p>반려동물별 진료기록</p>';
+				if(data.detail.length == 0){
+				var chartPart = document.getElementById('chartPart');
+				chartPart.innerHTML = '<div>일치하는 진료기록이 없습니다</div>';	
+				}else{
+					var chartPart = document.getElementById('chartPart');
+					chartPart.innerHTML = '';
+					var html = "";
+					for (var i = 0; i < data.detail[0].medichart_vo.length; i++) {
+						html +="<div style='border-collapse: collapse; border: 1px solid black;' class='detail'>";
+						html +="	<table>                                                      ";
+						html +="			<tr>";
+						html +="				<td>";
+						html +="					<input type='hidden' value='"+data.detail[0].medichart_vo[i].medi_num+"' class='medi_num'>";
+						html +="				</td>";
+						html +="			</tr>";
+						html +="			<tr>                                                 ";
+						html +="				<th>반려동물명</th>                              ";
+						html +="				<td>"+data.detail[0].pet_name+"</td>                       ";
+						html +="			</tr>                                                ";
+						html +="			<tr>                                                 ";
+						html +="				<th>진료기록명</th>                              ";
+						html +="				<td>"+data.detail[0].medichart_vo[i].medi_title+"</td>                     ";
+						html +="			</tr>                                                ";
+						html +="			<tr>                                                 ";
+						html +="				<th>진료날짜</th>                                ";
+						html +="				<td>"+data.detail[0].medichart_vo[i].medi_visit+"</td>                     ";
+						html +="			</tr>                                                ";
+						html +="	</table>                                                     ";
+					    html +="</div>                                                           ";
+					}
+					chartPart.innerHTML = html;
+				}
+			},
+			error:function(){
+				console.log("값 전달 오류");
+			}
+		});
+		
+	});
 	
 	function selectCode() {
 		console.log("selectCode 실행");
@@ -83,84 +137,24 @@ function codeLChange(){
 				}
 				
 			},
-			error:function(error){
+			error:function(){
 				console.log("값 전달 오류");
 			}
 		});
 		
 	}
 	
-	window.onload = function(){
-		var detail = document.querySelectorAll(".detail");
-		detail.forEach(function(div){
-			div.addEventListener("click", function(){
-				console.log("상세보기 실행");
-				
-				var medi_num = this.querySelector(".medi_num").value;
-				console.log(medi_num);
-				
-				$.ajax({
-					url:'./selectOneChart.do',
-					method:'post',
-					data : {medi_num : medi_num},
-					success:function(data){
-						console.log("전달받은 리스트 : ",data);
-						console.log("반려동물명 : " ,data.pet_name);
-						console.log("진료기록명 : ", data.medichart_vo[0].medi_title);
-						var modal = document.getElementById("modal");
-						
-						var html = "";
-						    html+"<div class='modal fade' id='detail' role='dialog'>                                          ";
-							html+"    <div class='modal-dialog modal-sm'>                                                     ";
-							html+"      <div class='modal-content'>                                                           ";
-							html+"        <div class='modal-header'>                                                          ";
-							html+"          <h4>진료기록 상세보기</h4>                                                        ";
-							html+"        </div>                                                                              ";
-							html+"        <div class='modal-body'>                                                            ";
-							html+"				<table>                                                                       ";
-							html+"					<tr>                                                                      ";
-							html+"						<th>반려동물명</th>                                                   ";
-							html+"						<td>"+data.pet_name+"</td>                                                             ";
-							html+"					</tr>                                                                     ";
-							html+"					<tr>                                                                      ";
-							html+"						<th>진료기록명</th>                                                   ";
-							html+"						<td>"+data.medichart_vo[0].medi_title+"</td>                                                             ";
-							html+"					</tr>                                                                     ";
-							html+"					<tr>                                                                      ";
-							html+"						<th>진료일자</th>                                                     ";
-							html+"						<td>"+data.medichart_vo[0].medi_visit+"</td>                                                             ";
-							html+"					</tr>                                                                     ";
-							html+"					<tr>                                                                      ";
-							html+"						<th>진료과목</th>                                                     ";
-							html+"						<td>"+data.medichart_vo[0].medi_l+"</td>                                                             ";
-							html+"					</tr>                                                                     ";
-							html+"					<tr>                                                                      ";
-							html+"						<th>질환</th>                                                         ";
-							html+"						<td>"+data.medichart_vo[0].medi_s+"</td>                                                             ";
-							html+"					</tr>                                                                     ";
-							html+"					<tr>                                                                      ";
-							html+"						<th>진료내용</th>                                                     ";
-							html+"						<td>"+data.medichart_vo[0].medi_content+"</td>                                                             ";
-							html+"					</tr>                                                                     ";
-							html+"				</table>                                                                      ";
-							html+"				<button>pdf 다운로드</button>                                                 ";
-							html+"        </div>                                                                              ";
-							html+"        <div class='modal-footer'>                                                          ";
-							html+"          <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>  ";
-							html+"        </div>                                                                              ";
-							html+"     </div>                                                                                 ";
-							html+"   </div>                                                                                   ";
-							html+" </div>                                                                                     ";
-						                                                                
-						  modal.append(html);
-					},
-					error:function(error){
-						console.log("값 전달 오류");
-					}
-					
-				});
-				
-			});
-		});
+	$(document).on("click", ".detail", function(){
+		console.log("상세보기 실행");
 		
-	}
+		var medi_num = this.querySelector(".medi_num").value;
+		console.log("진료번호 : " ,medi_num);
+				
+		location.href='./selectOneChart.do?medi_num='+medi_num;
+				
+	
+		
+	});
+	
+
+	
