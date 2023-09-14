@@ -13,11 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Users_VO;
 
@@ -110,4 +113,41 @@ public class Users_Controller {
 			
 	}
 	
-}
+	@PostMapping(path="/adminPage.do", produces="application/text; charset=UTF-8;")
+	@ResponseBody
+	public String searchUser (String keyword, HttpSession session,
+							  HttpServletResponse response){
+		log.info("&&&&& Users_Controller 관리자페이지 권한별 조회, 상태별 조회, 회원 검색 ajax 처리 {} {} &&&&&", session.getAttribute("loginVo"), keyword);
+		response.setContentType("text/html; charset=UTF-8");
+		
+		List<Users_VO> searchList =  service.searchUsers(keyword);
+		
+		if(searchList.size()==0) {
+				return "";
+			} else {
+				Gson gson = new Gson();
+				String searchUserList = gson.toJson(searchList);
+				return searchUserList;
+			}
+		}
+	
+	@PostMapping(path="/adminPageAuth.do", produces="application/text; charset=UTF-8;")
+	@ResponseBody
+	public String selectAuth(String auth, HttpSession session,
+							 HttpServletResponse response) {
+		log.info("&&&&& Users_Controller 관리자페이지 권한별 조회 ajax처리 {} &&&&&", auth);
+		response.setContentType("text/html; charset=UTF-8;");
+		
+		System.out.println(auth);
+		
+		List<Users_VO> selectAuth = service.selectUsersAuth(auth);
+		
+		Gson gson = new Gson();
+		String selectAuthList = gson.toJson(selectAuth);
+		
+		return selectAuthList;
+		
+	}
+	
+	}
+
