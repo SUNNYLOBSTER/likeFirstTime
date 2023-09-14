@@ -96,6 +96,11 @@
 					#{medi_content}, #{medi_id}, 'N')
 	</insert>
 	
+	<!-- 진료기록 seq가져오기 -->
+	<select id="getMaxSeq" resultType="java.lang.String">
+		SELECT 'M'|| MAX(TO_NUMBER(SUBSTR(MEDI_NUM,2))) FROM MEDICHART
+	</select>
+	
 	<!-- 일반사용자 ID별 진료기록 전체조회 -->
 	<select id="selectAllChart" resultMap="PetsVoMap">
 		  SELECT p.PET_SEQ ,p.PET_OWNER, p.PET_NAME, TO_CHAR(p.PET_BDAY,'YYYY-MM-DD') AS PET_BDAY,
@@ -163,18 +168,19 @@
 	</select>
 	
 	<!-- 일반사용자의 진료번호에 따른 진료기록 상세조회 -->
-	<select id="selectOneChart" resultType="com.min.edu.vo.MediChart_VO">
-		SELECT m.MEDI_NUM, m.MEDI_ID , m.MPET_SEQ , 
-				p.PET_NAME, m.MEDI_L , m2.MEDI_NAME , 
-				m.MEDI_S , m3.MEDI_NAME, DBMS_LOB.SUBSTR(m.MEDI_CONTENT,DBMS_LOB.GETLENGTH(m.MEDI_CONTENT)) , m.MEDI_VISIT  
-			FROM MEDICHART m 
-			JOIN MEDICODE m2 ON m.MEDI_L = m2.MEDI_CODE 
+	<select id="selectOneChart" resultMap="PetsVoMap" parameterType="java.lang.String">
+		SELECT p.PET_SEQ ,p.PET_OWNER, p.PET_NAME, TO_CHAR(p.PET_BDAY,'YYYY-MM-DD'),
+				p.PET_SPECIES ,p.PET_GENDER, p.PET_NEUT ,p.PET_REPORT ,
+				m.MEDI_NUM ,TO_CHAR(m.MEDI_VISIT,'YYYY-MM-DD') AS MEDI_VISIT , 
+				m.MEDI_L, m2.MEDI_NAME AS MEDI_LNAME , m.MEDI_S, m3.MEDI_NAME AS MEDI_SNAME , 
+				m.MEDI_TITLE , m.MEDI_CONTENT ,m.MEDI_DELFLAG
+			FROM PETSINFO p 
+			JOIN MEDICHART m ON p.PET_SEQ = m.MPET_SEQ 
+			LEFT JOIN MEDICODE m2 ON m.MEDI_L = m2.MEDI_CODE 
 			LEFT JOIN MEDICODE m3 ON m.MEDI_S = m3.MEDI_CODE 
-			JOIN PETSINFO p ON m.MPET_SEQ = p.PET_SEQ 
-			WHERE MEDI_ID =#{medi_id}
-			AND MEDI_DELFLAG ='N'
-			AND MEDI_NUM =#{medi_num}
-			ORDER BY MEDI_VISIT DESC
+			WHERE m.MEDI_NUM ='M9'
+			AND m.MEDI_DELFLAG ='N'
+			ORDER BY m.MEDI_VISIT DESC
 	</select>
 	
 	<!-- 진료기록 수정 -->
@@ -195,4 +201,12 @@
 		SELECT MEDI_CODE , MEDI_NAME , MEDI_TOP
 			FROM MEDICODE
 	</select>
+	
+	<!-- 파일업로드 -->
+	<insert id="fileUpload" parameterType="com.min.edu.vo.FileBoard_VO">
+		INSERT INTO PROJECT.FILEBOARD
+			(F_SEQ, F_REF, F_ORIGINNAME, F_STOREDNAME, F_SIZE, F_DELFLAG)
+			VALUES((SELECT NVL(MAX(F_SEQ),0)+1 FROM FILEBOARD), '', '', '', 0, 'N' )
+	</insert>
+	
 </mapper>
