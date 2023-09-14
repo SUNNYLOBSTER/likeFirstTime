@@ -30,7 +30,9 @@ ${loginVo}
 	</c:if>
 </div>
 <hr>
-<a href="./resrv_Select.do">진료예약조회</a>
+<c:if test="${loginVo.users_auth eq 'U' }">
+	<a href="./resrv_requestPage.do?resrv_hops=gana@naver.com">예약신청 페이지</a><br>
+</c:if>
 <a href="./questBoard.do">진료문의게시판</a>
 <br>
 

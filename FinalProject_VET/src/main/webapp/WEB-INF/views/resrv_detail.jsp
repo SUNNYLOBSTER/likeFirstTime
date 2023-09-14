@@ -7,6 +7,9 @@
 <title>예약 상세조회 페이지(임시)</title>
 </head>
 <body>
-	${resrv_detail}
+	${resrv_detail}<br>
+	${resrv_detail.resrv_num}
+	<hr>
+	<button onclick="javascript:history.back(-1)">뒤로가기</button>
 </body>
 </html>
