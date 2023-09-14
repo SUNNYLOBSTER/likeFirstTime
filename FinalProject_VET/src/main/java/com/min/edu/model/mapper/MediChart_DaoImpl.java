@@ -53,7 +53,7 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	}
 
 	@Override
-	public List<MediChart_VO> selectPetChart(Map<String, Object> map) {
+	public List<PetsInfo_VO> selectPetChart(Map<String, Object> map) {
 		return session.selectList(NS+"selectPetChart",map);
 	}
 

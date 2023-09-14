@@ -64,11 +64,11 @@ public class MediChart_JUnitTest {
 	}
 	
 //	@Test
-	public void insertNewChart() {
-		MediChart_VO mvo = new MediChart_VO(null, 6, null, "20230911", "03","031" , "살구 접종", "가나동물병원 방문", "merida@disney.com", null, null, null);
-		String m = service.insertNewChart(mvo);
-		assertNotNull(m);
-	}
+//	public void insertNewChart() {
+//		MediChart_VO mvo = new MediChart_VO(null, 6, null, "20230911", "03","031" , "살구 접종", "가나동물병원 방문", "merida@disney.com", null, null, null);
+//		String m = service.insertNewChart(mvo);
+//		assertNotNull(m);
+//	}
 	
 //	@Test
 	public void selectAllChart() {
@@ -78,14 +78,14 @@ public class MediChart_JUnitTest {
 	}
 	
 //	@Test
-	public void selectPetChart() {
-		Map<String, Object> map = new HashMap<String, Object>(){{
-			put("medi_id","merida@disney.com");
-			put("pet_name","자두");
-		}};
-		List<MediChart_VO> lists = service.selectPetChart(map);
-		assertNotNull(lists);
-	}
+//	public void selectPetChart() {
+//		Map<String, Object> map = new HashMap<String, Object>(){{
+//			put("medi_id","merida@disney.com");
+//			put("pet_name","자두");
+//		}};
+//		List<MediChart_VO> lists = service.selectPetChart(map);
+//		assertNotNull(lists);
+//	}
 	
 //	@Test
 	public void selectLChart() {
