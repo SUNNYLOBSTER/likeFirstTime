@@ -14,7 +14,9 @@
 	<result column="QST_STATUS" property="qst_status"/>
 	
 	<collection property="replyboard_vo" resultMap="ReplyVOMap"/>
-	<collection property="fileboard_vo" resultMap="FileVoMap"/>
+	<collection property="fileboard_vo" resultMap="FileVOMap"/>
+<!-- 	<collection property="animalcode_vo" resultMap="CodeVOMap"/> -->
+<!-- 	<collection property="animalpart_vo" resultMap="PartVOMap"/> -->
 </resultMap>
 
 <resultMap type="com.min.edu.vo.ReplyBoard_VO" id="ReplyVOMap">
@@ -27,7 +29,7 @@
 	<result column="RPY_CHOSEN" property="rpy_chosen"/>
 </resultMap>
 
-<resultMap type="com.min.edu.vo.FileBoard_VO" id="FileVoMap">
+<resultMap type="com.min.edu.vo.FileBoard_VO" id="FileVOMap">
 	<result column="F_SEQ" property="f_seq"/>
 	<result column="F_REF" property="f_ref"/>
 	<result column="F_ORIGINNAME" property="f_originname"/>
@@ -82,10 +84,10 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 </select>
 
 <!-- 게시글 상세조회 및 해당 게시글의 답글 전체조회 -->
-<select id="selectOneBoard" resultType="QuestBoard_VO">
-SELECT u.USERS_NAME , q.QST_ID, q.QST_TITLE, 
-	q.QST_CONTENT, q.QST_REGDATE, r.RPY_ID , 
-	r.RPY_REF , r.RPY_CONTENT , r.RPY_STATUS 
+<select id="selectOneBoard" resultMap="BoardMap">
+SELECT u.USERS_NAME ,q.QST_TITLE, q.QST_CONTENT,
+	 q.QST_REGDATE, r.RPY_ID, r.RPY_REF, 
+	 r.RPY_CONTENT , r.RPY_STATUS 
 	FROM QUESTBOARD q ,USERSINFO u, REPLYBOARD r 
 	WHERE q.QST_ID = u.USERS_ID 
 	AND q.QST_SEQ = r.RPY_REF
@@ -114,7 +116,7 @@ VALUES(
 		#{qst_seq},
 		#{qst_id}, #{qst_title}, 
 		#{qst_content}, #{qst_species}, #{qst_part}, 
-		SYSDATE , 'N' , 'Y' )
+		CURRENT_DATE , 'N' , 'Y' )
 </insert>
 
 <!-- 우선게시글 전환 -->
@@ -152,9 +154,9 @@ WHERE QST_SEQ=#{qst_seq}
 	</selectKey>
 INSERT INTO REPLYBOARD 
 (RPY_SEQ, RPY_ID, RPY_REF, RPY_CONTENT, RPY_REGDATE, RPY_STATUS, RPY_CHOSEN)
-VALUES( 
+VALUES( #{rpy_seq},
 		#{rpy_id},  
-		rpy_ref, #{rpy_content}, SYSDATE, 
+		#{rpy_ref}, #{rpy_content}, CURRENT_DATE, 
 		'Y' , 'N' )
 </insert>
 
@@ -169,14 +171,14 @@ WHERE RPY_SEQ = #{rpy_seq}
 <update id="deleteReply">
 UPDATE REPLYBOARD 
 SET RPY_STATUS ='N'
-WHERE RPY_REF = #{rpy_ref}
+WHERE RPY_SEQ = #{rpy_seq}
 </update>
 
 <!-- 답글 신고 -->
 <update id="reportReply">
 UPDATE REPLYBOARD 
-SET QST_STATUS ='R'
-WHERE QST_SEQ = #{qst_seq}
+SET RPY_STATUS ='R'
+WHERE RPY_SEQ = #{rpy_seq}
 </update>
 
 <!-- 답글 채택 -->
@@ -207,16 +209,14 @@ AND h.HOSP_ID = #{hosp_id}
 <!-- 채택률 -->
 <select id="calChoiceRate" resultType="java.lang.Integer">
 SELECT
-    h.HOSP_ID,
-    COUNT(r.RPY_SEQ) AS 전체_작성_글_수,
-    SUM(CASE WHEN r.RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) AS 채택된_글_수,
-    (SUM(CASE WHEN r.RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) / COUNT(r.RPY_SEQ)) * 100 AS 채택율
-FROM HOSPITAL h
-JOIN REPLYBOARD r ON h.HOSP_ID = r.RPY_ID
-WHERE r.RPY_STATUS = 'Y'
-AND h.HOSP_ID = #{hosp_id}
-GROUP BY h.HOSP_ID
+	SUM(CASE WHEN RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) / COUNT(RPY_SEQ) * 100 AS 채택율
+FROM REPLYBOARD
+WHERE RPY_ID = #{rpy_id}
+AND RPY_STATUS = 'Y'
 </select>
+
+<!--     COUNT(RPY_SEQ) AS 전체_작성_글_수, -->
+<!--     SUM(CASE WHEN RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) AS 채택된_글_수, -->
 
 </mapper>
 
