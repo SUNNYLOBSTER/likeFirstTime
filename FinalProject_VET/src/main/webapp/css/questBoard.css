@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#questSearch {
+	height: 100px;
+	padding: 10px 10px;
+}
+
+.paging{
+	height: 60px;
+	padding: 10px 10px;
+}
