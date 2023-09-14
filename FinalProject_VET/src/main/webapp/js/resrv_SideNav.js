@@ -54,7 +54,7 @@ function resrv_wList(){
 		dataType:"json",
 		data:{resrv_status:"W"},
 		success:function(data){
-			console.log(data.waitLists);
+			console.log(data[0]);
 			var html = "";
 				html += "<table>";
 				html += "	<tr>";
@@ -65,20 +65,22 @@ function resrv_wList(){
 				html += "		<th>예약상태</th>";
 				html += "		<th>접수시간</th>";
 				html += "		<th>예약승인</th>";
+				html += "		<th>예약거절</th>";
 				html += "	</tr>";
-				for(var i=0; i<data.waitLists.length; i++){
+				for(var i=0; i<data.length; i++){
 				html += "	<tr>";
-				html += "		<td>"+data.waitLists[i].resrv_num+"</td>";
-				html += "		<td>"+data.waitLists[i].resrv_visit+"</td>";
-				html += "		<td>"+data.waitLists[i].resrv_time+"</td>";
-				html += "		<td>"+data.waitLists[i].resrv_name+"</td>";
-					if(data.waitLists[i].resrv_status=="W"){
+				html += "		<td>"+data[i].resrv_num+"</td>";
+				html += "		<td>"+data[i].resrv_visit+"</td>";
+				html += "		<td>"+data[i].resrv_time+"</td>";
+				html += "		<td>"+data[i].resrv_name+"</td>";
+					if(data[i].resrv_status=="W"){
 				html += "		<td>예약대기</td>";
 					}else{
 				html += "		<td>예약확정</td>";	
 					}					
-				html += "		<td>"+data.waitLists[i].resrv_regdate+"</td>";
-				html += "		<td><button>확정</button></td>";
+				html += "		<td>"+data[i].resrv_regdate+"</td>";
+				html += "		<td><button class='resrv_confirm'>확정</button></td>";
+				html += "		<td><button class='resrv_refuse'>거절</button></td>";
 				html += "	</tr>";
 				}
 				html += "</table>";
@@ -89,6 +91,58 @@ function resrv_wList(){
 		}
 	});
 }
+
+$(document).on("click",".resrv_confirm",function(){
+	console.log("resrv_confirm 확정버튼 작동");
+	resrv_num = this.parentNode.parentNode.children[0].innerText;
+	resrv_refuseBtn = this.parentNode.parentNode.children[7].children[0];
+	resrv_btn = this;
+	console.log(resrv_refuseBtn);
+//	console.log(resrv_num);
+	$.ajax({
+		url:"./resrv_confirm.do",
+		method:"post",
+		data:"resrv_num="+resrv_num,
+		success:function(result){
+			console.log(result);
+			if(result == "confirm"){
+				resrv_btn.style.display="none";
+				resrv_refuseBtn.style.display="none";
+				resrv_btn.parentNode.innerHTML="완료";
+			}else{
+				
+			}
+		},
+		error:function(){
+			
+		}
+	});
+});
+$(document).on("click",".resrv_refuse",function(){
+	console.log("resrv_refuse 거절버튼 작동");
+	resrv_num = this.parentNode.parentNode.children[0].innerText;
+	resrv_confirmBtn = this.parentNode.parentNode.children[6].children[0];
+	resrv_btn = this;
+	$.ajax({
+		url:"./resrv_refuse.do",
+		method:"post",
+		data:"resrv_num="+resrv_num,
+		success:function(result){
+			console.log(result);
+			if(result == "resrv_refuse"){
+				resrv_btn.style.display="none";
+				resrv_confirmBtn.style.display="none";
+				resrv_btn.parentNode.innerHTML="거절";
+			}else{
+				
+			}
+		},
+		error:function(){
+			
+		}
+	});
+});
+
 
 function resrv_calendar(){
 	console.log("예약현황 호출");
