@@ -26,6 +26,9 @@
 		<result column="MEDI_CONTENT" property="medi_content"/>
 		<result column="MEDI_ID" property="medi_id"/>
 		<result column="MEDI_DELFLAG" property="medi_delflag"/>
+		<result column="MEDI_LNAME" property="medi_lname"/>
+		<result column="MEDI_SNAME" property="medi_sname"/>
+		
 		
 		<collection property="fileboard_vo" resultMap="FileVoMap"/>
 		<collection property="medicode_vo" resultMap="MCVoMap"/>
@@ -55,9 +58,9 @@
 	
 	<!-- 일반사용자 아이디별 반려동물명 리스트 조회 -->
 	<select id="searchPet" resultType="com.min.edu.vo.PetsInfo_VO">
-		SELECT PET_NAME 
+		SELECT PET_NAME , PET_SEQ
 			FROM PETSINFO
-			WHERE PET_OWNER = #{id}
+			WHERE PET_OWNER = #{pet_owner}
 	</select>
 
 	<!-- 새 반려동물 입력 -->
@@ -130,7 +133,7 @@
 			LEFT JOIN MEDICODE m3 ON m.MEDI_S = m3.MEDI_NAME 
 			WHERE p.PET_OWNER =#{pet_owner}
 			AND m.MEDI_DELFLAG ='N'
-			AND p.PET_NAME =#{pet_name}
+			AND p.PET_SEQ =#{pet_seq}
 			ORDER BY MEDI_VISIT DESC
 	</select>
 	
@@ -171,14 +174,14 @@
 	<select id="selectOneChart" resultMap="PetsVoMap" parameterType="java.lang.String">
 		SELECT p.PET_SEQ ,p.PET_OWNER, p.PET_NAME, TO_CHAR(p.PET_BDAY,'YYYY-MM-DD'),
 				p.PET_SPECIES ,p.PET_GENDER, p.PET_NEUT ,p.PET_REPORT ,
-				m.MEDI_NUM ,TO_CHAR(m.MEDI_VISIT,'YYYY-MM-DD') AS MEDI_VISIT , 
+				m.MEDI_NUM ,TO_CHAR(m.MEDI_VISIT,'YYYY-MM-DD') AS MEDI_VISIT ,
 				m.MEDI_L, m2.MEDI_NAME AS MEDI_LNAME , m.MEDI_S, m3.MEDI_NAME AS MEDI_SNAME , 
 				m.MEDI_TITLE , m.MEDI_CONTENT ,m.MEDI_DELFLAG
 			FROM PETSINFO p 
 			JOIN MEDICHART m ON p.PET_SEQ = m.MPET_SEQ 
 			LEFT JOIN MEDICODE m2 ON m.MEDI_L = m2.MEDI_CODE 
 			LEFT JOIN MEDICODE m3 ON m.MEDI_S = m3.MEDI_CODE 
-			WHERE m.MEDI_NUM ='M9'
+			WHERE m.MEDI_NUM =#{medi_num}
 			AND m.MEDI_DELFLAG ='N'
 			ORDER BY m.MEDI_VISIT DESC
 	</select>
