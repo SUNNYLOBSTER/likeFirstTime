@@ -18,7 +18,7 @@ public interface IReservation_Service {
 	public Reservation_VO resrv_detail(String resrv_num);
 	
 	//일별 예약상태에 따른 조회
-	public List<Reservation_VO> resrv_dayStatus(Reservation_VO rvo);
+	public List<Reservation_VO> resrv_dayStatus(Map<String, Object> map);
 	
 	//진료예약 등록
 	public int resrv_insert(Reservation_VO rvo);

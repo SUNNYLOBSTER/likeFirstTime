@@ -40,11 +40,11 @@
 	</select>
 	
 	<select id="resrv_dayStatus" resultType="Reservation_VO">
-		SELECT RESRV_NUM, RESRV_TIME, RESRV_NAME, RESRV_TEL, RESRV_STATUS 
+		SELECT RESRV_NUM,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_NAME, RESRV_STATUS, TO_CHAR(RESRV_REGDATE,'YYYY-MM-DD HH24:MI:SS') AS RESRV_REGDATE 
 			FROM RESERVATION r 
-			WHERE RESRV_VISIT = #{resrv_visit}
-				AND RESRV_HOPS = #{resrv_hops}
+			WHERE RESRV_HOPS = #{resrv_hops}
 				AND RESRV_STATUS = #{resrv_status}
+				ORDER BY RESRV_VISIT 
 	</select>
 	
 	<insert id="resrv_insert">
