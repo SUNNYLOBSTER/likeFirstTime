@@ -27,7 +27,7 @@ public interface IMediChart_Dao {
 	
 	public List<PetsInfo_VO> selectSChart(Map<String,Object> map);
 	
-	public MediChart_VO selectOneChart(Map<String, Object> map);
+	public PetsInfo_VO selectOneChart(String medi_num);
 	
 	public int modifyChart(Map<String, Object> map);
 	
@@ -35,4 +35,5 @@ public interface IMediChart_Dao {
 	
 	public List<MediCode_VO> selectAllMediCode();
 	
+	public String getMaxSeq();
 }

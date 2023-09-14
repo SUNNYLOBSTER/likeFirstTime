@@ -32,6 +32,7 @@ public class MediChartController {
 	@Autowired
 	private IMediChart_Service service;
 	
+	
 	@GetMapping(value = "/selectAllChart.do")
 	public String selectAllChart(HttpSession session, Model model) {
 		log.info("&&&&& MediChartController 메인화면 -> 전체진료기록페이지 &&&&&");
@@ -54,10 +55,7 @@ public class MediChartController {
 				lists.add(mlists.get(i));
 			}
 		}
-		
-		
 		model.addAttribute("codelists",lists);
-		
 		
 		return "chart";
 	}
@@ -77,11 +75,8 @@ public class MediChartController {
 					list.add(mlists.get(i));
 			}
 		}
-		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		map.put("list", list);
-		
 		
 		return map;
 	}
@@ -106,12 +101,13 @@ public class MediChartController {
 		return "petChart";
 	}
 	
+	
 	@GetMapping(value = "/insertNewChartForm.do")
 	public String insertNewChartForm(String mpet_seq , Model model) {
 		log.info("&&&&& MediChartController 반려동물별 진료기록 -> 새 진료기록 작성페이지 &&&&&");
-		
 		return "insertNewChartForm";
 	}
+	
 	
 	@PostMapping(value = "/selectSChart.do")
 	@ResponseBody
@@ -138,5 +134,15 @@ public class MediChartController {
 		return map2;
 	}
 	
+	@PostMapping(value = "/selectOneChart.do")
+	@ResponseBody
+	public PetsInfo_VO selectOneChart(HttpSession session, String medi_num){
+		log.info("&&&&& MediChartController selectOneChart 전달받은 parameter값 : {}&&&&&",medi_num);
+		
+		PetsInfo_VO pvo =  service.selectOneChart(medi_num);
+		
+		return pvo;
+	}
+
 	
 }

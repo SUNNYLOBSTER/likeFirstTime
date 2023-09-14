@@ -47,10 +47,12 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 	}
 
 	@Override
-	public int insertNewChart(MediChart_VO mvo) {
+	public String insertNewChart(MediChart_VO mvo) {
 		log.info("&&&&& MediChart_ServiceImpl insertNewChart &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", mvo);
-		return dao.insertNewChart(mvo);
+		int n = dao.insertNewChart(mvo);
+		String m = (n>0)?dao.getMaxSeq():"";
+		return m;
 	}
 
 	@Override
@@ -82,10 +84,10 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 	}
 
 	@Override
-	public MediChart_VO selectOneChart(Map<String, Object> map) {
+	public PetsInfo_VO selectOneChart(String medi_num) {
 		log.info("&&&&& MediChart_ServiceImpl selectOneChart &&&&&");
-		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", map);
-		return dao.selectOneChart(map);
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", medi_num);
+		return dao.selectOneChart(medi_num);
 	}
 
 	@Override
@@ -107,6 +109,8 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		log.info("&&&&& MediChart_ServiceImpl selectAllMediCode &&&&&");
 		return dao.selectAllMediCode();
 	}
+
+
 	
 
 
