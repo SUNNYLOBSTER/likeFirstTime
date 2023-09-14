@@ -21,7 +21,7 @@ public interface IMediChart_Dao {
 	
 	public List<PetsInfo_VO> selectAllChart(String pet_owner);
 	
-	public List<MediChart_VO> selectPetChart(Map<String, Object> map);
+	public List<PetsInfo_VO> selectPetChart(Map<String, Object> map);
 	
 	public List<MediChart_VO> selectLChart(Map<String, Object> map);
 	

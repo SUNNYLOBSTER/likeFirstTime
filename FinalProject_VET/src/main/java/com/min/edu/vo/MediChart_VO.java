@@ -27,6 +27,8 @@ public class MediChart_VO {
 	private String medi_content;
 	private String medi_id;
 	private String medi_delflag;
+	private String medi_lname;
+	private String medi_sname;
 
 	private List<FileBoard_VO> fileboard_vo;
 	private List<MediCode_VO> medicode_vo;

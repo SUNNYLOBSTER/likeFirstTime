@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.itextpdf.text.log.SysoCounter;
 import com.min.edu.model.service.IMediChart_Service;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
@@ -82,29 +84,46 @@ public class MediChartController {
 	}
 	
 	
-	@GetMapping(value = "/selectPetChart.do")
-	public String selectPetChart(HttpSession session, String pet_name, Model model) {
+	@PostMapping(value = "/selectPetChart.do")
+	@ResponseBody
+	public Map<String, Object> selectPetChart(HttpSession session, String pet_seq) {
 		log.info("&&&&& MediChartController 전체진료기록 -> 반려동물별 진료기록페이지 &&&&&");
-		log.info("&&&&& MediChartController selectPetChart 전달받은 parameter값 : {} &&&&&",pet_name);
+		log.info("&&&&& MediChartController selectPetChart 전달받은 parameter값 : {} &&&&&",pet_seq);
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String pet_owner = loginVo.getUsers_id();
 		
 		Map<String, Object> map = new HashMap<String, Object>(){{
 			put("pet_owner", pet_owner);
-			put("pet_name", pet_name);
+			put("pet_seq", pet_seq);
 		}};
 		
-		List<MediChart_VO> allPetChart = service.selectPetChart(map);
-		model.addAttribute("allPetChart",allPetChart);
+		List<PetsInfo_VO> selectPetChart = service.selectPetChart(map);
+		Map<String, Object> map2 = new HashMap<String, Object>();
 		
-		return "petChart";
+		map2.put("detail", selectPetChart);
+		
+		return map2;
 	}
 	
 	
 	@GetMapping(value = "/insertNewChartForm.do")
-	public String insertNewChartForm(String mpet_seq , Model model) {
+	public String insertNewChartForm(HttpSession session, Model model) {
 		log.info("&&&&& MediChartController 반려동물별 진료기록 -> 새 진료기록 작성페이지 &&&&&");
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String pet_owner = loginVo.getUsers_id();
+		
+		List<PetsInfo_VO> pvo = service.searchPet(pet_owner);
+//		List<String> petList = new ArrayList<String>();
+		List<PetsInfo_VO> petList = new ArrayList<PetsInfo_VO>();
+		if(!pvo.isEmpty()) {
+			for(int i=0; i<pvo.size();i++) {
+				petList.add(pvo.get(i));
+			}
+		}
+		model.addAttribute("petList", petList);
+		
 		return "insertNewChartForm";
 	}
 	
@@ -134,14 +153,15 @@ public class MediChartController {
 		return map2;
 	}
 	
-	@PostMapping(value = "/selectOneChart.do")
-	@ResponseBody
-	public PetsInfo_VO selectOneChart(HttpSession session, String medi_num){
+	@GetMapping(value = "/selectOneChart.do")
+//	@ResponseBody
+	public String selectOneChart(String medi_num, Model model){
 		log.info("&&&&& MediChartController selectOneChart 전달받은 parameter값 : {}&&&&&",medi_num);
 		
 		PetsInfo_VO pvo =  service.selectOneChart(medi_num);
+		model.addAttribute("pvo",pvo);
 		
-		return pvo;
+		return "detail";
 	}
 
 	
