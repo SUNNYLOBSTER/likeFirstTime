@@ -87,19 +87,27 @@ public class Users_Controller {
 		return "adminPage";
 	}
 	
-	@RequestMapping(path="/selectUserDetail.do", method = RequestMethod.GET)
+	@GetMapping(path="/selectUserDetail.do")
 	public String selectUserDetail (@RequestParam("users_id") String id,
 									HttpSession session, Model model) {
 		log.info("&&&&& Users_Controller 관리자페이지 -> 회원상세조회페이지 {} {} &&&&&", session.getAttribute("loginVo"));
-
 		
 		List<Users_VO> usersDetail = service.selectUserDetail(id);
-		model.addAttribute("usersDetail", usersDetail);
-//		Users_VO hospDetail = service.selectHospitalDetail(id);
-//		model.addAttribute("hospDetail", hospDetail);
-		return "selectUserDetail";
-	
+		Users_VO hospDetail = service.selectHospitalDetail(id);
 		
+		String auth = usersDetail.get(0).getUsers_auth();
+
+		if(auth.equals("A")||auth.equals("U")) {
+			model.addAttribute("usersDetail", usersDetail);
+			return null;
+		
+		} else if (auth.equals("A")||auth.equals("H")){
+			model.addAttribute("hospDetail", hospDetail);
+			return null;
+		}
+		
+		return "selectUserDetail";
+			
 	}
 	
 }
