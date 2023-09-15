@@ -5,16 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
-<style type="text/css">
-	#page{
-		width: 500px;
-		margin: 10px auto;
-	}
-</style>
 </head>
+<%@ include file="./header.jsp" %>
 <body>
-	<div id="page">
-		<h1>로그인</h1>
+	<div id="container" style="text-align: -webkit-right;">
 		<form action="./login.do" method="post">
 			<table>
 				<tr>
@@ -32,13 +26,14 @@
 				<tr>
 					<td colspan="2">
 					<input type="submit" value="로그인">
-					<input type="button" value="회원가입">
-					<input type="button" value="아이디 찾기">
-					<input type="button" value="비밀번호 찾기">
+					<input type="button" value="회원가입" onclick="location.href='./insertUsers.do'">
+					<input type="button" value="아이디 찾기" onclick="location.href='./findId.do'">
+					<input type="button" value="비밀번호 찾기" onclick="location.href='./findPasword.do'">
 					</td>
 				</tr>	
 			</table>
 		</form>
 	</div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>

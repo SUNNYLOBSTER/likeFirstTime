@@ -102,7 +102,7 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 
 <!-- 게시글 상세조회 및 해당 게시글의 답글 전체조회 -->
 <select id="selectOneBoard" resultMap="BoardMap">
-SELECT u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT,
+SELECT u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
 	 q.QST_REGDATE, r.RPY_ID, r.RPY_REF, 
 	 r.RPY_CONTENT , r.RPY_STATUS 
 	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r 

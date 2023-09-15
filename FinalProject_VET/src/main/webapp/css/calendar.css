@@ -1,49 +1,4 @@
 @charset "UTF-8";
-.sidenav {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #EFEBE9;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-.sidenav a, .dropdown-btn{
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #3E2723;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-.dropdown-btn{
-	background-color: #BCAAA4;
-}
-
-.sidenav a:hover, .dropdown-btn:hover {
-  color: #EFEBE9;
-}
-
-
-.container{
-	width: 1000px;
-	margin: 0px auto;
-	padding: 0px;
-	margin-left: 200px;
-}
-.dropdown-container {
-  display: none;
-  background-color: #D7CCC8;
-  padding-left: 8px;
-}
 
 .fa-caret-down {
   float: right;

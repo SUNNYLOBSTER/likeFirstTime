@@ -14,6 +14,7 @@
 		height: 100px; padding : 0px;
 		margin: 0px;
 		padding: 0px;
+		z-index: 50;
 	}
 	
 	body {
@@ -65,6 +66,7 @@
 		height: 90px;
 		margin: 5px;
 		position: absolute;
+		z-index: 99;
 	}
 	
 	.loginArea {
@@ -74,15 +76,15 @@
 	}
 	
 	.sidenav {
-		height: 100%;
+		height: 1340px;
 		width: 200px;
-		position: fixed;
+		position: absolute;
 		z-index: 1;
 		top: 0;
 		left: 0;
 		background-color: #EFEBE9;
 		overflow-x: hidden;
-		padding-top: 20px;
+		padding-top: 100px;
 	}
 	
 	.sidenav a, .dropdown-btn {
@@ -113,9 +115,17 @@
 		padding-left: 8px;
 	}
 	
+	.navContainer{
+		width: 1000px;
+		margin: 20px auto;
+		height: 1300px;
+		padding-left: 220px;
+	}
+	
+	#sideNav_1{
+		margin-top: 50px;
+	}
 </style>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<header>
@@ -126,7 +136,7 @@
 		<c:when test="${empty loginVo}">
 			<div class="loginArea">
 				<button onclick="location.href='./loginForm.do'">로그인</button>
-				<button>회원가입</button>
+				<button onclick="location.href='./insertUsers.do'">회원가입</button>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -135,10 +145,10 @@
 					${loginVo.users_name}님 환영합니다
 				</span>
 				<c:if test="${loginVo.users_auth eq 'A' }">
-				<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
+					<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'H' }">
-				<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
+					<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
 					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
