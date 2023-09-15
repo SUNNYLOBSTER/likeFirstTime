@@ -71,7 +71,31 @@ function writeChart(){
 	const data = editor.getData();
 	$("#editor").text(data);
 
-	observer.disconnect();
+	let codeL = $('#codeL').val();
+	let codeS = $('#codeS').val();
+	let petName = $('#petName').val();
+	let medi_title = $('#medi_title').val();
 	
+	console.log(codeL,codeS,petName);
+	
+	if(codeL == "--진료 과목--"){
+		alert("진료과목을 선택해주세요");
+		document.getElementById("codeL").focus();
+		return false;
+	}else if(codeS =="--선택--"){
+		alert("질환을 선택해주세요");
+		document.getElementById("codeS").focus();
+		return false;
+	}else if(petName=="--선택--"){
+		alert("반려동물을 선택해주세요");
+		document.getElementById("petName").focus();
+		return false;
+	}else if(medi_title==""){
+		alert("제목을 입력해주세요");
+		document.getElementById("medi_title").focus();
+		return false;
+	}
+	
+	observer.disconnect();
 	$("form").eq(0).submit();
 }

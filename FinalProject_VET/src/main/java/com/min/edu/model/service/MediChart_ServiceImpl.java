@@ -110,6 +110,12 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		return dao.selectAllMediCode();
 	}
 
+	@Override
+	public MediCode_VO searchMediName(String medi_code) {
+		log.info("&&&&& MediChart_ServiceImpl searchMediName &&&&&");
+		return dao.searchMediName(medi_code);
+	}
+
 
 	
 
