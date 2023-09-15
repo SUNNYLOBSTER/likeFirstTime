@@ -14,5 +14,11 @@ public class HomeController {
 		log.info("첫 페이지 호출 Controller");
 		return "home";
 	}
+	
+	@GetMapping(value = "/hospitalDetail.do")
+	public String hospitalDetail() {
+		
+		return "hospitalDetail";
+	}
   
 }
