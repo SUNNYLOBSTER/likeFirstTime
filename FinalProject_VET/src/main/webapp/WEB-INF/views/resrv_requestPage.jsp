@@ -16,8 +16,8 @@
 </head>
 <body>
 	${user_vo.users_id}
-	<a href="./main.do">메인화면</a>
 	<div class="container">
+		<a href="./main.do">메인화면</a>
 		<h1>${sessionScope.resrv_hops} 예약페이지</h1>
 		<div id="calendar"></div>
 		<h2>예약가능 시간</h2>
@@ -25,7 +25,7 @@
 			<c:forEach var="i" begin="0" end="24">
 				
 			</c:forEach>
-			${hosp_info.hosp_time}
+			${hosp_time}
 			
 		</div>
 		
