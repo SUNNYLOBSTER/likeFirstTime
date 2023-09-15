@@ -52,6 +52,7 @@
 			<th style="width:100px;content-align:center;">작성자</th>
 			<th style="width:100px;content-align:center;">동물</th>
 			<th style="width:200px;content-align:center;">제목</th>
+			<th style="width:500px;content-align:center;">내용</th>
 			<th>작성일</th>
 		</tr>
 	</thead>
@@ -61,7 +62,8 @@
 			<td style="text-align:center;">${vs.count}</td>
 			<td>${dto.qst_id}</td>
 			<td>${dto.qst_species}</td>
-			<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_title}</a></td>
+			<td>${dto.qst_title}</td>
+			<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
 			<td>
 				<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 				<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
