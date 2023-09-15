@@ -81,7 +81,7 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-<button onclick="location.href='./main.do'">뒤로가기</button>
+<button onclick="window.history.back()">뒤로가기</button>
 
 </body>
 </html>

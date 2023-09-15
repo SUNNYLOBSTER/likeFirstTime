@@ -48,7 +48,6 @@
 		<div class="btn"><input type="button" onclick="writeChart()" value="글쓰기"></div>
 		<div class="btn"><input type="button" onclick="location.href='./selectAllChart.do'" value="목록보기"></div>
 	</div>
-   
 
 <script type="text/javascript" src="./js/newChartForm.js"></script>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>

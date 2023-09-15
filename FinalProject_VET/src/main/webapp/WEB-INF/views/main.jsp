@@ -1,41 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>메인페이지</title>
 </head>
+<%@ include file="./header.jsp" %>
 <body>
-${loginVo}
-<hr>
-<div>
-	<c:if test="${loginVo != null }">
-		<h3>${loginVo.users_name}님 환영합니다.</h3>
-		<input type="button" value="로그아웃" onclick="location.href='./logout.do'">
-	</c:if>
-	<c:if test="${loginVo.users_auth eq 'A' }">
-		<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
-	</c:if>
-	<c:if test="${loginVo.users_auth eq 'H' }">
-		<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
-	</c:if>
+<div id="container">
 	<c:if test="${loginVo.users_auth eq 'U' }">
-		<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
-		<br><br>
-		<a href="./selectAllChart.do">진료기록</a>
+		<a href="./resrv_requestPage.do?resrv_hops=gana@naver.com">예약신청 페이지</a><br>
 	</c:if>
 </div>
-<hr>
-<c:if test="${loginVo.users_auth eq 'U' }">
-	<a href="./resrv_requestPage.do?resrv_hops=gana@naver.com">예약신청 페이지</a><br>
-</c:if>
-<a href="./questBoard.do">진료문의게시판</a>
-<br>
-
 
 </body>
+
+<%@ include file="./footer.jsp" %>
 </html>
