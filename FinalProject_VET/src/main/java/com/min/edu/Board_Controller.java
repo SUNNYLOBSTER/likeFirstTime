@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
@@ -45,10 +48,27 @@ public class Board_Controller {
 		return "questDetail";
 	}
 	
-	@GetMapping(value = "/writeQuest.do")
+	@GetMapping(value = "/writeQuestForm.do")
 	public String moveWriteForm() {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
 		return "writeQuest";
 	}
 	
+	@PostMapping(value = "/writeQuest.do")
+	@ResponseBody
+	public String writeQuest() {
+		log.info("&&&&& Board_Controller 실행 writeQuest &&&&&");
+		return null;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

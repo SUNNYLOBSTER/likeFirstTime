@@ -11,9 +11,8 @@
 <link rel="stylesheet" href="./css/ckeditor.css">
 <link rel="stylesheet" href="./css/index.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script type="text/javascript" src="./js/newChartForm.js"></script>
 </head>
-<body>
+<body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
 	<div id="container">
 		<h1>새 진료기록 작성</h1>
 		<form action="./insertNewChart.do" method="post">
@@ -27,10 +26,10 @@
 						<option value="03">접종</option>
 					</select>
 					<input type="hidden" id="medi_lnameInput">
-			<select id="codeS" onchange="selectedSCode(this.value);">
-				<option>--질환--</option>
-			</select>
-			<input type="hidden" id="medi_snameInput">
+					<select id="codeS" onchange="selectedSCode(this.value);">
+						<option>--질환--</option>
+					</select>
+					<input type="hidden" id="medi_snameInput">
 			<br>
 			
 			반려동물 : <select id="petName" name="petName" required="required" onclick="selectedPet(this.value);">
@@ -43,18 +42,30 @@
 					<br>
 			진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required">
 			
-			<textarea id="editor" name="medi_content" required="required"></textarea>
+					<textarea id="editor" name="medi_content" required="required"></textarea>
 			
 		</form>
 		<div class="btn"><input type="button" onclick="writeChart()" value="글쓰기"></div>
 		<div class="btn"><input type="button" onclick="location.href='./selectAllChart.do'" value="목록보기"></div>
 	</div>
-	
+<script type="text/javascript" src="./js/newChartForm.js"></script>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>
-<script type="text/javascript" src="./js/ckeditor.js"></script> 
+<script type="text/javascript" src="./js/ckeditor.js"></script>
 <script type="text/javascript">
-//<input type="date"> 오늘 날짜로 초기값 설정
+//오늘 날짜로 초기값 설정
 document.getElementById('medi_visit').value = new Date().toISOString().substring(0, 10);
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

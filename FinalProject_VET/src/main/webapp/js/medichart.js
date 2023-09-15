@@ -12,6 +12,7 @@
 					console.log(data.list[0].medi_name);
 					var obj = $("#codeS");
 					var html = "";
+					html +="<option>--선택--</option>";
 					for(let i=0; i<data.list.length ;i++ ){
 					 	html += "<option value='"+data.list[i].medi_code+"'>"+data.list[i].medi_name+"</option>";
 						obj.append(html);
@@ -151,10 +152,5 @@
 		console.log("진료번호 : " ,medi_num);
 				
 		location.href='./selectOneChart.do?medi_num='+medi_num;
-				
-	
 		
 	});
-	
-
-	
