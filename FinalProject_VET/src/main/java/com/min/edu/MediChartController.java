@@ -2,24 +2,20 @@ package com.min.edu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.itextpdf.text.log.SysoCounter;
 import com.min.edu.model.service.IMediChart_Service;
-import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.Users_VO;
@@ -33,7 +29,6 @@ public class MediChartController {
 
 	@Autowired
 	private IMediChart_Service service;
-	
 	
 	@GetMapping(value = "/selectAllChart.do")
 	public String selectAllChart(HttpSession session, Model model) {
@@ -115,7 +110,6 @@ public class MediChartController {
 		String pet_owner = loginVo.getUsers_id();
 		
 		List<PetsInfo_VO> pvo = service.searchPet(pet_owner);
-//		List<String> petList = new ArrayList<String>();
 		List<PetsInfo_VO> petList = new ArrayList<PetsInfo_VO>();
 		if(!pvo.isEmpty()) {
 			for(int i=0; i<pvo.size();i++) {
@@ -125,6 +119,14 @@ public class MediChartController {
 		model.addAttribute("petList", petList);
 		
 		return "insertNewChartForm";
+	}
+	
+	@PostMapping(value = "/insertNewChart.do")
+	public String insertNewChart(String content, Model model) {
+		log.info("&&&&& MediChartController 새 진료기록 작성페이지 -> 상세페이지 &&&&&");
+		String escapedContent = StringEscapeUtils.escapeHtml4(content);
+		log.info(">>>>>>>>>>>>>>>>>>>>>>> @RequestMapping.POST write escapedContent : {}",escapedContent);
+		return null;
 	}
 	
 	
@@ -154,7 +156,6 @@ public class MediChartController {
 	}
 	
 	@GetMapping(value = "/selectOneChart.do")
-//	@ResponseBody
 	public String selectOneChart(String medi_num, Model model){
 		log.info("&&&&& MediChartController selectOneChart 전달받은 parameter값 : {}&&&&&",medi_num);
 		
