@@ -140,7 +140,7 @@
 		<c:when test="${empty loginVo}">
 			<div class="loginArea">
 				<button onclick="location.href='./loginForm.do'">로그인</button>
-				<button>회원가입</button>
+				<button onclick="location.href='./insertUsers.do'">회원가입</button>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -149,10 +149,10 @@
 					${loginVo.users_name}님 환영합니다
 				</span>
 				<c:if test="${loginVo.users_auth eq 'A' }">
-				<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
+					<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'H' }">
-				<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
+					<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
 					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
