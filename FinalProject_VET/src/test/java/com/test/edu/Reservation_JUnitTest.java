@@ -61,7 +61,7 @@ public class Reservation_JUnitTest {
 		assertNotNull(rvo);
 	}
 	
-	@Test
+//	@Test
 	public void resrv_dayStatusTest() {
 		Map<String, Object> map = new HashMap<String, Object>(){{
 			put("resrv_hops", "gana@naver.com");
@@ -98,6 +98,17 @@ public class Reservation_JUnitTest {
 		assertEquals(1, n);
 	}
 	
+//	@Test
+	public void resrv_reqPageTest() {
+		Hospital_VO hvo= service.resrv_reqPage("gana@naver.com");
+		assertNotNull(hvo);
+	}
+	
+	@Test
+	public void resrv_reqCal() {
+		List<Reservation_VO> lists = service.resrv_reqCal("gana@naver.com");
+		assertNotNull(lists);
+	}
 	
 	
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.vo.FullCalendar_VO;
+import com.min.edu.vo.Hospital_VO;
 import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.Users_VO;
 
@@ -128,32 +129,36 @@ public class Reservation_Controller {
       return (n>0)?"resrv_refuse":"false";
    }
    
-   @RequestMapping(value = "resrv_requestPage.do")
-   public String resrv_requestPage(HttpSession session, HttpServletResponse response, String resrv_hops, Model model) throws IOException {
+   @GetMapping(value = "resrv_requestPage.do")
+   public String resrv_requestPage(HttpSession session, String resrv_hops, Model model){
       log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
-      model.addAttribute("resrv_hops", resrv_hops);
+      session.setAttribute("resrv_hops", resrv_hops);
+      Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
+      System.out.println(hosp_info.getHosp_time());
+      model.addAttribute("hosp_info", hosp_info);
       
       return "resrv_requestPage";
    }
    
-   @PostMapping(value = "resrv_requestAjax.do")
+   @GetMapping(value = "resrv_requestAjax.do")
    @ResponseBody
-   public void resrv_requestAjax(HttpServletResponse response, Model model) throws IOException {
-      String resrv_hops = (String)model.getAttribute("resrv_hops");
-      log.info(resrv_hops);
-      List<FullCalendar_VO> resultList = new ArrayList<>();
-      List<Reservation_VO> resrvList = service.resrv_ResrvLists(resrv_hops);
+   public void resrv_requestAjax(HttpServletResponse response, HttpSession session, Model model) throws IOException {
+     
+	   String resrv_hops = (String)session.getAttribute("resrv_hops");
+       List<FullCalendar_VO> resultList = new ArrayList<>();
+       
+       List<Reservation_VO> rLists = service.resrv_reqCal(resrv_hops);
       
-      for (Reservation_VO rvo : resrvList) {
-         FullCalendar_VO fvo = new FullCalendar_VO();
-         fvo.setTitle(rvo.getResrv_name());
-         fvo.setStart(rvo.getResrv_visit());
-         resultList.add(fvo);
-      }
-      Gson gson = new Gson();
-      String json = gson.toJson(resultList);
-      PrintWriter out = response.getWriter();
-      out.print(json);
+       for (Reservation_VO rvo : rLists) {
+		FullCalendar_VO fvo = new FullCalendar_VO();
+		fvo.setStart(rvo.getResrv_visit());
+		fvo.setResrv_num(rvo.getResrv_num());
+		resultList.add(fvo);
+       }
+       Gson gson = new Gson();
+       String json = gson.toJson(resultList);
+       PrintWriter out = response.getWriter();
+       out.print(json);
    }
 }

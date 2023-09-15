@@ -20,8 +20,6 @@ public interface IReservation_Service {
 	//일별 예약상태에 따른 조회
 	public List<Reservation_VO> resrv_dayStatus(Map<String, Object> map);
 	
-	//진료예약 등록
-	public int resrv_insert(Reservation_VO rvo);
 	
 	//예약대기(W)에서 예약확정(Y) 상태로 변경
 	public int resrv_updateToY(String resrv_num);
@@ -29,8 +27,15 @@ public interface IReservation_Service {
 	//예약확정(Y) 상태에서 예약취소(N) 상태로 변경
 	public int resrv_updateToN(String resrv_num);
 	
+	//예약 신청화면에 가져올 병원의 운영정보
+	public Hospital_VO resrv_reqPage(String hosp_id);
+	
 	//예약을 거절/취소한 경우 예약목록에서 삭제
 	public int resrv_delete(String resrv_num);
 	
+	//진료예약 등록
+	public int resrv_insert(Reservation_VO rvo);
+	
+	public List<Reservation_VO> resrv_reqCal(String	resrv_hops);
 	
 }
