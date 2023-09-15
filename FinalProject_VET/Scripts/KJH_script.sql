@@ -28,15 +28,6 @@ SELECT RESRV_VISIT , RESRV_NUM, RESRV_NAME
 	WHERE RESRV_HOPS = 'nada@naver.com'
 		AND RESRV_STATUS = 'Y'
 
--- 해당 월에 등록된 예약자 명단	
-
-	
--- 날짜 선택 시 해당 날짜에 등록된 확정예약 건수 조회
-
-	
--- 일별 - 각 시간대에 예약확정된 예약자 조회
-
-
 -- 예약 상세정보를 조회할 수 있다.
 SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_MEMO 
 	FROM RESERVATION r 
@@ -50,6 +41,29 @@ SELECT RESRV_NUM,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, R
 		AND RESRV_STATUS = 'W'
 		ORDER BY RESRV_VISIT ;
 
+--예약 신청페이지에 뿌려줄 병원의 정보 및 영업 시간 (오늘날짜부터 리스트 출력)
+SELECT HOSP_TIME, HOSP_OFF, r.RESRV_NUM , 
+		TO_CHAR(r.RESRV_VISIT,'YYYY-MM-DD')||'T'||r.RESRV_TIME||':00:00' AS RESRV_VISIT,
+		r.RESRV_TIME , r.RESRV_STATUS 
+	FROM HOSPITAL h LEFT JOIN RESERVATION r
+	ON h.HOSP_ID = r.RESRV_HOPS 
+	WHERE HOSP_ID = 'gana@naver.com'
+		AND r.RESRV_STATUS IN ('Y','W')
+		AND  r.RESRV_VISIT > (SELECT TO_CHAR(SYSDATE -1,'YYYY-MM-DD')  
+							FROM DUAL)
+	ORDER BY r.RESRV_VISIT ASC;
+
+SELECT TO_CHAR(RESRV_VISIT,'YYYY-MM-DD')||'T'||r.RESRV_TIME||':00:00' AS RESRV_VISIT, RESRV_NUM 
+	FROM RESERVATION r
+	WHERE RESRV_VISIT > (SELECT TO_CHAR(SYSDATE -1,'YYYY-MM-DD')  
+							FROM DUAL)
+		AND (RESRV_STATUS = 'Y' OR RESRV_STATUS = 'W')
+		AND RESRV_HOPS = 'gana@naver.com'
+	ORDER BY RESRV_VISIT ASC;
+	
+SELECT TO_CHAR(SYSDATE -1,'YYYY-MM-DD')  
+	FROM DUAL
+	
 ------------------------------------- 등록 --------------------------------------------
 -- 진료예약 등록 (예약번호, 예약대기, 예약자 이름, 전화번호 , 예약시간, 메모, 병원ID)
 -- - default값: 예약대기(W)상태
