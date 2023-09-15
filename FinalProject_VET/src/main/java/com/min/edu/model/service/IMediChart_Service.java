@@ -34,5 +34,7 @@ public interface IMediChart_Service {
 	public int deleteChart(String medi_num);
 	
 	public List<MediCode_VO> selectAllMediCode();
+	
+	public MediCode_VO searchMediName(String medi_code);
 
 }

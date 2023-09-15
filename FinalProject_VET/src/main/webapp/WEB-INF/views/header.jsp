@@ -24,6 +24,9 @@
 	#container {
 		width: 1000px;
 		height: 1300px;
+		margin: 0px auto;
+   		padding: 0px;
+
 	}
 	
 	footer {
@@ -104,13 +107,6 @@
 	
 	.sidenav a:hover, .dropdown-btn:hover {
 		color: #EFEBE9;
-	}
-	
-	.container {
-		width: 1000px;
-		margin: 0px auto;
-		padding: 0px;
-		margin-left: 200px;
 	}
 	
 	.dropdown-container {

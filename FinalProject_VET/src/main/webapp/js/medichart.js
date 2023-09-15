@@ -14,7 +14,8 @@
 					var html = "";
 
           html +="<option>--선택--</option>";
-					for(let i=0; i<data.list.length ;i++ ){
+
+          for(let i=0; i<data.list.length ;i++ ){
 					 	html += "<option value='"+data.list[i].medi_code+"'>"+data.list[i].medi_name+"</option>";
 						obj.append(html);
 					}
