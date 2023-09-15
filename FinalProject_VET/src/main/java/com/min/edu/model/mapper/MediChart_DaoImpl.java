@@ -92,4 +92,9 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 		return session.selectOne(NS+"getMaxSeq");
 	}
 
+	@Override
+	public MediCode_VO searchMediName(String medi_code) {
+		return session.selectOne(NS+"searchMediName", medi_code);
+	}
+
 }

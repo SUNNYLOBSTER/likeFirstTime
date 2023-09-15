@@ -36,4 +36,6 @@ public interface IMediChart_Dao {
 	public List<MediCode_VO> selectAllMediCode();
 	
 	public String getMaxSeq();
+	
+	public MediCode_VO searchMediName(String medi_code);
 }

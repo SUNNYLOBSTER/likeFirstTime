@@ -23,6 +23,9 @@
 	#container {
 		width: 1000px;
 		height: 1300px;
+		margin: 0px auto;
+   		padding: 0px;
+
 	}
 	
 	footer {
@@ -104,18 +107,11 @@
 		color: #EFEBE9;
 	}
 	
-	.container {
-		width: 1000px;
-		margin: 0px auto;
-		padding: 0px;
-		margin-left: 200px;
-	}
-	
 	.dropdown-container {
 		display: none;
 		background-color: #D7CCC8;
 		padding-left: 8px;
-S	}
+	}
 	
 </style>
 <meta charset="UTF-8">
