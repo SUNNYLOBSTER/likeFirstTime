@@ -14,10 +14,15 @@ public class HomeController {
 		log.info("첫 페이지 호출 Controller");
 		return "home";
 	}
-	
+
+	@GetMapping(value = "/userMyPage.do")
+	public String userMyPage() {
+		log.info("&&&&& 메인 -> 일반사용자 마이페이지 &&&&&");
+		return "userMyPage";
+	}
+
 	@GetMapping(value = "/hospitalDetail.do")
 	public String hospitalDetail() {
-		
 		return "hospitalDetail";
 	}
   
