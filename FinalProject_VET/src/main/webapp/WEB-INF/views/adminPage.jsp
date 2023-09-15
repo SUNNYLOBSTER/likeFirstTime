@@ -15,7 +15,9 @@
 ${loginVo}
 <hr>
 <h2>관리자 페이지 입니다.</h2>
+<!-- <hr> -->
 <%-- ${listsVo} --%>
+<!-- <hr> -->
 <select name="userAuth" id="userAuth" onchange="selectAuth()">
 	<option value="">권한</option>
 	<option value="U">일반사용자</option>
