@@ -77,7 +77,6 @@
 				console.log("값 전달 오류");
 			}
 		});
-		
 	});
 	
 	//진료기록 대분류,소분류 선택에 따른 진료기록 조회 및 출력
@@ -152,7 +151,4 @@
 		console.log("진료번호 : " ,medi_num);
 				
 		location.href='./selectOneChart.do?medi_num='+medi_num;
-		
 	});
-
- 
