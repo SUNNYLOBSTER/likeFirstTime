@@ -26,7 +26,7 @@ public class Users_VO {
 	private String users_addr;
 	private String users_subtel;
 	private String users_auth;
-	private long users_crn;
+	private int users_crn;
 	
 	private List<PetsInfo_VO> petsinfo_vo;
 	private List<SnsInfo_VO> snsinfo_vo;
