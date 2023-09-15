@@ -59,7 +59,7 @@
 
 <!--  게시글 전체조회  -->
 <select id="selectQuest" resultType="QuestBoard_VO">
-SELECT q.QST_SEQ, q.QST_ID , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
+SELECT q.QST_SEQ, q.QST_ID , q.QST_TITLE, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q
 	JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
