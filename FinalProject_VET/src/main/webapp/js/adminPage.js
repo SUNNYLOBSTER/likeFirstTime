@@ -12,8 +12,8 @@ function selectAuth(){
 			type:"POST",
 			async:true,
 			data:{"auth":choiceAuthValue},
+			dataType:"json",
 			success: function(authList){
-				var authList = JSON.parse(authList);
 				console.log("받아온 요청 값 : ", authList);
 				console.log(authList[0].users_id);
 				
@@ -75,18 +75,19 @@ function selectStatus(){
 			type:"POST",
 			async:true,
 			data:{"status":choiceStatusValue},
+			dataType:"json",
 			success: function(statusList){
 				console.log("받아온 요청 값 : ", statusList);
 				console.log(statusList.length);
 				
-				if(statusList.length == 2){
+				if(statusList.length == 0){
 					info.innerHTML = "해당 상태인 회원이 없습니다.";
 					
 				} else {
 				
 				info.innerHTML = "";
-				var statusList = JSON.parse(statusList);
 				console.log(statusList[0].users_id);
+				
 				var varHtml = "";
 					
 			    varHtml += "<div id='userList'>      ";

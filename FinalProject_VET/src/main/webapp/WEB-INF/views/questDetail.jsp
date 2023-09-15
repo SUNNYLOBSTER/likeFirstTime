@@ -11,18 +11,18 @@
 </head>
 <body>
 ${lists[0]}
-<!-- <table> -->
-<!-- 	<thead> -->
-<!-- 		<tr> -->
+<table>
+	<thead>
+		<tr>
 <!-- 			<th style="width:100px;content-align:center;">작성자</th> -->
 <!-- 			<th style="width:200px;content-align:center;">제목</th> -->
 <!-- 			<th style="width:500px;content-align:center;">내용</th> -->
 <!-- 			<th>작성일</th> -->
-<!-- 		</tr> -->
-<!-- 	</thead> -->
-<!-- 	<tbody> -->
+		</tr>
+	</thead>
+	<tbody>
 <!-- 		<tr> -->
-<%-- <%-- 			<td>${lists.users_name}</td> --%> --%>
+<%-- <%-- 			<td>${lists.users_name}</td> --%>
 <%-- 			<td>${lists.qst_title}</td> --%>
 <%-- 			<td><a>${lists.qst_content}</a></td> --%>
 <!-- 			<td> -->
@@ -30,17 +30,17 @@ ${lists[0]}
 <%-- 				<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/> --%>
 <!-- 			</td> -->
 <!-- 		</tr> -->
-<!-- 	</tbody> -->
-<!-- </table> -->
-<!-- <table> -->
-<!-- 	<thead> -->
+	</tbody>
+</table>
+<table>
+	<thead>
 <!-- 		<tr> -->
 <!-- 			<th style="width:100px;content-align:center;">작성자</th> -->
 <!-- 			<th style="width:500px;content-align:center;">내용</th> -->
 <!-- 			<th>작성일</th> -->
 <!-- 		</tr> -->
-<!-- 	</thead> -->
-<!-- 	<tbody> -->
+	</thead>
+	<tbody>
 <!-- 		<tr> -->
 <%-- 			<c:forEach var="dto" items="${qstVo}" varStatus="vs"> --%>
 <%-- 			<td>${dto.rpy_id}</td> --%>
@@ -51,7 +51,7 @@ ${lists[0]}
 <!-- 			</td> -->
 <%-- 			</c:forEach> --%>
 <!-- 		</tr> -->
-<!-- 	</tbody> -->
-<!-- </table> -->
+	</tbody>
+</table>
 </body>
 </html>
