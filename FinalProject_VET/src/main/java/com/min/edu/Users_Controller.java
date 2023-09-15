@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -149,5 +150,22 @@ public class Users_Controller {
 		
 	}
 	
+	@PostMapping(path="/adminPageStatus.do", produces="application/text; charset=UTF-8;")
+	@ResponseBody
+	public String selectStatus(String status, HttpSession session,
+							   HttpServletResponse response) {
+		log.info("&&&&& Users_Controller 관리자페이지 권한별 조회 ajax처리 {} &&&&&", status);
+		response.setContentType("text/html; charset=UTF-8;");
+		
+		System.out.println(status);
+		
+		List<Users_VO> selectStatus = service.selectUsersStatus(status);
+		
+		Gson gson = new Gson();
+		String selectStatusList = gson.toJson(selectStatus);
+		
+		return selectStatusList;
 	}
+	
+}
 
