@@ -28,9 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 				},
 				dateClick: function(info) {
-					selectedDateElement.textContent = info.dateStr;
-					selectedDateElement.style.color = 'black';
-
+					console.log(info.dateStr);
 				},
 				headerToolbar: {
 					left: 'dayGridMonth',
