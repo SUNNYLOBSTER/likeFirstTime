@@ -18,6 +18,10 @@ public class FullCalendar_VO {
 	private String title;
 	private String start;
 	private String end;
-	private String description;
+	private String hosp_time;
+	private String hosp_off;
 	private String resrv_num;
+	private String resrv_time;
+	private String resrv_staus;
+	
 }
