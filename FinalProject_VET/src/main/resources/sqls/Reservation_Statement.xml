@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.Reservation_DaoImpl">
 
+	<resultMap type="com.min.edu.vo.Hospital_VO" id="hospital_VO">
+		<result column="HOSP_ID" property="hosp_id"/>
+		<result column="HOSP_NAME" property="hosp_name"/>
+		<result column="HOSP_TIME" property="hosp_time"/>
+		<result column="HOSP_OFF" property="hosp_off"/>
+		<result column="HOSP_PARK" property="hosp_park"/>
+		<result column="HOSP_ETC" property="hosp_etc"/>
+		
+		<collection property="reservation_vo" resultMap="resrv_VO"/>
+	</resultMap>
+	
+	<resultMap type="com.min.edu.vo.Reservation_VO" id="resrv_VO">
+		<result column="RESRV_NUM" property="resrv_num"/>
+		<result column="RESRV_HOPS" property="resrv_hops"/>
+		<result column="RESRV_VISIT" property="resrv_visit"/>
+		<result column="RESRV_TIME" property="resrv_time"/>
+		<result column="RESRV_NAME" property="resrv_name"/>
+		<result column="RESRV_TEL" property="resrv_tel"/>
+		<result column="RESRV_MEMO" property="resrv_memo"/>
+		<result column="RESRV_STATUS" property="resrv_status"/>
+		<result column="RESRV_REGDATE" property="resrv_regdate"/>
+	</resultMap>
+
 	<select id="resrv_monthYNCount" resultType="java.util.Map">
 		SELECT  MM, NVL(Y_COUNT, 0) AS Y_COUNT
 			FROM(
@@ -26,7 +49,7 @@
 	</select>
 	
 	<select id="resrv_ResrvLists" resultType="Reservation_VO">
-		SELECT RESRV_VISIT , RESRV_NUM, RESRV_NAME, RESRV_NUM
+		SELECT RESRV_VISIT , RESRV_NUM, RESRV_NAME
 			FROM (SELECT TO_CHAR(RESRV_VISIT,'YYYY-MM-DD')||'T'||RESRV_TIME||':00:00' AS RESRV_VISIT, RESRV_NUM, RESRV_NAME, RESRV_STATUS, RESRV_HOPS  
 					FROM RESERVATION r) 
 			WHERE RESRV_HOPS = #{resrv_hops}
@@ -76,6 +99,30 @@
 	<delete id="resrv_delete">
 		DELETE FROM RESERVATION WHERE RESRV_NUM = #{resrv_num}
 	</delete>
+	
+	<select id="resrv_reqPage" resultMap="hospital_VO">
+		SELECT HOSP_TIME, HOSP_OFF, r.RESRV_NUM , 
+				TO_CHAR(r.RESRV_VISIT,'YYYY-MM-DD')||'T'||r.RESRV_TIME||':00:00' AS RESRV_VISIT,
+				r.RESRV_TIME , r.RESRV_STATUS 
+			FROM HOSPITAL h LEFT JOIN RESERVATION r
+			ON h.HOSP_ID = r.RESRV_HOPS 
+			WHERE HOSP_ID = #{hosp_id}
+				AND r.RESRV_STATUS IN ('Y','W')
+				AND  r.RESRV_VISIT > (SELECT TO_CHAR(SYSDATE -1,'YYYY-MM-DD')  
+									FROM DUAL)
+			ORDER BY r.RESRV_VISIT ASC
+	</select>
+	
+	<select id="resrv_reqCal" resultType="Reservation_VO">
+		SELECT TO_CHAR(RESRV_VISIT,'YYYY-MM-DD')||'T'||r.RESRV_TIME||':00:00' AS RESRV_VISIT, RESRV_NUM 
+			FROM RESERVATION r
+			WHERE RESRV_VISIT > (SELECT TO_CHAR(SYSDATE -1,'YYYY-MM-DD')  
+									FROM DUAL)
+				AND (RESRV_STATUS = 'Y' OR RESRV_STATUS = 'W')
+				AND RESRV_HOPS = #{resrv_hops}
+			ORDER BY RESRV_VISIT ASC
+	</select>
+	
 	
 	
 </mapper>

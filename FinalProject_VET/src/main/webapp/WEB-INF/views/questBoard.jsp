@@ -61,7 +61,7 @@
 			<td style="text-align:center;">${vs.count}</td>
 			<td>${dto.qst_id}</td>
 			<td>${dto.qst_title}</td>
-			<td>${dto.qst_seq}<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
+			<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
 			<td>
 				<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 				<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>

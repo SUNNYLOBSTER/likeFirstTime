@@ -26,5 +26,6 @@ public class Hospital_VO {
 
 	private List<AnimalConn_VO> animalconn_vo;
 	private List<MediConn_VO> mediconn_vo;
+	private List<Reservation_VO> reservation_vo;
 	
 }

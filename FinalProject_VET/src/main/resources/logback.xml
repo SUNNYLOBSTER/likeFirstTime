@@ -26,5 +26,6 @@
     <root level="trace">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="rollingAppender"/>
     </root>
 </configuration>
