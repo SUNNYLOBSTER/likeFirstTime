@@ -152,5 +152,5 @@ function resrv_calendar(){
 	calendar.style.display='block';
 	month_cnt.style.display='none';
 	waitList.style.display='none';
-	
 }
+
