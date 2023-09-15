@@ -1,0 +1,45 @@
+@charset "UTF-8";
+#container{
+	width: 1000px;
+	margin: 0px auto;
+}
+
+.insertMap{
+	border: 1px solid black;
+	width: 100%;
+	height: 400px;
+}
+#title{
+	text-align: center;
+	width: 960px;
+	height: 50px;
+	margin: 10px;
+}
+
+#hospitalName{
+	font-size: 20px;
+	
+}
+
+#bookmark{
+	width: 20px;
+	height: 20px;
+}
+
+#bookmarkPart{
+	position: absolute;
+}
+
+#map-box{
+	width: 100%;
+	height: 300px;
+	overflow: hidden;
+	margin: 20px auto;
+	text-align: center;
+}
+
+#mapPic{
+	width: 80%;
+	height: 100%;
+	object-fit: cover;
+}
