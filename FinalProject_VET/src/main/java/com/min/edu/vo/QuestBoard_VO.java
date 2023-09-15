@@ -31,5 +31,6 @@ public class QuestBoard_VO {
 	private List<FileBoard_VO> fileboard_vo;
 	private List<AnimalPart_VO> animalpart_vo;
 	private List<AnimalCode_VO> animalcode_vo;
+	private List<Users_VO> users_vo;
 	
 }
