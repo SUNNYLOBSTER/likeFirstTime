@@ -15,8 +15,9 @@
 	
 	<collection property="replyboard_vo" resultMap="ReplyVOMap"/>
 	<collection property="fileboard_vo" resultMap="FileVOMap"/>
-<!-- 	<collection property="animalcode_vo" resultMap="CodeVOMap"/> -->
-<!-- 	<collection property="animalpart_vo" resultMap="PartVOMap"/> -->
+	<collection property="animalcode_vo" resultMap="CodeVOMap"/>
+	<collection property="animalpart_vo" resultMap="PartVOMap"/>
+	<collection property="users_vo" resultMap="UserVOMap"/>
 </resultMap>
 
 <resultMap type="com.min.edu.vo.ReplyBoard_VO" id="ReplyVOMap">
@@ -38,6 +39,22 @@
 	<result column="F_DELFLAG" property="f_delflag"/>
 </resultMap>
 
+<resultMap type="com.min.edu.vo.AnimalCode_VO" id="CodeVOMap">
+	<result column="ANM_CODE" property="anm_code"/>
+	<result column="ANM_SPECIES" property="anm_species"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.AnimalPart_VO" id="PartVOMap">
+	<result column="PART_NAME" property="part_name"/>
+	<result column="PART_CODE" property="part_code"/>
+</resultMap>
+
+<resultMap type="com.min.edu.vo.Users_VO" id="UserVOMap">
+	<result column="USERS_ID" property="users_id"/>
+	<result column="USERS_NAME" property="users_name"/>
+	<result column="USERS_STATUS" property="users_status"/>
+	<result column="USERS_AUTH" property="users_auth"/>
+</resultMap>
 
 
 <!--  게시글 전체조회  -->
@@ -52,7 +69,7 @@ SELECT q.QST_SEQ, q.QST_ID , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PA
 
 <!-- 대분류 선택 게시글 전체조회 -->
 <select id="selectCodeQuest" resultType="QuestBoard_VO">
-SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
+SELECT q.QST_SEQ, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2
 	WHERE q.QST_ID = u.USERS_ID 
 	AND q.QST_SPECIES = a.ANM_CODE
@@ -85,10 +102,10 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 
 <!-- 게시글 상세조회 및 해당 게시글의 답글 전체조회 -->
 <select id="selectOneBoard" resultMap="BoardMap">
-SELECT u.USERS_NAME ,q.QST_TITLE, q.QST_CONTENT,
+SELECT u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT,
 	 q.QST_REGDATE, r.RPY_ID, r.RPY_REF, 
 	 r.RPY_CONTENT , r.RPY_STATUS 
-	FROM QUESTBOARD q ,USERSINFO u, REPLYBOARD r 
+	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r 
 	WHERE q.QST_ID = u.USERS_ID 
 	AND q.QST_SEQ = r.RPY_REF
 	AND (q.QST_STATUS = 'Y' OR r.RPY_STATUS = 'Y')

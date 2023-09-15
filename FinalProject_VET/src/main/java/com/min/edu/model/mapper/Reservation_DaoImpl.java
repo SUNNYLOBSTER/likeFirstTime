@@ -61,5 +61,15 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 		return session.delete(NS+"resrv_delete",resrv_num);
 	}
 
+	@Override
+	public Hospital_VO resrv_reqPage(String hosp_id) {
+		return session.selectOne(NS+"resrv_reqPage",hosp_id);
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_reqCal(String resrv_hops) {
+		return session.selectList(NS+"resrv_reqCal", resrv_hops);
+	}
+
 	
 }

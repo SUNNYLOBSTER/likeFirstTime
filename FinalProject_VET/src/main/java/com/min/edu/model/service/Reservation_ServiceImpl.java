@@ -76,5 +76,19 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 		return dao.resrv_delete(resrv_num);
 	}
 
+	@Override
+	public Hospital_VO resrv_reqPage(String hosp_id) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_reqPage &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
+		return dao.resrv_reqPage(hosp_id);
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_reqCal(String resrv_hops) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_reqCal &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
+		return dao.resrv_reqCal(resrv_hops);
+	}
+
 	
 }
