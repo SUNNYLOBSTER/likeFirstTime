@@ -26,11 +26,11 @@
 						<option value="02">외과</option>
 						<option value="03">접종</option>
 					</select>
-					<input type="hidden" id="medi_lnameInput">
-			<select id="codeS" onchange="selectedSCode(this.value);">
-				<option>--질환--</option>
-			</select>
-			<input type="hidden" id="medi_snameInput">
+					<input type="text" id="medi_lnameInput">
+					<select id="codeS" onchange="selectedSCode(this.value);">
+						<option>--질환--</option>
+					</select>
+					<input type="text" id="medi_snameInput">
 			<br>
 			
 			반려동물 : <select id="petName" name="petName" required="required" onclick="selectedPet(this.value);">
@@ -39,11 +39,11 @@
 							<option value="${pets.pet_seq}" id="mpet_seq">${pets.pet_name}</option>
 						</c:forEach>
 					</select>
-					<input type="hidden" id="selectedPetInput">
+					<input type="text" id="selectedPetInput">
 					<br>
 			진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required">
 			
-			<textarea id="editor" name="medi_content" required="required"></textarea>
+					<textarea id="editor" name="medi_content" required="required"></textarea>
 			
 		</form>
 		<div class="btn"><input type="button" onclick="writeChart()" value="글쓰기"></div>
