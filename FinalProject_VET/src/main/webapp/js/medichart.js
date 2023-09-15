@@ -3,7 +3,6 @@
 			var codeL = document.getElementById("codeL");
 			var selectedValue = codeL.options[codeL.selectedIndex].value;
 			console.log("선택된 대분류 : ",selectedValue);
-			
 			$.ajax({
 				url:'./listByCodeS.do',
 				method:'post',
@@ -24,20 +23,17 @@
 				}
 			});
 		}
-	
 	//반려동물 seq선택에 따른 진료기록 조회 및 출력
 	$(document).on("click",".selectPet", function(){
 		console.log("selectPet 실행");
 		var petValue = $(this).val();
 		console.log("선택된 pet_seq : ", petValue);
-		
 		$.ajax({
 			url:'selectPetChart.do',
 			method:'post',
 			data:{pet_seq : petValue},
 			success:function(data){
 				console.log("전달받은 리스트 : ", data);
-				
 				var listname = document.getElementById('listname');
 				listname.innerHTML = '<p>반려동물별 진료기록</p>';
 				if(data.detail.length == 0){
@@ -78,18 +74,14 @@
 			}
 		});
 	});
-	
 	//진료기록 대분류,소분류 선택에 따른 진료기록 조회 및 출력
 	function selectCode() {
 		console.log("selectCode 실행");
 		var codeL = document.getElementById("codeL");
 		var selectedL = codeL.options[codeL.selectedIndex].value;
-		
 		var codeS = document.getElementById("codeS");
 		var selectedS = codeS.options[codeS.selectedIndex].value;
-		
 		console.log("선택된 대분류, 소분류 : ", selectedL, selectedS);
-		
 		$.ajax({
 			url:'./selectSChart.do',
 			method:'post',
@@ -99,7 +91,6 @@
 			},
 			success:function(data){
 				console.log("전달받은 리스트 : ",data);
-				
 				var listname = document.getElementById('listname');
 				listname.innerHTML = '<p>진료과목별 진료기록</p>';
 				if(data.lists.length == 0){
@@ -134,21 +125,16 @@
 					}
 					chartPart.innerHTML = html;
 				}
-				
 			},
 			error:function(){
 				console.log("값 전달 오류");
 			}
 		});
-		
 	}
-	
 	//진료기록 <div> 클릭시 상세보기 페이지 호출
 	$(document).on("click", ".detail", function(){
 		console.log("상세보기 실행");
-		
 		var medi_num = this.querySelector(".medi_num").value;
 		console.log("진료번호 : " ,medi_num);
-				
 		location.href='./selectOneChart.do?medi_num='+medi_num;
 	});

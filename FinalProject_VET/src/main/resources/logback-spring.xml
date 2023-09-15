@@ -19,6 +19,7 @@
     </appender>
 
     <logger name="org.springframework" level="INFO"/>
+
     <logger name="com.min.edu" level="TRACE"/>
     <logger name="jdbc.sqlonly" level="TRACE" />
     <logger name="jdbc.resultsettable" level="TRACE" />

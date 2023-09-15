@@ -59,5 +59,9 @@
 document.getElementById('medi_visit').value = new Date().toISOString().substring(0, 10);
 </script>
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'RiNa' of https://github.com/SUNNYLOBSTER/likeFirstTime.git
 <%@ include file="./footer.jsp" %>
 </html>
