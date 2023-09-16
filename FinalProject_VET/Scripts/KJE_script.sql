@@ -7,3 +7,11 @@ SELECT u.USERS_NAME , q.QST_ID, q.QST_TITLE,
    AND (q.QST_STATUS = 'Y' OR r.RPY_STATUS = 'Y')
    AND q.QST_SEQ = 'Q2'
     ORDER BY r.RPY_SEQ DESC;
+
+   
+UPDATE USERSINFO SET USERS_STATUS='S' WHERE USERS_ID IN (gana@naver.com, nada@naver.com);
+
+UPDATE USERSINFO SET USERS_STATUS='S' WHERE USERS_ID IN ('gana@naver.com', 'nada@naver.com');
+
+SELECT *
+	FROM USERSINFO u ;
