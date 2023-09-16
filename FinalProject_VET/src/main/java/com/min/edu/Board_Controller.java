@@ -43,10 +43,22 @@ public class Board_Controller {
 	public String questDetail(String seq, Model model) {
 		log.info(seq);
 		log.info("&&&&& Board_Controller 실행 questDetail 이동 &&&&&");
-		List<QuestBoard_VO> lists = service.selectOneBoard(seq);
-		model.addAttribute("lists", lists);
+		List<QuestBoard_VO> qstDetail = service.selectOneBoard(seq);
+		List<ReplyBoard_VO> rpyList = service.selectReply(seq);
+		model.addAttribute("qstDetail", qstDetail);
+		model.addAttribute("rpyList", rpyList);
 		return "questDetail";
 	}
+
+	@GetMapping(value = "/choosePage.do")
+	public String chooseReply() {
+	log.info("&&&&& Board_Controller 실행 chooseReply 페이지 이동&&&&&");	
+	
+	return "choosePage";
+	}
+	
+	
+	
 	
 	@GetMapping(value = "/writeQuestForm.do")
 	public String moveWriteForm() {
@@ -60,6 +72,8 @@ public class Board_Controller {
 		log.info("&&&&& Board_Controller 실행 writeQuest &&&&&");
 		return null;
 	}
+	
+	
 	
 }
 

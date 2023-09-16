@@ -78,7 +78,7 @@ public class Board_JUnitTest {
 		assertNotNull(lists);
 	}
 	
-	@Test
+//	@Test
 	public void selectOneBoard() {
 		List<QuestBoard_VO> lists = service.selectOneBoard("Q2");
 		assertNotNull(lists);

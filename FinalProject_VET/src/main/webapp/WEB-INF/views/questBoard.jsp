@@ -74,6 +74,8 @@
 </table>
 </div>
 <a href="./writeQuest.do">새 글 작성</a><br>
+
+
 <!-- 페이징 -->
 <div class="paging">
 </div>
