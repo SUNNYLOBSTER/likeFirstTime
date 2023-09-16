@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
@@ -135,8 +137,13 @@ public class Reservation_Controller {
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
       session.setAttribute("resrv_hops", resrv_hops);
       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
-      System.out.println(hosp_info.getHosp_time());
-      model.addAttribute("hosp_info", hosp_info);
+//      String hosp_time = hosp_info.getHosp_time();
+//      String json_time = gson.toJson(hosp_time);
+      Gson gson = new GsonBuilder().create();
+      Hospital_VO hospital_VO = gson.fromJson(hosp_info.toString(), Hospital_VO.class);
+      
+//      model.addAttribute("hosp_time", json_time);
+      
       
       return "resrv_requestPage";
    }

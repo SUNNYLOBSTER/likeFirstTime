@@ -163,5 +163,10 @@ public class Users_Controller {
 		return selectStatusList;
 	}
 	
+	@GetMapping(path = "/insertUsers.do")
+	public String insertUsers() {
+		log.info("&&&&& Users_Controller loginForm ->  insertUsers 페이지 이동 &&&&&");
+		return "insertUsersStepOne";
+	}
 }
 

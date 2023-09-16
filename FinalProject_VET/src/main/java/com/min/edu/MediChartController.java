@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.edu.model.service.IMediChart_Service;
+import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.Users_VO;
@@ -122,11 +124,25 @@ public class MediChartController {
 	}
 	
 	@PostMapping(value = "/insertNewChart.do")
-	public String insertNewChart(String content, Model model) {
+	public String insertNewChart(@RequestParam Map<String, Object> map, HttpSession session , Model model) {
 		log.info("&&&&& MediChartController 새 진료기록 작성페이지 -> 상세페이지 &&&&&");
-		String escapedContent = StringEscapeUtils.escapeHtml4(content);
-		log.info(">>>>>>>>>>>>>>>>>>>>>>> @RequestMapping.POST write escapedContent : {}",escapedContent);
-		return null;
+		log.info("&&&&& MediChartController selectSChart 전달받은 parameter값 : {}",map);
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String pet_owner = loginVo.getUsers_id();
+		
+		String medi_content = (String) map.get("medi_content");
+		String escapedContent = StringEscapeUtils.escapeHtml4(medi_content);
+		String medi_visit = (String) map.get("medi_visit");
+		String mpet_seq = (String)map.get("petName");
+		String medi_title = (String)map.get("medi_title");
+		String medi_l = (String) map.get("codeL");
+		String medi_s = (String) map.get("codeS");
+		
+		service.selectAllMediCode();
+		
+		
+		return "detailChart";
 	}
 	
 	

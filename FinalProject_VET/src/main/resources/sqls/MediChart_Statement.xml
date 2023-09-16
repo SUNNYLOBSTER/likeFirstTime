@@ -190,6 +190,13 @@
 			FROM MEDICODE
 	</select>
 	
+	<!-- 진료코드로 이름 조회 -->
+	<select id="searchMediName" resultType="com.min.edu.vo.MediCode_VO">
+		SELECT MEDI_NAME, MEDI_TOP
+			FROM MEDICODE
+			WHERE MEDI_CODE = #{medi_code}
+	</select>
+	
 	<!-- 파일업로드 -->
 	<insert id="fileUpload" parameterType="com.min.edu.vo.FileBoard_VO">
 		INSERT INTO PROJECT.FILEBOARD

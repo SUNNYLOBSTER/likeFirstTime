@@ -217,3 +217,25 @@ function searchUserId(){
 	}
 }
 
+
+function chkBox(){
+	var chks = document.getElementsByName("chkId");
+	var cnt = 0;
+	for(let c of chks){
+		if(c.checked){
+			cnt++;
+		}
+	}
+	
+	if(cnt==0){
+		alert("한 명 이상의 회원을 반드시 선택해주세요.");
+		return false;		
+	}
+}
+
+function allChk(bool){
+	var chks = document.getElementsByName("chkId");
+	for(let c of chks){
+		c.checked = bool;
+	}
+}
