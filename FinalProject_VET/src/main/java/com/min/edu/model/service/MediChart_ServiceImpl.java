@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.min.edu.model.mapper.IMediChart_Dao;
+import com.min.edu.vo.FileBoard_VO;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
@@ -45,13 +47,17 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		log.info("&&&&& MediChart_ServiceImpl deletePet 전달받은 파라미터값 : {} &&&&&", pet_seq);
 		return dao.deletePet(pet_seq);
 	}
-
+	
+//	@Transactional(readOnly = true)
 	@Override
 	public String insertNewChart(MediChart_VO mvo) {
 		log.info("&&&&& MediChart_ServiceImpl insertNewChart &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", mvo);
 		int n = dao.insertNewChart(mvo);
+//		fvo.setF_ref(mvo.getMedi_num());
+//		int f = dao.fileUpload(fvo);
 		String m = (n>0)?dao.getMaxSeq():"";
+//		String m = (n>0 && f>=0)?dao.getMaxSeq():"";
 		return m;
 	}
 
@@ -114,6 +120,12 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 	public MediCode_VO searchMediName(String medi_code) {
 		log.info("&&&&& MediChart_ServiceImpl searchMediName &&&&&");
 		return dao.searchMediName(medi_code);
+	}
+
+	@Override
+	public String getDetail(String medi_num) {
+		log.info("&&&&& MediChart_ServiceImpl getDetail &&&&&");
+		return dao.getDetail(medi_num);
 	}
 
 

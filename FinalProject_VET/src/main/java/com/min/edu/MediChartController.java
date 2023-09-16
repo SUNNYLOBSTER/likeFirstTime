@@ -1,10 +1,18 @@
 package com.min.edu;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -13,10 +21,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.WebUtils;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.min.edu.model.service.IMediChart_Service;
+import com.min.edu.vo.FileBoard_VO;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
@@ -56,7 +70,7 @@ public class MediChartController {
 		}
 		model.addAttribute("codelists",lists);
 		
-		return "chart";
+		return "chart_allChart";
 	}
 	
 
@@ -120,7 +134,7 @@ public class MediChartController {
 		}
 		model.addAttribute("petList", petList);
 		
-		return "insertNewChartForm";
+		return "chart_insertNewChartForm";
 	}
 	
 	@PostMapping(value = "/insertNewChart.do")
@@ -129,20 +143,36 @@ public class MediChartController {
 		log.info("&&&&& MediChartController selectSChart 전달받은 parameter값 : {}",map);
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-		String pet_owner = loginVo.getUsers_id();
+		String medi_id = loginVo.getUsers_id();
 		
 		String medi_content = (String) map.get("medi_content");
 		String escapedContent = StringEscapeUtils.escapeHtml4(medi_content);
 		String medi_visit = (String) map.get("medi_visit");
-		String mpet_seq = (String)map.get("petName");
+		String pet_seq = (String)map.get("petName");
+		int mpet_seq = Integer.parseInt(pet_seq);
 		String medi_title = (String)map.get("medi_title");
-		String medi_l = (String) map.get("codeL");
-		String medi_s = (String) map.get("codeS");
+		String codeL = (String) map.get("codeL");
+		String codeS = (String) map.get("codeS");
 		
-		service.selectAllMediCode();
+		MediCode_VO mvo1 = service.searchMediName(codeL);
+		String medi_l = mvo1.getMedi_name();
+		MediCode_VO mvo2 = service.searchMediName(codeS);
+		String medi_s = mvo2.getMedi_name();
 		
+		MediChart_VO detailVo = new MediChart_VO();
+		detailVo.setMedi_content(escapedContent);
+		detailVo.setMedi_id(medi_id);
+		detailVo.setMedi_l(codeL);
+		detailVo.setMedi_lname(medi_l);
+		detailVo.setMedi_s(codeS);
+		detailVo.setMedi_sname(medi_s);
+		detailVo.setMedi_title(medi_title);
+		detailVo.setMedi_visit(medi_visit);
+		detailVo.setMpet_seq(mpet_seq);
 		
-		return "detailChart";
+		String m = service.insertNewChart(detailVo);
+		
+		return "redirect:/selectOneChart.do?medi_num="+m;
 	}
 	
 	
@@ -173,13 +203,148 @@ public class MediChartController {
 	
 	@GetMapping(value = "/selectOneChart.do")
 	public String selectOneChart(String medi_num, Model model){
+		log.info("&&&&& MediChartController 진료기록 작성페이지 -> 상세페이지 &&&&&");
 		log.info("&&&&& MediChartController selectOneChart 전달받은 parameter값 : {}&&&&&",medi_num);
 		
 		PetsInfo_VO pvo =  service.selectOneChart(medi_num);
-		model.addAttribute("pvo",pvo);
 		
-		return "detail";
+		String unescapedContent = StringEscapeUtils.unescapeHtml4(pvo.getMedichart_vo().get(0).getMedi_content());  
+		
+		model.addAttribute("pvo",pvo);
+		model.addAttribute("medi_content", unescapedContent);
+		
+		return "chart_detail";
+	}
+	
+	@GetMapping(value = "/modifyChartForm.do")
+	public String modifyChartForm(String medi_num, Model model) {
+		log.info("&&&&& MediChartController 상세페이지 -> 진료기록 수정페이지 &&&&&");
+		log.info("&&&&& MediChartController modifyChartForm 전달받은 parameter값 : {}&&&&&",medi_num);
+		PetsInfo_VO pvo = service.selectOneChart(medi_num);
+		String unescapedContent = StringEscapeUtils.unescapeHtml4(pvo.getMedichart_vo().get(0).getMedi_content());
+		
+		model.addAttribute("pvo",pvo);
+		model.addAttribute("medi_content", unescapedContent);
+		return "chart_updateForm";
+	}
+	
+	@PostMapping(value = "/updateChart.do")
+	public String updateChart(String medi_num, String medi_content) {
+		log.info("&&&&& MediChartController 진료기록 수정페이지(수정) -> 상세페이지 &&&&&");
+		log.info("&&&&& MediChartController modifyChartForm 전달받은 parameter값 : {} {}&&&&&",medi_num, medi_content);
+		String escapedContent = StringEscapeUtils.escapeHtml4(medi_content);
+		
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("medi_content", escapedContent);
+			put("medi_num",medi_num);
+		}};
+		
+		int n = service.modifyChart(map);
+		
+		return n>0?"redirect:/selectOneChart.do?medi_num="+medi_num : "redirect:/modifyChartForm.do?medi_num="+medi_num;
 	}
 
+	@GetMapping(value = "/deleteChart.do")
+	public String deleteChart(String medi_num) {
+		log.info("&&&&& MediChartController 진료기록 수정페이지(삭제) -> 상세페이지 &&&&&");
+		log.info("&&&&& MediChartController modifyChartForm 전달받은 parameter값 : {}&&&&&", medi_num);
+		
+		int n = service.deleteChart(medi_num);
+		
+		return n>0?"redirect:/selectAllChart.do":"redirect:/selectOneChart.do?medi_num="+medi_num;
+	}
+	
+	@RequestMapping(value="/getContent.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String getContent(String medi_num) {
+		log.info("&&&&& MediChartController getContent 전달받은 parameter값 : {}&&&&&", medi_num);
+		String content = service.getDetail(medi_num);
+		String unescapedContent = StringEscapeUtils.unescapeHtml4(content);
+		
+		return unescapedContent;
+	}
+	
+	@RequestMapping(value="/uploadImage.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> uploadImage(MultipartFile upload, HttpServletRequest req) {
+		log.info("&&&&& MediChartController modifyChartForm 전달받은 parameter값 : {}&&&&&",upload);
+		
+		String ext = upload.getOriginalFilename().substring(upload.getOriginalFilename().lastIndexOf("."));
+		String saveName = UUID.randomUUID().toString().replace("-", "")+ext;
+		
+//		FileBoard_VO fvo = new FileBoard_VO();
+//		fvo.setF_originname(ext);
+//		fvo.setF_storedname(saveName);
+		
+		InputStream inputStream = null;
+		OutputStream outputStream = null;
+		String path="";
+		
+		try {
+			// 파일읽기
+			inputStream = upload.getInputStream();
+			
+			// 저장 위치 문자열 만들기(상대경로)
+			path = WebUtils.getRealPath(req.getSession().getServletContext(),"/ckupload");
+			System.out.println(path);
+			
+			// 저장 위치가 존재하지 않으면 폴더 생성
+			File storage = new File(path);
+			if(!storage.exists()) {
+				storage.mkdir();
+			}
+			
+			// 저장할 파일이 해당 위치에 없다면 만들어주고 아니면 오버라이드 함
+			File newFile = new File(path+"/"+saveName);
+			if(!newFile.exists()) {
+				newFile.createNewFile();
+			}
+			
+			// client에서 받아온 파일(upload)를 쓸 대상(newFile) 지정
+			outputStream = new FileOutputStream(newFile);
+			
+			// 파일(upload)를 읽어 대상(newFile)에 씀
+			int read = 0;
+			byte[] b = new byte[(int)upload.getSize()];
+			while((read=inputStream.read(b))!=-1) {
+				outputStream.write(b,0,read);
+			}
+			
+		} catch (IOException e) {
+			log.error("!!!!!!!!!!!!!!!! uploadImage read Error : \n"+e.getMessage());
+		} finally {
+				try {
+					inputStream.close();
+					outputStream.close();
+				} catch (IOException e) {
+					log.error("!!!!!!!!!!!!!!!! uploadImage close Error : \n"+e.getMessage());
+					e.printStackTrace();
+				}
+		}
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("url", "./ckupload/"+saveName);
+		
+		return map;
+	}
+	
+	@RequestMapping(value="/removeImage.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void removeImage(String saveName, HttpServletRequest req) {
+		log.info("&&&&& MediChartController removeImage 전달받은 parameter값 : {}&&&&&",saveName);
+		
+		String path = "";
+		
+		try {
+			path = WebUtils.getRealPath(req.getSession().getServletContext(),"/ckupload");
+			File oldFile = new File(path+"/"+saveName);
+			// 파일이 존재하면 삭제
+			if(oldFile.exists()) {
+				oldFile.delete();
+			}
+		} catch (FileNotFoundException e) {
+			log.error("!!!!!!!!!!!!!!!! removeImage Error : \n"+e.getMessage());
+		}
+	}
 	
 }
