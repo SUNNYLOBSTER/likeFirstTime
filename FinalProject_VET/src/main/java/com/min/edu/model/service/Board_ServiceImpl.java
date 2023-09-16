@@ -48,12 +48,13 @@ public class Board_ServiceImpl implements IBoard_Service {
 		log.info("&&&&& Board_ServiceImpl selectReportBoard &&&&&");
 		return dao.selectReportBoard();
 	}
-//
+
 	@Override
-	public List<QuestBoard_VO> selectOneBoard(String qst_seq) {
-		log.info("&&&&& Board_ServiceImpl selectOneBoard 전달받은 파라미터 값 : {} &&&&&", qst_seq);
-		return dao.selectOneBoard(qst_seq);
+	public List<QuestBoard_VO> selectOneBoard(String seq) {
+		log.info("&&&&& Board_ServiceImpl selectOneBoard 전달받은 파라미터 값 : {} &&&&&", seq);
+		return dao.selectOneBoard(seq);
 	}
+	
 
 	@Override
 	public int insertQuest(QuestBoard_VO vo) {
@@ -131,6 +132,11 @@ public class Board_ServiceImpl implements IBoard_Service {
 	public int calChoiceRate(String id) {
 		log.info("&&&&& Board_ServiceImpl calChoiceRate 전달받은 파라미터 값 : {} &&&&&", id);
 		return dao.calChoiceRate(id);
+	}
+
+	@Override
+	public List<ReplyBoard_VO> selectReply(String seq) {
+		return dao.selectReply(seq);
 	}
 
 }

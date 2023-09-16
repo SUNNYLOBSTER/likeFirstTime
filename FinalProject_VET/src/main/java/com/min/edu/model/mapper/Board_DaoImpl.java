@@ -115,6 +115,11 @@ public class Board_DaoImpl implements IBoard_Dao {
 		return session.selectOne(NS+"calChoiceRate", id);
 	}
 
+	@Override
+	public List<ReplyBoard_VO> selectReply(String seq) {
+		return session.selectList(NS+"selectReply", seq);
+	}
+
 	
 	
 }
