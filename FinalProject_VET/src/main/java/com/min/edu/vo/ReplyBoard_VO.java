@@ -23,8 +23,10 @@ public class ReplyBoard_VO {
 	private String rpy_content;
 	private String rpy_regdate;
 	private String rpy_status;
-	private String rpy_chosen;
+	private String rpy_chosen;	
 
+	private List<QuestBoard_VO> questboard_vo;
 	private List<FileBoard_VO> fileboard_vo;
+	private List<Hospital_VO> hospital_vo;
 	
 }
