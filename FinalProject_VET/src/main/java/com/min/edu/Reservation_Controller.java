@@ -135,14 +135,11 @@ public class Reservation_Controller {
    public String resrv_requestPage(HttpSession session, String resrv_hops, Model model){
       log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
+      Users_VO user_vo = (Users_VO) session.getAttribute("loginVo");
       session.setAttribute("resrv_hops", resrv_hops);
       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
-//      String hosp_time = hosp_info.getHosp_time();
-//      String json_time = gson.toJson(hosp_time);
-      Gson gson = new GsonBuilder().create();
-      Hospital_VO hospital_VO = gson.fromJson(hosp_info.toString(), Hospital_VO.class);
-      
-//      model.addAttribute("hosp_time", json_time);
+      model.addAttribute("hosp_time", hosp_info.getHosp_time());
+      model.addAttribute("user_vo", user_vo);
       
       
       return "resrv_requestPage";
@@ -157,10 +154,14 @@ public class Reservation_Controller {
        
        List<Reservation_VO> rLists = service.resrv_reqCal(resrv_hops);
       
+       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops); //불러오고
+       System.out.println(rLists);
+       // fvo에 운영시간 넣고 reqCal에서 클릭이벤트에서 해결
        for (Reservation_VO rvo : rLists) {
-		FullCalendar_VO fvo = new FullCalendar_VO();
+    	FullCalendar_VO fvo = new FullCalendar_VO();
 		fvo.setStart(rvo.getResrv_visit());
 		fvo.setResrv_num(rvo.getResrv_num());
+		fvo.setHosp_time(hosp_info.getHosp_time());
 		resultList.add(fvo);
        }
        Gson gson = new Gson();

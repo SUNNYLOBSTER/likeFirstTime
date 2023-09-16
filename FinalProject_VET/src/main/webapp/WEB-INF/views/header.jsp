@@ -125,6 +125,9 @@
 	#sideNav_1{
 		margin-top: 50px;
 	}
+	#loginForm{
+		margin: 50px auto;
+	}
 </style>
 </head>
 <body>
