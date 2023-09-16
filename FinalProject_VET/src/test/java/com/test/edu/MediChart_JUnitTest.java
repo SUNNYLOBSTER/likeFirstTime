@@ -138,5 +138,11 @@ public class MediChart_JUnitTest {
 		assertNotNull(lists);;
 	}
 	
+//	@Test
+	public void searchMediName() {
+		String medi_code = "00";
+		MediCode_VO mvo = service.searchMediName(medi_code);
+		assertNotNull(mvo);
+	}
 
 }
