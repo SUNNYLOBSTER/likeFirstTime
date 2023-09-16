@@ -3,6 +3,7 @@ package com.min.edu.model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.min.edu.vo.FileBoard_VO;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
@@ -38,4 +39,8 @@ public interface IMediChart_Dao {
 	public String getMaxSeq();
 	
 	public MediCode_VO searchMediName(String medi_code);
+	
+	public String getDetail(String medi_num);
+	
+//	public int fileUpload(FileBoard_VO fvo);
 }
