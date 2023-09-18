@@ -22,11 +22,7 @@
     <logger name="com.min.edu" level="TRACE"/>
     <logger name="jdbc.sqlonly" level="TRACE" />
     <logger name="jdbc.resultsettable" level="TRACE" />
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> branch 'main' of https://github.com/SUNNYLOBSTER/likeFirstTime.git
     <root level="trace">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
