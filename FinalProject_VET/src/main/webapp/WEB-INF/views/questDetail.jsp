@@ -51,6 +51,7 @@
 				<th>작성일</th>
 			</tr>
 		</thead>
+		
 		<tbody>
 				<c:forEach var="reply" items="${rpyList}">
 			    <tr>
@@ -61,7 +62,7 @@
 				    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 				    </td>
 				    <td>
-				    <input type="button" value="채택하기" onclick="href='./choosePage.do'" />
+				    <input type="button" value="채택하기" onclick="href='./choosePage.do'"/>
 				    </td>
 			    </tr>
 				</c:forEach>
@@ -71,8 +72,6 @@
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
 <div class="modal">
-	
-	
 	<button class="">채택</button>
 	<button class="btn_closeModal">취소</button>
 </div>
