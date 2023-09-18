@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.mapper.Map_DaoImpl">
+
+	<select id="hosp_user" resultType="Users_VO">
+		SELECT USERS_ID , USERS_NAME , USERS_TEL , USERS_ADDR
+			FROM USERSINFO u
+			WHERE USERS_AUTH = #{users_auth}
+	</select>
+
+</mapper>
