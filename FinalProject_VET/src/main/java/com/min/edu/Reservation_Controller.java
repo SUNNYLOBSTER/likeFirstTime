@@ -14,14 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
+import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.Users_VO;
 
@@ -125,7 +130,7 @@ public class Reservation_Controller {
    public String resrv_refuse(String resrv_num) {
       log.info("&&&&& Reservation_Controller resrv_refuse 호출 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
-      int n = service.resrv_updateToN(resrv_num);
+      int n = service.resrv_delete(resrv_num);
       return (n>0)?"resrv_refuse":"false";
    }
    
@@ -133,10 +138,13 @@ public class Reservation_Controller {
    public String resrv_requestPage(HttpSession session, String resrv_hops, Model model){
       log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
+      Users_VO user_vo = (Users_VO) session.getAttribute("loginVo");
+      System.out.println("#####"+user_vo);
       session.setAttribute("resrv_hops", resrv_hops);
       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
-      System.out.println(hosp_info.getHosp_time());
-      model.addAttribute("hosp_info", hosp_info);
+      model.addAttribute("hosp_time", hosp_info.getHosp_time());
+      model.addAttribute("user_vo", user_vo);
+      
       
       return "resrv_requestPage";
    }
@@ -150,15 +158,59 @@ public class Reservation_Controller {
        
        List<Reservation_VO> rLists = service.resrv_reqCal(resrv_hops);
       
+       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops); //불러오고
+       System.out.println(rLists);
+       // fvo에 운영시간 넣고 reqCal에서 클릭이벤트에서 해결
        for (Reservation_VO rvo : rLists) {
-		FullCalendar_VO fvo = new FullCalendar_VO();
+    	FullCalendar_VO fvo = new FullCalendar_VO();
 		fvo.setStart(rvo.getResrv_visit());
 		fvo.setResrv_num(rvo.getResrv_num());
+		fvo.setHosp_time(hosp_info.getHosp_time());
 		resultList.add(fvo);
        }
        Gson gson = new Gson();
        String json = gson.toJson(resultList);
        PrintWriter out = response.getWriter();
        out.print(json);
+   }
+   
+   @PostMapping(value = "/resrv_insert.do")
+   public String resrv_insert(@RequestParam Map<String, Object> resrv_map) {
+	   log.info("&&&&& Reservation_Controller resrv_insert &&&&&");
+	   log.info("&&&&& 전달받은 파라미터 {} &&&&&", resrv_map);
+	   String hosp = (String)resrv_map.get("resrv_hops");
+	   String visit = (String)resrv_map.get("resrv_visit");
+	   String time = ((String)resrv_map.get("resrv_time")).substring(0,2);
+	   String name = (String)resrv_map.get("resrv_name");
+	   String tel = (String)resrv_map.get("resrv_tel");
+	   String memo = (String)resrv_map.get("resrv_memo");
+	   String user_id = (String)resrv_map.get("resrv_userid");
+	   Reservation_VO resrv_vo = new Reservation_VO();
+	   resrv_vo.setResrv_hops(hosp);
+	   resrv_vo.setResrv_visit(visit);
+	   resrv_vo.setResrv_time(time);
+	   resrv_vo.setResrv_name(name);
+	   resrv_vo.setResrv_tel(tel);
+	   resrv_vo.setResrv_memo(memo);
+	   resrv_vo.setResrv_userid(user_id);
+	   String resrv_num = service.resrv_insert(resrv_vo);
+	   return "redirect:/resrv_detail.do?resrv_num="+resrv_num;
+   }
+   
+   @PostMapping(value = "/resrv_recordList.do")
+   @ResponseBody
+   public String resrv_recordList(String resrv_userid) {
+	   log.info("&&&&& Reservation_Controller resrv_recordList &&&&&");
+	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_userid);
+
+	   Map<String, Object> map = new HashMap<String, Object>(){{
+		   put("resrv_userid",resrv_userid);
+		   put("first","1");
+		   put("last","5");
+	   }};
+	   List<Reservation_VO> list = service.resrv_recordList(map);
+	   Gson gson = new Gson();
+	   String json = gson.toJson(list);
+	   return json;
    }
 }

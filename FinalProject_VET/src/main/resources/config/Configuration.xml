@@ -5,6 +5,7 @@
 <typeAliases>
 	<typeAlias type="com.min.edu.vo.Reservation_VO" alias="Reservation_VO"/>
 	<typeAlias type="com.min.edu.vo.QuestBoard_VO" alias="QuestBoard_VO"/>
+	<typeAlias type="com.min.edu.vo.ReplyBoard_VO" alias="ReplyBoard_VO"/>
 </typeAliases>
 
 <mappers>

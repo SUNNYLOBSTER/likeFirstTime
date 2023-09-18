@@ -18,7 +18,9 @@ public interface IBoard_Service {
 	
 	public List<QuestBoard_VO> selectReportBoard();
 	
-	public List<QuestBoard_VO> selectOneBoard(String qst_seq);
+	public List<QuestBoard_VO> selectOneBoard(String seq);
+	
+	public List<ReplyBoard_VO> selectReply(String seq);
 	
 	public int insertQuest(QuestBoard_VO vo);
 	

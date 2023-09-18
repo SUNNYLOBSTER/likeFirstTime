@@ -62,7 +62,24 @@ SELECT TO_CHAR(RESRV_VISIT,'YYYY-MM-DD')||'T'||r.RESRV_TIME||':00:00' AS RESRV_V
 	ORDER BY RESRV_VISIT ASC;
 	
 SELECT TO_CHAR(SYSDATE -1,'YYYY-MM-DD')  
-	FROM DUAL
+	FROM DUAL;
+	
+-- (사용자) 전체 예약내역 조회
+SELECT RESRV_NUM , RESRV_HOPS , RESRV_VISIT , 
+		RESRV_TIME , RESRV_NAME , RESRV_MEMO ,
+		RESRV_STATUS
+	FROM (SELECT RESRV_NUM , RESRV_HOPS , RESRV_VISIT , 
+				RESRV_TIME , RESRV_NAME , RESRV_MEMO , 
+				RESRV_STATUS , ROW_NUMBER () OVER(ORDER BY RESRV_VISIT DESC, RESRV_TIME DESC) RN
+			FROM RESERVATION r 
+			WHERE RESRV_USERID = 'elsa@disney.com')
+	WHERE RN BETWEEN '1' AND '5';
+
+SELECT COUNT(*) 
+	FROM RESERVATION r 
+	WHERE RESRV_USERID = 'elsa@disney.com';
+
+
 	
 ------------------------------------- 등록 --------------------------------------------
 -- 진료예약 등록 (예약번호, 예약대기, 예약자 이름, 전화번호 , 예약시간, 메모, 병원ID)
@@ -76,6 +93,8 @@ INSERT INTO RESERVATION (RESRV_NUM,
 			'최메리다', '01098765430', '메모 입력 테스트', 
 			'W',(SYSDATE));		
 
+SELECT CONCAT('RSV',NVL(MAX(TO_NUMBER(SUBSTR(RESRV_NUM, 4))),0)+1) AS RESRV_NUM 
+	FROM RESERVATION r ;
 	
 ------------------------------------- 수정 --------------------------------------------
 -- 병원관계자의 승인 시 예약대기(W)에서 예약확정(Y) 상태로 변경
@@ -99,6 +118,17 @@ UPDATE RESERVATION
 SELECT *
 	FROM RESERVATION r ;
 
+SELECT TO_CHAR(SYSDATE-2/24, 'YYYYMMDD HH24:MI:SS')
+	FROM DUAL;
+
+SELECT RESRV_NUM ,RESRV_REGDATE 
+	FROM RESERVATION r 
+	WHERE RESRV_STATUS = 'W'
+	AND (SYSTIMESTAMP - RESRV_REGDATE) > INTERVAL '2'HOUR;
+
+SELECT (SYSTIMESTAMP - RESRV_REGDATE)
+	FROM RESERVATION r 
+	WHERE RESRV_STATUS = 'W';
 ---------------------------------------------------------------------------------
 
 ----------------------------------- 지도 --------------------------------------------

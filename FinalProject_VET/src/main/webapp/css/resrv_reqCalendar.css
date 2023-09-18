@@ -1,17 +1,5 @@
 @charset "UTF-8";
 
-.container{
-	width: 1000px;
-	margin: 0px auto;
-	padding: 0px;
-	padding-left: 200px;
-}
-
-#calendar{
-	width: 400px;
-	height: 500px;
-}
-
 /* 일요일 날짜 빨간색 */
 .fc-day-sun a {
   color: red;
@@ -28,4 +16,34 @@
 }
 .fc-day-sat a div {
   color: black;
+}
+
+.container{
+	width:700px;
+	height:1000px;
+	margin: 0px auto;
+	padding: 0px;
+}
+
+#calendar{
+	width: 400px;
+	height: 500px;
+	float: left;
+}
+
+#time_area{
+	width: 220px;
+	margin-right: 50px;
+	float: right;
+}
+#time_area button{
+	margin-right: 5px;
+	margin-bottom : 5px;
+	width: 100px;
+	height: 30px;
+}
+
+#cal_area{
+	width: 100%;
+	height: 500px;
 }

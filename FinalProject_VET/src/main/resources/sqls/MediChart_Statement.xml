@@ -155,6 +155,7 @@
 			ORDER BY m.MEDI_VISIT DESC
 	</select>
 	
+	<!-- ANIMALCODE 테이블이랑 조인해서 동물코드에 따른 정보도 가져오는 쿼리로 변경하기 -->
 	<!-- 진료seq에 따른 진료기록 상세조회 -->
 	<select id="selectOneChart" resultMap="PetsVoMap" parameterType="java.lang.String">
 		SELECT p.PET_SEQ ,p.PET_OWNER, p.PET_NAME, TO_CHAR(p.PET_BDAY,'YYYY-MM-DD'),
@@ -188,6 +189,20 @@
 	<select id="selectAllMediCode" resultType="com.min.edu.vo.MediCode_VO">
 		SELECT MEDI_CODE , MEDI_NAME , MEDI_TOP
 			FROM MEDICODE
+	</select>
+	
+	<!-- 진료코드로 이름 조회 -->
+	<select id="searchMediName" resultType="com.min.edu.vo.MediCode_VO">
+		SELECT MEDI_NAME, MEDI_TOP
+			FROM MEDICODE
+			WHERE MEDI_CODE = #{medi_code}
+	</select>
+	
+	<!-- 진료기록 컨텐츠 영역 조회 -->
+	<select id="getDetail" resultType="java.lang.String">
+		SELECT CONTENT
+			FROM MEDICHART
+			WHERE MEDI_NUM=#{medi_num}
 	</select>
 	
 	<!-- 파일업로드 -->

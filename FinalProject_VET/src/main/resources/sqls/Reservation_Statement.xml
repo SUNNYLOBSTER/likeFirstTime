@@ -23,6 +23,7 @@
 		<result column="RESRV_MEMO" property="resrv_memo"/>
 		<result column="RESRV_STATUS" property="resrv_status"/>
 		<result column="RESRV_REGDATE" property="resrv_regdate"/>
+		<result column="RESRV_USERID" property="resrv_userid"/>
 	</resultMap>
 
 	<select id="resrv_monthYNCount" resultType="java.util.Map">
@@ -57,7 +58,7 @@
 	</select>
 	
 	<select id="resrv_detail" resultType="Reservation_VO">
-		SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_MEMO , RESRV_STATUS
+		SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, RESRV_HOPS ,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_MEMO , RESRV_STATUS
 			FROM RESERVATION r 
 				WHERE RESRV_NUM = #{resrv_num}
 	</select>
@@ -77,11 +78,11 @@
 		INSERT INTO RESERVATION (RESRV_NUM, 
 						RESRV_HOPS, RESRV_VISIT, RESRV_TIME, 
 						RESRV_NAME, RESRV_TEL, RESRV_MEMO, 
-						RESRV_STATUS, RESRV_REGDATE) 
+						RESRV_STATUS, RESRV_REGDATE, RESRV_USERID) 
 			VALUES(#{resrv_num}, 
 					#{resrv_hops}, #{resrv_visit}, #{resrv_time}, 
 					#{resrv_name}, #{resrv_tel}, #{resrv_memo}, 
-					'W',(SYSDATE))
+					'W',(SYSDATE), #{resrv_userid})
 	</insert>
 	
 	<update id="resrv_updateToY">
@@ -123,6 +124,34 @@
 			ORDER BY RESRV_VISIT ASC
 	</select>
 	
+	<select id="resrv_resultNum" resultType="java.lang.String">
+		SELECT CONCAT('RSV',NVL(MAX(TO_NUMBER(SUBSTR(RESRV_NUM, 4))),0)) AS RESRV_NUM 
+			FROM RESERVATION r 
+	</select>
 	
+	<select id="resrv_scheduler" resultType="Reservation_VO">
+		SELECT RESRV_NUM ,RESRV_REGDATE 
+			FROM RESERVATION r 
+			WHERE RESRV_STATUS = 'W'
+			AND (SYSTIMESTAMP - RESRV_REGDATE) > INTERVAL '2'HOUR
+	</select>
+	
+	<select id="resrv_recordList" resultType="Reservation_VO">
+		SELECT RESRV_NUM , RESRV_HOPS , RESRV_VISIT , 
+				RESRV_TIME , RESRV_NAME , RESRV_MEMO ,
+				RESRV_STATUS
+			FROM (SELECT RESRV_NUM , RESRV_HOPS , RESRV_VISIT , 
+						RESRV_TIME , RESRV_NAME , RESRV_MEMO , 
+						RESRV_STATUS , ROW_NUMBER () OVER(ORDER BY RESRV_VISIT DESC, RESRV_TIME DESC) RN
+					FROM RESERVATION r 
+					WHERE RESRV_USERID = #{resrv_userid})
+			WHERE RN BETWEEN #{first} AND #{last}
+	</select>
+	
+	<select id="resrv_recordListCnt" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+			FROM RESERVATION r 
+			WHERE RESRV_USERID = #{resrv_userid}
+	</select>
 	
 </mapper>

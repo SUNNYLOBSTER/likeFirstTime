@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.min.edu.vo.FileBoard_VO;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
@@ -90,6 +91,21 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	@Override
 	public String getMaxSeq() {
 		return session.selectOne(NS+"getMaxSeq");
+	}
+
+	@Override
+	public MediCode_VO searchMediName(String medi_code) {
+		return session.selectOne(NS+"searchMediName", medi_code);
+	}
+
+//	@Override
+//	public int fileUpload(FileBoard_VO fvo) {
+//		return session.insert(NS+"fileUpload",fvo);
+//	}
+
+	@Override
+	public String getDetail(String medi_num) {
+		return session.selectOne(NS+"getDetail", medi_num);
 	}
 
 }

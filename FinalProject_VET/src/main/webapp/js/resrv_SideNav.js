@@ -144,13 +144,7 @@ $(document).on("click",".resrv_refuse",function(){
 });
 
 
-function resrv_calendar(){
-	console.log("예약현황 호출");
-	var calendar= document.getElementById("calendar");
-	var month_cnt= document.getElementById("month_cnt");
-	var waitList= document.getElementById("waitList");
-	calendar.style.display='block';
-	month_cnt.style.display='none';
-	waitList.style.display='none';
-}
+
+	
+
 

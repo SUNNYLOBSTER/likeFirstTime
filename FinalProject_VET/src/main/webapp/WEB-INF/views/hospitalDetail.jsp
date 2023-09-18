@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="./css/hospitalDetail.css">
 <title>병원 상세페이지</title>
 </head>
+<%@ include file="./header.jsp" %>
 <body>
 <div id="container">
 	<div class="insertMap">
@@ -28,4 +29,5 @@
 	</div>
 </div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>

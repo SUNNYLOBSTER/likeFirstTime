@@ -3,6 +3,7 @@ package com.min.edu.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.min.edu.vo.FileBoard_VO;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
@@ -18,6 +19,7 @@ public interface IMediChart_Service {
 	public int deletePet(int pet_seq);
 	
 	public String insertNewChart(MediChart_VO mvo);
+//	public String insertNewChart(MediChart_VO mvo, FileBoard_VO fvo);
 	
 	public List<PetsInfo_VO> selectAllChart(String pet_owner);
 	
@@ -34,5 +36,8 @@ public interface IMediChart_Service {
 	public int deleteChart(String medi_num);
 	
 	public List<MediCode_VO> selectAllMediCode();
-
+	
+	public MediCode_VO searchMediName(String medi_code);
+	
+	public String getDetail(String medi_num);
 }
