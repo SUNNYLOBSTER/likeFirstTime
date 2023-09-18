@@ -50,7 +50,7 @@
 	</div>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>
 <script type="text/javascript" src="./js/ckeditor.js"></script>
-<script type="text/javascript" src="./js/modifyChart.js"></script>
+<script type="text/javascript" src="./js/chart_updateForm.js"></script>
 </body>
 <%@ include file="./footer.jsp" %>
 </html>

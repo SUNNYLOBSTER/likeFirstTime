@@ -10,7 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/medichart.js"></script>
+<script type="text/javascript" src="./js/chart_allChart.js"></script>
 <title>전체 진료기록 리스트</title>
 </head>
 <%@ include file="./header.jsp" %>

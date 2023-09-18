@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class MediChartController {
+public class MediChart_Controller {
 
 	@Autowired
 	private IMediChart_Service service;
@@ -286,7 +286,7 @@ public class MediChartController {
 			
 			// 저장 위치 문자열 만들기(상대경로)
 			path = WebUtils.getRealPath(req.getSession().getServletContext(),"/ckupload");
-			System.out.println(path);
+			System.out.println("########"+path);
 			
 			// 저장 위치가 존재하지 않으면 폴더 생성
 			File storage = new File(path);
