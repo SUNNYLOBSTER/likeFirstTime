@@ -19,6 +19,8 @@
 <%-- ${qstDetail} --%>
 <!-- <hr> -->
 <%-- ${rpyList[0]} --%>
+<div id="container">
+
 <table>
 	<thead>
 		<tr>
@@ -62,7 +64,7 @@
 				    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 				    </td>
 				    <td>
-				    <input type="button" value="채택하기" onclick="href='./choosePage.do'"/>
+				    <input id="btn-modal" type="button" value="채택하기" onclick="href='./choosePage.do'"/>
 				    </td>
 			    </tr>
 				</c:forEach>
@@ -71,10 +73,21 @@
 </div>
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
-<div class="modal">
-	<button class="">채택</button>
-	<button class="btn_closeModal">취소</button>
-</div>
 
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>답변채택</h2>
+            </div>
+            <div class="close-area">X</div>
+            <div class="content">
+                <p style="font-size: 16px;">채택하시겠습니까?</p>
+                <p style="font-size: 9px; color: light-grey;">채택은 취소할 수 없습니다.</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 </body>
 </html>
