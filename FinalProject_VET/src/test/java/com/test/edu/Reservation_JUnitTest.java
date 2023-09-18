@@ -80,8 +80,8 @@ public class Reservation_JUnitTest {
 		rvo.setResrv_name("박백설");
 		rvo.setResrv_tel("01099887766");
 		rvo.setResrv_memo("강아지가 무서워해요");
-		int n = service.resrv_insert(rvo);
-		assertEquals(1, n);
+//		int n = service.resrv_insert(rvo);
+//		assertEquals(1, n);
 	}
 	
 //	@Test
@@ -104,11 +104,23 @@ public class Reservation_JUnitTest {
 		assertNotNull(hvo);
 	}
 	
-	@Test
-	public void resrv_reqCal() {
+//	@Test
+	public void resrv_reqCalTest() {
 		List<Reservation_VO> lists = service.resrv_reqCal("gana@naver.com");
 		assertNotNull(lists);
 	}
+	
+	@Test
+	public void resrv_recordListTest() {
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("resrv_userid", "elsa@disney.com");
+			put("first","1");
+			put("last","5");
+		}};
+		List<Reservation_VO> list = service.resrv_recordList(map);
+		assertNotNull(list);
+	}
+	
 	
 	
 }

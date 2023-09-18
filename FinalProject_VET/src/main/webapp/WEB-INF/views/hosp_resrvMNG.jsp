@@ -11,11 +11,12 @@
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src='./js/index.global.js'></script> <!-- 캘린더를 랜더링하는 js -->
 <script type="text/javascript" src='./js/resrv_Calendar.js'></script> <!-- 작성할 js -->
-<script type="text/javascript" src='./js/resrv_SideNav.js'></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="./css/calendar.css">
 </head>
 <%@ include file="./header.jsp" %>
+<script type="text/javascript" src='./js/resrv_SideNav.js'></script>
 <body>
 
 		<div class="sidenav">

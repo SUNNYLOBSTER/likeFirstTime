@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					resrv_availableTime.innerHTML="";
 					for(let i=openTime; i<=closeTime; i++){
 						if(i<10){
-							html +="<input type='button' id='time"+i+"' value='0"+i+":00' onclick='timeInsert()'>";
+							html +="<button id='time"+i+"' value='0"+i+":00' onclick='timeInsert(this.value)'>0"+i+":00</button>";
 						}else{
-							html +="<input type='button' id='time"+i+"' value='"+i+":00' onclick='timeInsert()'>";
+							html +="<button id='time"+i+"' value='"+i+":00' onclick='timeInsert(this.value)'>"+i+":00</button>";
 						}
 					}
 					resrv_availableTime.innerHTML=html;
@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
 							
 						}
 					}
-					
-					
+					document.getElementById("select_date").value = info.dateStr;
+					document.getElementById("select_time").value = "-- : --";
 				},
 				headerToolbar: {
 					left: '',
@@ -79,6 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function timeInsert(){
-	
+function timeInsert(time){
+	document.getElementById("select_time").value = time;
 }

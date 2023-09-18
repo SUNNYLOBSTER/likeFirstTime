@@ -71,5 +71,25 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 		return session.selectList(NS+"resrv_reqCal", resrv_hops);
 	}
 
+	@Override
+	public String resrv_resultNum() {
+		return session.selectOne(NS+"resrv_resultNum");
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_scheduler() {
+		return session.selectList(NS+"resrv_scheduler");
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_recordList(Map<String, Object> map) {
+		return session.selectList(NS+"resrv_recordList",map);
+	}
+
+	@Override
+	public int resrv_recordListCnt(Map<String, Object> map) {
+		return session.selectOne(NS+"resrv_recordListCnt",map);
+	}
+
 	
 }

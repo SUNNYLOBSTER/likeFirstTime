@@ -36,6 +36,19 @@ public interface IReservation_Dao {
 	//진료예약 등록
 	public int resrv_insert(Reservation_VO rvo);
 	
+	//사용자 예약신청 시 해당 병원의 예약확정 리스트 (오늘날짜부터 출력됨)
 	public List<Reservation_VO> resrv_reqCal(String	resrv_hops);
+	
+	//insert 후 상세조회로 넘어가는 resrv_num 조회
+	public String resrv_resultNum();
+	
+	//대기상태 예약 2시간 초과한 리스트 
+	public List<Reservation_VO> resrv_scheduler();
+	
+	//사용자 예약신청내역 조회(페이징)
+	public List<Reservation_VO> resrv_recordList(Map<String, Object> map);
+	
+	//사용자 예약신청내역 카운트(페이징)
+	public int resrv_recordListCnt(Map<String, Object> map);
 	
 }

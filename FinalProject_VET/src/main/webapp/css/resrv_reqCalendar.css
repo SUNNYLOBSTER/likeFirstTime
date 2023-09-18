@@ -36,9 +36,14 @@
 	margin-right: 50px;
 	float: right;
 }
-input{
+#time_area button{
 	margin-right: 5px;
 	margin-bottom : 5px;
 	width: 100px;
 	height: 30px;
+}
+
+#cal_area{
+	width: 100%;
+	height: 500px;
 }
