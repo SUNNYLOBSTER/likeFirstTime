@@ -51,4 +51,7 @@ public interface IReservation_Dao {
 	//사용자 예약신청내역 카운트(페이징)
 	public int resrv_recordListCnt(Map<String, Object> map);
 	
+	//병원 이름 가져오기
+	public String hosp_name(String hosp_id);
+	
 }
