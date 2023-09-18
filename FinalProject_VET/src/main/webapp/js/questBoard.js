@@ -1,32 +1,3 @@
-//window.onload = function(){
-//var modal = document.getElementById("modalWindow");
-//var btn = document.getElementById("openModal");
-//var span = document.getElementsByClassName("close")[0];
-//var close = document.getElementById("closeModal");
-//
-//btn.onclick = function() {
-// var btnVal =btn.value;
-// console.log("val",btnVal)
-//  modal.style.display = "block";
-//   modal_submit.onclick =function(btnVal){
-//	console.log(btnVal);
-//}
-//}
-//
-//span.onclick = function() {
-//  modal.style.display = "none";
-//}
-
-//close.onclick = function() {
-//  modal.style.display = "none";
-//}
-//window.onclick = function(event) {
-//  if (event.target == modal) {
-//    modal.style.display = "none";
-//  }
-//}
-
-//};
 
 function selected(){
 var selected = document.getElementById("openModal").value;
@@ -57,7 +28,6 @@ function result(){
   }
 }
 	console.log(result_btn)
-//	location.href="./chooseReply.do?seq="+result_btn;
 	$.ajax({
 		url:"./chooseReply.do",
 		method:"get",
@@ -66,10 +36,9 @@ function result(){
 			modal.style.display="none";
 		},
 		error:function(){
-			alert("문제많아요");
+			alert("잘못된 요청");
 			modal.style.display="none";
 		}
 	});
 }
 
-//};

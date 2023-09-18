@@ -21,7 +21,7 @@
 <%-- ${rpyList} --%>
 <div id="container">
 
-<table>
+<table >
 	<thead>
 		<tr>
 			<th style="width:150px;content-align:center;">작성자</th>
@@ -45,7 +45,7 @@
 <hr>
 
 <div>
-	<table>
+	<table style="border-style:solid;">
 		<thead>
 			<tr>
 				<th>작성자</th>
@@ -56,18 +56,30 @@
 		
 		<tbody>
 				<c:forEach var="reply" items="${rpyList}">
-			    <tr>
-			    	<td>${reply.hospital_vo[0].hosp_name}</td>
-				    <td style="width:600px;">${reply.rpy_content}</td>
-					<td>
-				    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-				    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-				    </td>
-				    <td>
-				    
-				    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
-				    </td>
-			    </tr>
+				<c:choose>
+					<c:when test="${reply.rpy_chosen eq 'Y'}">
+				    	<tr style="border-color:red; border-style: solid;">
+					    	<td>${reply.hospital_vo[0].hosp_name}</td>
+						    <td style="width:600px;">${reply.rpy_content}</td>
+							<td>
+							    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+							    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
+							    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+						    </td>
+					    </tr>
+				    </c:when>
+				    <c:otherwise>
+			   		<tr>
+				    	<td>${reply.hospital_vo[0].hosp_name}</td>
+					    <td style="width:600px;">${reply.rpy_content}</td>
+						<td>
+						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
+						    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+					    </td>
+			  		</tr>
+			  		</c:otherwise>
+				</c:choose>
 				</c:forEach>
 		</tbody>
 	</table>
