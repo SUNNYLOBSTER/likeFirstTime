@@ -42,25 +42,25 @@
             listname.innerHTML = '<p>반려동물별 진료기록</p>';
             if(data.detail.length == 0){
             var chartPart = document.getElementById('chartPart');
-            chartPart.innerHTML = '<div>일치하는 진료기록이 없습니다</div>';   
+            chartPart.innerHTML = '<div class="noneChart">일치하는 진료기록이 없습니다</div>';   
             }else{
                var chartPart = document.getElementById('chartPart');
                chartPart.innerHTML = '';
                var html = "";
                for (var i = 0; i < data.detail[0].medichart_vo.length; i++) {
-                  html +="<div style='border-collapse: collapse; border: 1px solid black;' class='detail'>";
-                  html +="   <table>                                                      ";
+                  html +="<div class='detail'>";
+                  html +="   <table class='detailTable'>                                                      ";
                   html +="         <tr>";
                   html +="            <td>";
                   html +="               <input type='hidden' value='"+data.detail[0].medichart_vo[i].medi_num+"' class='medi_num'>";
                   html +="            </td>";
                   html +="         </tr>";
                   html +="         <tr>                                                 ";
-                  html +="            <th>반려동물명</th>                              ";
+                  html +="            <th>반려동물</th>                              ";
                   html +="            <td>"+data.detail[0].pet_name+"</td>                       ";
                   html +="         </tr>                                                ";
                   html +="         <tr>                                                 ";
-                  html +="            <th>진료기록명</th>                              ";
+                  html +="            <th>진료기록</th>                              ";
                   html +="            <td>"+data.detail[0].medichart_vo[i].medi_title+"</td>                     ";
                   html +="         </tr>                                                ";
                   html +="         <tr>                                                 ";
@@ -104,25 +104,25 @@
             listname.innerHTML = '<p>진료과목별 진료기록</p>';
             if(data.lists.length == 0){
             var chartPart = document.getElementById('chartPart');
-            chartPart.innerHTML = '<div>일치하는 진료기록이 없습니다</div>';   
+            chartPart.innerHTML = '<div class="noneChart">일치하는 진료기록이 없습니다</div>';   
             }else{
                var chartPart = document.getElementById('chartPart');
                chartPart.innerHTML = '';
                var html = "";
                for (var i = 0; i < data.lists[0].medichart_vo.length; i++) {
-                  html +="<div style='border-collapse: collapse; border: 1px solid black;' class='detail'>";
-                  html +="   <table>                                                      ";
+                  html +="<div class='detail'>";
+                  html +="   <table class='detailTable'>                                                      ";
                   html +="         <tr>";
                   html +="            <td>";
                   html +="               <input type='hidden' value='"+data.lists[0].medichart_vo[i].medi_num+"' class='medi_num'>";
                   html +="            </td>";
                   html +="         </tr>";
                   html +="         <tr>                                                 ";
-                  html +="            <th>반려동물명</th>                              ";
+                  html +="            <th>반려동물</th>                              ";
                   html +="            <td>"+data.lists[0].pet_name+"</td>                       ";
                   html +="         </tr>                                                ";
                   html +="         <tr>                                                 ";
-                  html +="            <th>진료기록명</th>                              ";
+                  html +="            <th>진료기록</th>                              ";
                   html +="            <td>"+data.lists[0].medichart_vo[i].medi_title+"</td>                     ";
                   html +="         </tr>                                                ";
                   html +="         <tr>                                                 ";
@@ -152,3 +152,21 @@
             
       location.href='./selectOneChart.do?medi_num='+medi_num;
    });
+   
+   
+   $(document).ready(function(){
+	var dropdown = document.getElementsByClassName("dropdown-btn");
+	var i;
+	
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var dropdownContent = this.nextElementSibling;
+	    if (dropdownContent.style.display === "block") {
+	      dropdownContent.style.display = "none";
+	    } else {
+	      dropdownContent.style.display = "block";
+	    }
+	  });
+	}
+});
