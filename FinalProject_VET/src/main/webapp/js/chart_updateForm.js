@@ -2,12 +2,12 @@ $(document).ready(function(){
 	$.ajax({
 		type:"post",
 		url:"./getContent.do",
-		data: "seq="+$("#seq").val(),
+		data: "medi_num="+$("#medi_num").val(),
 		success:function(data){
 			editor.setData(data);
 		},
 		error:function(){
-			alert("getContent.do 잘못된 요청입니다.");
+//			alert("getContent.do 잘못된 요청입니다.");
 		}
 	});
 	

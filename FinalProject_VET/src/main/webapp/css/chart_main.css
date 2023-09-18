@@ -1,0 +1,80 @@
+@charset "UTF-8";
+#listname{
+	font-weight: bold;
+	margin-left: 340px;
+	margin-bottom: 30px;
+}
+
+.navContainer button{
+	background-color: #D7CCC8;
+	width: 110px;
+	height: 20px;
+	border-radius: 5px;
+	font: #3E2723;
+	border: none;
+	box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+}
+
+.navContainer button:hover{
+	background-color:  #BCAAA4;
+}
+
+#newChart{
+	margin-left: 300px;
+}
+
+.selectPet{
+	margin-left: 10px;
+}
+
+#selectPart select{
+	margin-top: 15px;
+	margin-left: 10px;
+	width: 110px;
+	height: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#selectMediCode{
+	margin-left: 10px;
+}
+
+.detail{
+	width: 350px;
+	height: 200px;
+	margin: 25px;
+	float: left;
+	border-radius: 20px;
+	background-color: #EFEBE9;
+	border: none;
+	cursor: pointer;
+	box-shadow: 8px 8px 8px 0px #BCAAA4;
+	font-size: 15px;
+}
+
+.detail:hover{
+	background-color: #D7CCC8;
+}
+
+.detailTable {
+	margin: 50px 50px;
+}
+
+.detailTable th, tr{
+	font: #3E2723;
+	padding: 5px;
+	text-align: center;
+}
+
+.detailTable td{
+	text-align: left;
+	padding-left: 10px;
+}
+
+.noneChart{
+	padding: 50px;
+	margin: 0 auto;
+	font-size: 15px;
+	text-align: center;
+}
