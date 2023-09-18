@@ -157,7 +157,7 @@
 					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
 					<input type="button" value="진료기록" onclick="location.href='./selectAllChart.do'">
 				</c:if>
-				<button onclick="location.href='./logout.do'">로그아웃</button>
+				<input type="button" value="로그아웃" onclick="location.href='./logout.do'">
 			</div>
 		</c:otherwise>
 	</c:choose>
