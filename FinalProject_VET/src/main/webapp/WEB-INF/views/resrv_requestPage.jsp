@@ -16,23 +16,29 @@
 <link rel="stylesheet" href="./css/resrv_reqCalendar.css">
 </head>
 <body>
-${user_vo}
 	<div class="container">
 		<a href="./main.do">메인화면</a>
 		<h1>${sessionScope.resrv_hops} 예약페이지</h1>
-		<div id="calendar"></div>
-		
-		<div id="time_area">
-			<h2>예약가능 시간</h2>
-			<div id="resrv_availableTime"></div>
+		<div id="cal_area">
+			<div id="calendar"></div>
+			<div id="time_area">
+				<h2>예약가능 시간</h2>
+				<div id="resrv_availableTime"></div>
+			</div>
 		</div>
-		
-		<div>
+		<hr>
+		<div id="resrv_info">
 			<h2>예약자 정보</h2>
-			<form action="#" method="post">
-				<input type="hidden" value="${user_vo.users_id}">
-				이름 : <input type="text" name="" placeholder="예약이름을 작성해주세요" required><br>
-				전화번호 : <input type="text" name="" value="">
+			<form action="./resrv_insert.do" method="post">
+				<input type="hidden" name="resrv_userid" value="${user_vo.users_id}">
+				<input type="hidden" name="resrv_hops" value="${sessionScope.resrv_hops}">
+				선택 날짜 : <input type="date" id="select_date" name="resrv_visit"><br>
+				선택 시간 : <input type="text" id="select_time" name="resrv_time" value="-- : --" readonly><br>
+				이름 : <input type="text" name="resrv_name" placeholder="예약이름을 작성해주세요" value="${user_vo.users_name}" required><br>
+				전화번호 : <input type="text" name="resrv_tel" placeholder="ex)01012345678" required><br>
+				메모 : <input type="text" name="resrv_memo" value="" placeholder="간략한 메모를 남겨주세요"><br>
+				<input type="submit" value="예약 신청">
+				<button class="btn btn-default" onclick="history.back(-1)">취소</button>
 			</form>
 		</div>
 		

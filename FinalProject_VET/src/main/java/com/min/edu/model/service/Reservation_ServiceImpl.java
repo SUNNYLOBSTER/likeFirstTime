@@ -49,10 +49,12 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 	}
 
 	@Override
-	public int resrv_insert(Reservation_VO rvo) {
+	public String resrv_insert(Reservation_VO rvo) {
 		log.info("&&&&& Reservation_ServiceImpl resrv_insert &&&&&");
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", rvo);
-		return dao.resrv_insert(rvo);
+		int n = dao.resrv_insert(rvo);
+		String resrv_num = (n>0)?dao.resrv_resultNum():"";
+		return resrv_num;
 	}
 
 	@Override
@@ -73,6 +75,7 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 	public int resrv_delete(String resrv_num) {
 		log.info("&&&&& Reservation_ServiceImpl resrv_delete &&&&&");
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+		//예약 거절로 인한 삭제시 사용자에게 거절 이벤트 구현
 		return dao.resrv_delete(resrv_num);
 	}
 
@@ -88,6 +91,34 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 		log.info("&&&&& Reservation_ServiceImpl resrv_reqCal &&&&&");
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
 		return dao.resrv_reqCal(resrv_hops);
+	}
+
+	@Override
+	public void resrv_scheduleDelete() {
+		log.info("&&&&& 스케줄러 작동 2시간 경과된 예약대기 목록 삭제 &&&&&");
+		//예약대기 상태가 2시간 이상 경과된 예약목록 list
+		List<Reservation_VO> resrv_wlists = dao.resrv_scheduler();
+		if(resrv_wlists.isEmpty()) {
+			return;
+		}else {
+			for (Reservation_VO rvo : resrv_wlists) {
+				dao.resrv_delete(rvo.getResrv_num()); 
+			}
+		}
+	}
+
+	@Override
+	public List<Reservation_VO> resrv_recordList(Map<String, Object> map) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_recordList &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.resrv_recordList(map);
+	}
+
+	@Override
+	public int resrv_recordListCnt(Map<String, Object> map) {
+		log.info("&&&&& Reservation_ServiceImpl resrv_recordListCnt &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.resrv_recordListCnt(map);
 	}
 
 	

@@ -34,8 +34,18 @@ public interface IReservation_Service {
 	public int resrv_delete(String resrv_num);
 	
 	//진료예약 등록
-	public int resrv_insert(Reservation_VO rvo);
+	public String resrv_insert(Reservation_VO rvo);
 	
+	//사용자 예약신청 시 해당 병원의 예약확정 리스트 (오늘날짜부터 출력됨)
 	public List<Reservation_VO> resrv_reqCal(String	resrv_hops);
+	
+	// 스케쥴러를 통해 대기 2시간 초과되는 예약 삭제
+	public void resrv_scheduleDelete();
+	
+	//사용자 예약신청내역 조회
+	public List<Reservation_VO> resrv_recordList(Map<String, Object> map);
+	
+	//사용자 예약신청내역 카운트(페이징)
+	public int resrv_recordListCnt(Map<String, Object> map);
 	
 }

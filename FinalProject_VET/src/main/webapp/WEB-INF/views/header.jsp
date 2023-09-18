@@ -82,9 +82,9 @@
 		z-index: 1;
 		top: 0;
 		left: 0;
-		background-color: #EFEBE9;
+		background-color: #D7CCC8;
 		overflow-x: hidden;
-		padding-top: 100px;
+		margin-top: 100px;
 	}
 	
 	.sidenav a, .dropdown-btn {

@@ -24,5 +24,6 @@ public class Reservation_VO {
 	private String resrv_memo;
 	private String resrv_status;
 	private String resrv_regdate;
+	private String resrv_userid;
 
 }
