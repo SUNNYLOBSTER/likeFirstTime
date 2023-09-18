@@ -1,20 +1,44 @@
 
+function selected(){
+var selected = document.getElementById("openModal").value;
+var modal = document.getElementById("modalWindow");
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+	console.log(selected);
+	var result_btn = document.getElementById("choiceModal");
+	result_btn.value = selected;
+	console.log("결과",result_btn.value);
+	var modal = document.getElementById("modalWindow");
+	modal.style.display = "block";
+	var close = document.getElementById("closeModal");
+	close.onclick = function() {
+	  modal.style.display = "none";
+	}
+}
 
-
-//const modalOpen = document.querySelector(".open");
-//const modalClose = document.querySelector(".modal__closeBtn");
-//const modal = document.querySelector(".modal");
-//
-//function init() {
-//  modalOpen.addEventListener("click", function () {
-//    modal.classList.remove("hidden");
-//    //hidden이라는 클래스가 있으면 없앤다.
-//  });
-//  modalClose.addEventListener("click", function () {
-//    modal.classList.add("hidden");
-//  });
-//}
-//
-//init(); //함수 실행!
-
+function result(){
+	var result_btn = document.getElementById("choiceModal").value;
+			var modal = document.getElementById("modalWindow");
+	window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+	console.log(result_btn)
+	$.ajax({
+		url:"./chooseReply.do",
+		method:"get",
+		data:"seq="+result_btn,
+		success:function(msg){
+			modal.style.display="none";
+		},
+		error:function(){
+			alert("잘못된 요청");
+			modal.style.display="none";
+		}
+	});
+}
 
