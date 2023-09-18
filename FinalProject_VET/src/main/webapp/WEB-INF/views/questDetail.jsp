@@ -7,18 +7,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="./js/questBoard.js" ></script>
 <title>게시글 상세조회</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="stylesheet" href="./css/questBoard.css">
+<script type="text/javascript" src="./js/questBoard.js"></script>
+<link rel="stylesheet" href="./css/questBoard.css">
 
 </head>
 <body>
 <%-- ${qstDetail} --%>
 <!-- <hr> -->
-<%-- ${rpyList[0]} --%>
+<%-- ${rpyList} --%>
 <div id="container">
 
 <table>
@@ -64,7 +64,8 @@
 				    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 				    </td>
 				    <td>
-				    <input id="btn-modal" type="button" value="채택하기" onclick="href='./choosePage.do'"/>
+				    
+				    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
 				    </td>
 			    </tr>
 				</c:forEach>
@@ -74,19 +75,14 @@
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
 
-    <div id="modal" class="modal-overlay">
-        <div class="modal-window">
-            <div class="title">
-                <h2>답변채택</h2>
-            </div>
-            <div class="close-area">X</div>
-            <div class="content">
-                <p style="font-size: 16px;">채택하시겠습니까?</p>
-                <p style="font-size: 9px; color: light-grey;">채택은 취소할 수 없습니다.</p>
-            </div>
-        </div>
+<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <h3>채택하시겠습니까?</h3><span class="close">&times;</span>
+        <p style="font-size: 8px; color: grey;">※ 채택은 취소할 수 없습니다.</p>
+    <button id="choiceModal" onclick="result()">채택하기</button>
+    <button id="closeModal">취소</button>
     </div>
-
+</div>
 
 </div>
 </body>

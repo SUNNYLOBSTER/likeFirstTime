@@ -1,56 +1,75 @@
-
-
-
-//const modalOpen = document.querySelector(".open");
-//const modalClose = document.querySelector(".modal__closeBtn");
-//const modal = document.querySelector(".modal");
+//window.onload = function(){
+//var modal = document.getElementById("modalWindow");
+//var btn = document.getElementById("openModal");
+//var span = document.getElementsByClassName("close")[0];
+//var close = document.getElementById("closeModal");
 //
-//function init() {
-//  modalOpen.addEventListener("click", function () {
-//    modal.classList.remove("hidden");
-//    //hidden이라는 클래스가 있으면 없앤다.
-//  });
-//  modalClose.addEventListener("click", function () {
-//    modal.classList.add("hidden");
-//  });
+//btn.onclick = function() {
+// var btnVal =btn.value;
+// console.log("val",btnVal)
+//  modal.style.display = "block";
+//   modal_submit.onclick =function(btnVal){
+//	console.log(btnVal);
+//}
 //}
 //
-//init(); //함수 실행!
+//span.onclick = function() {
+//  modal.style.display = "none";
+//}
 
-const modal = document.getElementById("modal")
+//close.onclick = function() {
+//  modal.style.display = "none";
+//}
+//window.onclick = function(event) {
+//  if (event.target == modal) {
+//    modal.style.display = "none";
+//  }
+//}
 
-function modalOn() {
-    modal.style.display = "flex"
+//};
+
+function selected(){
+var selected = document.getElementById("openModal").value;
+var modal = document.getElementById("modalWindow");
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+	console.log(selected);
+	var result_btn = document.getElementById("choiceModal");
+	result_btn.value = selected;
+	console.log("결과",result_btn.value);
+	var modal = document.getElementById("modalWindow");
+	modal.style.display = "block";
+	var close = document.getElementById("closeModal");
+	close.onclick = function() {
+	  modal.style.display = "none";
+	}
 }
 
-function isModalOn() {
-    return modal.style.display === "flex"
+function result(){
+	var result_btn = document.getElementById("choiceModal").value;
+			var modal = document.getElementById("modalWindow");
+	window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+	console.log(result_btn)
+//	location.href="./chooseReply.do?seq="+result_btn;
+	$.ajax({
+		url:"./chooseReply.do",
+		method:"get",
+		data:"seq="+result_btn,
+		success:function(msg){
+			modal.style.display="none";
+		},
+		error:function(){
+			alert("문제많아요");
+			modal.style.display="none";
+		}
+	});
 }
 
-function modalOff() {
-    modal.style.display = "none"
-}
-
-
-const btnModal = document.getElementById("btn-modal")
-btnModal.addEventListener("click", e => {
-    modalOn()
-})
-
-const closeBtn = modal.querySelector(".close-area")
-closeBtn.addEventListener("click", e => {
-    modalOff()
-})
-
-modal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("modal-overlay")) {
-        modalOff()
-    }
-})
-
-window.addEventListener("keyup", e => {
-    if(isModalOn() && e.key === "Escape") {
-        modalOff()
-    }
-})
+//};
