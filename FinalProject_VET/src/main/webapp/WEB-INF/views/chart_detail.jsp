@@ -9,6 +9,8 @@
 <%@ include file="./header.jsp" %>
 <body>
 	<div id="container">
+	${pvo}<br>
+	${medi_content}
 		<table style="border-collapse: collapse; border: 1px solid black;">
 			<tr>
 				<th>반려동물</th>
