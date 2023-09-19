@@ -62,7 +62,6 @@ public class Board_Controller {
 //		return choice>0?"redirect:/questDetail.do?seq="+seq:"redirect:/questDetail.do";
 	}
 	
-	
 	@GetMapping(value = "/writeQuestForm.do")
 	public String moveWriteForm() {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
