@@ -137,6 +137,11 @@ SELECT (SYSTIMESTAMP - RESRV_REGDATE)
 ---------------------------------------------------------------------------------
 
 ----------------------------------- 지도 --------------------------------------------
+-- 사이트에 가입된 동물병원 불러오기
+SELECT USERS_ID , USERS_NAME , USERS_TEL , USERS_ADDR
+	FROM USERSINFO u
+	WHERE USERS_AUTH = 'H'
+
 -- 동물병원명을 검색하여 동물병원 목록조회 
 SELECT HOSP_NAME , HOSP_MNG , USERS_TEL , USERS_ADDR
 	FROM (SELECT h.HOSP_NAME , h.HOSP_MNG , u.USERS_TEL , u.USERS_ADDR, 
