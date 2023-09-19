@@ -44,6 +44,7 @@
 				<input type="hidden" value="${pvo.medichart_vo[0].medi_num}" name="medi_num">
 				<button onclick="location.href='./modifyChartForm.do?medi_num=${pvo.medichart_vo[0].medi_num}'">수정</button>
 				<button value="${pvo.medichart_vo[0].medi_num}" onclick="delChart(this.value)">삭제</button>
+				<button onclick="location.href='./pdfDownload.do?medi_num=${pvo.medichart_vo[0].medi_num}'">PDF 다운로드</button>
 			</div>	
 			<button id="allMenuButton" onclick="location.href='./selectAllChart.do'">전체목록보기</button>
 	</div>	

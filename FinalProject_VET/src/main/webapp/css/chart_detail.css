@@ -13,7 +13,7 @@
  	font-size: 15px;
 }
 
-.navContainer button{
+.navContainer button,input[type="submit"]{
 	background-color: #D7CCC8;
 	width: 110px;
 	height: 20px;
@@ -24,7 +24,7 @@
 	margin: 5px;
 }
 
-.navContainer button:hover{
+.navContainer button:hover,input[type="submit"]:hover{
 	background-color:  #BCAAA4;
 }
 

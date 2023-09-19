@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.tools.DocumentationTool.Location;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -283,29 +284,23 @@ public class MediChart_Controller {
 		String path="";
 		
 		try {
-			// 파일읽기
 			inputStream = upload.getInputStream();
 			
-			// 저장 위치 문자열 만들기(상대경로)
 			path = WebUtils.getRealPath(req.getSession().getServletContext(),"/ckupload");
 			System.out.println("########"+path);
 			
-			// 저장 위치가 존재하지 않으면 폴더 생성
 			File storage = new File(path);
 			if(!storage.exists()) {
 				storage.mkdir();
 			}
 			
-			// 저장할 파일이 해당 위치에 없다면 만들어주고 아니면 오버라이드 함
 			File newFile = new File(path+"/"+saveName);
 			if(!newFile.exists()) {
 				newFile.createNewFile();
 			}
 			
-			// client에서 받아온 파일(upload)를 쓸 대상(newFile) 지정
 			outputStream = new FileOutputStream(newFile);
 			
-			// 파일(upload)를 읽어 대상(newFile)에 씀
 			int read = 0;
 			byte[] b = new byte[(int)upload.getSize()];
 			while((read=inputStream.read(b))!=-1) {
@@ -340,13 +335,30 @@ public class MediChart_Controller {
 		try {
 			path = WebUtils.getRealPath(req.getSession().getServletContext(),"/ckupload");
 			File oldFile = new File(path+"/"+saveName);
-			// 파일이 존재하면 삭제
 			if(oldFile.exists()) {
 				oldFile.delete();
 			}
 		} catch (FileNotFoundException e) {
 			log.error("!!!!!!!!!!!!!!!! removeImage Error : \n"+e.getMessage());
 		}
+	}
+	
+	@GetMapping(value = "/pdfDownload.do")
+	public String pdfDownload(String medi_num,Model model) {
+		log.info("&&&&& MediChartController pdfDownload 전달받은 parameter값 : {}&&&&&",medi_num);
+		
+		String result = service.createPdf(medi_num);
+		
+		if(result.equals("success")) {
+			model.addAttribute("msg","PDF 다운로드가 완료되었습니다");
+			model.addAttribute("url","selectAllChart.do");
+			return "alert";
+		}else {
+			model.addAttribute("msg","PDF 다운로드에 실패했습니다.");
+			model.addAttribute("url","selectAllChart.do");
+			return "alert";
+		}
+		
 	}
 	
 }
