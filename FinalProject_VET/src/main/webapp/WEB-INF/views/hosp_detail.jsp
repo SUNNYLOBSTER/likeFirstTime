@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/hospitalDetail.css">
+<link rel="stylesheet" href="./css/hosp_detail.css">
 <title>병원 상세페이지</title>
 </head>
 <%@ include file="./header.jsp" %>

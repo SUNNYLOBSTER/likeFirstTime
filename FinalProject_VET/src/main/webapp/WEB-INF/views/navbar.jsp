@@ -21,7 +21,7 @@
 		<div class="dropdown-container">
 			<a onclick="#">1</a>
 		</div>
-		<button class="dropdown-btn">
+		<button class="dropdown-btn" onclick="location.href='./selectAllSchedule.do'">
 			일정관리<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
