@@ -1,3 +1,19 @@
+window.onload = function(){
+	$.ajax({
+		url:"./getHospUser.do",
+		method:"post",
+		data:"users_auth=H",
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+		},
+		error:function(){
+			alert("호출에러");
+			location.href="./main.do";
+		}
+	});
+}
+
 var mapContainer = document.getElementById('map');
 var mapOption = { 
 	// 지도의 기본 중심좌표
@@ -54,7 +70,7 @@ function displayMarker(locPosition, placeName, placeAddress ) {
         map: map,
         position: locPosition
     });
-
+	
     // 마커 클릭 시 동물병원의 주소와 상세내역 화면으로 이동
     kakao.maps.event.addListener(marker, 'click', function() {
         var content =                     
@@ -67,7 +83,7 @@ function displayMarker(locPosition, placeName, placeAddress ) {
             '        <div class="body">' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">'+ placeAddress +'</div>' + 
-            '                <div><a href="./detail.do?address='+placeAddress+'" class="link">병원 상세보기</a></div>' + 
+            '                <div><a href="./map_hospDetail.do?address='+placeAddress+'" class="link">병원 상세보기</a></div>' + 
             '                <div><button>예약하기</button></div>' + 
             '            </div>' + 
             '        </div>' + 
@@ -78,7 +94,7 @@ function displayMarker(locPosition, placeName, placeAddress ) {
         customOverlay.setPosition(locPosition);
         customOverlay.setMap(map);
         
-        console.log("마커에 표시된 주소:",placeAddress);
+        console.log("마커에 표시된 주소:",placeAddress.substr(3));
     });
 }
 

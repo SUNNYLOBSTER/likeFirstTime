@@ -2,10 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.min.edu.model.mapper.Map_DaoImpl">
 
+	<resultMap type="com.min.edu.vo.Users_VO" id="Users_VO">
+		<result column="USERS_ID" property="users_id"/>
+		<result column="USERS_PW" property="users_pw"/>
+		<result column="USERS_NAME" property="users_name"/>
+		<result column="USERS_TEL" property="users_tel"/>
+		<result column="USERS_STATUS" property="users_status"/>
+		<result column="USERS_JOINDATE" property="users_joindate"/>
+		<result column="USERS_ADDR" property="users_addr"/>
+		<result column="USERS_SUBTEL" property="users_subtel"/>
+		<result column="USERS_AUTH" property="users_auth"/>
+		<result column="USERS_CRN" property="users_crn"/>
+		
+		<collection property="hospital_vo" resultMap="Hospital_VO"/>
+	</resultMap>
+
+	<resultMap type="com.min.edu.vo.Hospital_VO" id="Hospital_VO">
+		<result column="HOSP_ID" property="hosp_id"/>
+		<result column="HOSP_NAME" property="hosp_name"/>
+		<result column="HOSP_TIME" property="hosp_time"/>
+		<result column="HOSP_OFF" property="hosp_off"/>
+		<result column="HOSP_PARK" property="hosp_park"/>
+		<result column="HOSP_ETC" property="hosp_etc"/>
+	</resultMap>
+
 	<select id="hosp_user" resultType="Users_VO">
 		SELECT USERS_ID , USERS_NAME , USERS_TEL , USERS_ADDR
 			FROM USERSINFO u
 			WHERE USERS_AUTH = #{users_auth}
+	</select>
+
+	<select id="map_hospDetail" resultMap="Users_VO">
+		SELECT h.HOSP_NAME , u.USERS_TEL , u.USERS_ADDR , h.HOSP_TIME , h.HOSP_OFF , h.HOSP_ETC ,h.HOSP_PARK , h.HOSP_MNG 
+			FROM USERSINFO u JOIN HOSPITAL h 
+			ON u.USERS_ID = h.HOSP_ID 
+			WHERE USERS_AUTH = 'H'
+				AND USERS_ADDR LIKE '%' || #{users_addr} || '%'
 	</select>
 
 </mapper>
