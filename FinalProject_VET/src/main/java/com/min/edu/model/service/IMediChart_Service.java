@@ -40,4 +40,6 @@ public interface IMediChart_Service {
 	public MediCode_VO searchMediName(String medi_code);
 	
 	public String getDetail(String medi_num);
+	
+	public String createPdf(String medi_num);
 }
