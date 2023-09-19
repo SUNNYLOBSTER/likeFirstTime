@@ -7,19 +7,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="./js/questBoard.js" ></script>
 <title>게시글 상세조회</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="stylesheet" href="./css/questBoard.css">
+<script type="text/javascript" src="./js/questBoard.js"></script>
+<link rel="stylesheet" href="./css/questBoard.css">
 
 </head>
 <body>
 <%-- ${qstDetail} --%>
 <!-- <hr> -->
-<%-- ${rpyList[0]} --%>
-<table>
+<%-- ${rpyList} --%>
+<div id="container">
+
+<table >
 	<thead>
 		<tr>
 			<th style="width:150px;content-align:center;">작성자</th>
@@ -43,7 +45,7 @@
 <hr>
 
 <div>
-	<table>
+	<table style="border-style:solid;">
 		<thead>
 			<tr>
 				<th>작성자</th>
@@ -54,27 +56,45 @@
 		
 		<tbody>
 				<c:forEach var="reply" items="${rpyList}">
-			    <tr>
-			    	<td>${reply.hospital_vo[0].hosp_name}</td>
-				    <td style="width:600px;">${reply.rpy_content}</td>
-					<td>
-				    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-				    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-				    </td>
-				    <td>
-				    <input type="button" value="채택하기" onclick="href='./choosePage.do'"/>
-				    </td>
-			    </tr>
+				<c:choose>
+					<c:when test="${reply.rpy_chosen eq 'Y'}">
+				    	<tr style="border-color:red; border-style: solid;">
+					    	<td>${reply.hospital_vo[0].hosp_name}</td>
+						    <td style="width:600px;">${reply.rpy_content}</td>
+							<td>
+							    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+							    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
+							    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+						    </td>
+					    </tr>
+				    </c:when>
+				    <c:otherwise>
+			   		<tr>
+				    	<td>${reply.hospital_vo[0].hosp_name}</td>
+					    <td style="width:600px;">${reply.rpy_content}</td>
+						<td>
+						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
+						    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+					    </td>
+			  		</tr>
+			  		</c:otherwise>
+				</c:choose>
 				</c:forEach>
 		</tbody>
 	</table>
 </div>
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
-<div class="modal">
-	<button class="">채택</button>
-	<button class="btn_closeModal">취소</button>
+<div id="modalWindow" class="modal">
+    <div class="modal-content">
+        <h3>채택하시겠습니까?</h3><span class="close">&times;</span>
+        <p style="font-size: 8px; color: grey;">※ 채택은 취소할 수 없습니다.</p>
+    <button id="choiceModal" onclick="result()">채택하기</button>
+    <button id="closeModal">취소</button>
+    </div>
 </div>
 
+</div>
 </body>
 </html>

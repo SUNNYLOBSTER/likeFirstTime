@@ -64,14 +64,14 @@
 	<result column="HOSP_NAME" property="hosp_name"/>
 </resultMap>
 
-<!--  게시글 전체조회  -->
+<!--  게시글 전체조회 : 우선답변 게시글 상위정렬 -->
 <select id="selectQuest" resultType="QuestBoard_VO">
-SELECT q.QST_SEQ, q.QST_ID , q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
+SELECT q.QST_SEQ, q.QST_ID, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q
 	JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
 	WHERE (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R')
-    ORDER BY q.QST_REGDATE DESC 
+    ORDER BY q.QST_FAST DESC, q.QST_REGDATE DESC 
 </select>
 
 <!-- 대분류 선택 게시글 전체조회 -->
@@ -121,12 +121,14 @@ SELECT u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
     ORDER BY r.RPY_SEQ DESC
 </select>
 
+<!-- 답글만 전체조회 -->
 <select id="selectReply" resultMap="ReplyVOMap">
-SELECT r.RPY_SEQ, h.HOSP_NAME, r.RPY_CONTENT, r.RPY_REGDATE
+SELECT r.RPY_SEQ, h.HOSP_NAME, r.RPY_CONTENT, r.RPY_REGDATE, r.RPY_CHOSEN 
 	FROM REPLYBOARD r
 	JOIN QUESTBOARD q ON r.RPY_REF = q.QST_SEQ
 	JOIN HOSPITAL h ON r.RPY_ID = h.HOSP_ID
 	WHERE q.QST_SEQ = #{qst_seq}
+	ORDER BY RPY_CHOSEN  DESC, RPY_REGDATE DESC 
 </select>
   
 <!-- 신고글 전체조회 (관리자) -->

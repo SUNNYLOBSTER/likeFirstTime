@@ -119,7 +119,7 @@
 		width: 1000px;
 		margin: 20px auto;
 		height: 1300px;
-		padding-left: 220px;
+ 		padding-left: 220px; 
 	}
 	
 	#sideNav_1{
@@ -155,7 +155,6 @@
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
 					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
-					<input type="button" value="진료기록" onclick="location.href='./selectAllChart.do'">
 				</c:if>
 				<input type="button" value="로그아웃" onclick="location.href='./logout.do'">
 			</div>
@@ -165,7 +164,7 @@
 	
 	<div class="header" id="headerNavBar">
 		<ul>
-			<li><b><a>동물병원 찾기</a></b></li>				
+			<li><b><a href="./map.do">동물병원 찾기</a></b></li>				
 			<li><b><a href="./questBoard.do">진료문의</a></b></li>				
 			<li><b><a href="./notice.do">공지사항</a></b></li>				
 			<li><b><a>반려동물 정보/뉴스</a></b></li>				

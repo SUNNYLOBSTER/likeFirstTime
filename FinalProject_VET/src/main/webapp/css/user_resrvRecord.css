@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.resrv_record{
+	width: 400px;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	margin: 20px;
+}
+
+.resrv_record tr,th,td{
+	text-align: left;
+	border: 1px solid #ccc; 
+}

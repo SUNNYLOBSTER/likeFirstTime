@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -50,15 +51,16 @@ public class Board_Controller {
 		return "questDetail";
 	}
 
-	@GetMapping(value = "/choosePage.do")
-	public String chooseReply() {
-	log.info("&&&&& Board_Controller 실행 chooseReply 페이지 이동&&&&&");	
+	@GetMapping(value = "/chooseReply.do")
+	public String choiceReply(String seq) {
+	log.info("&&&&& Board_Controller choiceReply 실행  &&&&&");
+	log.info("&&&&& Board_Controller choiceReply 전달받은 seq값 : {}  &&&&&", seq);
 	
-	return "choosePage";
+	int choice = service.chooseReply(seq);
+	
+		return choice>0?"redirect:/questBoard.do":"redirect:/questBoard.do";
+//		return choice>0?"redirect:/questDetail.do?seq="+seq:"redirect:/questDetail.do";
 	}
-	
-	
-	
 	
 	@GetMapping(value = "/writeQuestForm.do")
 	public String moveWriteForm() {
@@ -72,6 +74,9 @@ public class Board_Controller {
 		log.info("&&&&& Board_Controller 실행 writeQuest &&&&&");
 		return null;
 	}
+	
+	
+	
 	
 	
 	
