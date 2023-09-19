@@ -3,6 +3,7 @@ package com.min.edu.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.min.edu.vo.AnimalCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
@@ -48,4 +49,5 @@ public interface IBoard_Service {
 	public int countChosenReply(String id);
 	
 	public int calChoiceRate(String id);
+	
 }

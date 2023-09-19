@@ -21,7 +21,8 @@ window.onclick = function(event) {
 
 function result(){
 	var result_btn = document.getElementById("choiceModal").value;
-			var modal = document.getElementById("modalWindow");
+	var modal = document.getElementById("modalWindow");
+	var button = document.getElementById("openModal");
 	window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
@@ -34,6 +35,7 @@ function result(){
 		data:"seq="+result_btn,
 		success:function(msg){
 			modal.style.display="none";
+			button.style.display="none";
 		},
 		error:function(){
 			alert("잘못된 요청");
