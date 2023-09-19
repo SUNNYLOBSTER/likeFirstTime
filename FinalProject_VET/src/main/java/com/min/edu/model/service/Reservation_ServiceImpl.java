@@ -121,5 +121,12 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 		return dao.resrv_recordListCnt(map);
 	}
 
+	@Override
+	public String hosp_name(String hosp_id) {
+		log.info("&&&&& Reservation_ServiceImpl hosp_name &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
+		return dao.hosp_name(hosp_id);
+	}
+
 	
 }

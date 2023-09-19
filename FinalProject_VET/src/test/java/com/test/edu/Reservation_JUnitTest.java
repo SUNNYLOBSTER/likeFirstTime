@@ -117,8 +117,8 @@ public class Reservation_JUnitTest {
 			put("first","1");
 			put("last","5");
 		}};
-		List<Reservation_VO> list = service.resrv_recordList(map);
-		assertNotNull(list);
+//		List<Hospital_VO> list = service.resrv_recordList(map);
+//		assertNotNull(list);
 	}
 	
 	

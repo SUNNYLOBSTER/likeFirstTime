@@ -28,6 +28,7 @@ import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
 import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.Reservation_VO;
+import com.min.edu.vo.ResrvList_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -197,9 +198,8 @@ public class Reservation_Controller {
 	   return "redirect:/resrv_detail.do?resrv_num="+resrv_num;
    }
    
-   @PostMapping(value = "/resrv_recordList.do")
-   @ResponseBody
-   public String resrv_recordList(String resrv_userid) {
+   @GetMapping(value = "/resrv_recordList.do")
+   public String resrv_recordList(String resrv_userid, Model model) {
 	   log.info("&&&&& Reservation_Controller resrv_recordList &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_userid);
 
@@ -209,8 +209,21 @@ public class Reservation_Controller {
 		   put("last","5");
 	   }};
 	   List<Reservation_VO> list = service.resrv_recordList(map);
-	   Gson gson = new Gson();
-	   String json = gson.toJson(list);
-	   return json;
+	   List<ResrvList_VO> hosp_lits = new ArrayList<ResrvList_VO>();
+	   for (int i = 0; i < list.size(); i++) {
+		   ResrvList_VO rvo = new ResrvList_VO();
+		   String hospName = service.hosp_name(list.get(i).getResrv_hops());
+		   rvo.setResrv_num(list.get(i).getResrv_num());
+		   rvo.setResrv_hops(hospName);
+		   rvo.setResrv_visit(list.get(i).getResrv_visit());
+		   rvo.setResrv_time(list.get(i).getResrv_time());
+		   rvo.setResrv_name(list.get(i).getResrv_name());
+		   rvo.setResrv_status(list.get(i).getResrv_status());
+		   rvo.setResrv_memo(list.get(i).getResrv_memo());
+		   hosp_lits.add(rvo);
+	   }
+//	   model.addAttribute("resrv_recordList", list);
+	   model.addAttribute("hosp_lits", hosp_lits);
+	   return "user_resrvRecord";
    }
 }

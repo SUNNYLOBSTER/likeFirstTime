@@ -271,6 +271,8 @@ public class MediChart_Controller {
 		
 		String ext = upload.getOriginalFilename().substring(upload.getOriginalFilename().lastIndexOf("."));
 		String saveName = UUID.randomUUID().toString().replace("-", "")+ext;
+		System.out.println("###########"+upload.getOriginalFilename());
+		System.out.println("###########"+upload.getName());
 		
 //		FileBoard_VO fvo = new FileBoard_VO();
 //		fvo.setF_originname(ext);

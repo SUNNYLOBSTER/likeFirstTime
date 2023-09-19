@@ -119,7 +119,7 @@
 		width: 1000px;
 		margin: 20px auto;
 		height: 1300px;
-		padding-left: 220px;
+ 		padding-left: 220px; 
 	}
 	
 	#sideNav_1{
@@ -155,7 +155,6 @@
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
 					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
-					<input type="button" value="진료기록" onclick="location.href='./selectAllChart.do'">
 				</c:if>
 				<button onclick="location.href='./logout.do'">로그아웃</button>
 			</div>
