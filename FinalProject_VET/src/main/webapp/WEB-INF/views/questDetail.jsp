@@ -86,7 +86,6 @@
 </div>
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
-
 <div id="modalWindow" class="modal">
     <div class="modal-content">
         <h3>채택하시겠습니까?</h3><span class="close">&times;</span>
