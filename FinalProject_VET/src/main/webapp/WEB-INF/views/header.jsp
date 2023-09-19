@@ -76,7 +76,7 @@
 	}
 	
 	.sidenav {
-		height: 1340px;
+		height: 1300px;
 		width: 200px;
 		position: absolute;
 		z-index: 1;
@@ -117,7 +117,7 @@
 	
 	.navContainer{
 		width: 1000px;
-		margin: 20px auto;
+		margin: 0px auto;
 		height: 1300px;
  		padding-left: 220px; 
 	}

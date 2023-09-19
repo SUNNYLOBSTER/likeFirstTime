@@ -23,5 +23,12 @@ public class Map_ServiceImpl implements IMap_Service {
 		log.info("&&&&& 전달된 파라미터 값 : {} &&&&&",auth);
 		return dao.hosp_user(auth);
 	}
+
+	@Override
+	public Users_VO map_hospDetail(String address) {
+		log.info("&&&&& Map_ServiceImpl map_hospDetail &&&&&");
+		log.info("&&&&& 전달된 파라미터 값 : {} &&&&&",address);
+		return dao.map_hospDetail(address);
+	}
 	
 }

@@ -20,5 +20,10 @@ public class Map_DaoImpl implements IMap_Dao {
 	public List<Users_VO> hosp_user(String auth) {
 		return session.selectList(NS+"hosp_user", auth);
 	}
+
+	@Override
+	public Users_VO map_hospDetail(String address) {
+		return session.selectOne(NS+"map_hospDetail",address);
+	}
 	
 }

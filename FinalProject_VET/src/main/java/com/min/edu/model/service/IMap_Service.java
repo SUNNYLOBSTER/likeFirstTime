@@ -9,4 +9,6 @@ public interface IMap_Service {
 	//Map에 전달될 병원회원 리스트
 	public List<Users_VO> hosp_user(String auth);
 	
+	//Map 마커 -> 상세조회
+	public Users_VO map_hospDetail(String address);
 }
