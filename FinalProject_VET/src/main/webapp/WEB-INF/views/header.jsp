@@ -156,7 +156,7 @@
 				<c:if test="${loginVo.users_auth eq 'U' }">
 					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
 				</c:if>
-				<button onclick="location.href='./logout.do'">로그아웃</button>
+				<input type="button" value="로그아웃" onclick="location.href='./logout.do'">
 			</div>
 		</c:otherwise>
 	</c:choose>
@@ -164,7 +164,7 @@
 	
 	<div class="header" id="headerNavBar">
 		<ul>
-			<li><b><a>동물병원 찾기</a></b></li>				
+			<li><b><a href="./map.do">동물병원 찾기</a></b></li>				
 			<li><b><a href="./questBoard.do">진료문의</a></b></li>				
 			<li><b><a href="./notice.do">공지사항</a></b></li>				
 			<li><b><a>반려동물 정보/뉴스</a></b></li>				
