@@ -52,6 +52,11 @@ public class Users_DaoImpl implements IUsers_Dao {
 		return session.selectOne(NS+"loginUser", map);
 	}
 
+	@Override
+	public int insertUser(Map<String, Object> map) {
+		return session.insert(NS+"insertUser", map);
+	}
+
 	
 	
 }
