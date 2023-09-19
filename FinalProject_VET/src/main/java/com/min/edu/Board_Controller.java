@@ -1,6 +1,7 @@
 package com.min.edu;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
+import com.min.edu.vo.AnimalCode_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
 
@@ -28,27 +30,31 @@ import lombok.extern.slf4j.Slf4j;
 public class Board_Controller {
 
 	@Autowired
-	private IBoard_Dao dao;
-	@Autowired
 	private IBoard_Service service;
 	
 	@GetMapping(value = "/questBoard.do")
 	public String questBoard(Model model) {
-		log.info("&&&&& Board_Controller 실행 questBoard 이동 &&&&&");
-		List<QuestBoard_VO> lists = dao.selectQuest();
+		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
+		
+		List<QuestBoard_VO> lists = service.selectQuest();
+//		List<AnimalCode_VO> codeList = new ArrayList<AnimalCode_VO>();
+//		List<AnimalCode_VO> codeList = service.selectPartQuest();
+		
+		
+		
 		model.addAttribute("qstVo", lists);
-		return "questBoard";
+		return "qst_questBoard";
 	}
 	
 	@GetMapping(value = "/questDetail.do")
 	public String questDetail(String seq, Model model) {
 		log.info(seq);
-		log.info("&&&&& Board_Controller 실행 questDetail 이동 &&&&&");
+		log.info("&&&&& Board_Controller 실행 qst_questDetail 이동 &&&&&");
 		List<QuestBoard_VO> qstDetail = service.selectOneBoard(seq);
 		List<ReplyBoard_VO> rpyList = service.selectReply(seq);
 		model.addAttribute("qstDetail", qstDetail);
 		model.addAttribute("rpyList", rpyList);
-		return "questDetail";
+		return "qst_questDetail";
 	}
 
 	@GetMapping(value = "/chooseReply.do")
@@ -62,16 +68,20 @@ public class Board_Controller {
 //		return choice>0?"redirect:/questDetail.do?seq="+seq:"redirect:/questDetail.do";
 	}
 	
+	
+	
+	
+	
 	@GetMapping(value = "/writeQuestForm.do")
 	public String moveWriteForm() {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
-		return "writeQuest";
+		return "qst_writeQuest";
 	}
 	
-	@PostMapping(value = "/writeQuest.do")
+	@PostMapping(value = "/qst_writeQuest.do")
 	@ResponseBody
 	public String writeQuest() {
-		log.info("&&&&& Board_Controller 실행 writeQuest &&&&&");
+		log.info("&&&&& Board_Controller 실행 qst_writeQuest &&&&&");
 		return null;
 	}
 	

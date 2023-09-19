@@ -17,28 +17,32 @@
 <body>
 <!-- 카테고리 선택 및 검색창 -->
 <div class="container">
-<div id="questSearch">
-	<select>
-		<option value="1">선택</option>
-		<option value="2">개</option>
-		<option value="3">고양이</option>
-		<option value="4">파충류</option>
-		<option value="5">조류</option>
-		<option value="6">어류</option>
-		<option value="7">기타</option>
+
+<div id="questSearch">qst_questBoard
+	<select id="aCode" onchange="aCodeChange()">
+		<option>--어떤 동물인가요?--</option>
+		<c:forEach var="codeList" items="${codeList}">
+			<option value="">
+		</c:forEach>
 	</select>
+	
 	<select>
-		<option value="1">선택</option>
-		<option value="2">피부, 귀</option>
-		<option value="3">눈</option>
-		<option value="4">치아</option>
-		<option value="5">위, 장</option>
-		<option value="6">신장, 방광</option>
-		<option value="7">뼈, 관절</option>
-		<option value="8">심장</option>
-		<option value="9">간</option>
-		<option value="10">면역력, 호흡기</option>
-		<option value="11">기타</option>
+
+<!-- 			<div id="selectPart"> -->
+<!-- 				<select id="codeL" onchange="codeLChange()"> -->
+<!-- 					<option>--진료과목--</option> -->
+<%-- 					<c:forEach var="codelist" items="${codelists}" varStatus="vs"> --%>
+<%-- 						<option value="${codelist.medi_code}">${codelist.medi_name}</option>			 --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
+				
+<!-- 				<select id="codeS"> -->
+<!-- 					<option>--질환--</option> -->
+<!-- 				</select> -->
+<!-- 				<button id="selectMediCode" onclick="selectCode()">조회</button> -->
+<!-- 			</div> -->
+<!-- 			<div id="chartPart"> -->
+
 	</select>
 	<input type="text" value="❔" style="text-align: left;">
 	<input type="submit" value="검색">
@@ -58,6 +62,7 @@
 	</thead>
 	<tbody>
 		<c:forEach var="dto" items="${qstVo}" varStatus="vs">
+		${dto}
 		<tr>
 			<td style="text-align:center;">${vs.count}</td>
 			<td>${dto.qst_id}</td>

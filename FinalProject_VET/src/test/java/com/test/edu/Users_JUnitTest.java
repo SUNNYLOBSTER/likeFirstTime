@@ -43,11 +43,22 @@ public class Users_JUnitTest {
 //		String hospitalId = "gunu@naver.com";
 //		Users_VO vo = service.selectHospitalDetail(hospitalId);
 		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("users_id", "elsa@disney.com");
+//		map.put("users_pw", "elsa1234");
+//		Users_VO vo = service.loginUser(map);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("users_id", "elsa@disney.com");
-		map.put("users_pw", "elsa1234");
-		Users_VO vo = service.loginUser(map);
-		assertNotNull(vo);
+		map.put("users_id", "ariel1234@disney.com");
+		map.put("users_pw", "ariel1234");
+		map.put("users_name", "박아리엘");
+		map.put("users_tel", "0318268826");
+		
+		int n = service.insertUser(map);
+		
+		assertEquals(1, n);
+		
+		
 	}
 
 }

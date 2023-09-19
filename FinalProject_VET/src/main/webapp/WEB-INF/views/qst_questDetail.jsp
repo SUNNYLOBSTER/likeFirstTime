@@ -21,7 +21,7 @@
 <%-- ${rpyList} --%>
 <div id="container">
 
-<table >
+<table>
 	<thead>
 		<tr>
 			<th style="width:150px;content-align:center;">작성자</th>
@@ -64,7 +64,7 @@
 							<td>
 							    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 							    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-							    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+							    <button id="openModal" type="button" style="display:none;" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
 						    </td>
 					    </tr>
 				    </c:when>
@@ -81,7 +81,7 @@
 			  		</c:otherwise>
 				</c:choose>
 				</c:forEach>
-		</tbody>
+		</tbody>	
 	</table>
 </div>
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
@@ -94,6 +94,14 @@
     <button id="closeModal">취소</button>
     </div>
 </div>
+
+<script>
+  <c:if test="${hideOpenModal == 'true'}">
+    $(document).ready(function() {
+      $('#openModal').hide();
+    });
+  </c:if>
+</script>
 
 </div>
 </body>

@@ -1,5 +1,6 @@
 package com.min.edu.vo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -11,16 +12,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-public class SchedBoard_VO {
+@NoArgsConstructor
+public class ScheduleCalendar_VO {
 
+	private String title;
+	private String start;
+	private String end;
 	private int sche_num;
-	private String sche_id;
-	private String sche_date;
-	private String sche_title;
-	private String sche_content;
-	private String sche_hour;
-	private String sche_minute;
-
+	
 }

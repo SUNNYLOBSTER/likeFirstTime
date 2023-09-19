@@ -145,4 +145,13 @@
 	WHERE USERS_ID = #{users_id} AND USERS_PW = #{users_pw}
 </select>
 
+<!-- 회원가입 -->
+<insert id="insertUser" parameterType="java.util.Map">
+	INSERT INTO USERSINFO
+		(USERS_ID, USERS_PW, USERS_NAME, USERS_TEL,
+		 USERS_STATUS, USERS_JOINDATE, USERS_AUTH)
+	VALUES(#{users_id}, #{users_pw}, #{users_name}, #{users_tel}, 
+			'N' , SYSDATE , 'U')
+</insert>
+
 </mapper>

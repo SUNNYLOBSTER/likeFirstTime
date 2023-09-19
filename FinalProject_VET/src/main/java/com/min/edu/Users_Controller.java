@@ -168,5 +168,31 @@ public class Users_Controller {
 		log.info("&&&&& Users_Controller loginForm ->  insertUsers 페이지 이동 &&&&&");
 		return "insertUsersStepOne";
 	}
+	
+	@GetMapping(path = "/insertStepTwo.do")
+	public String insertStepTwo() {
+		log.info("&&&&& Users_Controller insertUsers->insertStepTwo 페이지 이동 &&&&&");
+		return "insertUsersStepTwo";
+	}
+	
+	@PostMapping(path = "/insertUsersTwo.do")
+	public String insertUsersTwo(@RequestParam Map<String, Object> map, Model model) {
+		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
+		
+		int n = service.insertUser(map);
+		
+		return (n>=1)?"insertUsersStepThree":"redirect:/main.do";
+		
+	}
+	
+	//email 인증관련
+	@GetMapping(path="/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		log.info("&&&&& Users_Controller 이메일 인증 요청 들어옴 &&&&&");
+		System.out.println("이메일 인증 요청한 이메일 : " + email );
+		return "";
+	}
+
 }
 

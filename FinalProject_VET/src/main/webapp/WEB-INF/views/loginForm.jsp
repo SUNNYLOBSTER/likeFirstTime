@@ -8,7 +8,7 @@
 </head>
 <%@ include file="./header.jsp" %>
 <body>
-	<div id="container" style="text-align: -webkit-right;">
+	<div id="container">
 		<form action="./login.do" method="post">
 			<table>
 				<tr>
