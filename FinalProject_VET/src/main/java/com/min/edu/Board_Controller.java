@@ -40,8 +40,6 @@ public class Board_Controller {
 //		List<AnimalCode_VO> codeList = new ArrayList<AnimalCode_VO>();
 //		List<AnimalCode_VO> codeList = service.selectPartQuest();
 		
-		
-		
 		model.addAttribute("qstVo", lists);
 		return "qst_questBoard";
 	}
@@ -68,6 +66,13 @@ public class Board_Controller {
 //		return choice>0?"redirect:/questDetail.do?seq="+seq:"redirect:/questDetail.do";
 	}
 	
+	@GetMapping(value = "/selectPartQuest.do")
+	public String selectPartQuest(QuestBoard_VO vo) {
+		
+		System.out.println(vo);
+		
+		return "qst_questDetail";
+	}
 	
 	
 	
