@@ -1,23 +1,16 @@
 @charset "UTF-8";
 
-#wrapper{
-	background-color: grey;
-	width: 800px;
-	padding: 0px 5px 5px 5px;
-	margin: 50px auto;
-}
-
-.searchArea {
-	height: 100px;
+#searchArea {
+	height: 300px;
 	padding: 10px 10px;
 }
 
-.contentArea{
-	height: 500px;
+#contentArea {
+	height: 1100px;
 }
 
-.pagingArea{
-	height: 60px;
+#pagingArea {
+	height: 100px;
 	padding: 10px 10px;
 }
 

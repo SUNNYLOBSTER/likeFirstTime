@@ -17,8 +17,8 @@
 </head>
 <%@ include file="./header.jsp" %>
 <body>
-<div id="wrapper">
-<div class="searchArea">
+<div id="container">
+<div id="searchArea">
 	<select id="aCode" >
 		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
 		<option value="d">개</option>
@@ -45,7 +45,7 @@
 	<input id="searchSubmit" type="submit" value="검색" >
 </div>
 
-<div class="contentArea">
+<div id="contentArea">
 <table>
 	<thead>
 		<tr>
@@ -97,7 +97,7 @@
 
 
 <!-- 페이징 -->
-<div class="pagingArea">
+<div id="pagingArea">
 	<span>⏮️</span>
 	<span>⏪</span>
 	<span>⏩</span>
