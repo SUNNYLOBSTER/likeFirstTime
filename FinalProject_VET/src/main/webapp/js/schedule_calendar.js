@@ -31,10 +31,10 @@ $(document).ready(function() {
 							$("#calendarModal").modal("show");
 							
 							$("#addCalendar").on("click",function(){
-								var title = $("#sche_title").val();
-								var date = $("#sche_date").val();
-								var content = $("#sche_content").val();
-								var timeArray = $("#sche_time").val().split(":");
+								var title = $("#sche_title1").val();
+								var date = $("#sche_date1").val();
+								var content = $("#sche_content1").val();
+								var timeArray = $("#sche_time1").val().split(":");
 								var hour = timeArray[0];
 								var minute = timeArray[1];
 								var obj = {
@@ -45,28 +45,30 @@ $(document).ready(function() {
 										"sche_minute" : minute
 									}
 								console.log(obj);
-								
 							});
 							
 							$("#addCalendar").on("click",function(){
-								var title = $("#sche_title").val();
-								var date = $("#sche_date").val();
-								var content = $("#sche_content").val();
-								var time = $("#sche_time").val();
+								var title = $("#sche_title1").val();
+								var date = $("#sche_date1").val();
+								var content = $("#sche_content1").val();
+								var time = $("#sche_time1").val();
 								var timeArray = time.split(":");
 								var hour = timeArray[0];
 								var minute = timeArray[1];
 								
 								if(!title){
 									alert("일정을 입력해주세요")
-									$("#sche_title").focus();
+									$("#sche_title1").focus();
 									return false;
 								}else if(!date){
 									alert("날짜를 입력해주세요")
-									$("#sche_date").focus();
+									$("#sche_date1").focus();
+									return false;
+								}else if(!time){
+									alert("시간을 입력해주세요")
+									$("#sche_time1").focus();
 									return false;
 								}
-								
 								
 								console.log("추가버튼 실행");
 								$.ajax({
@@ -89,30 +91,42 @@ $(document).ready(function() {
 										location.href='./selectAllSchedule.do';
 										console.log("일정등록 실패");
 									}
-									
 								});
 							});
 						}
 					} 
 				},
+				
 				eventClick: function(info) {
 					$("#detailModal").modal("show");
+					var inputs = $("#modal_modify input");
+//					console.log(inputs.length);
+					inputs.attr("disabled", true);
+
 					$.ajax({
 						url:"./selectOneSchedule.do",
-						method:"get",
+						method:"post",
 						data:{sche_num: info.event._def.extendedProps.sche_num},
+						dataType:"JSON",
 						success:function(data){
 							console.log(data);
+							var sche_hour = data.svo.sche_hour;
+							var sche_minute = data.svo.sche_minute;
+							var sche_time = sche_hour.concat(":").concat(sche_minute);
+							$("#sche_num").val(data.svo.sche_num);
+							$("#sche_title").val(data.svo.sche_title);
+							$("#sche_date").val(data.svo.sche_date);
+							$("#sche_time").val(sche_time);
+							$("#sche_content").val(data.svo.sche_content);
+							
 						},
 						error:function(){
-							
+							alert("전송오류입니다");
+							location.href='./selectAllSchedule.do';
 						}
 					});
-					
-//				    location.href="./selectOneSchedule.do?sche_num="+info.event._def.extendedProps.sche_num;
 				},
 				events: data
-				
 			});
 			calendar.render();
 		});
@@ -122,3 +136,53 @@ $(document).ready(function() {
 		});
 	});
 });
+
+
+function modifySchedule(){
+	console.log($("#modal_modify input").eq(0));
+	$("#modal_modify input").eq(0).attr("disabled", false);
+	$("#modal_modify input").eq(3).attr("disabled", false);
+	$("#modal_modify input").eq(0).focus();
+	
+	$("#modifyCalendar").on("click", function(){
+		$.ajax({
+			url:"./modifySchedule.do",
+			method:"post",
+			data:{
+				sche_title  : $("#modal_modify input").eq(0).val(),
+				sche_content : $("#modal_modify input").eq(3).val(),
+				sche_num : $("#sche_num").val()
+			},
+			dataType:"JSON",
+			success:function(data){
+				console.log("수정성공",data);
+				$("#detailModal").modal("hide");
+				location.href='./selectAllSchedule.do';
+			},
+			error:function(){
+				alert("전송오류입니다");
+				location.href='./selectAllSchedule.do';
+			}
+		});
+	});
+}
+
+function deleteSchedule(){
+	console.log("삭제실행, 삭제할 번호 : ",$("#sche_num").val());
+	$.ajax({
+		url:"./deleteSchedule.do",
+		method:"post",
+		data:{sche_num:$("#sche_num").val()},
+		success:function(){
+			if(confirm('삭제하시겠습니까?')==true){
+				console.log("삭제");
+				location.href='./selectAllSchedule.do';
+			}
+		},
+		error:function(){
+			alert("전송오류입니다");
+			location.href='./selectAllSchedule.do';
+		}
+	});
+}
+

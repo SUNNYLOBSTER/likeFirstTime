@@ -32,8 +32,8 @@
 					<td>${pvo.medichart_vo[0].medi_title}</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="ck-content">
+					<td colspan="2">
+						<div id="content" class="ck-content">
 							${medi_content}
 						</div>
 					</td>
