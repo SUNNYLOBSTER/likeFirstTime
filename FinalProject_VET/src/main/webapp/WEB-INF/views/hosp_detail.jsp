@@ -11,20 +11,6 @@
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
-	<div class="insertMap">
-		<div id="title">
-			<div id="bookmarkPart">
-				<a href="#">
-				<img alt="bookmark" src="./img/bookmark_no.png" id="bookmark">	
-				즐겨찾기 등록
-				</a>
-			</div>
-			<span id="hospitalName">${placeName}</span>
-		</div>
-		<div id="map-box">
-			<div id="map"></div>
-		</div>
-	</div>
 	<div class="insertDetail">
 		<c:if test="${hosp_time ne null}">
 			<button id="hosp_time">${hosp_time}</button>
@@ -32,7 +18,7 @@
 		<c:choose>
 			<c:when test="${hosp_detail ne null}">
 			<h2>동물병원 상세정보</h2>
-				<table>
+				<table id="hosp_detail">
 					<tr>
 						<th>병원이름</th>
 						<td id="hosp_name">${hosp_detail.hospital_vo[0].hosp_name}</td>
@@ -68,19 +54,42 @@
 						<th>병원 소개</th>
 						<td>${hosp_detail.hospital_vo[0].hosp_etc}</td>
 					</tr>
-					<tr>
-						<th><button onclick="location.href='./resrv_requestPage.do?resrv_hops=${hosp_detail.hospital_vo[0].hosp_id}'">예약하기</button></th>
-					</tr>
 				</table>
+				<div id="resrv_area">
+					<c:if test="${sessionScope.loginVo.users_auth eq 'U'}">
+						<button id="reservation" onclick="location.href='./resrv_requestPage.do?resrv_hops=${hosp_detail.hospital_vo[0].hosp_id}'">예약하기</button>
+					</c:if>
+				</div>
 			</c:when>
 			<c:otherwise>
-				<h3>등록된 병원정보가 없습니다.</h3>
-				<fieldset>
-					<legend><b>주소</b></legend>
-					<p id="addr">${address}<p>
-				</fieldset>
+				<div id="hosp_noInfo">
+					<h3>등록된 병원정보가 없습니다.</h3>
+					<table id="hosp_noInfo_table">
+						<tr>
+							<th>동물병원명 :</th>
+							<td><p id="hospitalName">${placeName}</p></td>
+						</tr>
+						<tr>
+							<th>주소 :</th>
+							<td><p id="addr">${address}<p></td>
+						</tr>
+					</table>
+				</div>
 			</c:otherwise>
 		</c:choose>
+	</div>
+	<div class="insertMap">
+		<div id="title">
+			<div id="bookmarkPart">
+				<a href="#">
+				<img alt="bookmark" src="./img/bookmark_no.png" id="bookmark">	
+				즐겨찾기 등록
+				</a>
+			</div>
+		</div>
+		<div id="map-box">
+			<div id="map"></div>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" src="./js/map_hospDetail.js"></script>

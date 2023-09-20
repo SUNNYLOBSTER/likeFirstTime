@@ -168,4 +168,11 @@
 			WHERE HOSP_ID = #{hosp_id}
 	</select>
 	
+	<update id="resrv_detailModify">
+		UPDATE PROJECT.RESERVATION
+			SET RESRV_VISIT=#{resrv_visit}, RESRV_TIME=#{resrv_time}, 
+				RESRV_NAME=#{resrv_name}, RESRV_TEL=#{resrv_tel}, RESRV_MEMO=#{resrv_memo},
+			WHERE RESRV_NUM=#{resrv_num}
+	</update>
+	
 </mapper>

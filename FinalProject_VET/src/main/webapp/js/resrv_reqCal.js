@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //						console.log(hosp_runJson.open);
 						var openTime = parseInt(hosp_runJson.open);
 						var closeTime = parseInt(hosp_runJson.close);
-						
+						var html ="";
 //						hosp_run.innerHTML="";
 						resrv_availableTime.innerHTML="";
 						for(let i=openTime; i<closeTime; i++){
@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
 							}
 						}
 						document.getElementById("select_date").value = info.dateStr;
-						document.getElementById("select_time").value = "시간";
+						document.getElementById("select_time").value = "-- : --";
 					}else{
 						var openTime = parseInt(JSON.parse(data[0].hosp_time).open);
 						var closeTime = parseInt(JSON.parse(data[0].hosp_time).close);
 						var html = "";
-						console.log(data[0].start.substr(0,10));
+//						console.log(data[0].start.substr(0,10));
 						console.log(info.dateStr);
 						
 						resrv_availableTime.innerHTML="";

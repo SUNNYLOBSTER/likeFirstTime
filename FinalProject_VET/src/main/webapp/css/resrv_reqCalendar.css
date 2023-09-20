@@ -54,8 +54,17 @@
 	  pointer-events: none;
 	  background-color: #EFEBE9;
 	  border: 1px solid #3E2723;
-	  width: 100px;
+	  width: 70px;
 	  height: 30px;
 	  border-radius: 5px;
 	  font-size: 17px;
+	  text-align: center;
+}
+
+#resrv_availableTime button:hover{
+	cursor: pointer;
+	border: 2px solid #3E2723;
+}
+#resrv_availableTime button:active{
+	background-color: #BCAAA4;
 }
