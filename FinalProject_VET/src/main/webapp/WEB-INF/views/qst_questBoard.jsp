@@ -17,32 +17,36 @@
 <body>
 <!-- 카테고리 선택 및 검색창 -->
 <div class="container">
+
 <div id="questSearch">
-	<select>
-		<option value="1">선택</option>
-		<option value="2">개</option>
-		<option value="3">고양이</option>
-		<option value="4">파충류</option>
-		<option value="5">조류</option>
-		<option value="6">어류</option>
-		<option value="7">기타</option>
+	<select id="aCode" >
+		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
+		<option value="d">개</option>
+		<option value="c">고양이</option>
+		<option value="r">파충류</option>
+		<option value="b">조류</option>
+		<option value="f">어류</option>
+		<option value="o">기타</option>
 	</select>
-	<select>
-		<option value="1">선택</option>
-		<option value="2">피부, 귀</option>
-		<option value="3">눈</option>
-		<option value="4">치아</option>
-		<option value="5">위, 장</option>
-		<option value="6">신장, 방광</option>
-		<option value="7">뼈, 관절</option>
-		<option value="8">심장</option>
-		<option value="9">간</option>
-		<option value="10">면역력, 호흡기</option>
-		<option value="11">기타</option>
+
+	<select id="aPart">
+		<option disabled="disabled" selected="selected" value="">---</option>
+		<option value="01">피부</option>
+		<option value="02">눈</option>
+		<option value="03">치아</option>
+		<option value="04">위,장</option>
+		<option value="05">신장,방광</option>
+		<option value="06">뼈,관절</option>
+		<option value="07">심장</option>
+		<option value="08">간</option>
+		<option value="09">면역력,호흡기</option>
+		<option value="10">기타</option>
 	</select>
-	<input type="text" value="❔" style="text-align: left;">
-	<input type="submit" value="검색">
+	<input id="searchBar" type="text" placeholder="검색어를 입력하세요" style="text-align: left;">
+	<input id="searchSubmit" type="submit" value="검색">
 </div>
+
+
 
 <div>
 <table>
@@ -57,7 +61,9 @@
 		</tr>
 	</thead>
 	<tbody>
+		
 		<c:forEach var="dto" items="${qstVo}" varStatus="vs">
+<%-- 		${dto} --%>
 		<tr>
 			<td style="text-align:center;">${vs.count}</td>
 			<td>${dto.qst_id}</td>
@@ -81,5 +87,35 @@
 </div>
 
 </div>
+
+<script type="text/javascript">
+
+
+searchSubmit.addEventListener("click", e => {
+	var code = aCode.value;
+	var text = searchBar.value;
+	var part = aPart.value;
+	console.log(code, text);
+	
+	$.ajax({
+		url:"./selectPartQuest.do",
+		method:"get",
+		data:"qst_species="+code + "&qst_part=" + part + "&qst_content=" + text,
+		success:function(msg){
+			console.log("성공");
+		},
+		error:function(){
+			alert("잘못된 요청");
+		}
+	});
+	
+})
+
+
+
+
+
+
+</script>
 </body>
 </html>

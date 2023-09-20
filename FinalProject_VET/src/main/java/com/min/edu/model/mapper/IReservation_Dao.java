@@ -54,4 +54,6 @@ public interface IReservation_Dao {
 	//병원 이름 가져오기
 	public String hosp_name(String hosp_id);
 	
+	//예약없는 병원 운영시간,휴무일 가져오기
+	public Hospital_VO hosp_runTime(String hosp_id);
 }

@@ -28,4 +28,7 @@ public interface IUsers_Dao {
 	//로그인
 	public Users_VO loginUser(Map<String, Object> map);
 	
+	//회원 가입(일반사용자)
+	public int insertUser(Map<String, Object> map);
+	
 }
