@@ -73,7 +73,7 @@ public class Schedule_Controller {
 		
 		int n = Integer.parseInt(sche_num); 
 		SchedBoard_VO svo = service.selectOneSchedule(n);
-		model.addAttribute("svo",svo);
+		model.addAttribute("svo", svo);
 		return svo;
 	}
 	
