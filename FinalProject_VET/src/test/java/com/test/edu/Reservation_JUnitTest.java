@@ -98,9 +98,9 @@ public class Reservation_JUnitTest {
 		assertEquals(1, n);
 	}
 	
-//	@Test
+	@Test
 	public void resrv_reqPageTest() {
-		Hospital_VO hvo= service.resrv_reqPage("gana@naver.com");
+		Hospital_VO hvo= service.resrv_reqPage("suwu@naver.com");
 		assertNotNull(hvo);
 	}
 	

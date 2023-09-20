@@ -7,7 +7,6 @@
 <title>일정관리 게시판</title>
 <script type="text/javascript" src='./js/index.global.js'></script> 
 <script type="text/javascript" src="./js/schedule_calendar.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="./css/calendar.css">
 </head>
 <%@ include file="./navbar.jsp" %>

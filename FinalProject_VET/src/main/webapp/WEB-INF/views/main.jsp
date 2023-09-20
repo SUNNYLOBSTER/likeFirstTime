@@ -9,9 +9,7 @@
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
-	<c:if test="${loginVo.users_auth eq 'U' }">
-		<a href="./resrv_requestPage.do?resrv_hops=gana@naver.com">예약신청 페이지</a><br>
-	</c:if>
+	
 </div>
 
 </body>

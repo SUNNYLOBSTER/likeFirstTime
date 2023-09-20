@@ -11,7 +11,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script type="text/javascript" src='./js/index.global.js'></script> <!-- 캘린더를 랜더링하는 js -->
 <script type="text/javascript" src='./js/resrv_reqCal.js'></script> <!-- 작성할 js -->
-<script type="text/javascript" src='./js/resrv_time.js'></script> <!-- 작성할 js -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="./css/resrv_reqCalendar.css">
 </head>
@@ -24,6 +23,10 @@
 		</div>
 		<div id="time_area">
 			<h2>예약가능 시간</h2>
+			<c:if test="${hosp_runTime ne null}">
+				<button id="hosp_run" >${hosp_runTime}</button>
+			</c:if>
+			
 			<div id="resrv_availableTime"></div>
 		</div>
 		<hr>
@@ -39,7 +42,7 @@
 				</tr>
 				<tr>
 					<th>선택 시간</th>
-					<td><input type="text" id="select_time" name="resrv_time" value="-- : --" readonly></td>
+					<td><input type="time" id="select_time" name="resrv_time" value="시간" readonly></td>
 				</tr>
 				<tr>
 					<th>이름</th>
