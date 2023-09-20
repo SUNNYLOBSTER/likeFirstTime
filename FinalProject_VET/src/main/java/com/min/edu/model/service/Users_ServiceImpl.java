@@ -66,6 +66,12 @@ public class Users_ServiceImpl implements IUsers_Service {
 		return dao.insertUser(map);
 	}
 	
+	@Override
+	public int duplicationId(String email) {
+		log.info("&&&&& Users_ServiceImpl duplicationId 전달받은 파라미터 값 : {} &&&&&", email);
+		return dao.duplicationId(email);
+	}
+	
 	
 	
 }

@@ -154,4 +154,27 @@
 			'N' , SYSDATE , 'U')
 </insert>
 
+<!-- 아이디 중복확인 -->
+<select id="duplicationId" resultType="java.lang.Integer">
+	SELECT COUNT(*) 
+		FROM USERSINFO u
+		WHERE USERS_ID = #{users_id}
+</select>
+
+
+<!-- 추가정보입력 -->
+<update id="addInfoUser">
+UPDATE USERSINFO
+	SET USERS_ADDR=#{users_addr}, USERS_SUBTEL=#{users_subtel}
+	WHERE USERS_ID=#{users_id}
+</update>
+<!-- 반려동물 정보 입력 -->
+<insert id="insertPetInfo">
+INSERT INTO PETSINFO
+	(PET_SEQ,
+	PET_OWNER, PET_NAME, PET_BDAY, PET_SPECIES, PET_GENDER, PET_NEUT, PET_REPORT)
+VALUES((SELECT NVL(MAX(PET_SEQ),0)+1 FROM PETSINFO),
+	#{pet_owner}, #{pet_name}, #{pet_bday}, #{pet_species}, #{pet_gender}, #{pet_neut}, #{pet_report});
+</insert>
+
 </mapper>

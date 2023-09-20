@@ -31,5 +31,7 @@ public interface IUsers_Service {
 	//회원 가입(일반사용자)
 	public int insertUser(Map<String, Object> map);
 	
+	//이메일 중복확인(일반사용자)
+	public int duplicationId(String email);
 		
 }
