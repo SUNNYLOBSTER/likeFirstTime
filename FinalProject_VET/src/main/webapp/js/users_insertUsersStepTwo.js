@@ -1,21 +1,36 @@
-function emailCert() {
-
-$('#emailCheckBtn').click(function(){
-	var email = $('#users_id').val() //email 주소값 얻어오기
-	console.log("이메일주소: ", email);
-	
-	var checkInput = $('.emailCheckInput')//인증번호 입력하는 자리
-	
-	$.ajax({
-		type:"get",
-		url:"<c:url value='/mailCheck?email='/>"+email,
-		success: function(data){
-			console.log("data : ", data);
-			checkInput.attr('disabled', false);
-			code = data;
-			alert("인증번호가 전송되었습니다.");
-		}
-	});
+$(document).ready(function(){
+	document.getElementById("btnUseEmail").style.display="none";
 });
 
+function checkEmail(){
+	var email = document.getElementById("id").value;
+	console.log("checkEmail 함수 : ", email);
+	
+	if(email != ""){
+		$.ajax({
+			url:"./duplicationAjax.do",
+			type:"post",
+			data:"checkEmail="+email,
+			async: true,
+			success: function(data){
+				console.log("Ajax 처리된 성공 결과: ", data);
+				if(data == "true"){
+					document.getElementById("condition").innerHTML = "사용할 수 없는 이메일입니다.";
+					document.getElementById("btnUseEmail").style.display = "none";
+				} else {
+					document.getElementById("condition").innerHTML = "사용가능한 이메일입니다.";
+					document.getElementById("btnUseEmail").style.display = "block";
+				}
+			},
+			error: function(){
+				alert("잘못된 요청입니다. 관리자에게 문의하세요.");
+			}
+		});
+	}
+}
+
+function useEmail(){
+	var email = document.getElementById("users_id").value;
+	opener.document.getElementById("users_id").value = email;
+	window.close();
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -185,14 +186,20 @@ public class Users_Controller {
 		
 	}
 	
-	//email 인증관련
-	@GetMapping(path="/mailCheck")
+
+	//아이디 중복검사
+	@GetMapping(path="/duplication.do")
+	public String duplication() {
+		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
+		return "users_duplication";
+	}
+	
+	@PostMapping(path="/duplicationAjax.do")
 	@ResponseBody
-	public String mailCheck(String email) {
-		log.info("&&&&& Users_Controller 이메일 인증 요청 들어옴 &&&&&");
-		System.out.println("이메일 인증 요청한 이메일 : " + email );
+	public String duplicationAjax (String checkEmail) {
 		return "";
 	}
+	
 
 }
 
