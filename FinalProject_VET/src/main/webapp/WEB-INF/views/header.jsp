@@ -7,6 +7,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 	header {
 		color: #3e2723;
@@ -76,7 +77,7 @@
 	}
 	
 	.sidenav {
-		height: 1340px;
+		height: 1300px;
 		width: 200px;
 		position: absolute;
 		z-index: 1;
@@ -117,7 +118,7 @@
 	
 	.navContainer{
 		width: 1000px;
-		margin: 20px auto;
+		margin: 0px auto;
 		height: 1300px;
  		padding-left: 220px; 
 	}
@@ -127,6 +128,10 @@
 	}
 	#loginForm{
 		margin: 50px auto;
+	}
+	.fa-caret-down {
+    float: right;
+    padding-right: 8px;
 	}
 </style>
 </head>

@@ -56,8 +56,14 @@ public class Users_ServiceImpl implements IUsers_Service {
 
 	@Override
 	public Users_VO loginUser(Map<String, Object> map) {
-		log.info("&&&&& Users_ServiceImpl selectHospitalDetail 전달받은 파라미터 값 : {} &&&&&", map);
+		log.info("&&&&& Users_ServiceImpl loginUser 전달받은 파라미터 값 : {} &&&&&", map);
 		return dao.loginUser(map);
+	}
+
+	@Override
+	public int insertUser(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl insertUser 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.insertUser(map);
 	}
 	
 	

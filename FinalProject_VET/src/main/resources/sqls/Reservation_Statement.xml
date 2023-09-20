@@ -161,4 +161,11 @@
 			WHERE HOSP_ID = #{hosp_id}
 	</select>
 	
+	<!-- 예약정보 없는 병원 운영시간, 휴무일 가져오기 -->
+	<select id="hosp_runTime" resultMap="hospital_VO">
+		SELECT HOSP_TIME, HOSP_OFF
+			FROM HOSPITAL h 
+			WHERE HOSP_ID = #{hosp_id}
+	</select>
+	
 </mapper>

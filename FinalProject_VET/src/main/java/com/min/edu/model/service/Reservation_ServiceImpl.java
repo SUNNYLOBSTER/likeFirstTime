@@ -128,5 +128,12 @@ public class Reservation_ServiceImpl implements IReservation_Service {
 		return dao.hosp_name(hosp_id);
 	}
 
+	@Override
+	public Hospital_VO hosp_runTime(String hosp_id) {
+		log.info("&&&&& Reservation_ServiceImpl hosp_runTime &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
+		return dao.hosp_runTime(hosp_id);
+	}
+
 	
 }

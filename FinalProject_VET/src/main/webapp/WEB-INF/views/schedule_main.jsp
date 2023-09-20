@@ -10,7 +10,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src='./js/index.global.js'></script> 
 <script type="text/javascript" src="./js/schedule_calendar.js"></script>
-
 <link rel="stylesheet" href="./css/calendar.css">
 </head>
 <%@ include file="./navbar.jsp" %>

@@ -126,7 +126,7 @@ public class Reservation_Controller {
       return (n>0)?"confirm":"false";
    }
    
-   @PostMapping(value = "resrv_refuse.do")
+   @PostMapping(value = "/resrv_refuse.do")
    @ResponseBody
    public String resrv_refuse(String resrv_num) {
       log.info("&&&&& Reservation_Controller resrv_refuse 호출 &&&&&");
@@ -135,26 +135,53 @@ public class Reservation_Controller {
       return (n>0)?"resrv_refuse":"false";
    }
    
-   @GetMapping(value = "resrv_requestPage.do")
-   public String resrv_requestPage(HttpSession session, String resrv_hops, Model model){
+   @GetMapping(value = "/resrv_requestPage.do")
+   public String resrv_requestPage(HttpSession session, HttpServletResponse response, String resrv_hops, Model model) throws IOException{
       log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
+      response.setContentType("text/html; charset=UTF-8;");
       Users_VO user_vo = (Users_VO) session.getAttribute("loginVo");
       System.out.println("#####"+user_vo);
       session.setAttribute("resrv_hops", resrv_hops);
-      Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
-      model.addAttribute("hosp_time", hosp_info.getHosp_time());
-      model.addAttribute("user_vo", user_vo);
+      PrintWriter out = response.getWriter();
+      if(user_vo != null) {
+          if(resrv_hops != null) {
+        	  Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
+        	  if(hosp_info != null) {
+        		  model.addAttribute("hosp_time", hosp_info.getHosp_time());
+                  model.addAttribute("user_vo", user_vo);
+                  return "resrv_requestPage";  
+        	  }else {
+        		  Hospital_VO hosp_runTime = service.hosp_runTime(resrv_hops);
+//        		  Gson gson = new Gson();
+//        		  String hosp_run = gson.toJson(hosp_runTime.getHosp_time());
+        		  model.addAttribute("hosp_runTime", hosp_runTime.getHosp_time());
+        		  model.addAttribute("user_vo", user_vo);
+        		  return "resrv_requestPage";
+        	  }
+               
+          }else {
+        	  out.print("<script>alert('병원을 다시 선택해주세요');location.href='./map.do'</script>");
+        	  out.flush();
+        	  out.close();
+        	  return null;
+          }
+      }else {
+    	  out.print("<script>alert('로그인 후 이용해주세요');location.href='./loginForm.do'</script>");
+    	  out.flush();
+    	  out.close();
+    	  return null;
+      }
       
       
-      return "resrv_requestPage";
    }
    
-   @GetMapping(value = "resrv_requestAjax.do")
+   @GetMapping(value = "/resrv_requestAjax.do")
    @ResponseBody
    public void resrv_requestAjax(HttpServletResponse response, HttpSession session, Model model) throws IOException {
      
 	   String resrv_hops = (String)session.getAttribute("resrv_hops");
+	   System.out.println("###############"+resrv_hops);
        List<FullCalendar_VO> resultList = new ArrayList<>();
        
        List<Reservation_VO> rLists = service.resrv_reqCal(resrv_hops);
