@@ -48,14 +48,14 @@ public class Users_JUnitTest {
 //		map.put("users_pw", "elsa1234");
 //		Users_VO vo = service.loginUser(map);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("users_id", "ariel1234@disney.com");
-		map.put("users_pw", "ariel1234");
-		map.put("users_name", "박아리엘");
-		map.put("users_tel", "0318268826");
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("users_id", "ariel1234@disney.com");
+//		map.put("users_pw", "ariel1234");
+//		map.put("users_name", "박아리엘");
+//		map.put("users_tel", "0318268826");
 		
-		int n = service.insertUser(map);
 		
+		int n = service.duplicationId("elsa@disney.com");
 		assertEquals(1, n);
 		
 		

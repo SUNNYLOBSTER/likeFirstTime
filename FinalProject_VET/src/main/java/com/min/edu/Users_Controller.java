@@ -176,30 +176,42 @@ public class Users_Controller {
 		return "insertUsersStepTwo";
 	}
 	
-	@PostMapping(path = "/insertUsersTwo.do")
+	
+	//아이디 중복검사
+	@GetMapping(path="/duplication.do")
+	public String duplication() {
+		log.info("&&&&& Users_Controller duplication 아이디 중복검사 팝업 오픈 &&&&&");
+		return "users_duplication";
+	}
+	
+	//아이디(이메일) 중복검사 처리를 위한 rest 처리
+	@PostMapping(path="/duplicationAjax.do")
+	@ResponseBody
+	public String duplicationAjax (String checkEmail) {
+		log.info("&&&&& Users_Controller duplicationAjax 아이디 중복 확인 {} &&&&&", checkEmail);
+		int n = service.duplicationId(checkEmail);
+		return (n>0)?"true":"false";
+	}
+	
+	//회원가입
+	@PostMapping(path = "/signUp.do")
 	public String insertUsersTwo(@RequestParam Map<String, Object> map, Model model) {
 		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
 		
 		int n = service.insertUser(map);
-		
+		model.addAttribute("signUpVo",map);
 		return (n>=1)?"insertUsersStepThree":"redirect:/main.do";
 		
 	}
 	
-
-	//아이디 중복검사
-	@GetMapping(path="/duplication.do")
-	public String duplication() {
-		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
-		return "users_duplication";
-	}
-	
-	@PostMapping(path="/duplicationAjax.do")
-	@ResponseBody
-	public String duplicationAjax (String checkEmail) {
+	//회원정보 추가입력
+	@PostMapping(path="/addInfo.do")
+	public String addInfo() {
 		return "";
 	}
-	
+
+		
+
 
 }
 

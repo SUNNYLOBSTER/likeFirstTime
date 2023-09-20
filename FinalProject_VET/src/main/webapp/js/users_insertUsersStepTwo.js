@@ -3,7 +3,7 @@ $(document).ready(function(){
 });
 
 function checkEmail(){
-	var email = document.getElementById("id").value;
+	var email = document.getElementById("users_id").value;
 	console.log("checkEmail 함수 : ", email);
 	
 	if(email != ""){

@@ -57,6 +57,11 @@ public class Users_DaoImpl implements IUsers_Dao {
 		return session.insert(NS+"insertUser", map);
 	}
 
+	@Override
+	public int duplicationId(String email) {
+		return session.selectOne(NS+"duplicationId", email);
+	}
+
 	
 	
 }
