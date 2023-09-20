@@ -8,7 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>병원 예약관리 페이지</title>
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src='./js/index.global.js'></script> <!-- 캘린더를 랜더링하는 js -->
 <script type="text/javascript" src='./js/resrv_Calendar.js'></script> <!-- 작성할 js -->
 
@@ -25,8 +26,6 @@
 			</button>
 			<div class="dropdown-container">
 				<a onclick="#">1</a>
-				<a onclick="#">2</a>
-				<a onclick="#">3</a>
 			</div>
 			<button class="dropdown-btn">
 				예약관리<i class="fa fa-caret-down"></i>
@@ -41,8 +40,6 @@
 			</button>
 			<div class="dropdown-container">
 				<a onclick="#">1</a>
-				<a onclick="#">2</a>
-				<a onclick="#">3</a>
 			</div>
 			<button class="dropdown-btn">
 				채팅<i class="fa fa-caret-down"></i>
@@ -57,6 +54,37 @@
 		<div id="calendar"></div>
 		<div id="month_cnt"></div>
 		<div id="waitList"></div>
+		
+		<div class="modal fade" id="resrv_detailModal" role="dialog" style="display: none;">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title" id="exampleModalLabel">예약 상세조회</h5>
+	                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	                </div>
+	                <div class="modal-body">
+	                    <div class="form-group">
+	                        <label>예약번호</label>
+	                        <input type="text" class="form-control" id="resrv_num" name="resrv_num">
+	                        <label>예약날짜</label>
+	                        <input type="date" class="form-control" id="resrv_visit" name="resrv_visit">
+	                        <label>예약시간</label>
+	                        <input type="text" class="form-control" id="resrv_time" name="resrv_time">
+	                        <label>예약자명</label>
+	                        <input type="text" class="form-control" id="resrv_name" name="resrv_name">
+	                        <label>예약자 전화번호</label>
+	                        <input type="text" class="form-control" id="resrv_tel" name="resrv_tel">
+	                        <label>예약 메모</label>
+	                        <input type="text" class="form-control" id="resrv_memo" name="resrv_memo">
+	                    </div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" id="resrv_modifyBtn" onclick="resrv_modify()">정보수정</button>
+	                    <button type="button" id="resrv_cancel" onclick="">예약취소</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</div>
 </body>
 <script type="text/javascript">

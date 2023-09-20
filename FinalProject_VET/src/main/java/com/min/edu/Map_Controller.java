@@ -45,13 +45,19 @@ public class Map_Controller {
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", address);
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", placeName);
 		Users_VO user_vo = service.map_hospDetail(address.substring(3));
-		System.out.println(user_vo.getHospital_vo().get(0).getHosp_time());
-		String hosp_time = user_vo.getHospital_vo().get(0).getHosp_time();
-		model.addAttribute("hosp_detail", user_vo);
-		model.addAttribute("hosp_time", hosp_time);
-		model.addAttribute("address", address);
-		model.addAttribute("placeName", placeName);
-		return "hosp_detail";
+		if(user_vo != null) {
+			String hosp_time = user_vo.getHospital_vo().get(0).getHosp_time();
+			model.addAttribute("hosp_detail", user_vo);
+			model.addAttribute("hosp_time", hosp_time);
+			model.addAttribute("address", address);
+			model.addAttribute("placeName", placeName);
+			return "hosp_detail";
+		}else {
+			model.addAttribute("address", address);
+			model.addAttribute("placeName", placeName);
+			return "hosp_detail";
+		}
+		
 	}
 	
 }

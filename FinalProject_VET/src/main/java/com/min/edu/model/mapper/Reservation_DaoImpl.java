@@ -101,5 +101,9 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 		return session.selectOne(NS+"hosp_runTime", hosp_id);
 	}
 
-	
+	@Override
+	public int resrv_detailModify(Reservation_VO rvo) {
+		return session.update(NS+"resrv_detailModify",rvo);
+	}
+
 }

@@ -15,7 +15,7 @@ function resrv_calendar(){
 		});
 
 		request.done(function(data) {
-			console.log(data); // 가져온 일정
+//			console.log(data); // 가져온 일정
 			var today = new Date(); // 오늘 날짜 가져오기
 			var calendarEl = document.getElementById('calendar'); //캘린더 뿌려질 위치
 			
@@ -33,10 +33,44 @@ function resrv_calendar(){
 					right: 'prev,next today'
 				},
 				eventClick: function(info) {
-				    console.log("일정 클릭이벤트 :",info.event.title);
-				    console.log("일정 클릭이벤트 :",info.event.start);
+//				    console.log("일정 클릭이벤트 :",info.event.title);
+//				    console.log("일정 클릭이벤트 :",info.event.start);
 				    console.log("일정 클릭이벤트 :",info.event._def.extendedProps.resrv_num);
-				    location.href="./resrv_detail.do?resrv_num="+info.event._def.extendedProps.resrv_num;
+				    $("#resrv_detailModal").modal("show");
+				    var modalInput = $("#resrv_detailModal input");
+//				    console.log(modalInput.length);
+				    modalInput.attr("disabled", true);
+
+				    $.ajax({
+						url:"./resrv_detailAjax.do",
+						method:"get",
+						data:{resrv_num : info.event._def.extendedProps.resrv_num},
+						dataType:"json",
+						success:function(detail){
+//							console.log(detail);
+//							console.log(detail.detail.resrv_time);
+							var resrv_t = detail.resrv_time.concat(":00");
+		                    $("#resrv_num").val(detail.resrv_num);
+		                    $("#resrv_visit").val(detail.resrv_visit);
+		                    $("#resrv_time").val(resrv_t);
+		                    $("#resrv_name").val(detail.resrv_name);
+		                    $("#resrv_tel").val(detail.resrv_tel);
+		                    $("#resrv_memo").val(detail.resrv_memo);
+		                    
+		                    var sysdate = new Date();
+		                    var detailDate = new Date(detail.resrv_visit);
+							console.log(detailDate<sysdate);
+							if(detailDate<=sysdate){
+								$(".modal-footer button").hide();
+							}else{
+								$(".modal-footer button").show();
+							}
+//							console.log(typeof(sysDate));
+						},
+						error:function(){
+							alert("호출 실패");
+						}
+					});
 				},
 				events: data
 				
@@ -46,10 +80,54 @@ function resrv_calendar(){
 			
 		});
 		
-		request.fail(function(textStatus) {
-			alert("요청 실패 : " + textStatus);
+		request.fail(function() {
+			alert("요청 실패 : 다시 로그인 해주세요");
 			location.href="./loginForm.do";
 		});
 	});
 
 }
+
+function resrv_modify(){
+//	console.log($(".form-group input").eq());
+	var resrv_detailInputs = $(".form-group input");
+//	$(".form-group input").eq(0).attr("disabled",false);
+	for(let i=1; i<resrv_detailInputs.eq().prevObject.length; i++){
+		resrv_detailInputs.eq(i).attr("disabled",false);
+	}
+	var resrv_num = $("#resrv_num").val();
+	var resrv_visit =$("#resrv_visit").val();
+	var resrv_time =$("#resrv_time").val();
+	var resrv_name =$("#resrv_name").val();
+	var resrv_tel =$("#resrv_tel").val();
+	var resrv_memo =$("#resrv_memo").val();
+	if(!resrv_visit || !resrv_time || !resrv_name || !resrv_tel){
+		alert("예약날짜, 시간, 이름, 전화번호는 필수 입력값입니다. ");
+		$("#resrv_name").focus();
+	}
+	
+	$.ajax({
+		url:"./resrv_detailModify.do",
+		method:"post",
+		data:{
+			resrv_num:resrv_num,
+			resrv_visit:resrv_visit,
+			resrv_time:resrv_time,
+			resrv_name:resrv_name,
+			resrv_tel:resrv_tel,
+			resrv_memo:resrv_memo
+			},
+		success:function(result){
+			console.log(result)
+		},
+		error:function(){}
+	});
+}
+
+
+function resrv_cancel(){
+	
+}
+
+
+

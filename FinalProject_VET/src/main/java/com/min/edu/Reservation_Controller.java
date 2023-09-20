@@ -98,6 +98,17 @@ public class Reservation_Controller {
       return "resrv_detail";
    }
    
+   @GetMapping(value = "/resrv_detailAjax.do")
+   @ResponseBody
+   public String resrv_detailAjax(String resrv_num, Model model) {
+	   log.info("&&&&& Reservation_Controller resrv_detail 호출 &&&&&");
+	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+	   Reservation_VO rvo = service.resrv_detail(resrv_num);
+	   Gson gson = new Gson();
+	   String json = gson.toJson(rvo);
+	   return json;
+   }
+   
    @PostMapping(value = "/resrv_waitLists.do")
    @ResponseBody
    public String resrv_waitList(HttpSession session, String resrv_status) {
@@ -143,6 +154,8 @@ public class Reservation_Controller {
       Users_VO user_vo = (Users_VO) session.getAttribute("loginVo");
       System.out.println("#####"+user_vo);
       session.setAttribute("resrv_hops", resrv_hops);
+      String hosp_name = service.hosp_name(resrv_hops);
+      model.addAttribute("hosp_name", hosp_name);
       PrintWriter out = response.getWriter();
       if(user_vo != null) {
           if(resrv_hops != null) {
@@ -252,5 +265,17 @@ public class Reservation_Controller {
 //	   model.addAttribute("resrv_recordList", list);
 	   model.addAttribute("hosp_lits", hosp_lits);
 	   return "user_resrvRecord";
+   }
+   
+   @PostMapping(value = "/resrv_detailModify.do")
+   @ResponseBody
+   public String resrv_detailModify(@RequestParam Map<String, Object> map) {
+	   log.info("&&&&& Reservation_Controller resrv_detailModify &&&&&");
+	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",map);
+	   Reservation_VO rvo = new Reservation_VO();
+//	   rvo.setResrv_num((String) map.get("resrv_num"));
+//	   rvo.setResrv_time(null)
+//	   service.resrv_detailModify(rvo);
+	   return null;
    }
 }

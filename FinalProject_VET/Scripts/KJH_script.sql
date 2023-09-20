@@ -117,7 +117,11 @@ UPDATE RESERVATION
 UPDATE RESERVATION 
 	SET RESRV_STATUS = 'N'  
 		WHERE RESRV_NUM='RSV1';
-	
+
+-- 예약정보 수정
+UPDATE PROJECT.RESERVATION
+	SET RESRV_VISIT='', RESRV_TIME='', RESRV_NAME='', RESRV_TEL='', RESRV_MEMO='',
+	WHERE RESRV_NUM='';
 
 
 ------------------------------------- 삭제 --------------------------------------------		

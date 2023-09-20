@@ -6,7 +6,8 @@
 }
 
 #calendar{
-	width: 1000px;
+	width: 900px;
+	margin: 0px auto;
 }
 
 /* 일요일 날짜 빨간색 */
@@ -25,4 +26,30 @@
 }
 .fc-day-sat a div {
   color: black;
+}
+
+.fc-direction-ltr .fc-daygrid-event .fc-event-time {
+    font-size: 12px;
+}
+.fc-daygrid-dot-event .fc-event-title {
+    font-size: 12px;
+}
+.modal-header{
+	background-color:#EFEBE9; 
+}
+
+.modal-footer button{
+	width: 100px;
+	height: 30px;
+	background-color: #EFEBE9;
+	border: 1px solid #3E2723;
+	border-radius: 5px;
+	font-size: 17px;
+}
+.modal-footer button:hover{
+	cursor: pointer;
+	border: 2px solid #3E2723;
+}
+.modal-footer button:active{
+	background-color: #BCAAA4;
 }

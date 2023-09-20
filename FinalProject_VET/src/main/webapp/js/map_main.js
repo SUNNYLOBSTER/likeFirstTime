@@ -1,18 +1,18 @@
-window.onload = function(){
-	$.ajax({
-		url:"./getHospUser.do",
-		method:"post",
-		data:"users_auth=H",
-		dataType:"json",
-		success:function(data){
-			console.log(data);
-		},
-		error:function(){
-			alert("호출에러");
-			location.href="./main.do";
-		}
-	});
-}
+//window.onload = function(){
+//	$.ajax({
+//		url:"./getHospUser.do",
+//		method:"post",
+//		data:"users_auth=H",
+//		dataType:"json",
+//		success:function(data){
+//			console.log(data);
+//		},
+//		error:function(){
+//			alert("호출에러");
+//			location.href="./main.do";
+//		}
+//	});
+//}
 
 var mapContainer = document.getElementById('map');
 var mapOption = { 

@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 		<a href="./main.do">메인화면</a>
-		<h1>${sessionScope.resrv_hops} 예약페이지</h1>
+		<h1>${hosp_name} 예약</h1>
 		<div id="cal_area">
 			<div id="calendar"></div>
 		</div>
@@ -42,7 +42,7 @@
 				</tr>
 				<tr>
 					<th>선택 시간</th>
-					<td><input type="time" id="select_time" name="resrv_time" value="시간" readonly></td>
+					<td><input type="text" id="select_time" name="resrv_time" value="-- : --" readonly></td>
 				</tr>
 				<tr>
 					<th>이름</th>
