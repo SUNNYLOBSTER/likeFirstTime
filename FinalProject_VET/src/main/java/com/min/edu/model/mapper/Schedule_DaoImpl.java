@@ -26,8 +26,8 @@ public class Schedule_DaoImpl implements ISchedule_Dao {
 	}
 
 	@Override
-	public SchedBoard_VO selectOneSchedule(Map<String, Object> map) {
-		return session.selectOne(NS+"selectOneSchedule", map);
+	public SchedBoard_VO selectOneSchedule(int sche_num) {
+		return session.selectOne(NS+"selectOneSchedule", sche_num);
 	}
 
 	@Override
@@ -38,6 +38,11 @@ public class Schedule_DaoImpl implements ISchedule_Dao {
 	@Override
 	public int deleteSchedule(int sche_num) {
 		return session.delete(NS+"deleteSchedule", sche_num);
+	}
+
+	@Override
+	public int insertNewSchedule(SchedBoard_VO svo) {
+		return session.insert(NS+"insertNewSchedule",svo);
 	}
 
 }

@@ -9,10 +9,12 @@ public interface ISchedule_Service {
 	
 	public List<SchedBoard_VO> selectAllSchedule(String sche_id);
 	
-	public SchedBoard_VO selectOneSchedule(Map<String, Object> map);
+	public SchedBoard_VO selectOneSchedule(int sche_num);
 	
 	public int modifySchedule(Map<String, Object> map);
 	
 	public int deleteSchedule(int sche_num);
+	
+	public int insertNewSchedule(SchedBoard_VO svo);
 
 }

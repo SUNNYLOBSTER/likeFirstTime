@@ -26,10 +26,10 @@ public class Schedule_ServiceImpl implements ISchedule_Service {
 	}
 
 	@Override
-	public SchedBoard_VO selectOneSchedule(Map<String, Object> map) {
+	public SchedBoard_VO selectOneSchedule(int sche_num) {
 		log.info("&&&&& Schedule_ServiceImpl selectOneSchedule &&&&&");
-		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", map);
-		return dao.selectOneSchedule(map);
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", sche_num);
+		return dao.selectOneSchedule(sche_num);
 	}
 
 	@Override
@@ -44,6 +44,13 @@ public class Schedule_ServiceImpl implements ISchedule_Service {
 		log.info("&&&&& Schedule_ServiceImpl modifySchedule &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", sche_num);
 		return dao.deleteSchedule(sche_num);
+	}
+
+	@Override
+	public int insertNewSchedule(SchedBoard_VO svo) {
+		log.info("&&&&& Schedule_ServiceImpl insertNewSchedule &&&&&");
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", svo);
+		return dao.insertNewSchedule(svo);
 	}
 
 }

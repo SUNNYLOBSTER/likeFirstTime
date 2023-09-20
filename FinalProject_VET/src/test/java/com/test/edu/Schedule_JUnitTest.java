@@ -33,11 +33,9 @@ public class Schedule_JUnitTest {
 	
 //	@Test
 	public void selectOneSchedule() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sche_id", "merida@disney.com");
-		map.put("sche_num", 4);
+		int n = 4;
 		
-		SchedBoard_VO vo = service.selectOneSchedule(map);
+		SchedBoard_VO vo = service.selectOneSchedule(n);
 		assertNotNull(vo);
 	}
 	
@@ -51,7 +49,7 @@ public class Schedule_JUnitTest {
 		service.modifySchedule(map);
 	}
 	
-	@Test
+//	@Test
 	public void deleteSchedule() {
 		int sche_num = 12;
 		service.deleteSchedule(sche_num);

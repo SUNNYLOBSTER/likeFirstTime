@@ -4,13 +4,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.min.edu.model.service.ISchedule_Service;
@@ -60,4 +66,40 @@ public class Schedule_Controller {
 		
 	}
 	
+	@GetMapping(value = "/selectOneSchedule.do")
+	public SchedBoard_VO selectOneSchedule(String sche_num, Model model) {
+		log.info("&&&&& 일정캘린더 -> 일정 상세조회 &&&&&");
+		log.info("&&&&& Schedule_Controller selectOneSchedule 전달받은 parameter값 : {} &&&&&", sche_num);
+		
+		int n = Integer.parseInt(sche_num); 
+		SchedBoard_VO svo = service.selectOneSchedule(n);
+		model.addAttribute("svo",svo);
+		return svo;
+	}
+	
+	@PostMapping(value = "/insertNewSchedule.do")
+	public String insertNewSchedule(@RequestParam Map<String, Object> map, HttpSession session) {
+		log.info("&&&&& Schedule_Controller insertNewSchedule 전달받은 parameter값 : {} &&&&&", map);
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String sche_id = loginVo.getUsers_id();
+		
+		String sche_title = (String) map.get("sche_title");
+		String sche_date = (String) map.get("sche_date");
+		String sche_content = (String) map.get("sche_content");
+		String sche_hour = (String) map.get("sche_hour");
+		String sche_minute = (String) map.get("sche_minute");
+		
+		if(sche_hour == null || sche_minute == null || sche_content == null) {
+			sche_hour = "";
+			sche_minute = "";
+			sche_content = "";
+		}
+		SchedBoard_VO svo = new SchedBoard_VO(0, sche_id, sche_date, sche_title, sche_content, sche_hour, sche_minute);
+		
+		int n = service.insertNewSchedule(svo);
+		
+		
+		return (n>0)?"redirect:/selectAllSchedule.do":"";
+	}
 }
