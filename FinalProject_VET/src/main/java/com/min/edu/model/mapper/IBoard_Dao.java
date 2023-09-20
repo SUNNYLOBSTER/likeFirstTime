@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
+import com.min.edu.vo.Users_VO;
 
 public interface IBoard_Dao {
 	
@@ -49,6 +50,8 @@ public interface IBoard_Dao {
 	public int countChosenReply(String id);
 	
 	public int calChoiceRate(String id);
+
+	public List<Users_VO> selectQuestUsers(Map<String, Object> map);
 
 	
 	

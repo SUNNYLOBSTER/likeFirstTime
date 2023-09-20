@@ -13,10 +13,10 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/questBoard.js"></script>
 <link rel="stylesheet" href="./css/questBoard.css">
-
+<%@ include file="./header.jsp" %>
 </head>
 <body>
-${qstDetail}
+<%-- ${qstDetail} --%>
 <!-- <hr> -->
 <%-- ${rpyList} --%>
 <div id="container">
@@ -53,39 +53,37 @@ ${qstDetail}
 				<th>작성일</th>
 			</tr>
 		</thead>
-		
 		<tbody>
-		<c:set var="loop_flag" value="false" />
-				<c:forEach var="reply" items="${rpyList}">
-
-				<c:choose>
-					<c:when test="${reply.rpy_chosen eq 'Y'}">
-					<c:set var="loop_flag" value="true" />
-				    	<tr style="border-color:red; border-style: solid;">
-					    	<td>${reply.hospital_vo[0].hosp_name}</td>
-						    <td style="width:600px;">${reply.rpy_content}</td>
-							<td>
-							    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-							    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-							    <button id="openModal" type="button" style="display:none;" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
-						    </td>
-					    </tr>
-				    </c:when>
-				    <c:otherwise>
-			   		<tr>
+			<c:set var="loop_flag" value="false" />
+			<c:forEach var="reply" items="${rpyList}">
+			<c:choose>
+				<c:when test="${reply.rpy_chosen eq 'Y'}">
+				<c:set var="loop_flag" value="true" />
+			    	<tr style="border-color:red; border-style: solid;" onclick="location.href='./'">
 				    	<td>${reply.hospital_vo[0].hosp_name}</td>
 					    <td style="width:600px;">${reply.rpy_content}</td>
 						<td>
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-				<c:if test="${not loop_flag }">
-						    <button id="openModal" type="button" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
-				</c:if>
+						    <button id="openModal" type="button" style="display:none;" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
 					    </td>
-			  		</tr>
-			  		</c:otherwise>
-				</c:choose>
-				</c:forEach>
+				    </tr>
+			    </c:when>
+			    <c:otherwise>
+					<tr>
+				    	<td><a href="./selectUserDetail.do?id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
+					    <td style="width:600px;">${reply.rpy_content}</td>
+						<td>
+						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
+							<c:if test="${not loop_flag }">
+								<button id="openModal" type="button" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
+							</c:if>
+					    </td>
+					</tr>
+					</c:otherwise>
+			</c:choose>
+			</c:forEach>
 		</tbody>	
 	</table>
 </div>
@@ -110,4 +108,5 @@ ${qstDetail}
 
 </div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>

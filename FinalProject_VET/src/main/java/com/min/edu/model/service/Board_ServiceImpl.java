@@ -10,6 +10,7 @@ import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
+import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -139,5 +140,14 @@ public class Board_ServiceImpl implements IBoard_Service {
 	public List<ReplyBoard_VO> selectReply(String seq) {
 		return dao.selectReply(seq);
 	}
+
+	@Override
+	public List<Users_VO> selectQuestUsers(Map<String, Object> map) {
+		
+		return dao.selectQuestUsers(map);
+	}
+	
+	
+
 
 }

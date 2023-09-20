@@ -7,10 +7,13 @@ import com.min.edu.vo.AnimalCode_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
+import com.min.edu.vo.Users_VO;
 
 public interface IBoard_Service {
 	
 	public List<QuestBoard_VO> selectQuest();
+	
+	public List<Users_VO> selectQuestUsers(Map<String, Object> map);
 	
 	public List<QuestBoard_VO> selectCodeQuest(Map<String, Object> map);
 	
@@ -23,6 +26,8 @@ public interface IBoard_Service {
 	public List<QuestBoard_VO> selectOneBoard(String seq);
 	
 	public List<ReplyBoard_VO> selectReply(String seq);
+	
+	
 	
 	public int insertQuest(QuestBoard_VO vo);
 	
