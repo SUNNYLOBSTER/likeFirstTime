@@ -11,7 +11,7 @@
 <body>
 	<div class="sidenav">
 		<button id="sideNav_1" class="dropdown-btn" onclick="location.href='./selectAllChart.do'">
-			진료기록<i class="fa fa-caret-down"></i>
+			진료기록
 		</button>
 		<div class="dropdown-container">
 		</div>
@@ -22,13 +22,12 @@
 			<a onclick="#">1</a>
 		</div>
 		<button class="dropdown-btn" onclick="location.href='./selectAllSchedule.do'">
-			일정관리<i class="fa fa-caret-down"></i>
+			일정관리
 		</button>
 		<div class="dropdown-container">
-			<a onclick="#">1</a>
 		</div>
 		<button class="dropdown-btn" onclick="location.href='./resrv_recordList.do?resrv_userid=${sessionScope.loginVo.users_id}'">
-			예약내역<i class="fa fa-caret-down"></i>
+			예약내역
 		</button>
 		<div class="dropdown-container">
 		</div>

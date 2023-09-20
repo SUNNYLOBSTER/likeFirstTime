@@ -33,7 +33,7 @@
 	</select>
 
 	<select id="map_hospDetail" resultMap="Users_VO">
-		SELECT h.HOSP_NAME , u.USERS_TEL , u.USERS_ADDR , h.HOSP_TIME , h.HOSP_OFF , h.HOSP_ETC ,h.HOSP_PARK , h.HOSP_MNG 
+		SELECT h.HOSP_NAME , u.USERS_TEL , u.USERS_ADDR , h.HOSP_TIME , h.HOSP_OFF , h.HOSP_ETC ,h.HOSP_PARK , h.HOSP_MNG, h.HOSP_ID 
 			FROM USERSINFO u JOIN HOSPITAL h 
 			ON u.USERS_ID = h.HOSP_ID 
 			WHERE USERS_AUTH = 'H'

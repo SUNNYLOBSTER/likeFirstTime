@@ -83,8 +83,7 @@ function displayMarker(locPosition, placeName, placeAddress ) {
             '        <div class="body">' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">'+ placeAddress +'</div>' + 
-            '                <div><a href="./map_hospDetail.do?address='+placeAddress+'" class="link">병원 상세보기</a></div>' + 
-            '                <div><button>예약하기</button></div>' + 
+            '                <div><a href="./map_hospDetail.do?address='+placeAddress+'&placeName='+placeName+'" class="link">병원 상세보기</a></div>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    

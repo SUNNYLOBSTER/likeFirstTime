@@ -96,5 +96,10 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 		return session.selectOne(NS+"hosp_name",hosp_id);
 	}
 
+	@Override
+	public Hospital_VO hosp_runTime(String hosp_id) {
+		return session.selectOne(NS+"hosp_runTime", hosp_id);
+	}
+
 	
 }

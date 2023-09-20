@@ -13,23 +13,23 @@
 <body>
 	<%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
+		<h2>예약 내역</h2>
+		${hosp_lits[0]}
 		<c:forEach var="list" items="${hosp_lits}">
 			<table class="resrv_record">
 				<tr>
-					<th>예약번호</th>
-					<td>${list.resrv_num}</td>
 					<th>예약병원</th>
 					<td>${list.resrv_hops}</td>
 				</tr>
 				<tr>
 					<th>방문일자</th>
 					<td>${list.resrv_visit}</td>
+				</tr>
+				<tr>
 					<th>예약시간</th>
 					<td>${list.resrv_time}</td>
 				</tr>
 				<tr>
-					<th>예약자명</th>
-					<td>${list.resrv_name}</td>
 					<th>예약상태</th>
 					<c:choose>
 						<c:when test="${list.resrv_status eq 'Y'}">
@@ -42,21 +42,20 @@
 							<td>대기중</td>
 						</c:otherwise>
 					</c:choose>
-					
 				</tr>
-				<tr>
-					<th colspan="4">메모</th>
-				</tr>
-				<tr>
-				<c:choose>
-					<c:when test="${list.resrv_memo eq null}">
-						<th colspan="4">-</th>
-					</c:when>
-					<c:otherwise>
-						<td colspan="4">${list.resrv_memo}</td>
-					</c:otherwise>
-				</c:choose>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<th colspan="2">메모</th> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${list.resrv_memo eq null}"> --%>
+<!-- 						<th colspan="2">-</th> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:otherwise> --%>
+<%-- 						<td colspan="2">${list.resrv_memo}</td> --%>
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
+<!-- 				</tr> -->
 			</table>
 		</c:forEach>
 	</div>
