@@ -27,13 +27,14 @@
 	                <div class="modal-body">
 	                    <div class="form-group">
 	                        <label>일정 제목</label>
-	                        <input type="text" class="form-control" id="sche_title" name="sche_title">
+	                        <input type="text" class="form-control" id="sche_title1" name="sche_title">
 	                        <label>날짜</label>
-	                        <input type="date" class="form-control" id="sche_date" name="sche_date">
+	                        <input type="date" class="form-control" id="sche_date1" name="sche_date">
 	                        <label>시간</label>
-	                        <input type="time" class="form-control" id="sche_time" name="sche_time">
+	                        <input type="time" class="form-control" id="sche_time1" name="sche_time">
 	                        <label>상세 일정</label>
-	                        <input type="text" class="form-control" id="sche_content" name="sche_content">
+	                        <input type="text" class="form-control" id="sche_content1" name="sche_content">
+	                    	<input type="hidden" id="sche_num1" name="sche_num">
 	                    </div>
 	                </div>
 	                <div class="modal-footer">
@@ -52,20 +53,21 @@
 	                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 	                </div>
 	                <div class="modal-body">
-	                    <div class="form-group">
-	                        <label>일정명</label>
-	                        <input type="text" class="form-control" id="sche_title" name="sche_title">
-	                        <label>날짜</label>
-	                        <input type="date" class="form-control" id="sche_date" name="sche_date">
-	                        <label>시간</label>
-	                        <input type="time" class="form-control" id="sche_time" name="sche_time">
-	                        <label>상세 일정</label>
-	                        <input type="text" class="form-control" id="sche_content" name="sche_content">
-	                    </div>
+		                    <div class="form-group" id="modal_modify">
+		                        <label>일정명</label>
+		                        <input type="text" class="form-control" id="sche_title" name="sche_title">
+		                        <label>날짜</label>
+		                        <input type="date" class="form-control" id="sche_date" name="sche_date">
+		                        <label>시간</label>
+		                        <input type="time" class="form-control" id="sche_time" name="sche_time">
+		                        <label>상세 일정</label>
+		                        <input type="text" class="form-control" id="sche_content" name="sche_content">
+		                    	<input type="hidden" id="sche_num" name="sche_num">
+		                    </div>
 	                </div>
 	                <div class="modal-footer">
-	                    <button type="button" id="modifyCalendar">수정</button>
-	                    <button type="button" id="delCalendar">삭제</button>
+	                    <button type="button" id="modifyCalendar" onclick="modifySchedule()">수정</button>
+	                    <button type="button" id="delCalendar" onclick="deleteSchedule()">삭제</button>
 	                    <button type="button" data-bs-dismiss="modal">닫기</button>
 	                </div>
 	            </div>
