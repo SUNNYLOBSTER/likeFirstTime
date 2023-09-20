@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<%-- ${qstDetail} --%>
+${qstDetail}
 <!-- <hr> -->
 <%-- ${rpyList} --%>
 <div id="container">
@@ -55,16 +55,19 @@
 		</thead>
 		
 		<tbody>
+		<c:set var="loop_flag" value="false" />
 				<c:forEach var="reply" items="${rpyList}">
+
 				<c:choose>
 					<c:when test="${reply.rpy_chosen eq 'Y'}">
+					<c:set var="loop_flag" value="true" />
 				    	<tr style="border-color:red; border-style: solid;">
 					    	<td>${reply.hospital_vo[0].hosp_name}</td>
 						    <td style="width:600px;">${reply.rpy_content}</td>
 							<td>
 							    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 							    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-							    <button id="openModal" type="button" style="display:none;" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+							    <button id="openModal" type="button" style="display:none;" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
 						    </td>
 					    </tr>
 				    </c:when>
@@ -75,7 +78,9 @@
 						<td>
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
-						    <button id="openModal" type="button" class="btn btn-primary" onclick="selected()" value="${reply.rpy_seq}">채택하기</button>
+				<c:if test="${not loop_flag }">
+						    <button id="openModal" type="button" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
+				</c:if>
 					    </td>
 			  		</tr>
 			  		</c:otherwise>

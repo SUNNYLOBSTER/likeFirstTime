@@ -81,7 +81,7 @@ SELECT q.QST_SEQ, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST
 	WHERE q.QST_ID = u.USERS_ID 
 	AND q.QST_SPECIES = a.ANM_CODE
 	AND q.QST_PART = a2.PART_CODE
-	AND (q.QST_STATUS = 'Y' OR q.QST_STATUS = 'R') AND q.QST_SPECIES = #{qst_species}
+	AND (q.QST_STATUS != 'N') AND q.QST_SPECIES = #{qst_species}
 	ORDER BY q.QST_REGDATE DESC
 </select>
 
@@ -92,9 +92,15 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.P
 	JOIN USERSINFO u ON q.QST_ID = u.USERS_ID
 	LEFT JOIN ANIMALCODE a ON q.QST_SPECIES = a.ANM_CODE
 	LEFT JOIN ANIMALPART a2 ON q.QST_PART = a2.PART_CODE
-	WHERE q.QST_STATUS != 'N' 
-	AND q.QST_SPECIES = #{qst_species} 
+	<where>
+	q.QST_STATUS != 'N'
+	<if test="q.QST_SPECIES != ''">
+	AND q.QST_SPECIES = #{qst_species}
+	</if> 
+	<if test="q.QST_PART != ''">
 	AND q.QST_PART = #{qst_part}
+	</if>
+	</where>
     ORDER BY q.QST_REGDATE DESC
 </select>
 
@@ -119,13 +125,24 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 SELECT u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
 	 q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID, r.RPY_REF, 
 	 r.RPY_CONTENT , r.RPY_STATUS, r.RPY_REGDATE
-	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r, HOSPITAL h
-	WHERE q.QST_ID = u.USERS_ID 
-	AND q.QST_SEQ = r.RPY_REF
-	AND r.RPY_ID = h.HOSP_ID
-	AND (q.QST_STATUS = 'Y' OR r.RPY_STATUS = 'Y')
+	FROM USERSINFO u 
+	inner join QUESTBOARD q on q.QST_ID = u.USERS_ID 
+	left join REPLYBOARD r on q.QST_SEQ = r.RPY_REF	
+	left join HOSPITAL h on h.HOSP_ID = r.RPY_ID
+	where
+	(q.QST_STATUS != 'N' OR r.RPY_STATUS != 'N')
 	AND q.QST_SEQ = #{qst_seq}
     ORDER BY r.RPY_SEQ DESC
+<!-- SELECT u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT, -->
+<!-- 	 q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID, r.RPY_REF,  -->
+<!-- 	 r.RPY_CONTENT , r.RPY_STATUS, r.RPY_REGDATE -->
+<!-- 	FROM QUESTBOARD q, USERSINFO u, REPLYBOARD r, HOSPITAL h -->
+<!-- 	WHERE q.QST_ID = u.USERS_ID  -->
+<!-- 	AND r.RPY_ID = h.HOSP_ID -->
+<!-- 	AND (q.QST_STATUS = 'Y' OR r.RPY_STATUS = 'Y') -->
+<!-- 	AND q.QST_SEQ = #{qst_seq} -->
+<!--     ORDER BY r.RPY_SEQ DESC -->
+<!-- 	AND q.QST_SEQ = r.RPY_REF -->
 </select>
 
 <!-- 답글만 전체조회 -->

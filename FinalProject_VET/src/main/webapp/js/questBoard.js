@@ -1,15 +1,14 @@
 
-function selected(){
-var selected = document.getElementById("openModal").value;
+function selected(seq){
+console.log(seq);
 var modal = document.getElementById("modalWindow");
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
 }
-	console.log(selected);
 	var result_btn = document.getElementById("choiceModal");
-	result_btn.value = selected;
+	result_btn.value = seq;
 	console.log("결과",result_btn.value);
 	var modal = document.getElementById("modalWindow");
 	modal.style.display = "block";
@@ -28,6 +27,8 @@ function result(){
     modal.style.display = "none";
   }
 }
+
+
 	console.log(result_btn)
 	$.ajax({
 		url:"./chooseReply.do",
@@ -36,6 +37,8 @@ function result(){
 		success:function(msg){
 			modal.style.display="none";
 			button.style.display="none";
+			location.href="";
+			
 		},
 		error:function(){
 			alert("잘못된 요청");
@@ -43,4 +46,6 @@ function result(){
 		}
 	});
 }
+
+
 

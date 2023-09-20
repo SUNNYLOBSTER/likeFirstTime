@@ -7,6 +7,6 @@
 <title>새 글 작성 화면</title>
 </head>
 <body>
-
+	
 </body>
 </html>
