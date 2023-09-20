@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
+import com.min.edu.vo.Users_VO;
 
 @Repository
 public class Board_DaoImpl implements IBoard_Dao {
@@ -118,6 +119,11 @@ public class Board_DaoImpl implements IBoard_Dao {
 	@Override
 	public List<ReplyBoard_VO> selectReply(String seq) {
 		return session.selectList(NS+"selectReply", seq);
+	}
+
+	@Override
+	public List<Users_VO> selectQuestUsers(Map<String, Object> map) {
+		return session.selectList(NS+"selectQuestUsers", map);
 	}
 
 	

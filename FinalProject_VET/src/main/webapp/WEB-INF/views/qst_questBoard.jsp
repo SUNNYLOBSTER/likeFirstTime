@@ -8,17 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <title>진료문의 게시판</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="stylesheet" href="./css/questBoard.css">
+<link href="stylesheet" href="./css/qst_questBoard.css">
 
 </head>
+<%@ include file="./header.jsp" %>
 <body>
-<!-- 카테고리 선택 및 검색창 -->
-<div class="container">
-
-<div id="questSearch">
+<div id="wrapper">
+<div class="searchArea">
 	<select id="aCode" >
 		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
 		<option value="d">개</option>
@@ -28,9 +28,8 @@
 		<option value="f">어류</option>
 		<option value="o">기타</option>
 	</select>
-
 	<select id="aPart">
-		<option disabled="disabled" selected="selected" value="">---</option>
+		<option disabled="disabled" selected="selected" value="">--증상 부위--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
 		<option value="03">치아</option>
@@ -42,80 +41,71 @@
 		<option value="09">면역력,호흡기</option>
 		<option value="10">기타</option>
 	</select>
-	<input id="searchBar" type="text" placeholder="검색어를 입력하세요" style="text-align: left;">
-	<input id="searchSubmit" type="submit" value="검색">
+	<input id="searchBar" type="text" placeholder="검색어를 입력하세요" >
+	<input id="searchSubmit" type="submit" value="검색" >
 </div>
 
-
-
-<div>
+<div class="contentArea">
 <table>
 	<thead>
 		<tr>
-			<th style="width:30px;content-align:center;">번호</th>
-			<th style="width:100px;content-align:center;">작성자</th>
-			<th style="width:100px;content-align:center;">동물</th>
-			<th style="width:200px;content-align:center;">제목</th>
-			<th style="width:500px;content-align:center;">내용</th>
-			<th>작성일</th>
+			<th style="width:30px;text-align:center;">번호</th>
+			<th style="width:80px;text-align:center;">작성자</th>
+			<th style="width:50px;text-align:center;">동물</th>
+			<th style="width:300px;text-align:center;">제목</th>
+			<th style="width:500px;text-align:center;">내용</th>
+			<th style="width:140px;text-align:center;">작성일</th>
 		</tr>
 	</thead>
 	<tbody>
-		
-		<c:forEach var="dto" items="${qstVo}" varStatus="vs">
-<%-- 		${dto} --%>
-		<tr>
-			<td style="text-align:center;">${vs.count}</td>
-			<td>${dto.qst_id}</td>
-			<td>${dto.qst_species}</td>
-			<td>${dto.qst_title}</td>
-			<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
-			<td>
-				<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-				<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
-			</td>
-		</tr>
+		<c:set var="loop_flag" value="false" />
+		<c:forEach var="dto" items="${questList}" varStatus="vs">
+		<c:choose>
+			<c:when test="${dto.qst_fast eq 'Y'}">
+			<c:set var="loop_flag" value="true" />
+				<tr style="border-left-style:solid; border-left-color: pink; ">
+					<td style="text-align:center;">${vs.count}</td>
+					<td>${dto.users_vo[0].users_name}</td>
+					<td>${dto.animalcode_vo[0].anm_species}</td>
+					<td>${dto.qst_title}</td>
+					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
+					<td>
+						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
+					</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td style="text-align:center;">${vs.count}</td>
+					<td>${dto.users_vo[0].users_name}</td>
+					<td>${dto.animalcode_vo[0].anm_species}</td>
+					<td>${dto.qst_title}</td>
+					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
+					<td>
+						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
+					</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</tbody>
 </table>
-</div>
 <a href="./writeQuest.do">새 글 작성</a><br>
+</div>
 
 
 <!-- 페이징 -->
-<div class="paging">
+<div class="pagingArea">
+	<span>⏮️</span>
+	<span>⏪</span>
+	<span>⏩</span>
+	<span>⏭️</span>
 </div>
 
 </div>
-
-<script type="text/javascript">
-
-
-searchSubmit.addEventListener("click", e => {
-	var code = aCode.value;
-	var text = searchBar.value;
-	var part = aPart.value;
-	console.log(code, text);
-	
-	$.ajax({
-		url:"./selectPartQuest.do",
-		method:"get",
-		data:"qst_species="+code + "&qst_part=" + part + "&qst_content=" + text,
-		success:function(msg){
-			console.log("성공");
-		},
-		error:function(){
-			alert("잘못된 요청");
-		}
-	});
-	
-})
-
-
-
-
-
-
-</script>
 </body>
+<script type="text/javascript" src="./js/questBoard.js"></script>
+<%@ include file="./footer.jsp" %>
 </html>

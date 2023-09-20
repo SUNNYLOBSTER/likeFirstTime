@@ -1,3 +1,24 @@
+searchSubmit.addEventListener("click", e => {
+	var code = aCode.value;
+	var part = aPart.value
+	var text = searchBar.value;
+	console.log(code, part, text);
+	
+	$.ajax({
+		url:"./selectPartQuest.do",
+		method:"get",
+		data:"qst_species=" +code+ "&qst_part=" +part+ "&qst_content=" +text,
+		success:function(msg){
+			console.log("성공");
+			
+		},
+		error:function(){
+			alert("잘못된 요청");
+		}
+	})
+	
+})
+
 
 function selected(seq){
 console.log(seq);
@@ -27,7 +48,6 @@ function result(){
     modal.style.display = "none";
   }
 }
-
 
 	console.log(result_btn)
 	$.ajax({

@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
+import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.AnimalCode_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
+import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,16 +33,16 @@ public class Board_Controller {
 
 	@Autowired
 	private IBoard_Service service;
+	@Autowired
+	private IUsers_Service service2;
 	
 	@GetMapping(value = "/questBoard.do")
 	public String questBoard(Model model) {
 		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
-		
 		List<QuestBoard_VO> lists = service.selectQuest();
-//		List<AnimalCode_VO> codeList = new ArrayList<AnimalCode_VO>();
-//		List<AnimalCode_VO> codeList = service.selectPartQuest();
 		
-		model.addAttribute("qstVo", lists);
+		model.addAttribute("questList", lists);
+		
 		return "qst_questBoard";
 	}
 	
@@ -52,29 +54,30 @@ public class Board_Controller {
 		List<ReplyBoard_VO> rpyList = service.selectReply(seq);
 		model.addAttribute("qstDetail", qstDetail);
 		model.addAttribute("rpyList", rpyList);
+		
 		return "qst_questDetail";
 	}
 
 	@GetMapping(value = "/chooseReply.do")
 	public String choiceReply(String seq) {
-	log.info("&&&&& Board_Controller choiceReply 실행  &&&&&");
-	log.info("&&&&& Board_Controller choiceReply 전달받은 seq값 : {}  &&&&&", seq);
+		log.info("&&&&& Board_Controller choiceReply 실행  &&&&&");
+		log.info("&&&&& Board_Controller choiceReply 전달받은 seq값 : {}  &&&&&", seq);
 	
-	int choice = service.chooseReply(seq);
+		int choice = service.chooseReply(seq);
 	
 		return choice>0?"redirect:/questBoard.do":"redirect:/questBoard.do";
-//		return choice>0?"redirect:/questDetail.do?seq="+seq:"redirect:/questDetail.do";
 	}
 	
 	@GetMapping(value = "/selectPartQuest.do")
-	public String selectPartQuest(QuestBoard_VO vo) {
+	public String selectPartQuest(
+		    @RequestParam("qst_species") String qst_species,
+		    @RequestParam("qst_part") String qst_part,
+		    @RequestParam("qst_content") String qst_content) {
+		log.info("&&&&& Board_Controller selectPartQuest 실행 &&&&&");
+		log.info("&&&&& Board_Controller selectPartQuest 전달받은 값 : {} &&&&&", qst_species, qst_part, qst_content);
 		
-		System.out.println(vo);
-		
-		return "qst_questDetail";
+		return "redirect:/qst_questBoard.do";
 	}
-	
-	
 	
 	
 	@GetMapping(value = "/writeQuestForm.do")
