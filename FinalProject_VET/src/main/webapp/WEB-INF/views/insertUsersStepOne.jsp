@@ -28,7 +28,7 @@ function chkBox(val){
 	} 
 	
 	if(val == "동물병원관계자") {
-		location.href="./main.do";
+		location.href="./insertHospStepTwo.do";
 	}
 }
 
