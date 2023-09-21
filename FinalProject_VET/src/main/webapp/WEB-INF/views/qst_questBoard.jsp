@@ -12,13 +12,13 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<link href="stylesheet" href="./css/qst_questBoard.css">
+<link rel="stylesheet" href="./css/qst_questBoard.css">
 
 </head>
 <%@ include file="./header.jsp" %>
 <body>
-<div id="wrapper">
-<div class="searchArea">
+<div id="container">
+<div id="searchArea">
 	<select id="aCode" >
 		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
 		<option value="d">개</option>
@@ -45,59 +45,104 @@
 	<input id="searchSubmit" type="submit" value="검색" >
 </div>
 
-<div class="contentArea">
-<table>
-	<thead>
-		<tr>
-			<th style="width:30px;text-align:center;">번호</th>
-			<th style="width:80px;text-align:center;">작성자</th>
-			<th style="width:50px;text-align:center;">동물</th>
-			<th style="width:300px;text-align:center;">제목</th>
-			<th style="width:500px;text-align:center;">내용</th>
-			<th style="width:140px;text-align:center;">작성일</th>
-		</tr>
-	</thead>
-	<tbody>
+<div id="contentArea">
+<!-- <table style="border-left-style:solid;"> -->
+
 		<c:set var="loop_flag" value="false" />
-		<c:forEach var="dto" items="${questList}" varStatus="vs">
+		<c:forEach var="dto" items="${questList}">
 		<c:choose>
 			<c:when test="${dto.qst_fast eq 'Y'}">
 			<c:set var="loop_flag" value="true" />
-				<tr style="border-left-style:solid; border-left-color: pink; ">
-					<td style="text-align:center;">${vs.count}</td>
-					<td>${dto.users_vo[0].users_name}</td>
-					<td>${dto.animalcode_vo[0].anm_species}</td>
-					<td>${dto.qst_title}</td>
-					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
-					<td>
-						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
-					</td>
-				</tr>
+				<div class="card">
+					<table class="questTop">	
+						<tr>
+							<td class="thumbnail"></td>
+							<td class="questId">${dto.users_vo[0].users_name}</td>
+							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
+							<td class="questTitle">❓${dto.qst_title}</td>
+							<td class="questDate">
+								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+								<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
+							</td>
+						</tr>
+					</table>
+					<div class="questBottom">
+						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a>
+					</div>
+				</div>
+				<div class="blank"></div>
 			</c:when>
 			<c:otherwise>
-				<tr>
-					<td style="text-align:center;">${vs.count}</td>
-					<td>${dto.users_vo[0].users_name}</td>
-					<td>${dto.animalcode_vo[0].anm_species}</td>
-					<td>${dto.qst_title}</td>
-					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td>
-					<td>
-						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
-					</td>
-				</tr>
+				<div class="card">
+					<table class="questTop">
+						<tr>
+							<td class="thumbnail"></td>
+							<td class="questId">${dto.users_vo[0].users_name}</td>
+							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
+							<td class="questTitle">❔${dto.qst_title}</td>
+							<td class="questDate">
+								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+								<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
+							</td>
+						</tr>
+					</table>
+					<div class="questBottom">
+						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a>
+					</div>
+				</div>
+				<div class="blank"></div>
 			</c:otherwise>
 		</c:choose>
 		</c:forEach>
-	</tbody>
-</table>
+	
+<!-- 	<thead> -->
+<!-- 		<tr> -->
+<!-- 			<th style="width:80px;text-align:center;">작성자</th> -->
+<!-- 			<th style="width:80px;text-align:center;">동물</th> -->
+<!-- 			<th style="width:300px;text-align:center;">제목</th> -->
+<!-- 			<th style="width:500px;text-align:center;">내용</th> -->
+<!-- 			<th style="width:140px;text-align:center;">작성일</th> -->
+<!-- 		</tr> -->
+<!-- 	</thead> -->
+<!-- 	<tbody> -->
+<%-- 		<c:set var="loop_flag" value="false" /> --%>
+<%-- 		<c:forEach var="dto" items="${questList}" varStatus="vs"> --%>
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${dto.qst_fast eq 'Y'}"> --%>
+<%-- 			<c:set var="loop_flag" value="true" /> --%>
+<!-- 				<tr> -->
+<%-- 					<td>${dto.users_vo[0].users_name}</td> --%>
+<%-- 					<td>${dto.animalcode_vo[0].anm_species}</td> --%>
+<%-- 					<td>🔖${dto.qst_title}</td> --%>
+<%-- 					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td> --%>
+<!-- 					<td> -->
+<%-- 						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/> --%>
+<%-- 						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<%-- 			</c:when> --%>
+<%-- 			<c:otherwise> --%>
+<!-- 				<tr> -->
+<%-- 					<td>${dto.users_vo[0].users_name}</td> --%>
+<%-- 					<td>${dto.animalcode_vo[0].anm_species}</td> --%>
+<%-- 					<td>${dto.qst_title}</td> --%>
+<%-- 					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td> --%>
+<!-- 					<td> -->
+<%-- 						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/> --%>
+<%-- 						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<%-- 			</c:otherwise> --%>
+<%-- 		</c:choose> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</tbody> -->
+<!-- </table> -->
 <a href="./writeQuest.do">새 글 작성</a><br>
 </div>
 
 
 <!-- 페이징 -->
-<div class="pagingArea">
+<div id="pagingArea">
 	<span>⏮️</span>
 	<span>⏪</span>
 	<span>⏩</span>

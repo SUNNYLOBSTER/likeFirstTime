@@ -93,8 +93,8 @@
     <div class="modal-content">
         <h3>채택하시겠습니까?</h3><span class="close">&times;</span>
         <p style="font-size: 8px; color: grey;">※ 채택은 취소할 수 없습니다.</p>
-    <button id="choiceModal" onclick="result()">채택하기</button>
-    <button id="closeModal">취소</button>
+    <button id="choiceModal" onclick="result()">네!</button>
+    <button id="closeModal">아니오</button>
     </div>
 </div>
 

@@ -1,25 +1,68 @@
 @charset "UTF-8";
 
-#wrapper{
-	background-color: grey;
-	width: 800px;
-	padding: 0px 5px 5px 5px;
-	margin: 50px auto;
-}
-
-.searchArea {
-	height: 100px;
-	padding: 10px 10px;
-}
-
-.contentArea{
-	height: 500px;
-}
-
-.pagingArea{
+#searchArea {
 	height: 60px;
-	padding: 10px 10px;
+/* 	padding: 10px 10px 10px 1px; */
+	margin: 10px 10px;
 }
+
+#contentArea {
+	height: 1180px;
+/* 	margin: 10px 10px; */
+}
+
+#pagingArea {
+	height: 40px;
+/* 	padding: 10px 10px 10px 10px; */
+	margin: 10px 10px;
+}
+
+.card {
+	margin: 10px;
+	background-color: #F5F1EF;
+	border-radius: 20px;
+	box-shadow: 8px 4px #BCAAA4;
+}
+
+.blank{
+	padding: 5px;
+}
+
+.questTop {
+	padding: 5px;
+	margin: 0px 10px;
+}
+.questBottom{
+	padding: 10px;
+	margin: 0px 10px;
+}
+
+.thumbnail{
+	width: 50px;
+}
+
+.questId{
+	width: 100px;
+	text-align: left;
+}
+
+.questCategory{
+	width: 50px;
+	text-align: right;
+}
+	
+.questTitle{
+	width: 600px; 
+	
+}
+
+.questDate{
+	text-align: right;
+}
+
+
+
+
 
 .modal {
   display: none; 
