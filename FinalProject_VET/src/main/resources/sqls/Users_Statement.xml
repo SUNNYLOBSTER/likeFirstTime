@@ -145,7 +145,7 @@
 	WHERE USERS_ID = #{users_id} AND USERS_PW = #{users_pw}
 </select>
 
-<!-- 회원가입 -->
+<!-- 회원가입 일반사용자 -->
 <insert id="insertUser" parameterType="java.util.Map">
 	INSERT INTO USERSINFO
 		(USERS_ID, USERS_PW, USERS_NAME, USERS_TEL,
@@ -168,6 +168,7 @@ UPDATE USERSINFO
 	SET USERS_ADDR=#{users_addr}, USERS_SUBTEL=#{users_subtel}
 	WHERE USERS_ID=#{users_id}
 </update>
+
 <!-- 반려동물 정보 입력 -->
 <insert id="insertPetInfo">
 INSERT INTO PETSINFO
@@ -175,6 +176,25 @@ INSERT INTO PETSINFO
 	PET_OWNER, PET_NAME, PET_BDAY, PET_SPECIES, PET_GENDER, PET_NEUT, PET_REPORT)
 VALUES((SELECT NVL(MAX(PET_SEQ),0)+1 FROM PETSINFO),
 	#{pet_owner}, #{pet_name}, #{pet_bday}, #{pet_species}, #{pet_gender}, #{pet_neut}, #{pet_report})
+</insert>
+
+<!-- 회원가입(병원사용자) -->
+<insert id="insertHospInfo">
+INSERT INTO USERSINFO (USERS_ID, USERS_PW, USERS_NAME,
+					   USERS_ADDR, USERS_TEL, USERS_STATUS,
+					   USERS_JOINDATE, USERS_AUTH, USERS_CRN)
+			VALUES(#{users_id}, #{users_pw}, #{users_name},
+				   #{users_addr}, #{users_tel}, 'N' ,
+				    SYSDATE , 'H', #{users_crn})
+</insert>
+
+<!-- 정보 입력 -->
+<insert id="insertHospInfoDetail">
+INSERT INTO HOSPITAL
+		(HOSP_ID, HOSP_NAME, HOSP_TIME,
+		 HOSP_OFF, HOSP_PARK, HOSP_ETC, HOSP_MNG)
+		VALUES( #{hosp_id}, #{hosp_name}, #{hosp_time},
+				#{hosp_off}, #{hosp_park}, #{hosp_etc}, #{hosp_mng})
 </insert>
 
 </mapper>

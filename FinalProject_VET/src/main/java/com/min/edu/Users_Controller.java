@@ -2,6 +2,7 @@ package com.min.edu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -183,6 +184,7 @@ public class Users_Controller {
 		return "users_duplication";
 	}
 	
+	
 	//아이디(이메일) 중복검사 처리를 위한 rest 처리
 	@PostMapping(path="/duplicationAjax.do")
 	@ResponseBody
@@ -203,11 +205,41 @@ public class Users_Controller {
 		
 	}
 	
-	//회원정보 추가입력
-	@PostMapping(path="/addInfo.do")
-	public String addInfo() {
-		return "";
+	//회원정보 추가입력(일반사용자)
+	@PostMapping(path="/addUserInfo.do")
+	public String addInfo(@RequestParam  Map<String, Object> map) {
+		log.info("&&&&& Users_Controller insertStepThree 추가정보 입력 후 메인페이지 이동  &&&&&");
+		
+		String addr = (String)map.get("addr");
+		String addrDetail = (String)map.get("addrDetail");
+		
+		String users_addr = addr+" "+addrDetail;
+		System.out.println(users_addr);
+		
+		map.put("users_addr", users_addr);
+		
+		boolean isc = service.addInfo(map);
+		
+		return (isc==true)?"main":"addInfo";
 	}
+	
+	//회원가입 페이지 이동 (병원관계자)
+	@GetMapping(path = "/insertHospStepTwo.do")
+	public String insertHospStepTwo() {
+		log.info("&&&&& Users_Controller insertUsers->users_insertHospStepTwo 병원 관계자 페이지 이동 &&&&&");
+		return "users_insertHospStepTwo";
+	}
+	
+	//회원가입(병원관계자)
+	@PostMapping(path = "/signUpHosp.do")
+	public String insertHospTwo(@RequestParam Map<String, Object> map, Model model) {
+		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
+		
+		boolean isc = service.insertHosp(map);
+		model.addAttribute("signUpVo",map);
+		return (isc==true)?"users_insertHospStepThree":"redirect:/insertHospStepTwo.do";
+			
+		}
 
 		
 

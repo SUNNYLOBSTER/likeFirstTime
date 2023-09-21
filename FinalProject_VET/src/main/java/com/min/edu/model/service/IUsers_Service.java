@@ -35,8 +35,10 @@ public interface IUsers_Service {
 	public int duplicationId(String email);
 	
 	//추가정보입력(일반사용자)
-	public boolean addInfo(Map<String, Object> userMap, Map<String, Object> petMap);
+	public boolean addInfo(Map<String, Object> map);
 	
+	//회원가입(병원관계자)
+	public boolean insertHosp(Map<String, Object> map);
 	
 		
 }

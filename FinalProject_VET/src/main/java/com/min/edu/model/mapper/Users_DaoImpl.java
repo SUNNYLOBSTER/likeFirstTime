@@ -72,6 +72,16 @@ public class Users_DaoImpl implements IUsers_Dao {
 		return session.insert(NS+"insertPetInfo", map);
 	}
 
+	@Override
+	public int insertHospInfo(Map<String, Object> map) {
+		return session.insert(NS+"insertHospInfo", map);
+	}
+
+	@Override
+	public int insertHospInfoDetail(Map<String, Object> map) {
+		return session.insert(NS+"insertHospInfoDetail",map);
+	}
+
 	
 	
 }

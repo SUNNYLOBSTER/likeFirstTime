@@ -75,10 +75,19 @@ public class Users_ServiceImpl implements IUsers_Service {
 
 	@Transactional(readOnly = true)
 	@Override
-	public boolean addInfo(Map<String, Object> userMap, Map<String, Object> petMap) {
-		log.info("&&&&& Users_ServiceImpl addInfo 추가정보입력 : {} {} &&&&&", userMap, petMap);
-		int n = dao.addInfoUser(userMap);
-		int m = dao.insertPetInfo(petMap);
+	public boolean addInfo(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl addInfo 추가정보입력 : {} &&&&&", map);
+		int n = dao.addInfoUser(map);
+		int m = dao.insertPetInfo(map);
+		return (n+m)>0?true:false;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean insertHosp(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl insertHosp 병원회원가입 : {} &&&&&", map);
+		int n = dao.insertHospInfo(map);
+		int m = dao.insertHospInfoDetail(map);
 		return (n+m)>0?true:false;
 	}
 	

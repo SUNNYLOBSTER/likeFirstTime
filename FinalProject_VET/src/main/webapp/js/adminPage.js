@@ -139,11 +139,11 @@ window.onload = function(){
 		$("#userList").css("display","none");
 	})
 	
-	$("#userAuth").click(function(){
+	$("#userAuth").change(function(){
 		$("#userList").css("display","none");
 	})
 	
-	$("#userStatus").click(function(){
+	$("#userStatus").change(function(){
 		$("#userList").css("display","none");
 	})
 	

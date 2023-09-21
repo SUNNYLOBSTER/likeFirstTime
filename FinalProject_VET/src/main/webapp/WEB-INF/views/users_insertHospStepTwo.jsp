@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입페이지_Step02</title>
+<title>회원가입페이지_Step02(병원)</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript" src="./js/users_insertUsersStepTwo.js"></script>
+<script type="text/javascript" src="./js/users_insertHospStepTwo.js"></script>
 <script type="text/javascript">
 	function duplicateId(){
 	console.log("아이디 중복검사 함수");
@@ -19,7 +19,7 @@
 <body>
 
 <div id="container">
- <form action="./signUp.do" method="post">
+ <form action="./signUpHosp.do" method="post">
 	<h2>회원가입</h2>
 	<div> 	
  	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()">
@@ -37,6 +37,23 @@
  	<input name="users_name" id="users_name" placeholder="이름 작성">
  	<br>
  	<input name="users_tel" id="users_tel" placeholder="ex)01011112222">
+ 	<br>
+ 	<!-- 카카오주소api -->
+ 	<input name="users_crn" id="users_crn" placeholder="주소" onchange="return checkCrn()">
+ 	<br>
+ 	<!-- 셀렉트박스로 -->
+ 	<input name="users_crn" id="users_crn" placeholder="영업시간" onchange="return checkCrn()">
+ 	<br>
+ 	<input name="users_crn" id="users_crn" placeholder="휴일" onchange="return checkCrn()">
+ 	<br>
+ 	<input name="users_crn" id="users_crn" placeholder="사업자등록번호" onchange="return checkCrn()">
+ 	<br>
+ 	<input name="users_crn" id="users_crn" placeholder="사업자등록번호" onchange="return checkCrn()">
+ 	<br>
+ 	<input name="users_crn" id="users_crn" placeholder="사업자등록번호" onchange="return checkCrn()">
+ 	<br>
+ 	<input name="users_crn" id="users_crn" placeholder="사업자등록번호" onchange="return checkCrn()">
+ 	
  	</div>
  	<br><br>
  	<div>
