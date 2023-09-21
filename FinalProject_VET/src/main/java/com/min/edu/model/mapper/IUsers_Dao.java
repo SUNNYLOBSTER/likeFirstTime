@@ -39,4 +39,11 @@ public interface IUsers_Dao {
 	
 	//반려동물정보입력
 	public int insertPetInfo(Map<String, Object> map);
+	
+	//회원 가입(병원관계자)
+	public int insertHospInfo(Map<String, Object> map);
+	
+	//추가정보입력(병원관계자)
+	public int insertHospInfoDetail(Map<String, Object> map);
+		
 }

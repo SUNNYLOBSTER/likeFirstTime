@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.min.edu.model.mapper.IPayment_Dao;
 import com.min.edu.vo.Payment_VO;
+import com.min.edu.vo.Point_VO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,7 +84,22 @@ public class Payment_ServiceImpl implements IPayment_Service {
 	public int selectAllPnt(String pnt_id) {
 		log.info("&&&&& Payment_ServiceImpl selectAllPnt &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", pnt_id);
-		return dao.selectAllPnt(pnt_id);
+		int point = dao.selectAllPnt(pnt_id);
+		return (point > 0)?point:0;
+	}
+
+	@Override
+	public List<Point_VO> selectPntList(String pnt_id) {
+		log.info("&&&&& Payment_ServiceImpl selectPntList &&&&&");
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", pnt_id);
+		return dao.selectPntList(pnt_id);
+	}
+
+	@Override
+	public Payment_VO searchMID(String merchant_uid) {
+		log.info("&&&&& Payment_ServiceImpl searchMID &&&&&");
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", merchant_uid);
+		return dao.searchMID(merchant_uid);
 	}
 
 	

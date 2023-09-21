@@ -28,7 +28,7 @@ function month_count(){
 				for(var i=0; i<data.lists.length; i++){
 				html += "	<tr>";
 				html += "		<th>"+data.lists[i].MM+"</th>";
-				html += "		<th>"+data.lists[i].Y_COUNT+"</th>";
+				html += "		<td>"+data.lists[i].Y_COUNT+"</td>";
 				html += "	</tr>";
 				}
 				html += "</table>";
@@ -54,7 +54,7 @@ function resrv_wList(){
 		dataType:"json",
 		data:{resrv_status:"W"},
 		success:function(data){
-			console.log(data[0]);
+//			console.log(data[0]);
 			var html = "";
 				html += "<table>";
 				html += "	<tr>";
@@ -80,7 +80,7 @@ function resrv_wList(){
 					}					
 				html += "		<td>"+data[i].resrv_regdate+"</td>";
 				html += "		<td><button class='resrv_confirm'>확정</button></td>";
-				html += "		<td><button class='resrv_refuse'>거절</button></td>";
+				html += "		<td><button class='resrv_refuse' onclick='resrv_refuse(this.value)' value='"+data[i].resrv_userid+"'>거절</button></td>";
 				html += "	</tr>";
 				}
 				html += "</table>";
@@ -118,30 +118,41 @@ $(document).on("click",".resrv_confirm",function(){
 		}
 	});
 });
-$(document).on("click",".resrv_refuse",function(){
+
+function resrv_refuse(resrv_userId){
 	console.log("resrv_refuse 거절버튼 작동");
-	resrv_num = this.parentNode.parentNode.children[0].innerText;
-	resrv_confirmBtn = this.parentNode.parentNode.children[6].children[0];
-	resrv_btn = this;
-	$.ajax({
-		url:"./resrv_refuse.do",
-		method:"post",
-		data:"resrv_num="+resrv_num,
-		success:function(result){
-			console.log(result);
-			if(result == "resrv_refuse"){
-				resrv_btn.style.display="none";
-				resrv_confirmBtn.style.display="none";
-				resrv_btn.parentNode.innerHTML="거절";
-			}else{
+	console.log(resrv_userId);
+	resrv_num = $(".resrv_refuse").parent().parent().children().eq(0).text();
+	resrv_confirmBtn = $(".resrv_confirm").parent().parent().children().eq(6).children().eq(0);
+	resrv_btn = $(".resrv_refuse");
+	if(confirm("예약을 거절하시겠습니까?")){
+		$.ajax({
+			url:"./resrv_refuse.do",
+			method:"post",
+			data:{
+				resrv_num:resrv_num,
+				user_id:resrv_userId
+				}, 
+			success:function(result){
+				console.log(result);
+				if(result == "resrv_refuse"){
+					resrv_btn.hide();
+					resrv_confirmBtn.hide();
+					resrv_btn.parent().text("거절");
+				}else{
+					
+				}
+			},
+			error:function(){
 				
 			}
-		},
-		error:function(){
-			
-		}
-	});
-});
+		});
+	}else{
+		return false;
+	}
+	
+}
+
 
 
 
