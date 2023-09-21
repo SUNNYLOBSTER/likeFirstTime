@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.min.edu.vo.Payment_VO;
+import com.min.edu.vo.Point_VO;
 
 @Repository
 public class Payment_DaoImpl implements IPayment_Dao {
@@ -55,6 +56,16 @@ public class Payment_DaoImpl implements IPayment_Dao {
 	@Override
 	public int selectAllPnt(String pnt_id) {
 		return session.selectOne(NS+"selectAllPnt",pnt_id);
+	}
+
+	@Override
+	public List<Point_VO> selectPntList(String pnt_id) {
+		return session.selectList(NS+"selectPntList",pnt_id);
+	}
+
+	@Override
+	public Payment_VO searchMID(String merchant_uid) {
+		return session.selectOne(NS+"searchMID",merchant_uid);
 	}
 
 	

@@ -72,7 +72,7 @@ public class Payment_JUnitTest {
 	
 //	@Test
 	public void selectAllPnt() {
-		String pnt_id = "elsa@disney.com";
+		String pnt_id = "carrot@gmail.com";
 		int n = service.selectAllPnt(pnt_id);
 		assertEquals(n, 1);
 	}
