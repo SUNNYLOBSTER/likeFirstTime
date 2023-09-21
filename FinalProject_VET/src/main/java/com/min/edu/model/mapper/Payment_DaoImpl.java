@@ -57,4 +57,6 @@ public class Payment_DaoImpl implements IPayment_Dao {
 		return session.selectOne(NS+"selectAllPnt",pnt_id);
 	}
 
+	
+
 }

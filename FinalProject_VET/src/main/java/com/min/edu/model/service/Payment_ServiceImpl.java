@@ -64,7 +64,7 @@ public class Payment_ServiceImpl implements IPayment_Service {
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", map);
 		return dao.insertNewPnt(map);
 	}
-
+	
 	@Override
 	public int usePntOnResrv(String pnt_id) {
 		log.info("&&&&& Payment_ServiceImpl usePntOnResrv &&&&&");
@@ -85,5 +85,7 @@ public class Payment_ServiceImpl implements IPayment_Service {
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", pnt_id);
 		return dao.selectAllPnt(pnt_id);
 	}
+
+	
 
 }
