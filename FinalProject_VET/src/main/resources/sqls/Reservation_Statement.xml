@@ -66,7 +66,9 @@
 	</select>
 	
 	<select id="resrv_dayStatus" resultType="Reservation_VO">
-		SELECT RESRV_NUM,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_NAME, RESRV_STATUS, TO_CHAR(RESRV_REGDATE,'YYYY-MM-DD HH24:MI:SS') AS RESRV_REGDATE 
+		SELECT RESRV_NUM, TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, 
+				RESRV_NAME, RESRV_STATUS, TO_CHAR(RESRV_REGDATE,'YYYY-MM-DD HH24:MI:SS') AS RESRV_REGDATE,
+				RESRV_USERID
 			FROM RESERVATION r 
 			WHERE RESRV_HOPS = #{resrv_hops}
 				AND RESRV_STATUS = #{resrv_status}
@@ -176,5 +178,15 @@
 				RESRV_NAME=#{resrv_name}, RESRV_TEL=#{resrv_tel}, RESRV_MEMO=#{resrv_memo}
 			WHERE RESRV_NUM=#{resrv_num}
 	</update>
+	
+	<select id="timer" resultType="java.lang.Integer">
+		SELECT TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd')) 
+				- (
+					SELECT TO_DATE(TO_CHAR(RESRV_VISIT,'yyyy-MM-dd')) AS RESRV_VISIT 
+						FROM RESERVATION r 
+						WHERE RESRV_NUM = 'RSV37'
+					) AS TIMER
+			FROM DUAL
+	</select>
 	
 </mapper>

@@ -59,4 +59,7 @@ public interface IReservation_Dao {
 	
 	//예약수정
 	public int resrv_detailModify(Reservation_VO rvo);
+	
+//	//날짜 비교 가져오기
+//	public int timer(String resrv_num);
 }

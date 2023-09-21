@@ -24,7 +24,7 @@
 	
 	#container {
 		width: 1000px;
-		height: 1300px;
+		height: 900px;
 		margin: 0px auto;
    		padding: 0px;
 
@@ -77,7 +77,7 @@
 	}
 	
 	.sidenav {
-		height: 1300px;
+		height: 900px;
 		width: 200px;
 		position: absolute;
 		z-index: 1;
@@ -119,7 +119,7 @@
 	.navContainer{
 		width: 1000px;
 		margin: 0px auto;
-		height: 1300px;
+		height: 900px;
  		padding-left: 220px; 
 	}
 	

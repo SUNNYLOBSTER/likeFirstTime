@@ -31,11 +31,12 @@
 		</button>
 		<div class="dropdown-container">
 		</div>
-		<button class="dropdown-btn">
-			결제내역<i class="fa fa-caret-down"></i>
+		<button class="dropdown-btn" >
+			결제 및 포인트<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
-			<a onclick="#">1</a>
+			<a onclick="location.href='./selectAllPayment.do'">결제내역</a>
+			<a onclick="location.href='./selectPntList.do'">포인트내역</a>
 		</div>
 		<button class="dropdown-btn">
 			즐겨찾기<i class="fa fa-caret-down"></i>

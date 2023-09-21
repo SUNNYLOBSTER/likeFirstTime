@@ -4,6 +4,7 @@
 	margin: 20px auto;
 	width: 80%;
 	border-collapse: collapse;
+	border-radius: 3px;
 }
 
 #chartInfo th,tr,td{
@@ -12,6 +13,16 @@
  	border-bottom: 1px solid #3E2723;
  	font-size: 15px;
 }
+
+#chartInfo th{
+	background-color:  #BCAAA4;
+	text-align: center;
+}
+
+#chartInfo_point th{
+	background-color:  #BCAAA4;
+}
+
 
 .navContainer button,input[type="submit"]{
 	background-color: #D7CCC8;

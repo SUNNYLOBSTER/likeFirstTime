@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
+import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.model.service.ISchedule_Service;
 import com.min.edu.vo.FullCalendar_VO;
@@ -43,6 +44,9 @@ public class Reservation_Controller {
    private IReservation_Service service;
    
    @Autowired
+   private IPayment_Service pay_service;
+   
+   @Autowired
    private ISchedule_Service sche_service;
    
    @GetMapping(value = "/resrv_Select.do")
@@ -59,7 +63,8 @@ public class Reservation_Controller {
       // 받아올 값
       Users_VO hosp_id = (Users_VO) session.getAttribute("loginVo");
       
-      Map<String, Object> map = new HashMap<String, Object>(){{
+      @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
          put("yyyy",yyyy);
          put("RESRV_HOPS",hosp_id.getUsers_id());
       }};
@@ -123,7 +128,8 @@ public class Reservation_Controller {
       Users_VO User_id = (Users_VO)session.getAttribute("loginVo");
       String hosp_id = User_id.getUsers_id();
       
-      Map<String, Object> map = new HashMap<String, Object>(){{
+    @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
          put("resrv_hops", hosp_id);
          put("resrv_status", resrv_status);
       }};
@@ -146,9 +152,9 @@ public class Reservation_Controller {
       String sche_content = rvo.getResrv_memo();
       String sche_hour = rvo.getResrv_time();
       String sche_minute = "00";
-      System.out.println("#############"+sche_id);
-      System.out.println("#############"+sche_date);
-      System.out.println("#############"+sche_hour);
+//      System.out.println("#############"+sche_id);
+//      System.out.println("#############"+sche_date);
+//      System.out.println("#############"+sche_hour);
       SchedBoard_VO svo = new SchedBoard_VO();
       svo.setSche_id(sche_id);
       svo.setSche_date(sche_date);
@@ -157,21 +163,24 @@ public class Reservation_Controller {
       svo.setSche_hour(sche_hour);
       svo.setSche_minute(sche_minute);
       sche_service.insertNewSchedule(svo);
-      return (n>0)?"confirm":"false";
+
+   	  return (n>0)?"confirm":"false";
    }
    
    @PostMapping(value = "/resrv_refuse.do")
    @ResponseBody
-   public String resrv_refuse(String resrv_num) {
+   public String resrv_refuse(String resrv_num, String user_id) {
       log.info("&&&&& Reservation_Controller resrv_refuse 호출 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
+      log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", user_id);
+
       int n = service.resrv_delete(resrv_num);
       return (n>0)?"resrv_refuse":"false";
    }
    
    @GetMapping(value = "/resrv_requestPage.do")
    public String resrv_requestPage(HttpSession session, HttpServletResponse response, String resrv_hops, Model model) throws IOException{
-      log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
+      log.info("&&&&& 예약신청 페이지 이동 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
       response.setContentType("text/html; charset=UTF-8;");
       Users_VO user_vo = (Users_VO) session.getAttribute("loginVo");
@@ -241,9 +250,11 @@ public class Reservation_Controller {
    }
    
    @PostMapping(value = "/resrv_insert.do")
-   public String resrv_insert(@RequestParam Map<String, Object> resrv_map) {
+   public String resrv_insert(@RequestParam Map<String, Object> resrv_map, HttpServletResponse response) throws IOException {
 	   log.info("&&&&& Reservation_Controller resrv_insert &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 {} &&&&&", resrv_map);
+	   response.setContentType("text/html; charset=UTF-8;");
+	   
 	   String hosp = (String)resrv_map.get("resrv_hops");
 	   String visit = (String)resrv_map.get("resrv_visit");
 	   String time = ((String)resrv_map.get("resrv_time")).substring(0,2);
@@ -251,16 +262,28 @@ public class Reservation_Controller {
 	   String tel = (String)resrv_map.get("resrv_tel");
 	   String memo = (String)resrv_map.get("resrv_memo");
 	   String user_id = (String)resrv_map.get("resrv_userid");
-	   Reservation_VO resrv_vo = new Reservation_VO();
-	   resrv_vo.setResrv_hops(hosp);
-	   resrv_vo.setResrv_visit(visit);
-	   resrv_vo.setResrv_time(time);
-	   resrv_vo.setResrv_name(name);
-	   resrv_vo.setResrv_tel(tel);
-	   resrv_vo.setResrv_memo(memo);
-	   resrv_vo.setResrv_userid(user_id);
-	   String resrv_num = service.resrv_insert(resrv_vo);
-	   return "redirect:/resrv_detail.do?resrv_num="+resrv_num;
+	   
+	   int wholePnt =  pay_service.selectAllPnt(user_id);
+	   if(wholePnt >= 3000) {
+		   Reservation_VO resrv_vo = new Reservation_VO();
+		   resrv_vo.setResrv_hops(hosp);
+		   resrv_vo.setResrv_visit(visit);
+		   resrv_vo.setResrv_time(time);
+		   resrv_vo.setResrv_name(name);
+		   resrv_vo.setResrv_tel(tel);
+		   resrv_vo.setResrv_memo(memo);
+		   resrv_vo.setResrv_userid(user_id);
+		   String resrv_num = service.resrv_insert(resrv_vo);
+		   pay_service.usePntOnResrv(user_id); 
+		   return "redirect:/resrv_detail.do?resrv_num="+resrv_num;
+	   }else {
+		   PrintWriter out = response.getWriter();
+	       out.print("<script>alert('예약금 결제 포인트가 부족합니다. 포인트를 충전해주세요'); location.href='./goPayment.do';</script>");
+	       out.flush();
+	       out.close();
+	       return "";
+	   }
+	   
    }
    
    @GetMapping(value = "/resrv_recordList.do")
@@ -268,7 +291,8 @@ public class Reservation_Controller {
 	   log.info("&&&&& Reservation_Controller resrv_recordList &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_userid);
 
-	   Map<String, Object> map = new HashMap<String, Object>(){{
+	   @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
 		   put("resrv_userid",resrv_userid);
 		   put("first","1");
 		   put("last","5");

@@ -1,19 +1,3 @@
-//window.onload = function(){
-//	$.ajax({
-//		url:"./getHospUser.do",
-//		method:"post",
-//		data:"users_auth=H",
-//		dataType:"json",
-//		success:function(data){
-//			console.log(data);
-//		},
-//		error:function(){
-//			alert("호출에러");
-//			location.href="./main.do";
-//		}
-//	});
-//}
-
 var mapContainer = document.getElementById('map');
 var mapOption = { 
 	// 지도의 기본 중심좌표
@@ -28,7 +12,7 @@ var customOverlay = new kakao.maps.CustomOverlay({});
 
 // geolocation으로 접속한 현재위치 가져오기
 if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+	 navigator.geolocation.getCurrentPosition(function(position) {
         var lat = position.coords.latitude,
             lon = position.coords.longitude;
 
@@ -47,6 +31,7 @@ if (navigator.geolocation) {
         circle.setMap(map);
         searchPlaces(lat, lon);
     });
+   
 } else {
     var locPosition = new kakao.maps.LatLng(37.476513, 126.880105);
 
@@ -73,27 +58,44 @@ function displayMarker(locPosition, placeName, placeAddress ) {
 	
     // 마커 클릭 시 동물병원의 주소와 상세내역 화면으로 이동
     kakao.maps.event.addListener(marker, 'click', function() {
-        var content =                     
-        	'<div class="wrap">' + 
-            '    <div class="info">' + 
-            '        <div class="title">' + 
-            				placeName + 
-            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-            '        </div>' + 
-            '        <div class="body">' + 
-            '            <div class="desc">' + 
-            '                <div class="ellipsis">'+ placeAddress +'</div>' + 
-            '                <div><a href="./map_hospDetail.do?address='+placeAddress+'&placeName='+placeName+'" class="link">병원 상세보기</a></div>' + 
-            '            </div>' + 
-            '        </div>' + 
-            '    </div>' +    
-            '</div>';
+		$.ajax({
+		url:"./getHosp_id.do",
+		method:"post",
+		data:"users_addr="+placeAddress,
+		success:function(hosp_id){
+			console.log(hosp_id);
+			 var content = "";                   
+	        	 content +='<div class="wrap">' ;
+	             content +='    <div class="info">' ; 
+	             content +='        <div class="title">'+placeName; 
+	             content +='            <div class="close" onclick="closeOverlay()" title="닫기"></div>' ;
+	             content +='        </div>' ;
+	             content +='        <div class="body">' ;
+	             content +='            <div class="desc">' ;
+	             content +='                <div class="ellipsis"><b>'+ placeAddress +'</b></div>' ; 
+	             if(!hosp_id){
+	              		content +='<div>홈페이지에 등록된 정보가 없습니다.</div>'
+				 }else{
+						content +='                <div><a href="./select_HospDetail.do?hosp_id='+hosp_id+'" class="link">병원 상세보기</a></div>' ;	
+				 }
+	             content +='            </div>' ;
+	             content +='        </div>' ;
+	             content +='    </div>' ; 
+	             content +='</div>';
 
         customOverlay.setContent(content);
         customOverlay.setPosition(locPosition);
         customOverlay.setMap(map);
         
         console.log("마커에 표시된 주소:",placeAddress.substr(3));
+		},
+		error:function(){
+			alert("호출에러");
+			location.href="./main.do";
+		}
+		});
+	
+       
     });
 }
 
