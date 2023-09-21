@@ -106,7 +106,6 @@ public class Users_Controller {
 			model.addAttribute("hospDetail", hospDetail);
 			return null;
 		}
-		
 		return "selectUserDetail";
 			
 	}
