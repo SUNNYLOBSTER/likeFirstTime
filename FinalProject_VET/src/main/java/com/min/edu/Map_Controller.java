@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.min.edu.model.service.IMap_Service;
+import com.min.edu.vo.AnimalConn_VO;
+import com.min.edu.vo.MediConn_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -57,7 +60,28 @@ public class Map_Controller {
 			model.addAttribute("placeName", placeName);
 			return "hosp_detail";
 		}
-		
+	}
+	
+	@GetMapping(value = "/select_HospDetail.do")
+	public String select_HospDetail(String hosp_id, Model model) {
+		log.info("&&&&& Map_Controller select_HospDetail &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
+		Users_VO hosp_info = service.hosp_detail(hosp_id);
+		List<AnimalConn_VO> anm_lists = service.hosp_anm(hosp_id);
+		List<MediConn_VO> medi_lists = service.hosp_mediDept(hosp_id);
+		model.addAttribute("hosp_info", hosp_info);
+		model.addAttribute("anm_lists", anm_lists);
+		model.addAttribute("medi_lists", medi_lists);
+		return "hosp_detail";
+	}
+	
+	@PostMapping(value = "/getHosp_id.do")
+	@ResponseBody
+	public String req_Addr(String users_addr) {
+		log.info("&&&&& Map_Controller req_Addr &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", users_addr);
+		String hosp_id = service.map_reqAddr(users_addr.substring(3));
+		return hosp_id;
 	}
 	
 }
