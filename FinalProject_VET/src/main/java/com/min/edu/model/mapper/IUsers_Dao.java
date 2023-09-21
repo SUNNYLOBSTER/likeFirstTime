@@ -33,4 +33,10 @@ public interface IUsers_Dao {
 	
 	//이메일 중복확인(일반사용자)
 	public int duplicationId(String email);
+	
+	//추가정보입력(일반사용자)
+	public int addInfoUser(Map<String, Object> map);
+	
+	//반려동물정보입력
+	public int insertPetInfo(Map<String, Object> map);
 }

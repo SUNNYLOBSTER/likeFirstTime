@@ -33,5 +33,10 @@ public interface IUsers_Service {
 	
 	//이메일 중복확인(일반사용자)
 	public int duplicationId(String email);
+	
+	//추가정보입력(일반사용자)
+	public boolean addInfo(Map<String, Object> userMap, Map<String, Object> petMap);
+	
+	
 		
 }

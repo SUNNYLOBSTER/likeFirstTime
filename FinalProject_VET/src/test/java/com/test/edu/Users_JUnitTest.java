@@ -55,9 +55,26 @@ public class Users_JUnitTest {
 //		map.put("users_tel", "0318268826");
 		
 		
-		int n = service.duplicationId("elsa@disney.com");
-		assertEquals(1, n);
+//		int n = service.duplicationId("elsa@disney.com");
+//		assertEquals(1, n);
 		
+		Map<String, Object> userMap = new HashMap<String, Object>();
+		Map<String, Object> petMap = new HashMap<String, Object>();
+		
+		userMap.put("users_addr","주소입니다.");
+		userMap.put("users_subtel","01236664555");
+		userMap.put("users_id","soi_yeoa@naver.com");
+
+		petMap.put("pet_owner", "soi_yeoa@naver.com");
+		petMap.put("pet_name", "쪼푸");
+		petMap.put("pet_bday", "20220731");
+		petMap.put("pet_species", "D");
+		petMap.put("pet_gender", "M");
+		petMap.put("pet_neut", "N");
+		petMap.put("pet_report", "기여운 우리 쪼푸");
+		
+		boolean isc = service.addInfo(userMap, petMap);
+		assertTrue(isc);
 		
 	}
 
