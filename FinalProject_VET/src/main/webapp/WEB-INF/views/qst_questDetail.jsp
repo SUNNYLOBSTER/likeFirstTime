@@ -71,7 +71,7 @@
 			    </c:when>
 			    <c:otherwise>
 					<tr>
-				    	<td><a href="./selectUserDetail.do?id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
+				    	<td><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
 					    <td style="width:600px;">${reply.rpy_content}</td>
 						<td>
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>

@@ -24,6 +24,29 @@
 		<result column="HOSP_ETC" property="hosp_etc"/>
 	</resultMap>
 	
+	<!-- 동물코드 조인 -->
+	<resultMap type="com.min.edu.vo.AnimalConn_VO" id="AnimalConn_VO">
+		<result column="ANM_CODE" property="anm_code"/>
+		<result column="HOSP_ID" property="hosp_id"/>
+		<collection property="animalcode_vo" resultMap="AnimalCode_VO"/>
+	</resultMap>
+	<resultMap type="com.min.edu.vo.AnimalCode_VO" id="AnimalCode_VO">
+		<result column="ANM_CODE" property="anm_code"/>
+		<result column="ANM_SPECIES" property="anm_species"/>
+	</resultMap>
+
+	<!-- 진료과목 조인 -->
+	<resultMap type="com.min.edu.vo.MediConn_VO" id="MediConn_VO">
+		<result column="MEDI_CODE" property="medi_code"/>
+		<result column="HOSP_ID" property="hosp_id"/>
+		<collection property="medicode_vo" resultMap="MediCode_VO"/>
+	</resultMap>
+	<resultMap type="com.min.edu.vo.MediCode_VO" id="MediCode_VO">
+		<result column="MEDI_CODE" property="medi_code"/>
+		<result column="MEDI_NAME" property="medi_name"/>
+		<result column="MEDI_TOP" property="medi_top"/>
+	</resultMap>
+	
 	<select id="hosp_user" resultType="Users_VO">
 		SELECT USERS_ID , USERS_NAME , USERS_TEL , USERS_ADDR
 			FROM USERSINFO u
@@ -31,11 +54,47 @@
 	</select>
 
 	<select id="map_hospDetail" resultMap="Users_VO">
-		SELECT h.HOSP_NAME , u.USERS_TEL , u.USERS_ADDR , h.HOSP_TIME , h.HOSP_OFF , h.HOSP_ETC ,h.HOSP_PARK , h.HOSP_MNG, h.HOSP_ID 
+		SELECT h.HOSP_NAME , u.USERS_TEL , u.USERS_ADDR , h.HOSP_TIME , 
+				h.HOSP_OFF , h.HOSP_ETC ,h.HOSP_PARK , h.HOSP_MNG, h.HOSP_ID 
 			FROM USERSINFO u JOIN HOSPITAL h 
 			ON u.USERS_ID = h.HOSP_ID 
 			WHERE USERS_AUTH = 'H'
 				AND USERS_ADDR LIKE '%' || #{users_addr} || '%'
+	</select>
+	
+	<!-- 병원 상세조회 -->
+	<select id="hosp_detail" resultMap="Users_VO">
+		SELECT u.USERS_ID , u.USERS_TEL , u.USERS_ADDR , u.USERS_SUBTEL , 
+				h.HOSP_NAME, h.HOSP_TIME , h.HOSP_OFF , h.HOSP_PARK , 
+				h.HOSP_ETC , h.HOSP_MNG  
+			FROM USERSINFO u JOIN HOSPITAL h 
+				ON u.USERS_ID = h.HOSP_ID 
+			WHERE USERS_ID = #{users_id}
+	</select>
+	
+	<!-- 병원 상세조회 진료동물 -->
+	<select id="hosp_anm" resultMap="AnimalConn_VO">
+		SELECT a.ANM_CODE , a2.ANM_SPECIES 
+			FROM ANIMALCONNECT a JOIN ANIMALCODE a2 
+				ON a.ANM_CODE = a2.ANM_CODE
+			WHERE a.HOSP_ID = #{hosp_id}
+			ORDER BY a.ANM_CODE ASC
+	</select>
+	
+	<!-- 병원 상세조회 진료과목 -->
+	<select id="hosp_mediDept" resultMap="MediConn_VO">
+		SELECT m.MEDI_CODE , m2.MEDI_NAME 
+			FROM MEDICONNECT m JOIN MEDICODE m2 
+				ON m.MEDI_CODE  = m2.MEDI_CODE 
+			WHERE m.HOSP_ID = #{hosp_id}
+			ORDER BY MEDI_CODE ASC
+	</select>
+	
+	<!-- 지도의 마커찍힌 주소 가져와서 병원의 아이디 호출 -->
+	<select id="map_reqAddr" resultType="java.lang.String">
+		SELECT USERS_ID 
+			FROM USERSINFO u 
+			WHERE USERS_ADDR LIKE '%' || #{users_addr} || '%'
 	</select>
 	
 </mapper>

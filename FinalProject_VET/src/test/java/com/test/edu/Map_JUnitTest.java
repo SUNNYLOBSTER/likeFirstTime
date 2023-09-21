@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.min.edu.model.service.IMap_Service;
+import com.min.edu.vo.AnimalConn_VO;
+import com.min.edu.vo.MediConn_VO;
 import com.min.edu.vo.Users_VO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,7 +27,7 @@ public class Map_JUnitTest {
 		assertNotNull(service);
 	}
 
-	@Test
+//	@Test
 	public void hosp_userTest() {
 		List<Users_VO> lists = service.hosp_user("H");
 		for (int i = 0; i < lists.size(); i++) {
@@ -35,10 +37,34 @@ public class Map_JUnitTest {
 	}
 	
 //	@Test
-	public void map_hospDetail() {
+	public void map_hospDetailTest() {
 		Users_VO uvo = service.map_hospDetail("광명시 철산동 634");
 		System.out.println(uvo);
 		assertNotNull(uvo);
+	}
+	
+//	@Test
+	public void hosp_detailTest() {
+		Users_VO uvo = service.hosp_detail("gana@naver.com");
+		assertNotNull(uvo);
+	}
+	
+//	@Test
+	public void hosp_anmTest() {
+		List<AnimalConn_VO> lists =service.hosp_anm("gana@naver.com");
+		assertNotNull(lists);
+	}
+	
+//	@Test
+	public void hosp_mediDeptTest() {
+		List<MediConn_VO> lists = service.hosp_mediDept("gana@naver.com");
+		assertNotNull(lists);
+	}
+	
+	@Test
+	public void reqAddrTestTest() {
+		String hosp_id = service.map_reqAddr("광명시 철산동 634");
+		assertNotNull(hosp_id);
 	}
 	
 }

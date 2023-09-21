@@ -14,50 +14,43 @@
 	<%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
 		<h2>예약 내역</h2>
-		${hosp_lits[0]}
-		<c:forEach var="list" items="${hosp_lits}">
 			<table class="resrv_record">
 				<tr>
 					<th>예약병원</th>
-					<td>${list.resrv_hops}</td>
-				</tr>
-				<tr>
 					<th>방문일자</th>
-					<td>${list.resrv_visit}</td>
-				</tr>
-				<tr>
 					<th>예약시간</th>
-					<td>${list.resrv_time}</td>
-				</tr>
-				<tr>
 					<th>예약상태</th>
-					<c:choose>
-						<c:when test="${list.resrv_status eq 'Y'}">
-							<th>확정</th>
-						</c:when>
-						<c:when test="${list.resrv_status eq 'N'}">
-							<th>취소</th>
-						</c:when>
-						<c:otherwise>
-							<td>대기중</td>
-						</c:otherwise>
-					</c:choose>
+					<th id="cancel">예약취소</th>
 				</tr>
-<!-- 				<tr> -->
-<!-- 					<th colspan="2">메모</th> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${list.resrv_memo eq null}"> --%>
-<!-- 						<th colspan="2">-</th> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:otherwise> --%>
-<%-- 						<td colspan="2">${list.resrv_memo}</td> --%>
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
-<!-- 				</tr> -->
+				<c:forEach var="list" items="${hosp_lits}">
+					<tr>
+						<td>${list.resrv_hops}</td>
+						<td>${list.resrv_visit}</td>
+						<td>${list.resrv_time}시</td>
+						<c:choose>
+							<c:when test="${list.resrv_status eq 'Y'}">
+								<td>확정</td>
+							</c:when>
+							<c:when test="${list.resrv_status eq 'N'}">
+								<td>취소</td>
+							</c:when>
+							<c:otherwise>
+								<td>대기중</td>
+							</c:otherwise>
+						</c:choose>
+						<td>
+							<jsp:useBean id="sysDate" class="java.util.Date"/>
+							<fmt:parseDate var="resrv_date" value="${list.resrv_visit}" pattern="yyyy-MM-dd"/>
+							<fmt:formatDate var="resrv" value="${resrv_date}" pattern="yyyy-MM-dd"/>
+							<fmt:parseDate var="date" value="${sysDate}" pattern="yyyy-MM-dd"/>
+							<fmt:formatDate var="sys" value="${date}" pattern="yyyy-MM-dd"/>
+							<c:if test="${sys>resrv}">
+								<button>예약 취소</button>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
 			</table>
-		</c:forEach>
 	</div>
 </body>
 <%@ include file="./footer.jsp" %>
