@@ -58,7 +58,9 @@
 	</select>
 	
 	<select id="resrv_detail" resultType="Reservation_VO">
-		SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, RESRV_HOPS ,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, RESRV_MEMO , RESRV_STATUS
+		SELECT RESRV_NUM, RESRV_NAME, RESRV_TEL, 
+				RESRV_HOPS ,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME, 
+				RESRV_MEMO , RESRV_STATUS, RESRV_USERID
 			FROM RESERVATION r 
 				WHERE RESRV_NUM = #{resrv_num}
 	</select>
@@ -171,7 +173,7 @@
 	<update id="resrv_detailModify">
 		UPDATE PROJECT.RESERVATION
 			SET RESRV_VISIT=#{resrv_visit}, RESRV_TIME=#{resrv_time}, 
-				RESRV_NAME=#{resrv_name}, RESRV_TEL=#{resrv_tel}, RESRV_MEMO=#{resrv_memo},
+				RESRV_NAME=#{resrv_name}, RESRV_TEL=#{resrv_tel}, RESRV_MEMO=#{resrv_memo}
 			WHERE RESRV_NUM=#{resrv_num}
 	</update>
 	

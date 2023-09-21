@@ -6,6 +6,7 @@ function resrv_calendar(){
 	calendar.style.display='block';
 	month_cnt.style.display='none';
 	waitList.style.display='none';
+
 	
 	$(function() {
 		var request = $.ajax({
@@ -40,14 +41,14 @@ function resrv_calendar(){
 				    var modalInput = $("#resrv_detailModal input");
 //				    console.log(modalInput.length);
 				    modalInput.attr("disabled", true);
-
+ 					
 				    $.ajax({
 						url:"./resrv_detailAjax.do",
 						method:"get",
 						data:{resrv_num : info.event._def.extendedProps.resrv_num},
 						dataType:"json",
 						success:function(detail){
-//							console.log(detail);
+							console.log(detail);
 //							console.log(detail.detail.resrv_time);
 							var resrv_t = detail.resrv_time.concat(":00");
 		                    $("#resrv_num").val(detail.resrv_num);
@@ -56,14 +57,15 @@ function resrv_calendar(){
 		                    $("#resrv_name").val(detail.resrv_name);
 		                    $("#resrv_tel").val(detail.resrv_tel);
 		                    $("#resrv_memo").val(detail.resrv_memo);
-		                    
+		                    $("#resrv_hosp").val(detail.resrv_hosp);
+		                   
+		                    $(".modal-footer button").hide();
 		                    var sysdate = new Date();
 		                    var detailDate = new Date(detail.resrv_visit);
 							console.log(detailDate<sysdate);
-							if(detailDate<=sysdate){
-								$(".modal-footer button").hide();
-							}else{
-								$(".modal-footer button").show();
+							if(detailDate>sysdate){
+								$(".modal-footer button").eq(0).show();
+								$(".modal-footer button").eq(2).show();
 							}
 //							console.log(typeof(sysDate));
 						},
@@ -95,6 +97,10 @@ function resrv_modify(){
 	for(let i=1; i<resrv_detailInputs.eq().prevObject.length; i++){
 		resrv_detailInputs.eq(i).attr("disabled",false);
 	}
+	$("#resrv_modifyBtn").css("display","none");
+	$("#resrv_saveBtn").css("display","block");
+}
+function resrv_save(){
 	var resrv_num = $("#resrv_num").val();
 	var resrv_visit =$("#resrv_visit").val();
 	var resrv_time =$("#resrv_time").val();
@@ -118,12 +124,21 @@ function resrv_modify(){
 			resrv_memo:resrv_memo
 			},
 		success:function(result){
-			console.log(result)
+			console.log(result);
+			if(result == "true"){
+				$("#resrv_detailModal").modal("hide");
+				alert("예약 수정 완료");
+				resrv_calendar();
+			}else{
+				alert("수정 실패");
+				location.reload();
+			}
 		},
-		error:function(){}
+		error:function(){
+			alert("호출 실패")
+		}
 	});
 }
-
 
 function resrv_cancel(){
 	
