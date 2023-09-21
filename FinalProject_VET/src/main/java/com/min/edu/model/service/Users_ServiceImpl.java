@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.min.edu.model.mapper.IUsers_Dao;
 import com.min.edu.vo.Users_VO;
@@ -70,6 +71,15 @@ public class Users_ServiceImpl implements IUsers_Service {
 	public int duplicationId(String email) {
 		log.info("&&&&& Users_ServiceImpl duplicationId 전달받은 파라미터 값 : {} &&&&&", email);
 		return dao.duplicationId(email);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean addInfo(Map<String, Object> userMap, Map<String, Object> petMap) {
+		log.info("&&&&& Users_ServiceImpl addInfo 추가정보입력 : {} {} &&&&&", userMap, petMap);
+		int n = dao.addInfoUser(userMap);
+		int m = dao.insertPetInfo(petMap);
+		return (n+m)>0?true:false;
 	}
 	
 	

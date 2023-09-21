@@ -174,7 +174,7 @@ INSERT INTO PETSINFO
 	(PET_SEQ,
 	PET_OWNER, PET_NAME, PET_BDAY, PET_SPECIES, PET_GENDER, PET_NEUT, PET_REPORT)
 VALUES((SELECT NVL(MAX(PET_SEQ),0)+1 FROM PETSINFO),
-	#{pet_owner}, #{pet_name}, #{pet_bday}, #{pet_species}, #{pet_gender}, #{pet_neut}, #{pet_report});
+	#{pet_owner}, #{pet_name}, #{pet_bday}, #{pet_species}, #{pet_gender}, #{pet_neut}, #{pet_report})
 </insert>
 
 </mapper>
