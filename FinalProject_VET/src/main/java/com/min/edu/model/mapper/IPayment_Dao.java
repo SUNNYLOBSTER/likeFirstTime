@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.min.edu.vo.Payment_VO;
+import com.min.edu.vo.Point_VO;
 
 public interface IPayment_Dao {
 	
@@ -22,5 +23,9 @@ public interface IPayment_Dao {
 	public int usePntOnBoard(String pnt_id);
 	
 	public int selectAllPnt(String pnt_id);
+	
+	public List<Point_VO> selectPntList(String pnt_id);
+	
+	public Payment_VO searchMID(String merchant_uid);
 
 }
