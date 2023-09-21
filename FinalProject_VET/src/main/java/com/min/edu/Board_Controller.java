@@ -95,8 +95,8 @@ public class Board_Controller {
 	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 		log.info("&&&&& Board_Controller 실행 qst_writeQuest 작동 &&&&&");
 		
-		Users_VO loginVO = (Users_VO) session.getAttribute("loginVo");
-		String qst_id = loginVO.getUsers_id();
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String qst_id = loginVo.getUsers_id();
 		
 		String qst_title = (String) map.get("qst_title");
 		String qst_content = (String) map.get("qst_content");
