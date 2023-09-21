@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.min.edu.model.mapper.IBoard_Dao;
+import com.min.edu.vo.AnimalCode_VO;
+import com.min.edu.vo.AnimalPart_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
@@ -59,9 +61,11 @@ public class Board_ServiceImpl implements IBoard_Service {
 	
 
 	@Override
-	public int insertQuest(QuestBoard_VO vo) {
+	public String insertQuest(QuestBoard_VO vo) {
 		log.info("&&&&& Board_ServiceImpl insertQuest 전달받은 파라미터 값 : {} &&&&&", vo);
-		return dao.insertQuest(vo);
+		int n =dao.insertQuest(vo);
+		String m = (n>0)?dao.getMaxSeq():"";
+		return m;
 	}
 
 	@Override
@@ -146,6 +150,8 @@ public class Board_ServiceImpl implements IBoard_Service {
 		
 		return dao.selectQuestUsers(map);
 	}
+
+
 	
 	
 

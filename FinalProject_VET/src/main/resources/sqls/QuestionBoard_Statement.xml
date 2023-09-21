@@ -66,11 +66,13 @@
 
 <!--  게시글 전체조회 : 우선답변 게시글 상위정렬 -->
 <select id="selectQuest" resultMap="BoardMap">
-SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, ANM_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST
+SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, a1.ANM_SPECIES, q.QST_PART, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
-	JOIN ANIMALCODE a
-	ON q.QST_SPECIES = a.ANM_CODE
+	JOIN ANIMALCODE a1
+	ON q.QST_SPECIES = a1.ANM_CODE
+	JOIN ANIMALPART a2
+	ON q.QST_PART = a2.PART_CODE
 	WHERE q.QST_STATUS != 'N'
     ORDER BY q.QST_FAST DESC, q.QST_REGDATE DESC 
 </select>
@@ -197,7 +199,7 @@ SELECT r.RPY_SEQ, r.RPY_ID, h.HOSP_NAME, r.RPY_CONTENT, r.RPY_REGDATE, r.RPY_CHO
 
 <!-- 게시글 입력 -->
 <insert id="insertQuest">
-	<selectKey>
+	<selectKey keyProperty="QST_SEQ" resultType="String" order="BEFORE">
 	SELECT CONCAT('Q', NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD
 	</selectKey>
 INSERT INTO QUESTBOARD
@@ -208,6 +210,12 @@ VALUES(
 		#{qst_content}, #{qst_species}, #{qst_part}, 
 		CURRENT_DATE , 'N' , 'Y' )
 </insert>
+
+<!-- maxSeq 조회 -->
+<select id="getMaxSeq" resultType="java.lang.String">
+	SELECT 'Q'|| MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))) FROM QUESTBOARD
+</select>
+
 
 <!-- 우선게시글 전환 -->
 <update id="updateFastQuest" >
@@ -307,6 +315,20 @@ AND RPY_STATUS = 'Y'
 
 <!--     COUNT(RPY_SEQ) AS 전체_작성_글_수, -->
 <!--     SUM(CASE WHEN RPY_CHOSEN = 'Y' THEN 1 ELSE 0 END) AS 채택된_글_수, -->
+
+<!-- 동물코드로 동물종 조회  -->
+<select id="selectAnimalName" resultType="com.min.edu.vo.AnimalCode_VO">
+SELECT ANM_CODE, ANM_SPECIES
+	FROM ANIMALCODE
+	WHERE ANM_CODE = ${anm_code}
+</select>
+
+<select id="selectAnimalPart" resultType="com.min.edu.vo.AnimalPart_VO">
+SELECT PART_CODE, PART_NAME
+	FROM ANIMALPART
+	WHERE PART_CODE = ${part_code}
+</select>
+
 
 
 

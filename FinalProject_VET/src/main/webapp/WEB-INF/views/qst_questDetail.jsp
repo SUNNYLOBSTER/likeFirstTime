@@ -11,68 +11,62 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/questBoard.js"></script>
-<link rel="stylesheet" href="./css/questBoard.css">
-<%@ include file="./header.jsp" %>
+<link rel="stylesheet" href="./css/qst_questBoard.css">
 </head>
+<%@ include file="./header.jsp" %>
 <body>
 <%-- ${qstDetail} --%>
 <!-- <hr> -->
 <%-- ${rpyList} --%>
 <div id="container">
 
-<table>
-	<thead>
-		<tr>
-			<th style="width:150px;content-align:center;">작성자</th>
-			<th style="width:200px;content-align:center;">제목</th>
-			<th style="width:500px;content-align:center;">내용</th>
-			<th style="width:200px;content-align:center;">작성일</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-	 		<td>${qstDetail[0].users_vo[0].users_name}</td>
-			<td>${qstDetail[0].qst_title}</td>
-			<td>${qstDetail[0].qst_content}</td>
- 			<td> 
-				<fmt:parseDate var="questDate" value="${qstDetail[0].qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
-				<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
- 			</td> 
- 		</tr> 
-	</tbody>
-</table>
+<!-- 게시글 영역 -->
+	<div class="card">
+		<table class="questTop">
+			<tr>
+				<td class="questId">${qstDetail[0].users_vo[0].users_name}</td>
+				<td class="questCategory">${qstDetail[0].animalcode_vo[0].anm_species}</td>
+				<td class="questTitle">${qstDetail[0].qst_title}</td>
+				<td class="questDate"> 
+					<fmt:parseDate var="questDate" value="${qstDetail[0].qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
+					<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
+				</td> 
+			</tr> 
+		</table>
+		<div >
+			<a>${qstDetail[0].qst_content}</a>
+		</div>
+	</div>
 <hr>
 
-<div>
-	<table style="border-style:solid;">
-		<thead>
-			<tr>
-				<th>작성자</th>
-				<th style="width:600px;">내용</th>
-				<th>작성일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:set var="loop_flag" value="false" />
-			<c:forEach var="reply" items="${rpyList}">
-			<c:choose>
-				<c:when test="${reply.rpy_chosen eq 'Y'}">
-				<c:set var="loop_flag" value="true" />
-			    	<tr style="border-color:red; border-style: solid;" onclick="location.href='./'">
-				    	<td>${reply.hospital_vo[0].hosp_name}</td>
-					    <td style="width:600px;">${reply.rpy_content}</td>
-						<td>
+<!-- 답글영역 -->
+<div id="contentArea">
+	<c:set var="loop_flag" value="false" />
+	<c:forEach var="reply" items="${rpyList}">
+	<c:choose>
+		<c:when test="${reply.rpy_chosen eq 'Y'}">
+		<c:set var="loop_flag" value="true" />
+			<div class="card">
+				<table class="questTop">
+					<tr style="border-color:red; border-style: solid;">
+						<td class="questId"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
+						<td class="questDate">
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <button id="openModal" type="button" style="display:none;" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
-					    </td>
-				    </tr>
-			    </c:when>
-			    <c:otherwise>
+						</td>
+					</tr>
+				</table>
+				<div class="questBottom">
+					<p>${reply.rpy_content}</p>
+				</div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="card">
+				<table class="questTop">
 					<tr>
-				    	<td><a href="./selectUserDetail.do?id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
-					    <td style="width:600px;">${reply.rpy_content}</td>
+						<td class="questId"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
 						<td>
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -81,11 +75,14 @@
 							</c:if>
 					    </td>
 					</tr>
-					</c:otherwise>
-			</c:choose>
-			</c:forEach>
-		</tbody>	
-	</table>
+				</table>
+				<div class="questBottom">
+					<p>${reply.rpy_content}</p>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	</c:forEach>
 </div>
 <input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
@@ -109,4 +106,5 @@
 </div>
 </body>
 <%@ include file="./footer.jsp" %>
+<script type="text/javascript" src="./js/qst_questBoard.js"></script>
 </html>

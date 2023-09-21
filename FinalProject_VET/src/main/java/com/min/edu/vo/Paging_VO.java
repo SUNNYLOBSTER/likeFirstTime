@@ -12,9 +12,28 @@ public class Paging_VO {
 	private int stagePage;
 	private int endPage;
 	
+	
+	
+	public Paging_VO(int page, int countList, int totalCount, int countPage, int totalPage, int stagePage,
+			int endPage) {
+		super();
+		this.page = page;
+		this.countList = countList;
+		this.totalCount = totalCount;
+		this.countPage = countPage;
+		this.totalPage = totalPage;
+		this.stagePage = stagePage;
+		this.endPage = endPage;
+	}
+	
+	public Paging_VO() {
+		super();
+	}
+	
 	public int getPage() {
 		return page;
 	}
+	
 	public void setPage(int page) {
 		if(totalPage < page) {
 			page = totalPage;

@@ -1,4 +1,5 @@
 searchSubmit.addEventListener("click", e => {
+//function search(){
 	var code = aCode.value;
 	var part = aPart.value
 	var text = searchBar.value;
@@ -18,7 +19,8 @@ searchSubmit.addEventListener("click", e => {
 	})
 	
 })
-
+	
+//}
 
 function selected(seq){
 console.log(seq);

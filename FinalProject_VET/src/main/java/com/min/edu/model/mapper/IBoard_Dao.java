@@ -4,7 +4,8 @@ package com.min.edu.model.mapper;
 import java.util.List;
 import java.util.Map;
 
-
+import com.min.edu.vo.AnimalCode_VO;
+import com.min.edu.vo.AnimalPart_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
 import com.min.edu.vo.Users_VO;
@@ -24,6 +25,8 @@ public interface IBoard_Dao {
 	public List<QuestBoard_VO> selectOneBoard(String seq);
 	
 	public List<ReplyBoard_VO> selectReply(String seq);
+	
+	public String getMaxSeq();
 	
 	public int insertQuest(QuestBoard_VO vo);
 	
@@ -52,6 +55,10 @@ public interface IBoard_Dao {
 	public int calChoiceRate(String id);
 
 	public List<Users_VO> selectQuestUsers(Map<String, Object> map);
+
+	AnimalCode_VO selectAnimalCode(String anm_code);
+
+	AnimalPart_VO selectAnimalPart(String part_code);
 
 	
 	
