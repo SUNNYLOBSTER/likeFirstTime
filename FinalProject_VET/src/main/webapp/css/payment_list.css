@@ -15,11 +15,13 @@
 
 #chartInfo th{
 	background-color:  #BCAAA4;
+	font-style:  #3E2723;
 	text-align: center;
 }
 
 #chartInfo_point th{
 	background-color:  #BCAAA4;
+	font-style:  #3E2723;
 }
 
 #chartInfo_point{
@@ -31,6 +33,7 @@
 
 #chartInfo_point th{
 	background-color:  #BCAAA4;
+	font-style:  #3E2723;
 }
 
 #chartInfo_point th,tr,td{
@@ -38,4 +41,48 @@
 	text-align: center;
  	border-bottom: 1px solid #3E2723;
  	font-size: 15px;
+}
+
+#cacelpay{
+	background-color: #D7CCC8;
+	width: 110px;
+	height: 20px;
+	border-radius: 5px;
+	font: #3E2723;
+	border: none;
+	box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+	margin-left: 220px;
+}
+
+#cacelpay:hover{
+	background-color:  #BCAAA4;
+}
+
+#cacelpay2{
+	background-color: #D7CCC8;
+	width: 110px;
+	height: 20px;
+	border-radius: 5px;
+	font: #3E2723;
+	border: none;
+	box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+	margin-left: 10px;
+}
+#cacelpay2:hover{
+	background-color:  #BCAAA4;
+}
+
+#paymentBtn{
+	background-color: #D7CCC8;
+	width: 110px;
+	height: 20px;
+	border-radius: 5px;
+	font: #3E2723;
+	border: none;
+	box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+	margin-left: 750px;
+}
+
+#paymentBtn:hover{
+	background-color:  #BCAAA4;
 }

@@ -19,7 +19,7 @@
 		</div>
 		<table id="chartInfo_point">
 			<tr>
-				<th>적립날짜</th>
+				<th>적립/사용일자</th>
 				<th>포인트</th>
 				<th>이용내역</th>
 			</tr>

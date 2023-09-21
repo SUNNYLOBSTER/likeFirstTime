@@ -9,7 +9,7 @@
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
-	<button onclick="location.href='./goPayment.do'">결제하기</button>
+	
 </div>
 
 </body>

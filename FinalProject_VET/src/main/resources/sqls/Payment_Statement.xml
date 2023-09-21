@@ -12,7 +12,7 @@
 
 <!-- 결제번호별 결제내역 상세조회 -->
 <select id="selectOnePayment" resultType="com.min.edu.vo.Payment_VO">
-	SELECT PAY_ID , PAY_AMOUNT , PAY_TIME , PAY_METHOD , PAY_STATUS , MERCHANT_UID
+	SELECT PAY_NUM, PAY_ID , PAY_AMOUNT , PAY_TIME , PAY_METHOD , PAY_STATUS , MERCHANT_UID
 		FROM PAYMENT
 		WHERE PAY_NUM =#{pay_num}
 </select>

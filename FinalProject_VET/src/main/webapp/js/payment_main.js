@@ -1,10 +1,12 @@
 
 	var IMP = window.IMP;
-	IMP.init("imp81787868");
+	IMP.init("imp40440345");
+	const random = Math.random();
+	var merchant_uid = ﻿'LFT'+random;
 	
 	﻿function requestPay(val) {
 		alert("결제를 진행합니다.")
-		var merchant_uid = merchant_uid + 1;
+		
 		var point = val;
 		var buyer_email = $("#buyer_email").val();
 		var buyer_tel = $("#buyer_tel").val();

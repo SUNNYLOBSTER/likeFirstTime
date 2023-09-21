@@ -9,9 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결제내역</title>
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script type="text/javascript" src="./js/payment_main.js"></script>
-<script type="text/javascript" src="./js/payment_cancle.js"></script>
 <link rel="stylesheet" href="./css/payment_list.css">
 </head>
 <body>
@@ -25,7 +23,7 @@
 				<th>결제시간</th>
 				<th>결제방식</th>
 				<th>결제상태</th>
-				<th>환불요청</th>
+				<th>환불</th>
 				<th></th>
 			</tr>
 			<c:forEach var="list" items="${lists}">
@@ -42,7 +40,7 @@
 							 <td>결제완료</td>
 							 <c:choose>
 							 	<c:when test="${(now.time - pay_date) / (1000 * 60 * 60 * 24) <= 3}">
-							 		<td><button onclick="cancelPay(this)">신청</button></td>
+							 		<td><button class="selecteBtn">신청</button></td>
 							 	</c:when>
 							 </c:choose>
 						</c:when>
@@ -50,11 +48,14 @@
 							<td>환불완료</td>
 						</c:when>
 					</c:choose>
-<%-- 					<td><input type="hidden" value="${list.merchant_uid}"></input></td> --%>
 				</tr>
 			</c:forEach>
 		</table>
+		<span>
+			<button id="paymentBtn" onclick="location.href='./goPayment.do'">결제하기</button>
+		</span>
 	</div>
 </body>
+<script type="text/javascript" src="./js/payment_cancel.js"></script>
 <%@ include file="./footer.jsp" %>
 </html>

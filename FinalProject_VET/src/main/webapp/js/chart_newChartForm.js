@@ -75,6 +75,7 @@ function writeChart(){
    let codeS = $('#codeS').val();
    let petName = $('#petName').val();
    let medi_title = $('#medi_title').val();
+   let medi_content = $('#editor').val();
    
    console.log(codeL,codeS,petName);
    
@@ -83,7 +84,7 @@ function writeChart(){
       document.getElementById("codeL").focus();
       return false;
    }else if(codeS =="--선택--"){
-      alert("질환을 선택해주세요");
+      alert("세부과목을 선택해주세요");
       document.getElementById("codeS").focus();
       return false;
    }else if(petName=="--선택--"){
@@ -91,10 +92,14 @@ function writeChart(){
       document.getElementById("petName").focus();
       return false;
    }else if(medi_title==""){
-      alert("제목을 입력해주세요");
+      alert("제목을 작성해주세요");
       document.getElementById("medi_title").focus();
       return false;
-   }
+   }else if(medi_content==""){
+	  alert("내용을 작성해주세요")
+	  document.getElementById("editor").focus();
+	  return false;
+}
    
    observer.disconnect();
    $("form").eq(0).submit();

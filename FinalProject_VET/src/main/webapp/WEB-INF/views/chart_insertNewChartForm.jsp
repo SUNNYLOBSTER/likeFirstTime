@@ -28,7 +28,7 @@
 					</select>
 					<input type="hidden" id="medi_lnameInput">
 					<select id="codeS" onchange="selectedSCode(this.value);" name="codeS" class="selectPart">
-						<option>--질환--</option>
+						<option>--세부 과목--</option>
 					</select>
 					<input type="hidden" id="medi_snameInput">
 			<br>
