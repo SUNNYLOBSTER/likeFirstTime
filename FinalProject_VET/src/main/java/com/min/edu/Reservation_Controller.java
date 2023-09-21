@@ -63,7 +63,8 @@ public class Reservation_Controller {
       // 받아올 값
       Users_VO hosp_id = (Users_VO) session.getAttribute("loginVo");
       
-      Map<String, Object> map = new HashMap<String, Object>(){{
+      @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
          put("yyyy",yyyy);
          put("RESRV_HOPS",hosp_id.getUsers_id());
       }};
@@ -127,7 +128,8 @@ public class Reservation_Controller {
       Users_VO User_id = (Users_VO)session.getAttribute("loginVo");
       String hosp_id = User_id.getUsers_id();
       
-      Map<String, Object> map = new HashMap<String, Object>(){{
+    @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
          put("resrv_hops", hosp_id);
          put("resrv_status", resrv_status);
       }};
@@ -167,19 +169,18 @@ public class Reservation_Controller {
    
    @PostMapping(value = "/resrv_refuse.do")
    @ResponseBody
-   public String resrv_refuse(String resrv_num) {
+   public String resrv_refuse(String resrv_num, String user_id) {
       log.info("&&&&& Reservation_Controller resrv_refuse 호출 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
-      
-      
-      
+      log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", user_id);
+
       int n = service.resrv_delete(resrv_num);
       return (n>0)?"resrv_refuse":"false";
    }
    
    @GetMapping(value = "/resrv_requestPage.do")
    public String resrv_requestPage(HttpSession session, HttpServletResponse response, String resrv_hops, Model model) throws IOException{
-      log.info("&&&&& 메인화면 -> 예약신청 페이지 이동 &&&&&");
+      log.info("&&&&& 예약신청 페이지 이동 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_hops);
       response.setContentType("text/html; charset=UTF-8;");
       Users_VO user_vo = (Users_VO) session.getAttribute("loginVo");
@@ -290,7 +291,8 @@ public class Reservation_Controller {
 	   log.info("&&&&& Reservation_Controller resrv_recordList &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_userid);
 
-	   Map<String, Object> map = new HashMap<String, Object>(){{
+	   @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
 		   put("resrv_userid",resrv_userid);
 		   put("first","1");
 		   put("last","5");

@@ -1,20 +1,29 @@
 @charset "UTF-8";
 
 .resrv_record{
-	width: 400px;
-	border: 1px solid #ccc;
+	width:100%;
 	border-collapse: collapse;
+	margin-bottom: 30px;
 }
 
 .resrv_record table{
-	border: 1px solid black;
+	margin: 20px auto;
+	width: 80%;
+	border-collapse: collapse;
 }
 
 .resrv_record tr,th,td{
-	text-align: left;
-	border: 1px solid #ccc; 
+	padding: 8px;
+	text-align: center;
+ 	border-bottom: 1px solid #3E2723;
+ 	font-size: 15px;
 }
 
 .resrv_record th{
 	width: 40px;
+	background-color: #BCAAA4;
+}
+
+#cancel{
+	width: 20px;
 }
