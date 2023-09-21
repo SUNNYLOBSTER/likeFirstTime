@@ -59,4 +59,23 @@ public class Payment_JUnitTest {
 		assertEquals(n, 1);
 	}
 	
+//	@Test
+	public void insertNewPnt() {
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("pnt_id", "elsa@disney.com");
+			put("pnt_point", -10000);
+		}};
+		
+		int n = service.insertNewPnt(map);
+		assertEquals(n, 1);
+	}
+	
+//	@Test
+	public void selectAllPnt() {
+		String pnt_id = "elsa@disney.com";
+		int n = service.selectAllPnt(pnt_id);
+		assertEquals(n, 1);
+	}
+	
+	
 }

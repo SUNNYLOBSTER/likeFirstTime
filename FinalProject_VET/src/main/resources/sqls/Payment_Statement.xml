@@ -34,19 +34,12 @@
 		WHERE PAY_NUM=#{pay_num}
 </update>
 
-<!-- 결제금액만큼 포인트 등록 -->
+<!-- 결제금액 or 환불금액 만큼 포인트 등록 -->
 <insert id="insertNewPnt" parameterType="java.util.Map">
 	INSERT INTO POINT
 		(PNT_ID, PNT_SEQ, PNT_DATE, PNT_POINT)
 		VALUES(#{pnt_id}, (SELECT NVL(MAX(PNT_SEQ),0)+1 FROM POINT), SYSDATE , #{pnt_point})
 </insert>
-
-<!-- 결제취소시 포인트 다시 차감 -->
-<select id="">
-	INSERT INTO POINT
-		(PNT_ID, PNT_SEQ, PNT_DATE, PNT_POINT)
-		VALUES(#{pnt_id},(SELECT NVL(MAX(PNT_SEQ),0)+1 FROM POINT) , SYSDATE , #{pnt_point})
-</select>
 	
 <!-- 예약포인트 차감 -->
 <insert id="usePntOnResrv">
@@ -63,7 +56,7 @@
 </insert>
 
 <!-- 일반사용자 아이디별 총 포인트 조회 -->
-<select id="selectAllPnt">
+<select id="selectAllPnt" resultType="java.lang.Integer">
 	SELECT SUM(PNT_POINT) AS PNT_SUM 
 		FROM POINT p 
 		WHERE PNT_ID =#{pnt_id}
