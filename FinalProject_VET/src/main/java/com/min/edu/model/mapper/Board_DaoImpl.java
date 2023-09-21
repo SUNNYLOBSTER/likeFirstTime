@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.min.edu.vo.AnimalCode_VO;
+import com.min.edu.vo.AnimalPart_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
 import com.min.edu.vo.Users_VO;
@@ -124,6 +126,21 @@ public class Board_DaoImpl implements IBoard_Dao {
 	@Override
 	public List<Users_VO> selectQuestUsers(Map<String, Object> map) {
 		return session.selectList(NS+"selectQuestUsers", map);
+	}
+
+	@Override
+	public AnimalCode_VO selectAnimalCode(String anm_code) {
+		return session.selectOne(NS+"selectAnimalCode", anm_code);
+	}
+
+	@Override
+	public AnimalPart_VO selectAnimalPart(String part_code) {
+		return session.selectOne(NS+"selectAnimalPart", part_code);
+	}
+
+	@Override
+	public String getMaxSeq() {
+		return session.selectOne(NS+"getMaxSeq");
 	}
 
 	

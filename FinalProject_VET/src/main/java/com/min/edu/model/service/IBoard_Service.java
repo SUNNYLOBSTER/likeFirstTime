@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.min.edu.vo.AnimalCode_VO;
+import com.min.edu.vo.AnimalPart_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
@@ -27,9 +28,7 @@ public interface IBoard_Service {
 	
 	public List<ReplyBoard_VO> selectReply(String seq);
 	
-	
-	
-	public int insertQuest(QuestBoard_VO vo);
+	public String insertQuest(QuestBoard_VO vo);
 	
 	public int updateFastQuest(String seq);
 	

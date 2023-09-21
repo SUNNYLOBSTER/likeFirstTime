@@ -13,7 +13,6 @@
 <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
-
 </head>
 <%@ include file="./header.jsp" %>
 <body>
@@ -46,8 +45,6 @@
 </div>
 
 <div id="contentArea">
-<!-- <table style="border-left-style:solid;"> -->
-
 		<c:set var="loop_flag" value="false" />
 		<c:forEach var="dto" items="${questList}">
 		<c:choose>
@@ -59,6 +56,7 @@
 							<td class="thumbnail"></td>
 							<td class="questId">${dto.users_vo[0].users_name}</td>
 							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
+							<td class="questCategory">${dto.animalpart_vo[0].part_name}</td>
 							<td class="questTitle">❓${dto.qst_title}</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -95,51 +93,8 @@
 		</c:choose>
 		</c:forEach>
 	
-<!-- 	<thead> -->
-<!-- 		<tr> -->
-<!-- 			<th style="width:80px;text-align:center;">작성자</th> -->
-<!-- 			<th style="width:80px;text-align:center;">동물</th> -->
-<!-- 			<th style="width:300px;text-align:center;">제목</th> -->
-<!-- 			<th style="width:500px;text-align:center;">내용</th> -->
-<!-- 			<th style="width:140px;text-align:center;">작성일</th> -->
-<!-- 		</tr> -->
-<!-- 	</thead> -->
-<!-- 	<tbody> -->
-<%-- 		<c:set var="loop_flag" value="false" /> --%>
-<%-- 		<c:forEach var="dto" items="${questList}" varStatus="vs"> --%>
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${dto.qst_fast eq 'Y'}"> --%>
-<%-- 			<c:set var="loop_flag" value="true" /> --%>
-<!-- 				<tr> -->
-<%-- 					<td>${dto.users_vo[0].users_name}</td> --%>
-<%-- 					<td>${dto.animalcode_vo[0].anm_species}</td> --%>
-<%-- 					<td>🔖${dto.qst_title}</td> --%>
-<%-- 					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td> --%>
-<!-- 					<td> -->
-<%-- 						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/> --%>
-<%-- 						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-<!-- 				<tr> -->
-<%-- 					<td>${dto.users_vo[0].users_name}</td> --%>
-<%-- 					<td>${dto.animalcode_vo[0].anm_species}</td> --%>
-<%-- 					<td>${dto.qst_title}</td> --%>
-<%-- 					<td><a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a></td> --%>
-<!-- 					<td> -->
-<%-- 						<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/> --%>
-<%-- 						<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/> --%>
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</tbody> -->
-<!-- </table> -->
-<a href="./writeQuest.do">새 글 작성</a><br>
+<a href="./writeQuestForm.do">새 글 작성</a><br>
 </div>
-
 
 <!-- 페이징 -->
 <div id="pagingArea">
@@ -151,6 +106,6 @@
 
 </div>
 </body>
-<script type="text/javascript" src="./js/questBoard.js"></script>
 <%@ include file="./footer.jsp" %>
+<script type="text/javascript" src="./js/qst_questBoard.js"></script>
 </html>

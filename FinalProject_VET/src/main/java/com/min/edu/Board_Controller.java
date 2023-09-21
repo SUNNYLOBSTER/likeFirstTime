@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.AnimalCode_VO;
+import com.min.edu.vo.AnimalPart_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
 import com.min.edu.vo.Users_VO;
@@ -76,21 +80,51 @@ public class Board_Controller {
 		log.info("&&&&& Board_Controller selectPartQuest 실행 &&&&&");
 		log.info("&&&&& Board_Controller selectPartQuest 전달받은 값 : {} &&&&&", qst_species, qst_part, qst_content);
 		
-		return "redirect:/qst_questBoard.do";
+		return "redirect:/questBoard.do";
 	}
 	
 	
 	@GetMapping(value = "/writeQuestForm.do")
 	public String moveWriteForm() {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
-		return "qst_writeQuest";
+		
+		return "qst_writeQuestForm";
 	}
 	
 	@PostMapping(value = "/qst_writeQuest.do")
-	@ResponseBody
-	public String writeQuest() {
-		log.info("&&&&& Board_Controller 실행 qst_writeQuest &&&&&");
-		return null;
+	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+		log.info("&&&&& Board_Controller 실행 qst_writeQuest 작동 &&&&&");
+		
+		Users_VO loginVO = (Users_VO) session.getAttribute("loginVo");
+		String qst_id = loginVO.getUsers_id();
+		
+		String qst_title = (String) map.get("qst_title");
+		String qst_content = (String) map.get("qst_content");
+		String escapedContent = StringEscapeUtils.escapeHtml4(qst_content);
+		String qst_code = (String) map.get("qst_species");
+		String qst_part = (String) map.get("qst_part");
+		String qst_fast = (String) map.get("qst_fast");
+		
+		QuestBoard_VO insertVo = new QuestBoard_VO();
+		
+		insertVo.setQst_id(qst_id);
+		insertVo.setQst_content(escapedContent);
+		insertVo.setQst_species(qst_code);
+		insertVo.setQst_part(qst_part);
+		insertVo.setQst_title(qst_title);
+		insertVo.setQst_fast(qst_fast);
+		
+		String quest = service.insertQuest(insertVo);
+		
+		return "redirect:/questBoard.do";
+		
+		
+		
+		
+		
+//		대분류, 소분류, 우선답변게시글 제목, 내용, 파일업로드 
+		
+		
 	}
 	
 	

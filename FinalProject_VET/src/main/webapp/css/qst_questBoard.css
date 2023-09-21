@@ -35,6 +35,18 @@
 .questBottom{
 	padding: 10px;
 	margin: 0px 10px;
+	width: 900px;
+	overflow:hidden;
+	
+	max-height: 3.0em;
+    word-wrap: break-word;
+	white-space: normal;
+    line-height: 1.2;
+    height: 3.6em;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .thumbnail{
@@ -47,16 +59,17 @@
 }
 
 .questCategory{
-	width: 50px;
+	width: 60px;
 	text-align: right;
 }
 	
 .questTitle{
-	width: 600px; 
+	width: 540px; 
 	
 }
 
 .questDate{
+	width: 200px;
 	text-align: right;
 }
 
