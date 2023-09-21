@@ -13,10 +13,8 @@
 		<result column="USERS_SUBTEL" property="users_subtel"/>
 		<result column="USERS_AUTH" property="users_auth"/>
 		<result column="USERS_CRN" property="users_crn"/>
-		
 		<collection property="hospital_vo" resultMap="Hospital_VO"/>
 	</resultMap>
-
 	<resultMap type="com.min.edu.vo.Hospital_VO" id="Hospital_VO">
 		<result column="HOSP_ID" property="hosp_id"/>
 		<result column="HOSP_NAME" property="hosp_name"/>
@@ -25,7 +23,7 @@
 		<result column="HOSP_PARK" property="hosp_park"/>
 		<result column="HOSP_ETC" property="hosp_etc"/>
 	</resultMap>
-
+	
 	<select id="hosp_user" resultType="Users_VO">
 		SELECT USERS_ID , USERS_NAME , USERS_TEL , USERS_ADDR
 			FROM USERSINFO u
@@ -39,5 +37,5 @@
 			WHERE USERS_AUTH = 'H'
 				AND USERS_ADDR LIKE '%' || #{users_addr} || '%'
 	</select>
-
+	
 </mapper>

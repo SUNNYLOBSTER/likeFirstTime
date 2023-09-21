@@ -76,10 +76,12 @@
 	                        <input type="text" class="form-control" id="resrv_tel" name="resrv_tel">
 	                        <label>예약 메모</label>
 	                        <input type="text" class="form-control" id="resrv_memo" name="resrv_memo">
+	                        <input type="hidden" class="form-control" id="resrv_hosp" name="resrv_hosp">
 	                    </div>
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" id="resrv_modifyBtn" onclick="resrv_modify()">정보수정</button>
+	                    <button type="button" id="resrv_saveBtn" onclick="resrv_save()">저장</button>
 	                    <button type="button" id="resrv_cancel" onclick="">예약취소</button>
 	                </div>
 	            </div>

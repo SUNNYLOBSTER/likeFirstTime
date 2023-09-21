@@ -24,11 +24,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.min.edu.model.service.IReservation_Service;
+import com.min.edu.model.service.ISchedule_Service;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
 import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.ResrvList_VO;
+import com.min.edu.vo.SchedBoard_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +41,9 @@ public class Reservation_Controller {
 
    @Autowired
    private IReservation_Service service;
+   
+   @Autowired
+   private ISchedule_Service sche_service;
    
    @GetMapping(value = "/resrv_Select.do")
    public String resrv_Select() {
@@ -134,6 +139,24 @@ public class Reservation_Controller {
       log.info("&&&&& Reservation_Controller resrv_confirm 호출 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
       int n = service.resrv_updateToY(resrv_num);
+      Reservation_VO rvo = service.resrv_detail(resrv_num);
+      String sche_id = rvo.getResrv_userid();
+      String sche_date = rvo.getResrv_visit();
+      String sche_title = "진료예약";
+      String sche_content = rvo.getResrv_memo();
+      String sche_hour = rvo.getResrv_time();
+      String sche_minute = "00";
+      System.out.println("#############"+sche_id);
+      System.out.println("#############"+sche_date);
+      System.out.println("#############"+sche_hour);
+      SchedBoard_VO svo = new SchedBoard_VO();
+      svo.setSche_id(sche_id);
+      svo.setSche_date(sche_date);
+      svo.setSche_title(sche_title);
+      svo.setSche_content(sche_content);
+      svo.setSche_hour(sche_hour);
+      svo.setSche_minute(sche_minute);
+      sche_service.insertNewSchedule(svo);
       return (n>0)?"confirm":"false";
    }
    
@@ -213,6 +236,8 @@ public class Reservation_Controller {
        String json = gson.toJson(resultList);
        PrintWriter out = response.getWriter();
        out.print(json);
+       out.flush();
+       out.close();
    }
    
    @PostMapping(value = "/resrv_insert.do")
@@ -269,13 +294,32 @@ public class Reservation_Controller {
    
    @PostMapping(value = "/resrv_detailModify.do")
    @ResponseBody
-   public String resrv_detailModify(@RequestParam Map<String, Object> map) {
+   public String resrv_detailModify(@RequestParam Map<String, Object> map, HttpServletResponse response) throws IOException {
 	   log.info("&&&&& Reservation_Controller resrv_detailModify &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",map);
+	   response.setContentType("text/html; charset=UTF-8;");
+	  
 	   Reservation_VO rvo = new Reservation_VO();
-//	   rvo.setResrv_num((String) map.get("resrv_num"));
-//	   rvo.setResrv_time(null)
-//	   service.resrv_detailModify(rvo);
-	   return null;
+	   rvo.setResrv_num((String) map.get("resrv_num"));
+	   rvo.setResrv_visit((String)map.get("resrv_visit"));
+	   String resrv_time = (String)map.get("resrv_time");
+	   rvo.setResrv_time(resrv_time.substring(0,2));
+	   rvo.setResrv_name((String)map.get("resrv_name"));
+	   rvo.setResrv_tel((String)map.get("resrv_tel"));
+	   if(map.get("resrv_memo") != null) {
+		   rvo.setResrv_memo((String)map.get("resrv_memo"));
+	   }else {
+		   rvo.setResrv_memo("");
+	   }
+	   int n = service.resrv_detailModify(rvo);
+	   if(n>0) {
+		   return "true";
+	   }else {
+		   PrintWriter out = response.getWriter();
+		   out.print("<script>수정 실패했습니다.</script>");
+		   out.flush();
+		   out.close();
+		   return "redirect:/resrv_Select.do'";
+	   }
    }
 }

@@ -23,7 +23,7 @@ public interface IReservation_Service {
 	
 	//예약대기(W)에서 예약확정(Y) 상태로 변경
 	public int resrv_updateToY(String resrv_num);
-		
+	
 	//예약확정(Y) 상태에서 예약취소(N) 상태로 변경
 	public int resrv_updateToN(String resrv_num);
 	
