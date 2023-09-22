@@ -1,11 +1,14 @@
 package com.min.edu;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
+import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.AnimalCode_VO;
 import com.min.edu.vo.AnimalPart_VO;
@@ -37,8 +41,9 @@ public class Board_Controller {
 
 	@Autowired
 	private IBoard_Service service;
+	
 	@Autowired
-	private IUsers_Service service2;
+	private IPayment_Service service_pay;
 	
 	@GetMapping(value = "/questBoard.do")
 	public String questBoard(Model model) {
@@ -87,18 +92,60 @@ public class Board_Controller {
 	
 	
 	@GetMapping(value = "/writeQuestForm.do")
-	public String moveWriteForm() {
+	public String moveWriteForm(HttpSession session, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
 		
-		return "qst_writeQuestForm";
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		
+				try {
+					if(loginVo != null) {
+						session.setAttribute("loginVo", loginVo);
+						session.setMaxInactiveInterval(1800);
+						
+						PrintWriter out;
+					out = response.getWriter();
+					out.flush();
+					return "qst_writeQuestForm";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+			}
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인 후 작성 가능합니다');location.href='./loginForm.do';</script>");
+				out.flush();
+				return null;
+		
+		
 	}
 	
+//	게시글 작성
 	@PostMapping(value = "/qst_writeQuest.do")
-	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Board_Controller 실행 qst_writeQuest 작동 &&&&&");
 		log.info("{}", map);
 		
+		response.setContentType("text/html; charset=UTF-8");
+		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+				try {
+					if(loginVo != null) {
+						session.setAttribute("loginVo", loginVo);
+						session.setMaxInactiveInterval(1800);
+						
+						PrintWriter out;
+					out = response.getWriter();
+					out.flush();
+					return null;
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+			}
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인 정보가 없습니다');location.href='./loginForm.do';</script>");
+				out.flush();
+				
 		String qst_id = loginVo.getUsers_id();
 		
 		String qst_title = (String) map.get("questTitle");
@@ -118,16 +165,25 @@ public class Board_Controller {
 		insertVo.setQst_fast(qst_fast);
 		
 		String quest = service.insertQuest(insertVo);
-		
-		return "redirect:/questBoard.do";
-		
+		service_pay.usePntOnBoard(qst_id);
 		
 		
+		return "redirect:/questBoard.do?seq="+quest;
+	}
+	
+//	게시글 작성 후 html태크 제거하여 출력
+	@GetMapping(value = "/afterWriteQuest.do")
+	public String selectOneBoard(String seq, Model model) {
+		log.info("&&&&& Board_Controller 글 작성 후 상세페이지 이동, selectOneBoard 전달받은 값 : {}  &&&&&", seq);
 		
+		QuestBoard_VO vo = (QuestBoard_VO) service.selectOneBoard(seq);
 		
-//		대분류, 소분류, 우선답변게시글 제목, 내용, 파일업로드 
+		String unescapedContent = StringEscapeUtils.unescapeHtml4(vo.getQst_content());
 		
+		model.addAttribute("vo", vo);
+		model.addAttribute("qst_content", unescapedContent);
 		
+		return "qst_questDetail";
 	}
 	
 	

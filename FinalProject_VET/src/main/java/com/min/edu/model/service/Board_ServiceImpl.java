@@ -56,7 +56,8 @@ public class Board_ServiceImpl implements IBoard_Service {
 	@Override
 	public List<QuestBoard_VO> selectOneBoard(String seq) {
 		log.info("&&&&& Board_ServiceImpl selectOneBoard 전달받은 파라미터 값 : {} &&&&&", seq);
-		return dao.selectOneBoard(seq);
+		
+		return (List<QuestBoard_VO>) dao.selectOneBoard(seq);
 	}
 	
 

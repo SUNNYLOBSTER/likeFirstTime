@@ -25,6 +25,7 @@ public interface IBoard_Service {
 	public List<QuestBoard_VO> selectReportBoard();
 	
 	public List<QuestBoard_VO> selectOneBoard(String seq);
+//	public QuestBoard_VO selectOneBoard(String seq);
 	
 	public List<ReplyBoard_VO> selectReply(String seq);
 	
@@ -53,5 +54,7 @@ public interface IBoard_Service {
 	public int countChosenReply(String id);
 	
 	public int calChoiceRate(String id);
+
+
 	
 }

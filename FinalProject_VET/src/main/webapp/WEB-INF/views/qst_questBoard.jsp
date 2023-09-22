@@ -59,7 +59,7 @@
 							<td class="questId">${dto.users_vo[0].users_name}</td>
 							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
 							<td class="questCategory">${dto.animalpart_vo[0].part_name}</td>
-							<td class="questTitle">❓${dto.qst_title}</td>
+							<td class="questTitle">❓${dto.qst_title}(1)</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 								<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -79,7 +79,7 @@
 							<td class="thumbnail"></td>
 							<td class="questId">${dto.users_vo[0].users_name}</td>
 							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
-							<td class="questTitle">❔${dto.qst_title}</td>
+							<td class="questTitle">❔${dto.qst_title}(1)</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 								<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>

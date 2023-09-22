@@ -79,10 +79,10 @@ public class Board_JUnitTest {
 	}
 	
 //	@Test
-	public void selectOneBoard() {
-		List<QuestBoard_VO> lists = service.selectOneBoard("Q2");
-		assertNotNull(lists);
-	}
+//	public void selectOneBoard() {
+//		List<QuestBoard_VO> lists = service.selectOneBoard("Q2");
+//		assertNotNull(lists);
+//	}
 	
 	@Test
 	public void insertQuest() {
