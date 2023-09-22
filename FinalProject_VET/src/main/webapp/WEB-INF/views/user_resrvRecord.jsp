@@ -1,3 +1,4 @@
+<%@ page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,14 +17,16 @@
 		<h2>예약 내역</h2>
 			<table class="resrv_record">
 				<tr>
+					<th>예약번호</th>
 					<th>예약병원</th>
 					<th>방문일자</th>
 					<th>예약시간</th>
 					<th>예약상태</th>
 					<th id="cancel">예약취소</th>
 				</tr>
-				<c:forEach var="list" items="${hosp_lits}">
+				<c:forEach var="list" items="${hosp_lists}">
 					<tr>
+						<td>${list.resrv_num}</td>
 						<td>${list.resrv_hops}</td>
 						<td>${list.resrv_visit}</td>
 						<td>${list.resrv_time}시</td>
@@ -39,19 +42,20 @@
 							</c:otherwise>
 						</c:choose>
 						<td>
-							<jsp:useBean id="sysDate" class="java.util.Date"/>
-							<fmt:parseDate var="resrv_date" value="${list.resrv_visit}" pattern="yyyy-MM-dd"/>
-							<fmt:formatDate var="resrv" value="${resrv_date}" pattern="yyyy-MM-dd"/>
-							<fmt:parseDate var="date" value="${sysDate}" pattern="yyyy-MM-dd"/>
-							<fmt:formatDate var="sys" value="${date}" pattern="yyyy-MM-dd"/>
-							<c:if test="${sys>resrv}">
-								<button>예약 취소</button>
+							<fmt:parseDate var="resrv_visit" value="${list.resrv_visit}" pattern="yyyy-MM-dd"/>
+							<c:set var="now" value="<%= new Date()%>"/>
+							<c:set var="visitTime" value="${resrv_visit.time}"/>
+							<c:if test="${(now.time-visitTime)<0}">
+								<c:if test="${list.resrv_status eq 'Y' || list.resrv_status eq 'W'}">
+									<button class="resrv_cancel">예약 취소</button>
+								</c:if>
 							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
 	</div>
+	<script type="text/javascript" src="./js/user_resrvRecord.js"></script>
 </body>
 <%@ include file="./footer.jsp" %>
 </html>

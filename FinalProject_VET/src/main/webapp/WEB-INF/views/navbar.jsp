@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <%@ include file="./header.jsp" %>
-<script type="text/javascript" src='./js/resrv_user.js'></script>
 <body>
 	<div class="sidenav">
 		<button id="sideNav_1" class="dropdown-btn" onclick="location.href='./selectAllChart.do'">

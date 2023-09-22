@@ -106,4 +106,5 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 		return session.update(NS+"resrv_detailModify",rvo);
 	}
 
+
 }

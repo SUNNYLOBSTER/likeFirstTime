@@ -94,7 +94,7 @@ function resrv_modify(){
 //	console.log($(".form-group input").eq());
 	var resrv_detailInputs = $(".form-group input");
 //	$(".form-group input").eq(0).attr("disabled",false);
-	for(let i=1; i<resrv_detailInputs.eq().prevObject.length; i++){
+	for(let i=3; i<resrv_detailInputs.eq().prevObject.length; i++){
 		resrv_detailInputs.eq(i).attr("disabled",false);
 	}
 	$("#resrv_modifyBtn").css("display","none");

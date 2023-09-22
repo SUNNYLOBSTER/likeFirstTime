@@ -28,6 +28,7 @@
 			</c:if>
 			
 			<div id="resrv_availableTime"></div>
+			<p>예약시 예약금 3000포인트가 차감됩니다.</p>
 		</div>
 		<hr>
 		<div id="resrv_info">
