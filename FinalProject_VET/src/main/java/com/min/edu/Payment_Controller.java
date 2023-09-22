@@ -150,52 +150,6 @@ public class Payment_Controller {
 		return "payment_cancel";
 	}
 	
-	@PostMapping(value = "/cancelPayment.do")
-	@ResponseBody
-	public String cancelPayment(String merchant_uid, String cancel_request_amount, String imp_uid, HttpSession session) throws IOException {
-		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {} {}&&&&&",merchant_uid,cancel_request_amount,imp_uid);
-		
-		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-		String pnt_id = loginVo.getUsers_id();
-		int pnt_point = Integer.parseInt(cancel_request_amount)*(-1);
-		
-		CancelData cancelData = new CancelData(merchant_uid, true);
-		
-		try {
-		    IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancelData);
-		    System.out.println(payment_response);
-
-		    Payment canceledPayment = payment_response.getResponse();
-		    if (canceledPayment != null) {
-		        System.out.println("결제 성공 취소 : " + canceledPayment.getStatus());
-		        service.canclePayment(merchant_uid);
-		        @SuppressWarnings("serial")
-		        Map<String, Object> map = new HashMap<String, Object>(){{
-		            put("pnt_id", pnt_id);
-		            put("pnt_point", pnt_point);
-		        }};
-		        service.insertNewPnt(map);
-		    } else {
-		        System.out.println("결제 취소 응답에서 취소된 결제 정보를 가져올 수 없습니다.");
-		    }
-		} catch (IamportResponseException e) {
-		    System.out.println("결제취소 실패");
-		    System.out.println(e.getMessage());
-
-		    switch (e.getHttpStatusCode()) {
-		        case 401:
-		            break;
-		        case 500:
-		            break;
-		    }
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-
-		
-		return "redirect:/selectAllPayment.do";
-	}
-	
 	IamportClient client;
 	
 	public Payment_Controller() {
@@ -226,6 +180,55 @@ public class Payment_Controller {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	@PostMapping(value = "/cancelPayment.do")
+	@ResponseBody
+	public String cancelPayment(String merchant_uid, String cancel_request_amount, String imp_uid, HttpSession session) throws IOException {
+		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {} {}&&&&&",merchant_uid,cancel_request_amount,imp_uid);
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String pnt_id = loginVo.getUsers_id(); //결제자
+		int pnt_point = Integer.parseInt(cancel_request_amount)*(-1);
+		
+		CancelData cancelData = new CancelData(merchant_uid, true); // merchant_uid 결제 고유번호
+		
+		try {
+		    IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancelData);
+		    System.out.println(payment_response);
+
+		    Payment canceledPayment = payment_response.getResponse();
+		    if (canceledPayment != null) {
+		        System.out.println("환불 성공 : " + canceledPayment.getStatus());
+		        service.canclePayment(merchant_uid);
+		        @SuppressWarnings("serial")
+		        Map<String, Object> map = new HashMap<String, Object>(){{
+		            put("pnt_id", pnt_id);
+		            put("pnt_point", pnt_point);
+		        }};
+		        service.insertNewPnt(map);
+		    } else {
+		        System.out.println("환불 정보가 없습니다");
+		    }
+		} catch (IamportResponseException e) {
+		    System.out.println("환불 실패");
+		    System.out.println(e.getMessage());
+
+		    switch (e.getHttpStatusCode()) {
+		        case 401:
+		            break;
+		        case 500:
+		            break;
+		    }
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+
+		
+		return "redirect:/selectAllPayment.do";
+	}
+	
+	
 	
 	
 }

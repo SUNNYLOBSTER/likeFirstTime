@@ -77,3 +77,32 @@ if(hosp_time != null){
 	var hosp_runtime = document.getElementById("hosp_runtime");
 	hosp_runtime.innerHTML = hosp_runTime.open +"~"+ hosp_runTime.close + "시";
 }
+
+
+//북마크관련
+$(document).on("click","#bookmarkPart",function(){
+	console.log("북마크 등록 실행");
+		var hosp_id = $("#bookmarkPart").val();
+		console.log(hosp_id);
+//	$.ajax({
+//		
+//		url:"./insertNewBookmark.do",
+//		method:"post",
+//		data: {"bm_hospid":}
+//		
+//	});
+	$('#bookmarkPart').css("background-position", "-286px -410px");
+	
+	
+});
+
+//function insertBookMark(){
+//	console.log("북마크 등록 실행");
+//	var bookmarkPart = document.getElementById('bookmarkPart');
+//	bookmarkPart.innerHTML = '';
+//	var html = '';
+//	html+="			<a onclick='insertBookMark()'>";
+//	html+="					<img alt='bookmark' src='./img/bookmark_yes.png' id='bookmark'>";
+//	html+="			</a>";
+//	bookmarkPart.innerHTML = html;
+//}

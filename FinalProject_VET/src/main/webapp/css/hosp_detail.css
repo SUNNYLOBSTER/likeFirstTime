@@ -20,15 +20,17 @@
 	
 }
 
-#bookmark{
-	width: 25px;
-	height: 25px;
+#bookmarkPart{
+	background-image: url(../img/tag.png);
+	background-size:600px 450px;
+	background-position: -262px -410px;
+	width: 26px;
+	height: 26px;
 }
 
 #bookmarkPart{
 	position: absolute;
 }
-
 #map-box{
 	overflow: hidden;
 	margin: 0px 5px 5px 5px;

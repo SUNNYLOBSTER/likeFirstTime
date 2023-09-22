@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
+import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.AnimalCode_VO;
 import com.min.edu.vo.AnimalPart_VO;
@@ -34,6 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class Board_Controller {
+	
+	@Autowired
+	private IPayment_Service service_pay;
 
 	@Autowired
 	private IBoard_Service service;
@@ -118,6 +122,7 @@ public class Board_Controller {
 		insertVo.setQst_fast(qst_fast);
 		
 		String quest = service.insertQuest(insertVo);
+		service_pay.usePntOnBoard(qst_id);
 		
 		return "redirect:/questBoard.do";
 		
