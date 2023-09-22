@@ -53,4 +53,11 @@ public class Schedule_ServiceImpl implements ISchedule_Service {
 		return dao.insertNewSchedule(svo);
 	}
 
+	@Override
+	public int deleteRSV(Map<String, Object> map) {
+		log.info("&&&&& Schedule_ServiceImpl insertNewSchedule &&&&&");
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", map);
+		return dao.deleteRSV(map);
+	}
+
 }

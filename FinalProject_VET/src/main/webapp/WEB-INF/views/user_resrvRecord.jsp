@@ -29,7 +29,7 @@
 						<td>${list.resrv_num}</td>
 						<td>${list.resrv_hops}</td>
 						<td>${list.resrv_visit}</td>
-						<td>${list.resrv_time}시</td>
+						<td>${list.resrv_time}:00</td>
 						<c:choose>
 							<c:when test="${list.resrv_status eq 'Y'}">
 								<td>확정</td>

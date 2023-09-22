@@ -41,5 +41,13 @@
 	DELETE FROM SCHEDBOARD
 		WHERE SCHE_NUM=#{sche_num}
 </delete>
+<!-- 일반사용자 ID, 일정명, 일정시간, 일정날짜로 일정 삭제 -->
+<delete id="deleteRSV" parameterType="java.util.Map">
+	DELETE FROM SCHEDBOARD
+		WHERE SCHE_ID =#{sche_id}
+			AND SCHE_DATE =#{sche_date}
+			AND SCHE_HOUR =#{sche_hour}
+			AND SCHE_TITLE =#{sche_title}
+</delete>
 
 </mapper>

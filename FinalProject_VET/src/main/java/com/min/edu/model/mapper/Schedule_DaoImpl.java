@@ -45,4 +45,8 @@ public class Schedule_DaoImpl implements ISchedule_Dao {
 		return session.insert(NS+"insertNewSchedule",svo);
 	}
 
+	@Override
+	public int deleteRSV(Map<String, Object> map) {
+		return session.delete(NS+"deleteRSV",map);
+	}
 }

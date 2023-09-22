@@ -24,7 +24,7 @@ public class Schedule_JUnitTest {
 	@Autowired
 	private ISchedule_Service service;
 	
-//	@Test
+	@Test
 	public void selectAllSchedule() {
 		String sche_id = "merida@disney.com";
 		List<SchedBoard_VO> vo = service.selectAllSchedule(sche_id);
@@ -55,6 +55,18 @@ public class Schedule_JUnitTest {
 		service.deleteSchedule(sche_num);
 	}
 
+//	@Test
+	public void deleteRSV_Test() {
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("sche_id","elsa@disney.com");
+			put("sche_date","2023-09-23");
+			put("sche_hour","13");
+			put("sche_title","진료예약");
+		}};
+		
+		int n = service.deleteRSV(map);
+		assertEquals(1, n);
+	}
 	
 
 }
