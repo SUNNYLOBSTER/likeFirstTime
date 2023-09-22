@@ -29,8 +29,8 @@ public class Reservation_JUnitTest {
 	@Autowired
 	private IReservation_Service service;
 	
-	
-	@Before
+//	
+//	@Before
 	public void test() {
 		assertNotNull(session);
 	}

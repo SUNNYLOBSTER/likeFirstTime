@@ -23,8 +23,8 @@
 }
 
 .container{
-	width:700px;
-	height:1300px;
+	width:500px;
+	height:1000px;
 	margin: 0px auto;
 	padding: 50px;
 }
@@ -32,11 +32,12 @@
 #calendar{
 	width: 420px;
 	height: 500px;
+	margin: 0px auto;
 }
 
 #time_area{
 	width: 420px;
-	margin-right: 50px;
+	margin: 0px auto;
 }
 #time_area button{
 	margin-right: 5px;
@@ -58,8 +59,7 @@
 	  pointer-events: none;
 	  background-color: #EFEBE9;
 	  border: 1px solid #3E2723;
-	  width: 70px;
-	  height: 30px;
+	  width: 115px;
 	  border-radius: 5px;
 	  font-size: 17px;
 	  text-align: center;
@@ -87,4 +87,17 @@
 	  border-radius: 5px;
 	  font-size: 17px;
 	  text-align: center;
+}
+h1, h2{
+	width: 100%;
+	text-align: center;
+}
+table {
+	margin: 0px auto;
+}
+p{
+	text-align: center;
+}
+#select_date{
+	width: 115px;
 }

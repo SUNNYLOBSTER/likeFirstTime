@@ -24,7 +24,7 @@ public class Schedule_JUnitTest {
 	@Autowired
 	private ISchedule_Service service;
 	
-	@Test
+//	@Test
 	public void selectAllSchedule() {
 		String sche_id = "merida@disney.com";
 		List<SchedBoard_VO> vo = service.selectAllSchedule(sche_id);

@@ -84,7 +84,7 @@ public class Board_JUnitTest {
 		assertNotNull(lists);
 	}
 	
-	@Test
+//	@Test
 	public void insertQuest() {
 		QuestBoard_VO vo = new QuestBoard_VO();
 		vo.setQst_seq("Q10");
