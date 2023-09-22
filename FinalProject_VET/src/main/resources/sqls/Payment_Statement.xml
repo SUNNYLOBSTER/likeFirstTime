@@ -32,7 +32,7 @@
 <update id="canclePayment">
 	UPDATE PAYMENT
 		SET PAY_STATUS='C'
-		WHERE PAY_NUM=#{pay_num}
+		WHERE MERCHANT_UID=#{merchant_uid}
 </update>
 
 <!-- 결제고유번호로 결제정보 조회 -->
