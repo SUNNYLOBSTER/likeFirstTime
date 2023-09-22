@@ -26,6 +26,19 @@
 		padding-block: 1px;
     	padding-inline: 6px;
 	}
+	#fixButton2{
+		width: auto;
+		height: auto;
+		padding-block: 1px;
+    	padding-inline: 6px;
+	}
+	#mailCertButton{
+		width: auto;
+		height: auto;
+		padding-block: 1px;
+    	padding-inline: 6px;
+	}
+
 </style>
 </head>
 <%@ include file="./header.jsp" %>
@@ -35,22 +48,26 @@
  <form action="./signUp.do" method="post">
 	<h2>회원가입</h2>
 	<div> 	
- 	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()" required="required">
- 	<br>
- 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()" required="required">
- 	<br>
- 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()">&nbsp;&nbsp;<span id="checkPw" required="required"></span>
- 	<br>
- 	<input name="users_name" id="users_name" placeholder="이름을 작성해주세요" required="required">
- 	<br>
- 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex)01011112222" required="required">
+	 	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()" required="required">
+	 	<br>
+	 	<!-- 인증번호 입력 -->
+		<input type="text" id="mailCert" name="users_cert" placeholder="인증번호를 입력해주세요">
+ 		<input type="button" name="mailCertButton" id="mailCertButton" value="인증번호 발송">
+ 		<br><span id="checkMail"></span>
+	 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()" required="required">
+	 	<br>
+	 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()" required="required">&nbsp;&nbsp;<span id="checkPw"></span>
+	 	<br>
+	 	<input name="users_name" id="users_name" placeholder="이름을 작성해주세요" required="required">
+	 	<br>
+	 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex)01011112222" required="required">
  	</div>
- 	<br>
- 	<div>
-	 	<input type="submit" id="fixButton" value="회원가입">
-	 	<input type="button" id="fixButton" value="가입 취소" onclick="javascipt:location.href='./main.do'">
- 	</div>
-  </form>
+	 <br>
+	 	<div>
+		 	<input type="submit" id="fixButton" value="회원가입">
+		 	<input type="button" id="fixButton2" value="가입 취소" onclick="javascipt:location.href='./main.do'">
+	 	</div>
+ </form>
 
 </div>
 
