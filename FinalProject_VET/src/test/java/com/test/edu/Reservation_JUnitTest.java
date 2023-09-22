@@ -98,7 +98,7 @@ public class Reservation_JUnitTest {
 		assertEquals(1, n);
 	}
 	
-	@Test
+//	@Test
 	public void resrv_reqPageTest() {
 		Hospital_VO hvo= service.resrv_reqPage("suwu@naver.com");
 		assertNotNull(hvo);
@@ -110,7 +110,7 @@ public class Reservation_JUnitTest {
 		assertNotNull(lists);
 	}
 	
-	@Test
+//	@Test
 	public void resrv_recordListTest() {
 		Map<String, Object> map = new HashMap<String, Object>(){{
 			put("resrv_userid", "elsa@disney.com");

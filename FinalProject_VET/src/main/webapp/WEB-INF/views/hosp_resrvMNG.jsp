@@ -82,7 +82,6 @@
 	                <div class="modal-footer">
 	                    <button type="button" id="resrv_modifyBtn" onclick="resrv_modify()">정보수정</button>
 	                    <button type="button" id="resrv_saveBtn" onclick="resrv_save()">저장</button>
-	                    <button type="button" id="resrv_cancel" onclick="">예약취소</button>
 	                </div>
 	            </div>
 	        </div>

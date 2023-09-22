@@ -134,7 +134,7 @@
 	</select>
 	
 	<select id="resrv_scheduler" resultType="Reservation_VO">
-		SELECT RESRV_NUM ,RESRV_REGDATE 
+		SELECT RESRV_NUM ,RESRV_REGDATE , RESRV_USERID 
 			FROM RESERVATION r 
 			WHERE RESRV_STATUS = 'W'
 			AND (SYSTIMESTAMP - RESRV_REGDATE) > INTERVAL '2'HOUR
@@ -178,15 +178,5 @@
 				RESRV_NAME=#{resrv_name}, RESRV_TEL=#{resrv_tel}, RESRV_MEMO=#{resrv_memo}
 			WHERE RESRV_NUM=#{resrv_num}
 	</update>
-	
-	<select id="timer" resultType="java.lang.Integer">
-		SELECT TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd')) 
-				- (
-					SELECT TO_DATE(TO_CHAR(RESRV_VISIT,'yyyy-MM-dd')) AS RESRV_VISIT 
-						FROM RESERVATION r 
-						WHERE RESRV_NUM = 'RSV37'
-					) AS TIMER
-			FROM DUAL
-	</select>
 	
 </mapper>

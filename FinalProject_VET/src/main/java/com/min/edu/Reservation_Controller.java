@@ -14,21 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.model.service.ISchedule_Service;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
-import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.ResrvList_VO;
 import com.min.edu.vo.SchedBoard_VO;
@@ -156,6 +151,9 @@ public class Reservation_Controller {
 //      System.out.println("#############"+sche_date);
 //      System.out.println("#############"+sche_hour);
       SchedBoard_VO svo = new SchedBoard_VO();
+      if(sche_content == null) {
+    	  sche_content = "";
+      }
       svo.setSche_id(sche_id);
       svo.setSche_date(sche_date);
       svo.setSche_title(sche_title);
@@ -174,8 +172,14 @@ public class Reservation_Controller {
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", user_id);
 
+      @SuppressWarnings("serial")
+	Map<String, Object> map = new HashMap<String, Object>(){{
+		   put("pnt_id",user_id);
+		   put("pnt_point",3000);
+	   }};
+	   int m = pay_service.insertNewPnt(map);
       int n = service.resrv_delete(resrv_num);
-      return (n>0)?"resrv_refuse":"false";
+      return (n>0 && m>0)?"resrv_refuse":"false";
    }
    
    @GetMapping(value = "/resrv_requestPage.do")
@@ -231,9 +235,8 @@ public class Reservation_Controller {
        
        List<Reservation_VO> rLists = service.resrv_reqCal(resrv_hops);
       
-       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops); //불러오고
+       Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
        System.out.println(rLists);
-       // fvo에 운영시간 넣고 reqCal에서 클릭이벤트에서 해결
        for (Reservation_VO rvo : rLists) {
     	FullCalendar_VO fvo = new FullCalendar_VO();
 		fvo.setStart(rvo.getResrv_visit());
@@ -295,10 +298,10 @@ public class Reservation_Controller {
 	Map<String, Object> map = new HashMap<String, Object>(){{
 		   put("resrv_userid",resrv_userid);
 		   put("first","1");
-		   put("last","5");
+		   put("last","10");
 	   }};
 	   List<Reservation_VO> list = service.resrv_recordList(map);
-	   List<ResrvList_VO> hosp_lits = new ArrayList<ResrvList_VO>();
+	   List<ResrvList_VO> hosp_lists = new ArrayList<ResrvList_VO>();
 	   for (int i = 0; i < list.size(); i++) {
 		   ResrvList_VO rvo = new ResrvList_VO();
 		   String hospName = service.hosp_name(list.get(i).getResrv_hops());
@@ -309,10 +312,11 @@ public class Reservation_Controller {
 		   rvo.setResrv_name(list.get(i).getResrv_name());
 		   rvo.setResrv_status(list.get(i).getResrv_status());
 		   rvo.setResrv_memo(list.get(i).getResrv_memo());
-		   hosp_lits.add(rvo);
+		   hosp_lists.add(rvo);
 	   }
+	   
 //	   model.addAttribute("resrv_recordList", list);
-	   model.addAttribute("hosp_lits", hosp_lits);
+	   model.addAttribute("hosp_lists", hosp_lists);
 	   return "user_resrvRecord";
    }
    
@@ -340,10 +344,37 @@ public class Reservation_Controller {
 		   return "true";
 	   }else {
 		   PrintWriter out = response.getWriter();
-		   out.print("<script>수정 실패했습니다.</script>");
+		   out.print("<script>alert('수정 실패했습니다.'); location.href='./resrv_Select.do'</script>");
 		   out.flush();
 		   out.close();
-		   return "redirect:/resrv_Select.do'";
+		   return null;
 	   }
+   }
+   
+   @PostMapping(value = "/resrv_userCancel.do")
+   @ResponseBody
+   public String resrv_userCancel(String resrv_num, HttpSession session, HttpServletResponse response) throws IOException {
+	   log.info("&&&&& Reservation_Controller resrv_userCancel &&&&&");
+	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_num);
+	   Users_VO uvo = (Users_VO)session.getAttribute("loginVo");
+	   response.setContentType("text/html; charsest=UTF-8;");
+	   String user_id = uvo.getUsers_id();
+	   if(user_id != null) {
+		   int n = service.resrv_updateToN(resrv_num);
+		   @SuppressWarnings("serial")
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			   put("pnt_id",user_id);
+			   put("pnt_point",3000);
+		   }};
+		   int m = pay_service.insertNewPnt(map);
+		   return (n>0 && m>0)?"true":"false";
+	   }else {
+		   PrintWriter out = response.getWriter();
+		   out.print("<script>alert('아이디 정보가 없습니다. 다시 로그인해주세요.'); location.href='./loginForm.do'</script>");
+		   out.flush();
+		   out.close();
+		   return null;
+	   }
+	   
    }
 }

@@ -55,4 +55,5 @@ public interface IReservation_Service {
 	
 	//예약수정
 	public int resrv_detailModify(Reservation_VO rvo);
+	
 }
