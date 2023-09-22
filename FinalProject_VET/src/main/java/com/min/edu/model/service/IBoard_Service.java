@@ -12,7 +12,7 @@ import com.min.edu.vo.Users_VO;
 
 public interface IBoard_Service {
 	
-	public List<QuestBoard_VO> selectQuest();
+	public List<QuestBoard_VO> selectQuest();	
 	
 	public List<Users_VO> selectQuestUsers(Map<String, Object> map);
 	

@@ -17,17 +17,18 @@
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
+<form action="./selectPartQuest.do">
 <div id="searchArea">
-	<select id="aCode" >
+	<select id="aCode" name="qst_species">
 		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
-		<option value="d">개</option>
-		<option value="c">고양이</option>
-		<option value="r">파충류</option>
-		<option value="b">조류</option>
-		<option value="f">어류</option>
-		<option value="o">기타</option>
+		<option value="D">개</option>
+		<option value="C">고양이</option>
+		<option value="R">파충류</option>
+		<option value="B">조류</option>
+		<option value="F">어류</option>
+		<option value="O">기타</option>
 	</select>
-	<select id="aPart">
+	<select id="aPart" name="qst_part">
 		<option disabled="disabled" selected="selected" value="">--증상 부위--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
@@ -40,10 +41,10 @@
 		<option value="09">면역력,호흡기</option>
 		<option value="10">기타</option>
 	</select>
-	<input id="searchBar" type="text" placeholder="검색어를 입력하세요" >
+	<input id="searchBar" type="text" name="qst_content" placeholder="검색어를 입력하세요" >
 	<input id="searchSubmit" type="submit" value="검색" >
 </div>
-
+</form>
 <div id="contentArea">
 		<c:set var="loop_flag" value="false" />
 		<c:forEach var="dto" items="${questList}">

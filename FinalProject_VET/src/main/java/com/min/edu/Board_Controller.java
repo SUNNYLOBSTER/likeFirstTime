@@ -73,14 +73,16 @@ public class Board_Controller {
 	}
 	
 	@GetMapping(value = "/selectPartQuest.do")
-	public String selectPartQuest(
-		    @RequestParam("qst_species") String qst_species,
-		    @RequestParam("qst_part") String qst_part,
-		    @RequestParam("qst_content") String qst_content) {
-		log.info("&&&&& Board_Controller selectPartQuest 실행 &&&&&");
-		log.info("&&&&& Board_Controller selectPartQuest 전달받은 값 : {} &&&&&", qst_species, qst_part, qst_content);
+	public String selectPartQuest(@RequestParam Map<String,Object> map, Model model) {
 		
-		return "redirect:/questBoard.do";
+		log.info("{}",map);
+		
+		List<QuestBoard_VO> boards = service.selectPartQuest(map);
+		log.info("{}",boards);
+		model.addAttribute("questList", boards);
+		
+		
+		return "qst_questBoard";
 	}
 	
 	
@@ -94,22 +96,23 @@ public class Board_Controller {
 	@PostMapping(value = "/qst_writeQuest.do")
 	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 		log.info("&&&&& Board_Controller 실행 qst_writeQuest 작동 &&&&&");
+		log.info("{}", map);
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String qst_id = loginVo.getUsers_id();
 		
-		String qst_title = (String) map.get("qst_title");
-		String qst_content = (String) map.get("qst_content");
+		String qst_title = (String) map.get("questTitle");
+		String qst_content = (String) map.get("questContent");
 		String escapedContent = StringEscapeUtils.escapeHtml4(qst_content);
-		String qst_code = (String) map.get("qst_species");
+		String qst_species = (String) map.get("qst_species");
 		String qst_part = (String) map.get("qst_part");
-		String qst_fast = (String) map.get("qst_fast");
+		String qst_fast = (String) map.get("qst_fast") == null?"N":"Y";
 		
 		QuestBoard_VO insertVo = new QuestBoard_VO();
 		
 		insertVo.setQst_id(qst_id);
 		insertVo.setQst_content(escapedContent);
-		insertVo.setQst_species(qst_code);
+		insertVo.setQst_species(qst_species);
 		insertVo.setQst_part(qst_part);
 		insertVo.setQst_title(qst_title);
 		insertVo.setQst_fast(qst_fast);

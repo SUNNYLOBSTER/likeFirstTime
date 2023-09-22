@@ -66,7 +66,10 @@
 
 <!--  게시글 전체조회 : 우선답변 게시글 상위정렬 -->
 <select id="selectQuest" resultMap="BoardMap">
-SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, a1.ANM_SPECIES, q.QST_PART, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
+SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, 
+		q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES,
+		a1.ANM_SPECIES, q.QST_PART, a2.PART_NAME, 
+		q.QST_REGDATE, q.QST_FAST
 	FROM QUESTBOARD q JOIN USERSINFO u  
 	ON q.QST_ID = u.USERS_ID 
 	JOIN ANIMALCODE a1
@@ -104,17 +107,17 @@ SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, a.ANM_SPEC
 	LEFT JOIN ANIMALPART a2 ON q.QST_PART = a2.PART_CODE
 	<where>
 	q.QST_STATUS != 'N'
-	<if test="q.QST_SPECIES != ''">
-	AND q.QST_SPECIES = #{qst_species}
+	<if test="!qst_species.equals('')">
+	AND q.qst_species = #{qst_species}
 	</if> 
-	<if test="q.QST_PART != ''">
-	AND q.QST_PART = #{qst_part}
+	<if test="!qst_part.equals('') ">
+	AND q.qst_part = #{qst_part}
 	</if>
-	<if test="q.QST_CONTENT !=''">
-	AND q.QST_CONTENT LIKE '%#{qst_content}%'
+	<if test="!qst_content.equals('')">
+	AND q.qst_content LIKE '%'||#{qst_content}||'%'
 	</if>
 	</where>
-    ORDER BY q.QST_REGDATE DESC
+    ORDER BY q.qst_regdate DESC
 </select>
 <!-- <select id="selectPartQuest" resultType="QuestBoard_VO"> -->
 <!-- SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST -->
@@ -199,16 +202,14 @@ SELECT r.RPY_SEQ, r.RPY_ID, h.HOSP_NAME, r.RPY_CONTENT, r.RPY_REGDATE, r.RPY_CHO
 
 <!-- 게시글 입력 -->
 <insert id="insertQuest">
-	<selectKey keyProperty="QST_SEQ" resultType="String" order="BEFORE">
+	<selectKey keyProperty="qst_seq" resultType="java.lang.String" order="BEFORE">
 	SELECT CONCAT('Q', NVL(MAX(TO_NUMBER(SUBSTR(QST_SEQ,2))), 0)+1) AS QST_SEQ FROM QUESTBOARD
 	</selectKey>
 INSERT INTO QUESTBOARD
-(QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_SPECIES, QST_PART, QST_REGDATE, QST_FAST, QST_STATUS)
+(QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_SPECIES, QST_PART, QST_FAST)
 VALUES(
-		#{qst_seq},
-		#{qst_id}, #{qst_title}, 
-		#{qst_content}, #{qst_species}, #{qst_part}, 
-		CURRENT_DATE , 'N' , 'Y' )
+		#{qst_seq}, #{qst_id}, #{qst_title}, 
+		#{qst_content}, #{qst_species}, #{qst_part}, #{qst_fast} )
 </insert>
 
 <!-- maxSeq 조회 -->
@@ -247,7 +248,7 @@ WHERE QST_SEQ=#{qst_seq}
 
 <!-- 답글 입력 -->
 <insert id="insertReply" >
-	<selectKey>
+	<selectKey  keyProperty="rpy_seq" resultType="java.lang.String" order="BEFORE">
 	(SELECT CONCAT('R',NVL(MAX(TO_NUMBER(SUBSTR(RPY_SEQ,2))), 0)+1) AS RPY_SEQ FROM REPLYBOARD)
 	</selectKey>
 INSERT INTO REPLYBOARD 

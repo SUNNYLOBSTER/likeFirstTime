@@ -17,17 +17,17 @@
 <div id="container">
 	<form action="./qst_writeQuest.do" method="post">
 	<!-- 카테고리 선택 -->
-	<select id="aCode" name="aCode" class="selectPart" >
+	<select id="aCode" name="qst_species" class="selectPart" >
 		<option disabled="disabled" selected="selected" >--동물 종을 선택하세요--</option>
-		<option value="d">개</option>
-		<option value="c">고양이</option>
-		<option value="r">파충류</option>
-		<option value="b">조류</option>
-		<option value="f">어류</option>
-		<option value="o">기타</option>
+		<option value="D">개</option>
+		<option value="C">고양이</option>
+		<option value="R">파충류</option>
+		<option value="B">조류</option>
+		<option value="F">어류</option>
+		<option value="O">기타</option>
 	</select>
-	<input type="hidden" id="codeInput">
-	<select id="aPart" name="aPart" class="selectPart">
+	<input type="hidden" name="codeInput">
+	<select id="aPart" name="qst_part" class="selectPart">
 		<option disabled="disabled" selected="selected" >--증상이 있는 부위를 선택하세요--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
@@ -40,10 +40,10 @@
 		<option value="09">면역력,호흡기</option>
 		<option value="10">기타</option>
 	</select>
-	<input type="hidden" id="partInput">
+	<input type="hidden" name="partInput">
 	
 	<!-- 우선답변 게시글 활성화 -->
-	<input type="radio">우선답변 게시글<br>
+	<input type="radio" name="qst_fast" value="Y">우선답변 게시글<br>
 
 	<!-- 제목 작성 -->
 	<input type="text" name="questTitle" style="width:100%;" required>

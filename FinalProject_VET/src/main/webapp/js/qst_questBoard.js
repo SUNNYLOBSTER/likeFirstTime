@@ -1,24 +1,23 @@
-searchSubmit.addEventListener("click", e => {
-//function search(){
-	var code = aCode.value;
-	var part = aPart.value
-	var text = searchBar.value;
-	console.log(code, part, text);
-	
-	$.ajax({
-		url:"./selectPartQuest.do",
-		method:"get",
-		data:"qst_species=" +code+ "&qst_part=" +part+ "&qst_content=" +text,
-		success:function(msg){
-			console.log("성공");
-			
-		},
-		error:function(){
-			alert("잘못된 요청");
-		}
-	})
-	
-})
+//searchSubmit.addEventListener("click", e => {
+////function search(){
+//	var code = aCode.value;
+//	var part = aPart.value
+//	var text = searchBar.value;
+//	console.log(code, part, text);
+//	
+//	$.ajax({
+//		url:"./selectPartQuest.do",
+//		method:"get",
+//		data:"qst_species=" +code+ "&qst_part=" +part+ "&qst_content=" +text,
+//		success:function(res){
+//			document.querySelector('html').innerHTML = res;
+//		},
+//		error:function(){
+//			alert("잘못된 요청");
+//		}
+//	})
+//	
+//})
 	
 //}
 
