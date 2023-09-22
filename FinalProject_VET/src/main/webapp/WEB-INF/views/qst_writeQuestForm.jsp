@@ -43,7 +43,7 @@
 	<input type="hidden" name="partInput">
 	
 	<!-- 우선답변 게시글 활성화 -->
-	<input type="radio" name="qst_fast" value="Y">우선답변 게시글<br>
+	<input type="checkbox" name="qst_fast" value="Y">우선답변 게시글<br>
 
 	<!-- 제목 작성 -->
 	<input type="text" name="questTitle" style="width:100%;" required>
