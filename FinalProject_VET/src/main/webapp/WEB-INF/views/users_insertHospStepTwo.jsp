@@ -117,7 +117,7 @@
  	</div>
  	
  	<div style="margin: 10px auto;">
- 	<span>휴일을 선택해주세요(중복선택 가능) </span><br>
+ 	<span>휴일을 선택해주세요</span><br>
  	<input type="checkbox" name="chk" id="chk" value="일">일요일<br>
  	<input type="checkbox" name="chk" id="chk" value="월">월요일<br>
  	<input type="checkbox" name="chk" id="chk" value="화">화요일<br>
