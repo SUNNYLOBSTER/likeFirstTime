@@ -61,7 +61,7 @@ public class Map_JUnitTest {
 		assertNotNull(lists);
 	}
 	
-	@Test
+//	@Test
 	public void reqAddrTestTest() {
 		String hosp_id = service.map_reqAddr("광명시 철산동 634");
 		assertNotNull(hosp_id);

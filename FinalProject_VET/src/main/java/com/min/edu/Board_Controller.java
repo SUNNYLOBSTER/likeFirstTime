@@ -38,6 +38,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class Board_Controller {
+	
+	@Autowired
+	private IPayment_Service service_pay;
 
 	@Autowired
 	private IBoard_Service service;
@@ -166,8 +169,7 @@ public class Board_Controller {
 		
 		String quest = service.insertQuest(insertVo);
 		service_pay.usePntOnBoard(qst_id);
-		
-		
+
 		return "redirect:/questBoard.do?seq="+quest;
 	}
 	
@@ -185,20 +187,5 @@ public class Board_Controller {
 		
 		return "qst_questDetail";
 	}
-	
-	
-	
-	
-	
-	
+		
 }
-
-
-
-
-
-
-
-
-
-
