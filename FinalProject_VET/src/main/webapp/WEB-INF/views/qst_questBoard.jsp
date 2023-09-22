@@ -46,6 +46,7 @@
 </div>
 </form>
 <div id="contentArea">
+<a style="border:solid;" href="./writeQuestForm.do">새 글 작성</a><br>
 		<c:set var="loop_flag" value="false" />
 		<c:forEach var="dto" items="${questList}">
 		<c:choose>
@@ -94,7 +95,6 @@
 		</c:choose>
 		</c:forEach>
 	
-<a href="./writeQuestForm.do">새 글 작성</a><br>
 </div>
 
 <!-- 페이징 -->
