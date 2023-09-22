@@ -35,15 +35,15 @@
  <form action="./signUp.do" method="post">
 	<h2>회원가입</h2>
 	<div> 	
- 	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()">
+ 	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()" required="required">
  	<br>
- 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()">
+ 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()" required="required">
  	<br>
- 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()">&nbsp;&nbsp;<span id="checkPw"></span>
+ 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()">&nbsp;&nbsp;<span id="checkPw" required="required"></span>
  	<br>
- 	<input name="users_name" id="users_name" placeholder="이름을 작성해주세요">
+ 	<input name="users_name" id="users_name" placeholder="이름을 작성해주세요" required="required">
  	<br>
- 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex)01011112222">
+ 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex)01011112222" required="required">
  	</div>
  	<br>
  	<div>

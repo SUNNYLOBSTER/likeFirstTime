@@ -25,8 +25,7 @@ public class Notice_Controller {
 		List<NoticeBoard_VO> lists = service.selectNotice();
 		
 		model.addAttribute("noticeLists", lists);
-		return "notice";
+		return "noti_main";
 	}
-	
 
 }

@@ -58,25 +58,29 @@ public class Users_JUnitTest {
 //		int n = service.duplicationId("elsa@disney.com");
 //		assertEquals(1, n);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		map.put("users_id","chara@naver.com");
+//		map.put("users_pw","chara1234");
+//		map.put("users_name","차라동물병원");
+//		map.put("users_addr","경기도 양주시 백석읍 꿈나무로299 동화2차상가 1층");
+//		map.put("users_tel","0314568978");
+//		map.put("users_crn","7895645789");
+//
+//		map.put("hosp_id", "chara@naver.com");
+//		map.put("hosp_name", "차라동물병원");
+//		map.put("hosp_time", "{\"open\":\"09\", \"close\":\"18\"}");
+//		map.put("hosp_off", "월");
+//		map.put("hosp_park", "Y");
+//		map.put("hosp_etc", "고양이 전문 병원 입니다.");
+//		map.put("hosp_mng", "G");
 		
-		map.put("users_id","chara@naver.com");
-		map.put("users_pw","chara1234");
-		map.put("users_name","차라동물병원");
-		map.put("users_addr","경기도 양주시 백석읍 꿈나무로299 동화2차상가 1층");
-		map.put("users_tel","0314568978");
-		map.put("users_crn","7895645789");
-
-		map.put("hosp_id", "chara@naver.com");
-		map.put("hosp_name", "차라동물병원");
-		map.put("hosp_time", "{\"open\":\"09\", \"close\":\"18\"}");
-		map.put("hosp_off", "월");
-		map.put("hosp_park", "Y");
-		map.put("hosp_etc", "고양이 전문 병원 입니다.");
-		map.put("hosp_mng", "G");
+		Users_VO vo = new Users_VO();
+		vo.setUsers_id("sana1@naver.com");
+		vo.setUsers_pw("1234");
 		
-		boolean isc = service.insertHosp(map);
-		assertTrue(isc);
+		int n = service.resignUser(vo);
+		assertEquals(1, n);
 		
 	}
 

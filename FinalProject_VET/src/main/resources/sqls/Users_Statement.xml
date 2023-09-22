@@ -142,7 +142,7 @@
 <select id="loginUser" resultType="com.min.edu.vo.Users_VO">
 	SELECT USERS_ID, USERS_NAME, USERS_STATUS, USERS_AUTH
 	FROM USERSINFO u
-	WHERE USERS_ID = #{users_id} AND USERS_PW = #{users_pw}
+	WHERE USERS_ID = #{users_id} AND USERS_PW = #{users_pw} AND USERS_STATUS = 'N'
 </select>
 
 <!-- 회원가입 일반사용자 -->
@@ -197,4 +197,11 @@ INSERT INTO HOSPITAL
 				#{hosp_off}, #{hosp_park}, #{hosp_etc}, #{hosp_mng})
 </insert>
 
+
+<!-- 회원 탈퇴 -->
+<update id="resignUser">
+	UPDATE USERSINFO
+		SET USERS_STATUS='Y'
+		WHERE USERS_ID=#{users_id} AND USERS_PW = #{users_pw}
+</update>
 </mapper>
