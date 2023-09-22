@@ -45,9 +45,6 @@ public class Board_Controller {
 	@Autowired
 	private IBoard_Service service;
 	
-	@Autowired
-	private IPayment_Service service_pay;
-	
 	@GetMapping(value = "/questBoard.do")
 	public String questBoard(Model model) {
 		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
