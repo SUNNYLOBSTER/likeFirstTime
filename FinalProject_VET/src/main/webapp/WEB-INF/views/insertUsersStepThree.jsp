@@ -72,12 +72,12 @@
 		<span>종류를 선택해주세요</span>
 		<select name="pet_species" id="pet_species" required="required">
 			<option value="">--선택--</option>
-			<option value="D">개</option>
-			<option value="C">고양이</option>
-			<option value="R">파충류</option>
-			<option value="B">조류</option>
+			<option value="A">개</option>
+			<option value="B">고양이</option>
+			<option value="C">파충류</option>
+			<option value="D">조류</option>
 			<option value="F">어류</option>
-			<option value="O">기타</option>
+			<option value="Z">기타</option>
 		</select><br>
 		<span>성별을 선택해주세요</span>
 		<select name="pet_gender" id="pet_gender" required="required">
