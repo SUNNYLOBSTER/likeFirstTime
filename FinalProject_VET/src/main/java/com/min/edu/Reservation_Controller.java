@@ -353,21 +353,33 @@ public class Reservation_Controller {
    
    @PostMapping(value = "/resrv_userCancel.do")
    @ResponseBody
-   public String resrv_userCancel(String resrv_num, HttpSession session, HttpServletResponse response) throws IOException {
+   public String resrv_userCancel(@RequestParam Map<String, Object> map,HttpSession session, HttpServletResponse response) throws IOException {
 	   log.info("&&&&& Reservation_Controller resrv_userCancel &&&&&");
-	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_num);
+	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",map);
 	   Users_VO uvo = (Users_VO)session.getAttribute("loginVo");
 	   response.setContentType("text/html; charsest=UTF-8;");
+	   //유저 아이디
 	   String user_id = uvo.getUsers_id();
+	   
 	   if(user_id != null) {
-		   int n = service.resrv_updateToN(resrv_num);
+		   int n = service.resrv_updateToN((String) map.get("resrv_num"));
+		   
 		   @SuppressWarnings("serial")
-		Map<String, Object> map = new HashMap<String, Object>(){{
+		   Map<String, Object> inMap = new HashMap<String, Object>(){{
 			   put("pnt_id",user_id);
 			   put("pnt_point",3000);
 		   }};
-		   int m = pay_service.insertNewPnt(map);
-		   return (n>0 && m>0)?"true":"false";
+		   int m = pay_service.insertNewPnt(inMap);
+		   
+		   Map<String, Object> delMap = new HashMap<String, Object>(){{
+			   put("sche_id",user_id);
+			   put("sche_date",(String)map.get("resrv_visit"));
+			   put("sche_hour",(String)map.get("resrv_time"));
+			   put("sche_title","진료예약");
+		   }};
+		   int del_sche = sche_service.deleteRSV(delMap);
+		   
+		   return (n>0 && m>0 && del_sche>0)?"true":"false";
 	   }else {
 		   PrintWriter out = response.getWriter();
 		   out.print("<script>alert('아이디 정보가 없습니다. 다시 로그인해주세요.'); location.href='./loginForm.do'</script>");

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>병원 예약관리 페이지</title>
+<title>병원 마이페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src='./js/index.global.js'></script> <!-- 캘린더를 랜더링하는 js -->
@@ -22,10 +22,9 @@
 
 		<div class="sidenav">
 			<button id="sideNav_1" class="dropdown-btn">
-				병원정보<i class="fa fa-caret-down"></i>
+				병원정보
 			</button>
 			<div class="dropdown-container">
-				<a onclick="#">1</a>
 			</div>
 			<button class="dropdown-btn">
 				예약관리<i class="fa fa-caret-down"></i>
@@ -36,13 +35,13 @@
 				<a onclick="resrv_wList()">예약승인 대기명단</a>
 			</div>
 			<button class="dropdown-btn">
-				진료문의 답글<i class="fa fa-caret-down"></i>
+				진료문의 답글
 			</button>
 			<div class="dropdown-container">
 				<a onclick="#">1</a>
 			</div>
 			<button class="dropdown-btn">
-				채팅<i class="fa fa-caret-down"></i>
+				채팅
 			</button>
 			<div class="dropdown-container">
 				<a onclick="#">1</a>

@@ -79,7 +79,7 @@
 }
 
 #submit, #cancel {
-	pointer-events: none;
+	  cursor:pointer;
 	  background-color: #EFEBE9;
 	  border: 1px solid #3E2723;
 	  width: 100px;

@@ -16,5 +16,8 @@ public interface ISchedule_Dao {
 	public int deleteSchedule(int sche_num);
 	
 	public int insertNewSchedule(SchedBoard_VO svo);
+	
+	//예약 취소 -> 일반사용자 ID, 일정명, 일정시간, 일정날짜로 일정 삭제
+	public int deleteRSV(Map<String, Object> map);
 
 }
