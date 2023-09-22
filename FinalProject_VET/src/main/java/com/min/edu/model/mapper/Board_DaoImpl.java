@@ -52,7 +52,7 @@ public class Board_DaoImpl implements IBoard_Dao {
 	public List<QuestBoard_VO> selectOneBoard(String seq) {
 		return session.selectList(NS+"selectOneBoard", seq);
 	}
-
+	
 	@Override
 	public int insertQuest(QuestBoard_VO vo) {
 		return session.insert(NS+"insertQuest", vo);
@@ -142,6 +142,8 @@ public class Board_DaoImpl implements IBoard_Dao {
 	public String getMaxSeq() {
 		return session.selectOne(NS+"getMaxSeq");
 	}
+
+
 
 	
 	

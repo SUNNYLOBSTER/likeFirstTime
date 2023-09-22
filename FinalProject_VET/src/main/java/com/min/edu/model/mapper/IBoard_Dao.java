@@ -60,6 +60,10 @@ public interface IBoard_Dao {
 
 	AnimalPart_VO selectAnimalPart(String part_code);
 
+
+
+
+
 	
 	
 	

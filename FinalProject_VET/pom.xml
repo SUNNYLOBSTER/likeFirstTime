@@ -282,6 +282,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		    <artifactId>iamport-rest-client-java</artifactId>
 		    <version>0.2.23</version>
 		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>FinalProject_VET</finalName>

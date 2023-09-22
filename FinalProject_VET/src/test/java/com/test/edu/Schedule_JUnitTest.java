@@ -56,17 +56,17 @@ public class Schedule_JUnitTest {
 	}
 
 //	@Test
-	public void deleteRSV_Test() {
-		Map<String, Object> map = new HashMap<String, Object>(){{
-			put("sche_id","elsa@disney.com");
-			put("sche_date","2023-09-23");
-			put("sche_hour","13");
-			put("sche_title","진료예약");
-		}};
-		
-		int n = service.deleteRSV(map);
-		assertEquals(1, n);
-	}
+//	public void deleteRSV_Test() {
+//		Map<String, Object> map = new HashMap<String, Object>(){{
+//			put("sche_id","elsa@disney.com");
+//			put("sche_date","2023-09-23");
+//			put("sche_hour","13");
+//			put("sche_title","진료예약");
+//		}};
+//		
+//		int n = service.deleteRSV(map);
+//		assertEquals(1, n);
+//	}
 	
 
 }
