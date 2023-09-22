@@ -281,10 +281,12 @@ public class Reservation_Controller {
 		   return "redirect:/resrv_detail.do?resrv_num="+resrv_num;
 	   }else {
 		   PrintWriter out = response.getWriter();
-	       out.print("<script>alert('예약금 결제 포인트가 부족합니다. 포인트를 충전해주세요'); location.href='./goPayment.do';</script>");
+	       out.print("<script>alert('예약금 결제 포인트가 부족합니다. 포인트를 충전해주세요'); "
+	       				+ "window.opener.location.href='./goPayment.do';"
+	       				+ "window.close();</script>");
 	       out.flush();
 	       out.close();
-	       return "";
+	       return null;
 	   }
 	   
    }
@@ -371,7 +373,8 @@ public class Reservation_Controller {
 		   }};
 		   int m = pay_service.insertNewPnt(inMap);
 		   
-		   Map<String, Object> delMap = new HashMap<String, Object>(){{
+		   @SuppressWarnings("serial")
+		Map<String, Object> delMap = new HashMap<String, Object>(){{
 			   put("sche_id",user_id);
 			   put("sche_date",(String)map.get("resrv_visit"));
 			   put("sche_hour",(String)map.get("resrv_time"));

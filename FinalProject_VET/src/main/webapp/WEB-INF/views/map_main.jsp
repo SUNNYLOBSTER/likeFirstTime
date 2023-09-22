@@ -14,7 +14,7 @@
 
 	<div id="container">
 		<div id="hosp_mapSearch"><h2>동물병원 찾기</h2></div>
-		<button onclick="">내 주변 동물병원</button>
+<!-- 		<button onclick="">내 주변 동물병원</button> -->
 		<div id="map"></div>
 	</div>
 

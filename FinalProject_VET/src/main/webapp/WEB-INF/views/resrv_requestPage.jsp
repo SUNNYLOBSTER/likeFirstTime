@@ -16,7 +16,6 @@
 </head>
 <body>
 	<div class="container">
-		<a href="./main.do">메인화면</a>
 		<h1>${hosp_name} 예약</h1>
 		<div id="cal_area">
 			<div id="calendar"></div>
@@ -59,12 +58,11 @@
 				</tr>
 				<tr>
 					<th><input type="submit" id="submit" value="예약 신청"></th>
-					<td><button class="btn btn-default" id="cancel" onclick="history.back(-1)">취소</button></td>				
+					<td><button class="btn btn-default" id="cancel" onclick="self.close()">취소</button></td>				
 				</tr>
 			</table>
 			</form>
 		</div>
-		
 	</div>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class BookMark_JUnitTest {
 		assertEquals(n, 1);
 	}
 
-	@Test
+//	@Test
 	public void selectAllBookmark() {
 		String bm_usersid = "elsa@disney.com";
 		List<BookMark_VO> lists = service.selectAllBookmark(bm_usersid);

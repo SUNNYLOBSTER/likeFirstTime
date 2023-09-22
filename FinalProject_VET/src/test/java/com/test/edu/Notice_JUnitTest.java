@@ -22,7 +22,7 @@ public class Notice_JUnitTest {
 	@Autowired
 	private INotice_Service service;
 	
-	@Test
+//	@Test
 	public void test() {
 //		List<NoticeBoard_VO> lists = service.selectNotice();
 

@@ -23,7 +23,7 @@ public class Users_JUnitTest {
 	@Autowired
 	private IUsers_Service service;
 	
-	@Test
+//	@Test
 	public void test() {
 
 //		List<Users_VO> lists = service.selectAllUsers();

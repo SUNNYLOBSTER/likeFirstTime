@@ -78,6 +78,13 @@ if(hosp_time != null){
 	hosp_runtime.innerHTML = hosp_runTime.open +"~"+ hosp_runTime.close + "시";
 }
 
+function resrv_request(value){
+	console.log(value);
+	var url = "./resrv_requestPage.do?resrv_hops="+value;
+	var title = "예약신청 페이지";
+	var prop = "top=100px, left=100px, width=500px, height=600px";
+	window.open(url, title, prop);
+}
 
 //북마크관련
 $(document).on("click","#bookmarkPart",function(){
@@ -92,8 +99,7 @@ $(document).on("click","#bookmarkPart",function(){
 //		
 //	});
 	$('#bookmarkPart').css("background-position", "-286px -410px");
-	
-	
+		
 });
 
 //function insertBookMark(){

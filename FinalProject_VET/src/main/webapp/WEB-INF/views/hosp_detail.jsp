@@ -88,7 +88,7 @@
 				<div id="resrv_area">
 					<c:choose>
 						<c:when test="${sessionScope.loginVo.users_auth eq 'U'}">
-							<button id="reservation" onclick="location.href='./resrv_requestPage.do?resrv_hops=${hosp_info.users_id}'">예약하기</button>
+							<button id="reservation" onclick="resrv_request(this.value)" value="${hosp_info.users_id}">예약하기</button>
 						</c:when>
 						<c:otherwise>
 							<b>예약은 로그인 후 이용하실 수 있습니다.</b>
