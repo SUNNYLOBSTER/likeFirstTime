@@ -14,7 +14,8 @@ function cancelPay(val){
 		data:{
 			merchant_uid:merchant_uid,
 			cancel_request_amount:pay_amount,
-			reason:"테스트 결제 환불"
+			reason:"테스트 결제 환불",
+			imp_uid:"imp40440345"
 		},
 		dataType:"json",
 		success:function(){

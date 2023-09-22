@@ -1,11 +1,9 @@
 package com.min.edu;
 
-import java.io.BufferedWriter;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,28 +11,27 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 
-import com.google.gson.JsonObject;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Payment_VO;
 import com.min.edu.vo.Point_VO;
 import com.min.edu.vo.Users_VO;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
+import com.siot.IamportRestClient.response.AccessToken;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 import lombok.extern.slf4j.Slf4j;
-import netscape.javascript.JSObject;
 
 @Controller
 @Slf4j
@@ -155,50 +152,80 @@ public class Payment_Controller {
 	
 	@PostMapping(value = "/cancelPayment.do")
 	@ResponseBody
-	public String cancelPayment(String merchant_uid, String cancel_request_amount) throws IOException {
-		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {}&&&&&",merchant_uid,cancel_request_amount);
+	public String cancelPayment(String merchant_uid, String cancel_request_amount, String imp_uid, HttpSession session) throws IOException {
+		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {} {}&&&&&",merchant_uid,cancel_request_amount,imp_uid);
 		
-//		RestTemplate restTemplate = new RestTemplate();
-//		
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON);
-//		
-//		JsonObject body = new JsonObject();
-//		body.addProperty("imp_key", "imp40440345");
-//		body.addProperty("imp_secret", "A7knp2NqgAVHcjwhHoAqTSqldQsaDnByW7ShqoJPZYtQfXdlmRpeqJsLkQpubXKxzR2bSlXV8V0Q64tu");
-//		
-//		HttpEntity<JsonObject> entity = new HttpEntity<JsonObject>(body,headers);
-//		ResponseEntity<JSObject> token = restTemplate.postForEntity("https://api.iamport.kr/users/getToken", entity, JSObject.class);
-//		
-//		System.out.println(token+"fullToken");
-//		System.out.println(token.getStatusCode()+"getToken");
-//		System.out.println(token.getStatusCodeValue()+"getValToken");
-//		System.out.println(token.getBody()+"bodyToken");
-//		System.out.println(token.getBody().getMember("response")+"bodyToken");
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String pnt_id = loginVo.getUsers_id();
+		int pnt_point = Integer.parseInt(cancel_request_amount)*(-1);
 		
-		HttpURLConnection conn = null;
-		String access_token = null;
-		URL url = new URL("https://api.iamport.kr/users/getToken");
-		conn = (HttpURLConnection) url.openConnection();
+		CancelData cancelData = new CancelData(merchant_uid, true);
 		
-		conn.setRequestMethod("POST");
-		conn.setRequestProperty("Content-Type", "application/json");
-		conn.setDoOutput(true);
+		try {
+		    IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancelData);
+		    System.out.println(payment_response);
+
+		    Payment canceledPayment = payment_response.getResponse();
+		    if (canceledPayment != null) {
+		        System.out.println("결제 성공 취소 : " + canceledPayment.getStatus());
+		        service.canclePayment(merchant_uid);
+		        @SuppressWarnings("serial")
+		        Map<String, Object> map = new HashMap<String, Object>(){{
+		            put("pnt_id", pnt_id);
+		            put("pnt_point", pnt_point);
+		        }};
+		        service.insertNewPnt(map);
+		    } else {
+		        System.out.println("결제 취소 응답에서 취소된 결제 정보를 가져올 수 없습니다.");
+		    }
+		} catch (IamportResponseException e) {
+		    System.out.println("결제취소 실패");
+		    System.out.println(e.getMessage());
+
+		    switch (e.getHttpStatusCode()) {
+		        case 401:
+		            break;
+		        case 500:
+		            break;
+		    }
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+
 		
-		JsonObject obj = new JsonObject();
-		obj.addProperty("imp_key", "imp40440345");
-		obj.addProperty("imp_secret", "A7knp2NqgAVHcjwhHoAqTSqldQsaDnByW7ShqoJPZYtQfXdlmRpeqJsLkQpubXKxzR2bSlXV8V0Q64tu");
-		
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-		bw.write(obj.toString());
-		bw.flush();
-		bw.close();
-		
-		int result = 0;
-		int responseCode = conn.getResponseCode();
-		System.out.println("######응답코드는?" + responseCode);
-		
-		return null;
+		return "redirect:/selectAllPayment.do";
 	}
+	
+	IamportClient client;
+	
+	public Payment_Controller() {
+		this.client = this.getTestClient();
+	}
+	
+	IamportClient getTestClient() {
+		
+		String test_api_key = "2602544483040872";
+		String test_api_secret = "A7knp2NqgAVHcjwhHoAqTSqldQsaDnByW7ShqoJPZYtQfXdlmRpeqJsLkQpubXKxzR2bSlXV8V0Q64tu";
+		return new IamportClient(test_api_key, test_api_secret);
+	}
+	
+	void getToken() {
+		try {
+			IamportResponse<AccessToken> auth_response = client.getAuth();
+			assertNotNull(auth_response.getResponse());
+			assertNotNull(auth_response.getResponse().getToken());
+			
+			System.out.println("get token : "+ auth_response.getResponse().getToken());
+		} catch (IamportResponseException e) {
+				System.out.println(e.getMessage());
+				switch (e.getHttpStatusCode()) {
+				case 401:  System.out.println("401");break;					
+				case 500 :  System.out.println("500");break;
+				}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
