@@ -96,5 +96,4 @@
 			FROM USERSINFO u 
 			WHERE USERS_ADDR LIKE '%' || #{users_addr} || '%'
 	</select>
-	
 </mapper>

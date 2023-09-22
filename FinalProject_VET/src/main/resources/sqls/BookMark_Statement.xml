@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.mapper.BookMark_DaoImpl">
+
+	<!-- 일반사용자의 즐겨찾기 병원개수 조회 -->
+	<select id="countBookmark" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(BM_HOSPID),0) AS CNT
+			FROM BOOKMARK
+			WHERE BM_USERSID = #{bm_usersid}
+	</select>
+	
+	<!-- 일반사용자별 즐겨찾기 병원 리스트 조회 -->
+	<select id="selectAllBookmark" resultType="com.min.edu.vo.BookMark_VO">
+		SELECT BM_HOSPID , BM_USERSID
+			FROM BOOKMARK
+			WHERE BM_USERSID = #{bm_usersid}
+	</select>
+	
+	<!-- 일반사용자의 즐겨찾기 병원 등록 -->
+	<insert id="insertNewBookmark" parameterType="com.min.edu.vo.BookMark_VO">
+		INSERT INTO BOOKMARK
+			(BM_USERSID, BM_HOSPID)
+			VALUES(#{bm_userid}, #{bm_hospid})
+	</insert>
+	
+	<!-- 일반사용자의 즐겨찾기 병원 삭제 -->
+	<delete id="deleteBookmark" parameterType="com.min.edu.vo.BookMark_VO">
+		DELETE FROM BOOKMARK
+			WHERE BM_USERSID= #{bm_usersid} 
+			AND BM_HOSPID= #{bm_hospid}
+	</delete>
+
+
+</mapper>
