@@ -14,6 +14,19 @@
 	window.open("./duplication.do","중복검사", "width=300px, height=300px");
 }
 </script>
+<style type="text/css">
+	input {
+		width: 400px;
+		height: 20px;
+		margin: 3px;
+	}
+	#fixButton{
+		width: auto;
+		height: auto;
+		padding-block: 1px;
+    	padding-inline: 6px;
+	}
+</style>
 </head>
 <%@ include file="./header.jsp" %>
 <body>
@@ -23,25 +36,19 @@
 	<h2>회원가입</h2>
 	<div> 	
  	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()">
- 	<button id="emailCheckBtn" onclick="return emailCert()">이메일 인증</button>
- 	<span id="resultDuplicate"></span>
  	<br>
- 	<input class="emailCheckInput" placeholder="인증번호 6자리 입력" disabled="disabled" maxlength="6">
+ 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()">
  	<br>
- 	<span id="emailCheckWarn"></span>
+ 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()">&nbsp;&nbsp;<span id="checkPw"></span>
  	<br>
- 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호 작성" onchange="isSame()">
+ 	<input name="users_name" id="users_name" placeholder="이름을 작성해주세요">
  	<br>
- 	<input type="password" id="users_pwOk" placeholder="비밀번호 확인" onchange="isSame()">&nbsp;&nbsp;&nbsp;<span id="checkPw"></span>
- 	<br>
- 	<input name="users_name" id="users_name" placeholder="이름 작성">
- 	<br>
- 	<input name="users_tel" id="users_tel" placeholder="ex)01011112222">
+ 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex)01011112222">
  	</div>
- 	<br><br>
+ 	<br>
  	<div>
-	 	<input type="submit" value="회원가입">
-	 	<input type="button" value="가입 취소" onclick="javascipt:location.href='./main.do'">
+	 	<input type="submit" id="fixButton" value="회원가입">
+	 	<input type="button" id="fixButton" value="가입 취소" onclick="javascipt:location.href='./main.do'">
  	</div>
   </form>
 

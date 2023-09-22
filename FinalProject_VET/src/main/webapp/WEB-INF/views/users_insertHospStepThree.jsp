@@ -20,27 +20,18 @@
 	h3 {
 		text-align: center;
 	}
+	button {
+		text-align: center;
+	}
 </style>
 <body>
 
 <div id="container">
-${signUpVo}
+
 <h2>가입을 축하드립니다!</h2>
 <h3>로그인 후 사이트를 이용해보세요</h3>
 <button onclick="location.href='./loginForm.do'" id="goToQuestBoard">로그인 하기</button>
-<form action="./addUserInfo.do" method="post">
-	<h4>추가정보 입력</h4>
-	<div>
-	<input type="hidden" name=users_id value="${signUpVo.users_id}">
-	 주소:
-	 <!-- 화면에서 넘길 때 일반주소 상세주소 합쳐서 넘기기 --> 	 
-	<input type="text" id="sample6_postcode" placeholder="우편번호">
-	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" name="addr" id="sample6_address" placeholder="주소"><br>
-	<input type="text" name="addrDetail" id="sample6_detailAddress" placeholder="상세주소">
-	<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
-	
-</form>
+
 </div>
 
 </body>
