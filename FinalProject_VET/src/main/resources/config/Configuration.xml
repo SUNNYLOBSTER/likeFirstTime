@@ -17,6 +17,7 @@
    	<mapper resource="sqls/Map_Statement.xml"/>
    	<mapper resource="sqls/Schedule_Statement.xml"/>
    	<mapper resource="sqls/Payment_Statement.xml"/>
+   	<mapper resource="sqls/Notice_Statement.xml"/>
 </mappers>
 
 </configuration>

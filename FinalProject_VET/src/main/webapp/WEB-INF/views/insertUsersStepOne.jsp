@@ -17,8 +17,7 @@ function chkBox(val){
 			cnt++;
 		}
 	}
-	
-	if(cnt != 3){
+		if(cnt != 3){
 		alert("약관에 동의한 후 다음 단계로 이동할 수 있습니다.")
 		return false;
 	} 
@@ -44,7 +43,7 @@ function allChk(bool){
 	<form action="./insertStepTwo.do" method="get">
 	<div id="container">
 		<h4>서비스 이용약관 동의</h4>
-		<div id="termsOfUse" style="height: 100px; width: 900px; border: 1px solid black; overflow: auto;">
+		<div id="termsOfUse" style="height: 100px; width: 1000px; border: 1px solid black; overflow: auto;">
 			서비스 이용약관
 			<br><br>
 			제1조(목적)
@@ -288,7 +287,7 @@ function allChk(bool){
 		<input type="checkbox" name="chkTerms"> 약관에 동의 합니다.
 		<br>
 		<h4>개인정보 이용 방침 동의</h4>
-		<div id="psInfo" style="height: 100px; width: 900px; border: 1px solid black; overflow: auto;">
+		<div id="psInfo" style="height: 100px; width: 1000px; border: 1px solid black; overflow: auto;">
 			 개인정보처리동의서<br><br>
 				처음처럼(이하 '회사'라고 합니다)은 개인정보보호법 등 관련 법령상의 개인정보보호 규정을 준수하며 귀하의 개인정보보호에 최선을 다하고 있습니다. 회사는 개인정보보호법에 근거하여 다음과 같은 내용으로 개인정보를 수집 및 처리하고자 합니다.<br>
 				<br><br>
@@ -334,7 +333,7 @@ function allChk(bool){
 		<input type="checkbox" name="chkTerms"> 약관에 동의 합니다.
 		<br>
 		<h4>위치 기반 서비스 정보 제공 동의</h4>
-		<div id="termsOfLocation" style="height: 100px; width: 900px; border: 1px solid black; overflow: auto;">
+		<div id="termsOfLocation" style="height: 100px; width: 1000px; border: 1px solid black; overflow: auto;">
 			위치기반서비스 이용약관 <br><br>
 			<br>
 			제1조(목적)

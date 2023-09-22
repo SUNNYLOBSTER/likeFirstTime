@@ -207,8 +207,10 @@ public class Users_Controller {
 	
 	//회원정보 추가입력(일반사용자)
 	@PostMapping(path="/addUserInfo.do")
-	public String addInfo(@RequestParam  Map<String, Object> map) {
+	public String addInfo(@RequestParam  Map<String, Object> map,
+							HttpServletResponse response) throws IOException {
 		log.info("&&&&& Users_Controller insertStepThree 추가정보 입력 후 메인페이지 이동  &&&&&");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		String addr = (String)map.get("addr");
 		String addrDetail = (String)map.get("addrDetail");
@@ -220,7 +222,16 @@ public class Users_Controller {
 		
 		boolean isc = service.addInfo(map);
 		
-		return (isc==true)?"main":"addInfo";
+		if(isc==true) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('추가정보 등록이 완료되었습니다.');location.href='./main.do';</script>");
+			out.flush();
+			return null;
+		} else {
+			return "addInfo";
+		}
+		
+		
 	}
 	
 	//회원가입 페이지 이동 (병원관계자)
@@ -233,10 +244,40 @@ public class Users_Controller {
 	//회원가입(병원관계자)
 	@PostMapping(path = "/signUpHosp.do")
 	public String insertHospTwo(@RequestParam Map<String, Object> map, Model model) {
-		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
+		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 {} &&&&&", map);
+		
+		System.out.println(map);
+		
+		String hosp_id = (String)map.get("users_id");
+		map.put("hosp_id", hosp_id);
+		
+		String hosp_name = (String)map.get("users_name");
+		map.put("hosp_name", hosp_name);
+		
+		String addr = (String)map.get("addr");
+		String addrDetail = (String)map.get("addrDetail");
+		
+		String users_addr = addr+" "+addrDetail;
+		System.out.println(users_addr);
+		
+		map.put("users_addr", users_addr);
+		
+		String openTime = (String)map.get("hosp_openTime");
+		String closeTime = (String)map.get("hosp_closeTime");
+		
+		System.out.println("여는시간 : " + openTime+ "닫는 시간 : " + closeTime);
+		
+		String hosp_time = "{\"open\":\""+openTime+"\", \"close\":\""+closeTime+"\"}";
+		map.put("hosp_time", hosp_time);
+		
+		String hosp_off = (String)map.get("chk");
+		map.put("hosp_off", hosp_off);
+				
+		System.out.println(map);
 		
 		boolean isc = service.insertHosp(map);
 		model.addAttribute("signUpVo",map);
+		
 		return (isc==true)?"users_insertHospStepThree":"redirect:/insertHospStepTwo.do";
 			
 		}
