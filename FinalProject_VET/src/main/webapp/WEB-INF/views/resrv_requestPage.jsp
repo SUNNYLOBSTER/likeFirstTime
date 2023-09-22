@@ -39,7 +39,7 @@
 			<table>
 				<tr>
 					<th>선택 날짜 </th>
-					<td><input type="date" id="select_date" name="resrv_visit"></td>
+					<td><input type="date" id="select_date" name="resrv_visit" readonly></td>
 				</tr>
 				<tr>
 					<th>선택 시간</th>
@@ -55,13 +55,11 @@
 				</tr>
 				<tr>
 					<th>메모</th>
+					<td colspan="2"><input type="text" name="resrv_memo" placeholder="간략한 메모를 남겨주세요"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="resrv_memo" value="" placeholder="간략한 메모를 남겨주세요"></td>
-				</tr>
-				<tr>
-					<th><input type="submit" value="예약 신청"></th>
-					<td><button class="btn btn-default" onclick="history.back(-1)">취소</button></td>				
+					<th><input type="submit" id="submit" value="예약 신청"></th>
+					<td><button class="btn btn-default" id="cancel" onclick="history.back(-1)">취소</button></td>				
 				</tr>
 			</table>
 			</form>
