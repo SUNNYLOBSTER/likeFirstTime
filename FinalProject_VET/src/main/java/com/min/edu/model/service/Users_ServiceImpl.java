@@ -91,6 +91,11 @@ public class Users_ServiceImpl implements IUsers_Service {
 		return (n+m)>0?true:false;
 	}
 	
+	@Override
+	public int resignUser(Users_VO uVo) {
+		log.info("&&&&& Users_ServiceImpl resignUser 회원탈퇴 : {} &&&&&", uVo);
+		return dao.resignUser(uVo);
+	}
 	
 	
 }

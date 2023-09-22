@@ -40,5 +40,9 @@ public interface IUsers_Service {
 	//회원가입(병원관계자)
 	public boolean insertHosp(Map<String, Object> map);
 	
+	//회원 탈퇴
+	public int resignUser(Users_VO uVo);
+		
+		
 		
 }

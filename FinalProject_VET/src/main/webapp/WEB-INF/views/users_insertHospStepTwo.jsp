@@ -39,17 +39,17 @@
 <div id="container">
  <form action="./signUpHosp.do" method="post">
 	<h2>회원가입</h2>
- 	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()">
+ 	<input name="users_id" id="users_id" placeholder="메일을 입력해주세요" onclick="return duplicateId()" required="required">
  	<br>
- 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()">
+ 	<input type="password" name="users_pw" id="users_pw" placeholder="비밀번호를 입력해주세요" onchange="isSame()" required="required">
  	<br>
- 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()">&nbsp;&nbsp;<span id="checkPw"></span>
+ 	<input type="password" id="users_pwOk" placeholder="비밀번호를 한 번 더 입력해주세요" onchange="isSame()" required="required">&nbsp;&nbsp;<span id="checkPw"></span>
  	<br>
- 	<input name="users_name" id="users_name" placeholder="병원 이름을 입력해주세요">
+ 	<input name="users_name" id="users_name" placeholder="병원 이름을 입력해주세요" required="required">
  	<br>
- 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex) 01011112222" onchange="checkTel()">
+ 	<input name="users_tel" id="users_tel" placeholder="전화번호를 입력해주세요 ex) 01011112222" onchange="checkTel()" required="required">
  	<br>
- 	<input name="users_crn" id="users_crn" placeholder="사업자등록번호를 입력해주세요" onchange="checkCrn()">
+ 	<input name="users_crn" id="users_crn" placeholder="사업자등록번호를 입력해주세요" onchange="checkCrn()" required="required">
  	<br>
  	<input type="text" id="sample6_postcode" placeholder="우편번호 찾기를 통해 우편번호를 입력해주세요">
 	<input type="button" id="fixButton" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>

@@ -282,7 +282,49 @@ public class Users_Controller {
 			
 		}
 
+	//회원 탈퇴 페이지 이동
+	@GetMapping(path = "/resignUser.do")
+	public String resignUserPage(HttpSession session, Model model) {
+		log.info("&&&&& Users_Controller 회원 탈퇴 페이지로 이동 {} &&&&&");
+		Users_VO loginVo = (Users_VO)session.getAttribute("users_id");
+//		session.setAttribute("loginVo", loginVo);
+		model.addAttribute("loginVo", loginVo);
+		return "resignUser";
+	}
+	
+	
+	//회원 탈퇴
+	@PostMapping(path = "/resignUser.do")
+	@ResponseBody
+	public String resignUser(@RequestParam Map<String, Object> map, HttpSession session,
+							 HttpServletResponse response) throws IOException {
+		log.info("&&&&& Users_Controller 회원 탈퇴 페이지로 이동 {} &&&&&", map);
+		response.setContentType("text/html; charset=UTF-8");
 		
+		String users_id = (String)map.get("users_id");
+		String users_pw = (String)map.get("users_pw");
+		System.out.println(users_id +"   "+ users_pw);
+
+		Users_VO vo = new Users_VO();
+		vo.setUsers_id(users_id);
+		vo.setUsers_pw(users_pw);
+	
+		int n = service.resignUser(vo);
+		
+		if(n == 1 ) {
+			session.invalidate();
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('탈퇴 완료되었습니다.');location.href='./main.do';</script>");
+			out.flush();
+			return null;
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('잘못된 값을 입력하셨습니다. 다시 입력해주세요.');location.href='./resignUser.do';</script>");
+			out.flush();
+			return null;
+		}
+		
+	}
 
 
 }

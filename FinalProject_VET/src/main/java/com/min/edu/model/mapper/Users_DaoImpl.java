@@ -82,6 +82,11 @@ public class Users_DaoImpl implements IUsers_Dao {
 		return session.insert(NS+"insertHospInfoDetail",map);
 	}
 
+	@Override
+	public int resignUser(Users_VO uVo) {
+		return session.update(NS+"resignUser", uVo);
+	}
+
 	
 	
 }

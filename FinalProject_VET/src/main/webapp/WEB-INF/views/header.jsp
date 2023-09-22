@@ -153,15 +153,16 @@
 					${loginVo.users_name}님 환영합니다
 				</span>
 				<c:if test="${loginVo.users_auth eq 'A' }">
-					<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
+					<input type="button" id="fixButton" value="관리자 페이지" onclick="location.href='./adminPage.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'H' }">
-					<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
+					<input type="button" id="fixButton" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
-					<input type="button" value="마이페이지" onclick="location.href='./userMyPage.do'">
+					<input type="button" id="fixButton" value="마이페이지" onclick="location.href='./userMyPage.do'">
 				</c:if>
-				<input type="button" value="로그아웃" onclick="location.href='./logout.do'">
+				<input type="button" id="fixButton" value="로그아웃" onclick="location.href='./logout.do'">
+				<input type="button" id="fixButton" value="회원탈퇴" onclick="location.href='./resignUser.do'">
 			</div>
 		</c:otherwise>
 	</c:choose>
