@@ -25,11 +25,7 @@
 						<td id="map_table" rowspan="8">
 							<div class="insertMap">
 								<div id="title">
-									<div id="bookmarkPart">
-										<a href="#">
-										<img alt="bookmark" src="./img/bookmark_no.png" id="bookmark">	
-										</a>
-									</div>
+									<button id="bookmarkPart" value="${hosp_info.users_id}" style="border: none; background-color: white;"></button>
 								</div>
 								<div id="map-box">
 									<div id="map"></div>
