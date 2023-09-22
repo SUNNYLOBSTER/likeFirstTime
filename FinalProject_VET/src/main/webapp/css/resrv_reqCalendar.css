@@ -18,6 +18,10 @@
   color: black;
 }
 
+.fc-non-business, .fc-daygrid-day-events{
+	cursor: pointer;
+}
+
 .container{
 	width:700px;
 	height:1300px;
@@ -67,4 +71,20 @@
 }
 #resrv_availableTime button:active{
 	background-color: #BCAAA4;
+}
+
+#resrv_info input{
+	text-align: center;
+	height: 30px;
+}
+
+#submit, #cancel {
+	pointer-events: none;
+	  background-color: #EFEBE9;
+	  border: 1px solid #3E2723;
+	  width: 100px;
+	  height: 30px;
+	  border-radius: 5px;
+	  font-size: 17px;
+	  text-align: center;
 }
