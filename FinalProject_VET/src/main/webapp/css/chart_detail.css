@@ -14,16 +14,6 @@
  	font-size: 15px;
 }
 
-#chartInfo th{
-	background-color:  #BCAAA4;
-	text-align: center;
-}
-
-#chartInfo_point th{
-	background-color:  #BCAAA4;
-}
-
-
 .navContainer button,input[type="submit"]{
 	background-color: #D7CCC8;
 	width: 110px;
