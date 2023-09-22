@@ -28,7 +28,6 @@
 									<div id="bookmarkPart">
 										<a href="#">
 										<img alt="bookmark" src="./img/bookmark_no.png" id="bookmark">	
-										즐겨찾기 등록
 										</a>
 									</div>
 								</div>
