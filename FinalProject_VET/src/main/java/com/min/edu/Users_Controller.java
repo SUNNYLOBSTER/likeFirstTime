@@ -35,7 +35,7 @@ public class Users_Controller {
 	@GetMapping(path = "/loginForm.do")
 	public String loginForm() {
 		log.info("&&&&& Users_Controller 메인화면 -> 로그인페이지 &&&&&");
-		return "loginForm";
+		return "users_loginForm";
 	}
 	
 	@RequestMapping(path = "/login.do")
@@ -86,7 +86,7 @@ public class Users_Controller {
 		List<Users_VO> lists = service.selectAllUsers();
 		model.addAttribute("listsVo", lists);
 		
-		return "adminPage";
+		return "users_adminPage";
 	}
 	
 	@GetMapping(path="/selectUserDetail.do")
@@ -107,7 +107,7 @@ public class Users_Controller {
 			model.addAttribute("hospDetail", hospDetail);
 			return null;
 		}
-		return "selectUserDetail";
+		return "users_selectUserDetail";
 			
 	}
 	
@@ -167,13 +167,13 @@ public class Users_Controller {
 	@GetMapping(path = "/insertUsers.do")
 	public String insertUsers() {
 		log.info("&&&&& Users_Controller loginForm ->  insertUsers 페이지 이동 &&&&&");
-		return "insertUsersStepOne";
+		return "users_insertUsersStepOne";
 	}
 	
 	@GetMapping(path = "/insertStepTwo.do")
 	public String insertStepTwo() {
 		log.info("&&&&& Users_Controller insertUsers->insertStepTwo 페이지 이동 &&&&&");
-		return "insertUsersStepTwo";
+		return "users_insertUsersStepTwo";
 	}
 	
 	
@@ -201,7 +201,7 @@ public class Users_Controller {
 		
 		int n = service.insertUser(map);
 		model.addAttribute("signUpVo",map);
-		return (n>=1)?"insertUsersStepThree":"redirect:/main.do";
+		return (n>=1)?"users_insertUsersStepThree":"redirect:/main.do";
 		
 	}
 	
@@ -287,9 +287,8 @@ public class Users_Controller {
 	public String resignUserPage(HttpSession session, Model model) {
 		log.info("&&&&& Users_Controller 회원 탈퇴 페이지로 이동 {} &&&&&");
 		Users_VO loginVo = (Users_VO)session.getAttribute("users_id");
-//		session.setAttribute("loginVo", loginVo);
 		model.addAttribute("loginVo", loginVo);
-		return "resignUser";
+		return "users_resignUser";
 	}
 	
 	

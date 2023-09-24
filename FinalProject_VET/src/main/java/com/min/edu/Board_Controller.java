@@ -3,8 +3,6 @@ package com.min.edu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,21 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.model.service.IBoard_Service;
 import com.min.edu.model.service.IPayment_Service;
-import com.min.edu.model.service.IUsers_Service;
-import com.min.edu.vo.AnimalCode_VO;
-import com.min.edu.vo.AnimalPart_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
 import com.min.edu.vo.Users_VO;
@@ -44,9 +34,6 @@ public class Board_Controller {
 
 	@Autowired
 	private IBoard_Service service;
-	
-	@Autowired
-	private IPayment_Service service_pay;
 	
 	@GetMapping(value = "/questBoard.do")
 	public String questBoard(Model model) {
