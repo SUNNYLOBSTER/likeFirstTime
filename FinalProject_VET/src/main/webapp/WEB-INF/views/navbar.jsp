@@ -43,11 +43,10 @@
 			<a onclick="location.href='./selectPntList.do'">포인트내역</a>
 		</div>
 		
-		<button class="dropdown-btn">
-			즐겨찾기<i class="fa fa-caret-down"></i>
+		<button class="dropdown-btn" onclick="location.href='./selectAllBookmark.do?bm_usersid=${sessionScope.loginVo.users_id}'">
+			즐겨찾기
 		</button>
 		<div class="dropdown-container">
-			<a onclick="#">1</a>
 		</div>
 		
 		<button class="dropdown-btn">

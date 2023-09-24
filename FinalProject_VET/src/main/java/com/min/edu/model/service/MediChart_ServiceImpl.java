@@ -146,6 +146,7 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		return dao.getDetail(medi_num);
 	}
 
+	
 	@Override
 	public String createPdf(String medi_num) {
 		log.info("&&&&& MediChart_ServiceImpl createPdf &&&&&");
@@ -163,7 +164,7 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
             String format_date = formatter.format(date);
  
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/진료기록_"+format_date+".pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/진료기록_"+format_date+".pdf"));
             
             document.open();
             
@@ -176,6 +177,10 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
             Paragraph ph = new Paragraph(chunk);
             ph.setAlignment(Element.ALIGN_CENTER);
             document.add(ph);
+            
+            float[] columnWidths = new float[]{10f, 10f, 10f, 10f, 40f};
+            table.setWidths(columnWidths);
+            table.setPaddingTop(10);
  
             document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE); 
@@ -202,8 +207,9 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
             table.addCell(cell5);
  
             String unescapedContent = StringEscapeUtils.unescapeHtml4(pvo.getMedichart_vo().get(0).getMedi_content());
-            System.out.println(unescapedContent);
+            System.out.println("진료내용 : "+ unescapedContent);
             
+            //진료내용 중 글만 추출하기(not img)
             String pattern1 = "<p>(.*?)</p>";
             Pattern p = Pattern.compile(pattern1);
             Matcher m = p.matcher(unescapedContent);
@@ -217,6 +223,7 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
             
             Matcher m2 = p.matcher(text);
             
+            //추출된 <p>태그 개수만큼 잘라 붙여서 내용 출력형태 만들기
             String final_text = "";
             while(m2.find()) {
             	String cuttedText = m2.group(1);
@@ -235,26 +242,59 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
             table.addCell(medi_sname);
             table.addCell(medi_content);
             
-            String pattern2 = "<img\\s+src=\"([^\"]+)\"";
-            Pattern imgPattern = Pattern.compile(pattern2);
-            Matcher matcher = imgPattern.matcher(unescapedContent);
-            
-            String fileName = "";
-            while (matcher.find()) {
-                String imgsrc = matcher.group(1);
-
-                // 파일명 추출
-                String[] parts = imgsrc.split("/");
-                fileName = parts[parts.length - 1];
-            }
-
-            Image img = Image.getInstance("C:\\eclipse_project\\workspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\FinalProject_VET\\ckupload\\"+ fileName);
-            
-            img.scalePercent(50);
-            
-            document.add(img);
-            
             document.add(table);
+            
+            //진료내용에 img태그가 존재하면 pdf에 이미지 추가
+            if (unescapedContent.contains("img")) {
+            	
+            	int count = 0;
+                int index = 0;
+                String target = "img";
+
+                while ((index = unescapedContent.indexOf("img", index)) != -1) {
+                    count++;
+                    index += target.length();
+                }
+                // 진료내용에 포함된 img 개수 구하기
+                System.out.println("포함된 이미지 개수 : "+ count);
+            	
+                // 진료내용 중 이미지태그만 추출하기
+            	 String pattern2 = "<img\\s+src=\"([^\"]+)\"";
+                 Pattern imgPattern = Pattern.compile(pattern2);
+                 Matcher matcher = imgPattern.matcher(unescapedContent);
+                 
+                 String fileName = "";
+                 while (matcher.find()) {
+                     String imgsrc = matcher.group(1);
+
+                     // 파일명 추출
+                     String[] parts = imgsrc.split("/");
+                     fileName = parts[parts.length - 1];
+                 }
+
+                 Image img = Image.getInstance("C:\\eclipse_project\\workspace_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\FinalProject_VET\\ckupload\\"+ fileName);
+                 
+                 //이미지 사이즈 원본의 60퍼센트로 축소
+                 img.scalePercent(60);
+                 
+                 // 이미지의 가로, 세로 크기 가져오기
+                 float imgWidth = img.getScaledWidth();
+                 float imgHeight = img.getScaledHeight();
+
+                 // 페이지 크기 가져오기
+                 float pageWidth = document.getPageSize().getWidth();
+                 float pageHeight = document.getPageSize().getHeight();
+
+                 // 이미지를 페이지 중앙에 배치하기 위한 좌표 계산
+                 float x = (pageWidth - imgWidth) / 2;
+                 float y = (pageHeight - imgHeight) / 2;
+
+                 // 이미지 위치 설정
+                 img.setAbsolutePosition(x, y);
+                 
+                 document.add(img);
+            	
+            } 
             
             document.close();
             

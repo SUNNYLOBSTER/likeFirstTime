@@ -1,6 +1,7 @@
 package com.min.edu.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class BookMark_DaoImpl implements IBookMark_Dao {
 	@Override
 	public int deleteBookmark(BookMark_VO bvo) {
 		return session.delete(NS+"deleteBookmark",bvo);
+	}
+
+	@Override
+	public int bookMarkYorN(Map<String, Object> map) {
+		return session.selectOne(NS+"bookMarkYorN",map);
 	}
 
 }

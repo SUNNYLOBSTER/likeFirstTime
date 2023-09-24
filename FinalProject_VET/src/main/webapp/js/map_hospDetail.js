@@ -30,6 +30,27 @@ $(document).ready(function() {
           map.setCenter(coords);
         }
       });
+  //수정!!!!!!!!!!!!!!!!!!!!!    
+  	var hosp_id = document.getElementById("hosp_id").value;
+  	console.log(hosp_id);
+      $.ajax({
+		url:"./bookMarkYorN.do",
+		method:"post",
+		data:{"bm_hospid":hosp_id},
+		success:function(data){
+			console.log("북마크에 존재? : "+data);
+			if(data == "true"){
+				$("#title button").attr('id','bookmarkPart_yes');
+			}else if(data =="false"){
+				$("#title button").attr('id','bookmarkPart_no');
+			}
+			
+		},
+		error:function(){
+			
+		}
+	});
+      
     });
 //--------------------------------------------------------------------------------------------
 
@@ -54,29 +75,54 @@ function resrv_request(value){
 	window.open(url, title, prop);
 }
 
+//--------------------------------------------------------------------------------
 //북마크관련
-$(document).on("click","#bookmarkPart",function(){
-	console.log("북마크 등록 실행");
-		var hosp_id = $("#bookmarkPart").val();
+$(document).on("click","#title button",function(){
+		var bookmarkStatus = $("#title button").attr('id');
+		var hosp_id = $("#title button").val();
+		console.log(bookmarkStatus);
 		console.log(hosp_id);
-//	$.ajax({
-//		
-//		url:"./insertNewBookmark.do",
-//		method:"post",
-//		data: {"bm_hospid":}
-//		
-//	});
-	$('#bookmarkPart').css("background-position", "-286px -410px");
+		
+		if(bookmarkStatus == "bookmarkPart_no"){
+			console.log("북마크 등록 실행");
+			var result = confirm("즐겨찾기에 등록하시겠습니까?");
+			if(result){
+				$.ajax({
+					url:"./insertNewBookmark.do",
+					method:"post",
+					data:{"bm_hospid":hosp_id},
+					success:function(){
+						console.log("등록성공");
+						$("#title button").attr('id','bookmarkPart_yes');
+						alert("즐겨찾기에 등록되었습니다.");
+						location.reload();
+					},
+					error:function(){
+						console.log("실패");
+						alert("즐겨찾기는 3개까지 등록가능합니다.");
+					}
+				});
+			}
+			
+		}else if(bookmarkStatus == "bookmarkPart_yes"){
+				var result = confirm("즐겨찾기를 해제하시겠습니까?");
+				if(result){
+					$.ajax({
+						url:"./deleteBookmark.do",
+						method:"post",
+						data:{"bm_hospid":hosp_id},
+						success:function(){
+							console.log("삭제성공");
+							$("#title button").attr('id','bookmarkPart_no');
+							alert('즐겨찾기 해제되었습니다.');
+							location.reload();
+						},
+						error:function(){
+							console.log("실패");
+						}
+					});
+					
+				}
+			}
 		
 });
-
-//function insertBookMark(){
-//	console.log("북마크 등록 실행");
-//	var bookmarkPart = document.getElementById('bookmarkPart');
-//	bookmarkPart.innerHTML = '';
-//	var html = '';
-//	html+="			<a onclick='insertBookMark()'>";
-//	html+="					<img alt='bookmark' src='./img/bookmark_yes.png' id='bookmark'>";
-//	html+="			</a>";
-//	bookmarkPart.innerHTML = html;
-//}
