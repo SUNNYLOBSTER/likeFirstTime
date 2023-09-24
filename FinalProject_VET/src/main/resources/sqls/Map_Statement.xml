@@ -96,4 +96,17 @@
 			FROM USERSINFO u 
 			WHERE USERS_ADDR LIKE '%' || #{users_addr} || '%'
 	</select>
+	
+	<select id="map_Sido" resultType="com.min.edu.vo.MapRegion_VO">
+		SELECT SI_DO 
+			FROM REGION_DATA rd 
+			GROUP BY SI_DO
+	</select>
+	
+	<select id="map_SiGunGu" resultType="com.min.edu.vo.MapRegion_VO">
+		SELECT SI_GUN_GU 
+			FROM REGION_DATA rd 
+			WHERE SI_DO = #{si_do}
+	</select>
+	
 </mapper>
