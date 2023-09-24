@@ -1,6 +1,7 @@
 package com.min.edu.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,12 @@ public class BookMark_ServiceImpl implements IBookMark_Service {
 	public int deleteBookmark(BookMark_VO bvo) {
 		log.info("&&&&& BookMark_ServiceImpl deleteBookmark 전달받은 파라미터 값 : {} &&&&&", bvo);
 		return dao.deleteBookmark(bvo);
+	}
+
+	@Override
+	public int bookMarkYorN(Map<String, Object> map) {
+		log.info("&&&&& BookMark_ServiceImpl deleteBookmark 전달받은 파라미터 값 : {} &&&&&", map);
+		return dao.bookMarkYorN(map);
 	}
 
 }

@@ -20,10 +20,18 @@
 	
 }
 
-#bookmarkPart{
+#bookmarkPart_no{
 	background-image: url(../img/tag.png);
 	background-size:600px 450px;
 	background-position: -262px -410px;
+	width: 26px;
+	height: 26px;
+}
+
+#bookmarkPart_yes{
+	background-image: url(../img/tag.png);
+	background-size:600px 450px;
+	background-position: -286px -410px;
 	width: 26px;
 	height: 26px;
 }

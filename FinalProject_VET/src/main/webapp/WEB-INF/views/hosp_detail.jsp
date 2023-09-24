@@ -12,6 +12,7 @@
 <body>
 <div id="container">
 	<div class="insertDetail">
+	<input type="hidden" value="${hosp_info.hospital_vo[0].hosp_id}" id="hosp_id">
 		<c:if test="${hosp_info.hospital_vo[0].hosp_time ne null}">
 			<button id="hosp_time">${hosp_info.hospital_vo[0].hosp_time}</button>
 		</c:if>
@@ -25,7 +26,9 @@
 						<td id="map_table" rowspan="8">
 							<div class="insertMap">
 								<div id="title">
-									<button id="bookmarkPart" value="${hosp_info.users_id}" style="border: none; background-color: white;"></button>
+									<c:if test="${sessionScope.loginVo.users_auth eq 'U'}">
+										<button id="bookmarkPart_no" value="${hosp_info.users_id}" style="border: none; background-color: white;"></button>
+									</c:if>
 								</div>
 								<div id="map-box">
 									<div id="map"></div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -63,7 +64,7 @@ public class Map_Controller {
 	}
 	
 	@GetMapping(value = "/select_HospDetail.do")
-	public String select_HospDetail(String hosp_id, Model model) {
+	public String select_HospDetail(@RequestParam String hosp_id, Model model) {
 		log.info("&&&&& Map_Controller select_HospDetail &&&&&");
 		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", hosp_id);
 		Users_VO hosp_info = service.hosp_detail(hosp_id);
