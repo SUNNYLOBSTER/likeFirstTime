@@ -259,9 +259,6 @@ SELECT RESRV_NUM,TO_CHAR(RESRV_VISIT,'YYYY-MM-DD') AS RESRV_VISIT, RESRV_TIME,
 				AND RESRV_STATUS = 'Y'
 				ORDER BY RESRV_VISIT ;
 				
-			
-			
-select to_date(to_char(sysdate,'yyyy-MM-dd')) - to_date('2023-09-22','yyyy-MM-dd') from dual;
 
 -- 현재시간과 예약시간 비교
 SELECT TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd')) - (
@@ -270,3 +267,12 @@ SELECT TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd')) - (
 					WHERE RESRV_NUM = 'RSV37'
 				) AS TIMER
 	FROM DUAL;
+
+
+SELECT 대분류 
+	FROM REGION_DATA rd 
+	GROUP BY 대분류;
+
+SELECT "시 / 군" 
+	FROM REGION_DATA rd 
+	WHERE 대분류 = '인천광역시' ;

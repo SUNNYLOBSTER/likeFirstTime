@@ -170,7 +170,9 @@
 	
 	<div class="header" id="headerNavBar">
 		<ul>
-			<li><b><a href="./map.do">동물병원 찾기</a></b></li>				
+			<c:if test="${loginVo.users_auth ne 'H'}">
+				<li><b><a href="./map.do">동물병원 찾기</a></b></li>				
+			</c:if>
 			<li><b><a href="./questBoard.do">진료문의</a></b></li>				
 			<li><b><a href="./notice.do">공지사항</a></b></li>				
 			<li><b><a>반려동물 정보/뉴스</a></b></li>				

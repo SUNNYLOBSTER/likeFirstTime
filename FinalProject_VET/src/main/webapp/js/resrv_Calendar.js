@@ -59,15 +59,14 @@ function resrv_calendar(){
 		                    $("#resrv_memo").val(detail.resrv_memo);
 		                    $("#resrv_hosp").val(detail.resrv_hosp);
 		                   
-		                    $(".modal-footer button").hide();
+ 							$(".modal-footer button").hide();
 		                    var sysdate = new Date();
 		                    var detailDate = new Date(detail.resrv_visit);
-							console.log(detailDate<sysdate);
+//							console.log(sysdate);
+//							console.log(detailDate);
 							if(detailDate>sysdate){
 								$(".modal-footer button").eq(0).show();
-								$(".modal-footer button").eq(2).show();
 							}
-//							console.log(typeof(sysDate));
 						},
 						error:function(){
 							alert("호출 실패");
@@ -107,12 +106,15 @@ function resrv_save(){
 	var resrv_name =$("#resrv_name").val();
 	var resrv_tel =$("#resrv_tel").val();
 	var resrv_memo =$("#resrv_memo").val();
+	var nowDate = new Date();
+	console.log(nowDate);
+	var detailDate = new Date(resrv_visit);
+	console.log(detailDate);
 	if(!resrv_visit || !resrv_time || !resrv_name || !resrv_tel){
 		alert("예약날짜, 시간, 이름, 전화번호는 필수 입력값입니다. ");
 		$("#resrv_name").focus();
-	}
-	
-	$.ajax({
+	}else{
+		$.ajax({
 		url:"./resrv_detailModify.do",
 		method:"post",
 		data:{
@@ -138,6 +140,9 @@ function resrv_save(){
 			alert("호출 실패")
 		}
 	});
+	}
+	
+	
 }
 
 function resrv_cancel(){

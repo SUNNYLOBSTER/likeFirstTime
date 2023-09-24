@@ -14,8 +14,13 @@
 
 	<div id="container">
 		<div id="hosp_mapSearch"><h2>동물병원 찾기</h2></div>
-<!-- 		<button onclick="">내 주변 동물병원</button> -->
-		<div id="map"></div>
+		<div id="map_area">
+			<ul id="map_ul">
+				<li class="li_btn"><button id="map_btn2">지역별 동물병원 찾기</button></li>
+				<li class="li_btn"><button id="map_btn1" onclick="panTo()">현재 위치 돌아오기</button></li>
+			</ul>
+			<div id="map"></div>
+		</div>
 	</div>
 
 </body>

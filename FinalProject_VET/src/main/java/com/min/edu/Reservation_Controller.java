@@ -46,7 +46,7 @@ public class Reservation_Controller {
    
    @GetMapping(value = "/resrv_Select.do")
    public String resrv_Select() {
-      log.info("&&&&& 홈 -> 진료예약 조회 &&&&&");
+      log.info("&&&&& 병원관계자 로그인 -> 병원관리 페이지 이동 &&&&&");
       return "hosp_resrvMNG";
    }
    
@@ -141,19 +141,17 @@ public class Reservation_Controller {
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
       int n = service.resrv_updateToY(resrv_num);
       Reservation_VO rvo = service.resrv_detail(resrv_num);
+      
+      String hospitalName = service.hosp_name(rvo.getResrv_hops());
+//      System.out.println("###############"+hospitalName);
+      
       String sche_id = rvo.getResrv_userid();
       String sche_date = rvo.getResrv_visit();
       String sche_title = "진료예약";
-      String sche_content = rvo.getResrv_memo();
+      String sche_content = hospitalName+" 예약";
       String sche_hour = rvo.getResrv_time();
       String sche_minute = "00";
-//      System.out.println("#############"+sche_id);
-//      System.out.println("#############"+sche_date);
-//      System.out.println("#############"+sche_hour);
       SchedBoard_VO svo = new SchedBoard_VO();
-      if(sche_content == null) {
-    	  sche_content = "";
-      }
       svo.setSche_id(sche_id);
       svo.setSche_date(sche_date);
       svo.setSche_title(sche_title);

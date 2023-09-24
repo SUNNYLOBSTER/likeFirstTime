@@ -14,12 +14,55 @@
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
     
+    #map_area{
+    	width: 800px;
+    	margin: 0px auto;
+    }
+    #map_area button{
+    	cursor: pointer;
+    }
+    #map_area button:active{
+    	background-color: #BCAAA4;
+    }
+    #map_area button:hover{
+    	border: 3px solid #3E2723;
+    }
     #map{
     	width: 800px; height: 700px;
     	margin: 0px auto;
+    	border: 2px solid #3E2723;
     }
     #hosp_mapSearch{
     	width:200px;
     	margin: 0px auto;
     	text-align: center;
     }
+    
+    #map_btn1{
+		width: 200px;
+		height: 50px;
+		background-color: #EFEBE9;
+		border: 2px solid #3E2723;
+		border-radius: 10px 0px 0px 0px;
+		font-size: 17px;
+    }
+    #map_btn2{
+		width: 200px;
+		height: 50px;
+		background-color: #EFEBE9;
+		border: 2px solid #3E2723;
+		border-radius: 0px 10px 0px 0px;
+		font-size: 17px;
+    }
+    #map_ul{
+    	list-style: none;
+		margin: 0px;
+		padding: 0px;
+		float: left;
+    }
+    .li_btn {
+		margin: 0px;
+	}
+	button {
+		text-decoration: none;
+	}

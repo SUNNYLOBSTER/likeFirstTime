@@ -46,16 +46,32 @@ public class Users_Controller {
 		
 		try {
 			Users_VO loginVo = service.loginUser(map);
+			
 			if(loginVo != null) {
 				session.setAttribute("loginVo", loginVo);
 				session.setMaxInactiveInterval(1800);
 				
-				PrintWriter out;
-				out = response.getWriter();
-				out.println("<script>alert('로그인 성공');location.href='./main.do';</script>");
-				out.flush();
-				return null;
-			} 
+				if(((String)loginVo.getUsers_auth()).equals("H")) {
+					PrintWriter out;
+					out = response.getWriter();
+					out.println("<script>alert('로그인 성공'); location.href='./resrv_Select.do';</script>");
+					out.flush();
+					return null;
+				}else if(((String)loginVo.getUsers_auth()).equals("A")){
+					PrintWriter out;
+					out = response.getWriter();
+					out.println("<script>alert('로그인 성공'); location.href='./adminPage.do';</script>");
+					out.flush();
+					return null;
+				}else {
+					PrintWriter out;
+					out = response.getWriter();
+					out.println("<script>alert('로그인 성공'); location.href='./main.do';</script>");
+					out.flush();
+					return null;
+				}
+				
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

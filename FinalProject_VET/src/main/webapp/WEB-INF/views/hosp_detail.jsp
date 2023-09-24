@@ -113,7 +113,7 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
+<!-- 	<div id="staticMap" style="width:400px;height:300px; margin: 0px au"></div>  -->
 </div>
 <script type="text/javascript" src="./js/map_hospDetail.js"></script>
 </body>
