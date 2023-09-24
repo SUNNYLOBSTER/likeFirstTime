@@ -118,7 +118,11 @@ $(document).ready(function() {
 							$("#sche_date").val(data.svo.sche_date);
 							$("#sche_time").val(sche_time);
 							$("#sche_content").val(data.svo.sche_content);
-							
+							console.log($("#sche_title").val());
+							if($("#sche_title").val()=="진료예약"){
+								$("#modifyCalendar").hide();
+								$("#delCalendar").hide();
+							}
 						},
 						error:function(){
 							alert("전송오류입니다");

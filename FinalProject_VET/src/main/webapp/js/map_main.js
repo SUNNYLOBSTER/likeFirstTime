@@ -125,3 +125,19 @@ function searchPlaces(lat, lon) {
 function closeOverlay() {
     customOverlay.setMap(null);     
 }
+
+// "내 주변 동물병원" 버튼을 클릭했을 때 호출되는 함수
+function panTo() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            
+            // 새로운 중심 좌표로 이동
+            var newCenter = new kakao.maps.LatLng(lat, lon);
+            map.panTo(newCenter);
+        });
+    } else {
+        alert('현재 위치정보를 불러올 수 없습니다.');
+    }
+}

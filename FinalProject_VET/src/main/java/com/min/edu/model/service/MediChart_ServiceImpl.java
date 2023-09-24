@@ -163,7 +163,7 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
             String format_date = formatter.format(date);
  
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/진료기록_"+format_date+".pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:/진료기록_"+format_date+".pdf"));
             
             document.open();
             
