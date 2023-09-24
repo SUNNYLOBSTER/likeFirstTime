@@ -319,9 +319,21 @@ SELECT PART_CODE, PART_NAME
 	WHERE PART_CODE = ${part_code}
 </select>
 
+<!-- 일반사용자 아이디로 일반문의글 조회 -->
+<select id="selectUsersBoard" resultType="com.min.edu.vo.QuestBoard_VO">
+	SELECT QST_SEQ, QST_ID, QST_TITLE, QST_REGDATE
+		FROM QUESTBOARD
+		WHERE QST_ID=#{qst_id}
+		AND QST_FAST='N'
+</select>
 
-
-
+<!-- 일반사용자 아이디로 빠른문의글 조회 -->
+<select id="selectFastBoard" resultType="com.min.edu.vo.QuestBoard_VO">
+	SELECT QST_SEQ, QST_ID, QST_TITLE, QST_REGDATE
+		FROM QUESTBOARD
+		WHERE QST_ID=#{qst_id}
+		AND QST_FAST='Y'
+</select>
 </mapper>
 
 

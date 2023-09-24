@@ -15,3 +15,5 @@
 
 <%@ include file="./footer.jsp" %>
 </html>
+
+회원탈퇴

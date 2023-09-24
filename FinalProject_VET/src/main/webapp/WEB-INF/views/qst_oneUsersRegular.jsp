@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>일반문의리스트</title>
 </head>
 <body>
-	<jsp:forward page="/main.do"/>
+<%@ include file="./navbar.jsp" %>
+	<div id="navContainer">
+		${lists}
+	<hr>
+	</div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>

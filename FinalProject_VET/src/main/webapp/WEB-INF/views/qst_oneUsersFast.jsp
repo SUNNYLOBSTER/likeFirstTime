@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>첫 페이지</title>
+<title>빠른문의리스트</title>
 </head>
 <body>
-<h2>홈 페이지</h2>
-
-<a href="./loginForm.do">로그인</a>
+<%@ include file="./navbar.jsp" %>
+	<div id="navContainer">
+		${lists}
+	<hr>
+	</div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>

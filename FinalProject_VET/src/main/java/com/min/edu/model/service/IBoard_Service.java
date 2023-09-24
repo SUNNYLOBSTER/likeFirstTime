@@ -55,6 +55,9 @@ public interface IBoard_Service {
 	
 	public int calChoiceRate(String id);
 
+	public List<QuestBoard_VO> selectUsersBoard(String qst_id);
+	
+	public List<QuestBoard_VO> selectFastBoard(String qst_id);
 
 	
 }

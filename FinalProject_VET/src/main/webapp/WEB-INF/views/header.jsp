@@ -162,7 +162,7 @@
 					<input type="button" id="fixButton" value="마이페이지" onclick="location.href='./userMyPage.do'">
 				</c:if>
 				<input type="button" id="fixButton" value="로그아웃" onclick="location.href='./logout.do'">
-				<input type="button" id="fixButton" value="회원탈퇴" onclick="location.href='./resignUser.do'">
+				
 			</div>
 		</c:otherwise>
 	</c:choose>

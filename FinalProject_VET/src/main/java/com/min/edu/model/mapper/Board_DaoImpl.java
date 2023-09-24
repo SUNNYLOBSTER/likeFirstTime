@@ -143,6 +143,16 @@ public class Board_DaoImpl implements IBoard_Dao {
 		return session.selectOne(NS+"getMaxSeq");
 	}
 
+	@Override
+	public List<QuestBoard_VO> selectUsersBoard(String qst_id) {
+		return session.selectList(NS+"selectUsersBoard",qst_id);
+	}
+
+	@Override
+	public List<QuestBoard_VO> selectFastBoard(String qst_id) {
+		return session.selectList(NS+"selectFastBoard",qst_id);
+	}
+
 
 
 	
