@@ -269,10 +269,10 @@ SELECT TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd')) - (
 	FROM DUAL;
 
 
-SELECT 대분류 
+SELECT SI_DO 
 	FROM REGION_DATA rd 
-	GROUP BY 대분류;
+	GROUP BY SI_DO;
 
-SELECT "시 / 군" 
+SELECT SI_GUN_GU 
 	FROM REGION_DATA rd 
-	WHERE 대분류 = '인천광역시' ;
+	WHERE SI_DO = '경기도';
