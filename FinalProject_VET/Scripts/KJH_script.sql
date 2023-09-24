@@ -276,3 +276,7 @@ SELECT SI_DO
 SELECT SI_GUN_GU 
 	FROM REGION_DATA rd 
 	WHERE SI_DO = '경기도';
+
+SELECT 소재지전체주소 , 사업장명
+	FROM HOSPITAL_DATA hd 
+	WHERE 도로명전체주소 LIKE '%미추홀구%';

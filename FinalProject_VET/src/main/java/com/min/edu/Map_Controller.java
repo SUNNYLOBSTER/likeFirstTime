@@ -1,18 +1,23 @@
 package com.min.edu;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.min.edu.model.service.IMap_Service;
 import com.min.edu.vo.AnimalConn_VO;
+import com.min.edu.vo.MapRegion_VO;
 import com.min.edu.vo.MediConn_VO;
+import com.min.edu.vo.NationwideHospital_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +31,45 @@ public class Map_Controller {
 	private IMap_Service service;
 	
 	@GetMapping(value = "/map.do")
-	public String map_vet() {
+	public String map_vet(Model model) {
 		log.info("&&&&& 헤더 -> 동물병원찾기 페이지 이동 &&&&&");
+		List<MapRegion_VO> sidoList = service.map_Sido();
+		model.addAttribute("sidoList", sidoList);
 		return "map_main";
+	}
+	
+	@PostMapping(value = "/siGunGuLists.do")
+	@ResponseBody
+	public String siGunGuLists(String si_do) {
+		log.info("&&&&& Map_Controller siGunGuLists &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", si_do);
+		List<MapRegion_VO> sigunguList = service.map_SiGunGu(si_do);
+		Gson gson = new Gson();
+		String json = gson.toJson(sigunguList);
+		return json;
+	}
+	
+	@PostMapping(value = "/nationwideHosp.do")
+	@ResponseBody
+	public String nationwideHosp(@RequestParam Map<String, Object> map) {
+		log.info("&&&&& Map_Controller siGunGuLists &&&&&");
+		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", map);
+		@SuppressWarnings("serial")
+		Map<String, Object> inMap = new HashMap<String, Object>(){{
+			if(map.get("si_do").equals("세종특별자치시")) {
+				put("si_do", map.get("si_do"));
+				put("si_gun_gu", "");
+			}else {
+				put("si_do", map.get("si_do"));
+				put("si_gun_gu", map.get("si_gun_gu"));
+			}
+			
+		}};
+		
+		List<NationwideHospital_VO> hospLists = service.map_RegionData(inMap);
+		Gson gson = new Gson();
+		String json = gson.toJson(hospLists);
+		return json;
 	}
 	
 	@PostMapping(value = "/getHospUser.do")
@@ -42,25 +83,6 @@ public class Map_Controller {
 		return json;
 	}
 	
-	@GetMapping(value = "/map_hospDetail.do")
-	public String map_hospDetail(String address,String placeName, Model model) {
-		log.info("&&&&& Map_Controller getHospUser &&&&&");
-		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", address);
-		log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", placeName);
-		Users_VO user_vo = service.map_hospDetail(address.substring(3));
-		if(user_vo != null) {
-			String hosp_time = user_vo.getHospital_vo().get(0).getHosp_time();
-			model.addAttribute("hosp_detail", user_vo);
-			model.addAttribute("hosp_time", hosp_time);
-			model.addAttribute("address", address);
-			model.addAttribute("placeName", placeName);
-			return "hosp_detail";
-		}else {
-			model.addAttribute("address", address);
-			model.addAttribute("placeName", placeName);
-			return "hosp_detail";
-		}
-	}
 	
 	@GetMapping(value = "/select_HospDetail.do")
 	public String select_HospDetail(String hosp_id, Model model) {
@@ -83,5 +105,6 @@ public class Map_Controller {
 		String hosp_id = service.map_reqAddr(users_addr.substring(3));
 		return hosp_id;
 	}
+	
 	
 }

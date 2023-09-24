@@ -15,7 +15,7 @@
     .info .link {color: #5085BB;}
     
     #map_area{
-    	width: 800px;
+    	width: 804px;
     	margin: 0px auto;
     }
     #map_area button{
@@ -30,7 +30,16 @@
     #map{
     	width: 800px; height: 700px;
     	margin: 0px auto;
-    	border: 2px solid #3E2723;
+		border-bottom: 2px solid #3E2723;
+		border-left: 2px solid #3E2723;
+		border-right: 2px solid #3E2723;
+    }
+    #regionMap{
+    	width: 800px; height: 700px;
+    	margin: 50px auto;
+		border-bottom: 2px solid #3E2723;
+		border-left: 2px solid #3E2723;
+		border-right: 2px solid #3E2723;
     }
     #hosp_mapSearch{
     	width:200px;
@@ -50,8 +59,10 @@
 		width: 200px;
 		height: 50px;
 		background-color: #EFEBE9;
-		border: 2px solid #3E2723;
-		border-radius: 0px 10px 0px 0px;
+		border-bottom : 2px solid #3E2723;		
+		border-top : 2px solid #3E2723;		
+		border-left: none;
+		border-right: none;
 		font-size: 17px;
     }
     #map_ul{
@@ -66,3 +77,35 @@
 	button {
 		text-decoration: none;
 	}
+	
+	#region_on{
+		width: 390px;
+		height:36px;
+		float: right;
+		border: 2px solid #3E2723;
+		border-radius: 0px 10px 0px 0px;
+		background-color: #EFEBE9;
+		padding: 5px;
+	}
+	#region_on li{
+		float: right;
+		margin-right: 10px;
+	}
+	
+	select{
+		text-align: center;
+		width: 150px;
+		height: 25px;
+		font-size: 17px;
+		border-radius: 5px;
+	}
+	#region_on button{
+		margin-right: 5px;
+		border-radius: 5px;
+		background-color: white;
+	}
+ 	#region_on button:hover{
+ 		border: 2px solid #3E2723;
+ 		font-weight: bold;
+ 		
+ 	}
