@@ -60,7 +60,9 @@ public interface IBoard_Dao {
 
 	AnimalPart_VO selectAnimalPart(String part_code);
 
-
+	public List<QuestBoard_VO> selectUsersBoard(String qst_id);
+	
+	public List<QuestBoard_VO> selectFastBoard(String qst_id);
 
 
 

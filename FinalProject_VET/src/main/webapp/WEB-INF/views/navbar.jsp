@@ -14,22 +14,27 @@
 		</button>
 		<div class="dropdown-container">
 		</div>
+		
 		<button class="dropdown-btn">
 			진료문의 내역<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
-			<a onclick="#">1</a>
+			<a onclick="location.href='./selectUsersBoard.do'">일반문의</a>
+			<a onclick="location.href='./selectFastBoard.do'">빠른문의</a>
 		</div>
+		
 		<button class="dropdown-btn" onclick="location.href='./selectAllSchedule.do'">
 			일정관리
 		</button>
 		<div class="dropdown-container">
 		</div>
+		
 		<button class="dropdown-btn" onclick="location.href='./resrv_recordList.do?resrv_userid=${sessionScope.loginVo.users_id}'">
 			예약내역
 		</button>
 		<div class="dropdown-container">
 		</div>
+		
 		<button class="dropdown-btn" >
 			결제 및 포인트<i class="fa fa-caret-down"></i>
 		</button>
@@ -37,24 +42,28 @@
 			<a onclick="location.href='./selectAllPayment.do'">결제내역</a>
 			<a onclick="location.href='./selectPntList.do'">포인트내역</a>
 		</div>
+		
 		<button class="dropdown-btn">
 			즐겨찾기<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
 			<a onclick="#">1</a>
 		</div>
+		
 		<button class="dropdown-btn">
 			내 정보관리<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
-			<a onclick="#">1</a>
+			<a onclick="location.href='./selectOneDetail.do'">조회 및 수정</a>
 		</div>
-		<button class="dropdown-btn">
-			채팅<i class="fa fa-caret-down"></i>
-		</button>
-		<div class="dropdown-container">
-			<a onclick="#">1</a>
-		</div>
+		
+<!-- 		<button class="dropdown-btn"> -->
+<!-- 			채팅<i class="fa fa-caret-down"></i> -->
+<!-- 		</button> -->
+<!-- 		<div class="dropdown-container"> -->
+<!-- 			<a onclick="#">1</a> -->
+<!-- 		</div> -->
+		
 	</div>
 </body>
 <script type="text/javascript">

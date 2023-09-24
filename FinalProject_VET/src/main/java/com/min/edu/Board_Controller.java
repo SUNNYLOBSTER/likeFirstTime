@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.min.edu.model.service.IBoard_Service;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.vo.QuestBoard_VO;
@@ -173,6 +174,28 @@ public class Board_Controller {
 		model.addAttribute("qst_content", unescapedContent);
 		
 		return "qst_questDetail";
+	}
+	
+	@GetMapping(value="/selectUsersBoard.do")
+	public String selectUsersBoard(HttpSession session, Model model) {
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String qst_id = loginVo.getUsers_id();
+		
+		List<QuestBoard_VO> lists = service.selectUsersBoard(qst_id);
+		model.addAttribute("lists",lists);		
+		return "qst_oneUsersRegular";
+	}
+	
+	@GetMapping(value = "/selectFastBoard.do")
+	public String selectFastBoard(HttpSession session, Model model) {
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String qst_id = loginVo.getUsers_id();
+		
+		List<QuestBoard_VO> lists = service.selectFastBoard(qst_id);
+		model.addAttribute("lists",lists);		
+		
+		return "qst_oneUsersFast";
 	}
 		
 }

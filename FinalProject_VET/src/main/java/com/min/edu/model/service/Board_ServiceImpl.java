@@ -152,6 +152,16 @@ public class Board_ServiceImpl implements IBoard_Service {
 		return dao.selectQuestUsers(map);
 	}
 
+	@Override
+	public List<QuestBoard_VO> selectUsersBoard(String qst_id) {
+		return dao.selectUsersBoard(qst_id);
+	}
+
+	@Override
+	public List<QuestBoard_VO> selectFastBoard(String qst_id) {
+		return dao.selectFastBoard(qst_id);
+	}
+
 
 	
 	

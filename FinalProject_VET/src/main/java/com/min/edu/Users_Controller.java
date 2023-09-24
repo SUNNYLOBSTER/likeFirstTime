@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Users_VO;
@@ -341,6 +342,16 @@ public class Users_Controller {
 		
 	}
 
-
+	//일반사용자의 마이페이지 -> 내정보관리 -> 조회 및 수정 화면 이동
+	@GetMapping(value = "/selectOneDetail.do")
+	public String selectOneDetail(HttpSession session, Model model) {
+		log.info("&&&&& Users_Controller 회원 상세정보 페이지로 이동&&&&&");
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String users_id = loginVo.getUsers_id();
+		List<Users_VO> lists = service.selectUserDetail(users_id);
+		model.addAttribute("lists",lists);
+		
+		return "Users_detail";
+	}
 }
 
