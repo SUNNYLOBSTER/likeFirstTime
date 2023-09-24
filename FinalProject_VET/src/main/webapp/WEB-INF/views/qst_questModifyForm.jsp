@@ -7,6 +7,6 @@
 <title>게시글 수정 화면</title>
 </head>
 <body>
-ㄴ
+
 </body>
 </html>
