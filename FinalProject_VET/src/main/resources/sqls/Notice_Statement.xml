@@ -3,7 +3,7 @@
 <mapper namespace="com.min.edu.model.mapper.Notice_DaoImpl">
 
 <select id="selectNotice" resultType="com.min.edu.vo.NoticeBoard_VO">
-	SELECT NOTI_SEQ, NOTI_TITLE, NOTI_ID,NOTI_REGDATE 
+	SELECT NOTI_SEQ, NOTI_TITLE, NOTI_ID,NOTI_REGDATE, NOTI_DELFLAG
 	FROM NOTICEBOARD n
 	WHERE NOTI_DELFLAG = 'N'
 	ORDER BY NOTI_REGDATE DESC
@@ -39,10 +39,7 @@
 <delete id="deleteNotice">
 	UPDATE NOTICEBOARD SET NOTI_DELFLAG='Y'
 		WHERE NOTI_DELFLAG = 'N'
-		AND NOTI_SEQ IN
-		<foreach collection="noti_seqs" item="noti_seq" open="(" separator="," close=")">
-		#{noti_seq}
-		</foreach>
+		AND NOTI_SEQ = #{noti_seq}
 </delete>
 
 </mapper>

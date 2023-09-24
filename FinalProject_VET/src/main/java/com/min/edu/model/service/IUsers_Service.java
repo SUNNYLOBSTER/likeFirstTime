@@ -43,6 +43,8 @@ public interface IUsers_Service {
 	//회원 탈퇴
 	public int resignUser(Users_VO uVo);
 		
+	//회원정보수정(일반사용자)
+	public int updateUser(Users_VO uVo);
 		
 		
 }

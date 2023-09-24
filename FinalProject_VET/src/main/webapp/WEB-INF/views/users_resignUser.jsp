@@ -38,7 +38,6 @@
 </head>
 <%@ include file="./header.jsp" %>
 <body>
-	${loginVo}
 
 	<div class="container">
 	<h2>정말로 탈퇴하시겠습니까?</h2>

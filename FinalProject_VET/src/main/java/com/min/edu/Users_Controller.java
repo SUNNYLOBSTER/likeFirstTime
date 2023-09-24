@@ -25,6 +25,8 @@ import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
+import retrofit2.http.GET;
 
 @Controller
 @Slf4j
@@ -343,15 +345,102 @@ public class Users_Controller {
 	}
 
 	//일반사용자의 마이페이지 -> 내정보관리 -> 조회 및 수정 화면 이동
+	//loginVo가 null일 때 로그인 요청하는 기능 추가
 	@GetMapping(value = "/selectOneDetail.do")
-	public String selectOneDetail(HttpSession session, Model model) {
+	public String selectOneDetail(HttpSession session, Model model, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Users_Controller 회원 상세정보 페이지로 이동&&&&&");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		
+		if(loginVo != null) {
 		String users_id = loginVo.getUsers_id();
 		List<Users_VO> lists = service.selectUserDetail(users_id);
 		model.addAttribute("lists",lists);
 		
 		return "Users_detail";
+		
+		} else {
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='./loginForm.do';</script>");
+			out.flush();
+			return null;
+			
+		}
+	}
+	
+	//회원정보수정(일반사용자) 페이지 이동
+	@GetMapping(path = "/updateUser.do")
+	public String updateUserPage(HttpSession session, Model model,
+								 HttpServletResponse response) throws IOException {
+		log.info("&&&&& Users_Controller 회원 정보 수정 페이지로 이동 {} {} &&&&&", session, model);
+		response.setContentType("text/html; charset=UTF-8");
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		
+		if(loginVo != null) {
+		session.setAttribute("loginVo", loginVo);
+
+		String users_id = loginVo.getUsers_id();
+		List<Users_VO> lists = service.selectUserDetail(users_id);
+		model.addAttribute("lists", lists);
+		
+		return "users_updateUser";
+		
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='./loginForm.do';</script>");
+			out.flush();
+			return null;
+		}
+		
+	}
+	
+	//회원정보수정(일반사용자)
+	@PostMapping(path = "/updateUser.do")
+	@ResponseBody
+	public String updateUser(@RequestParam Map<String, Object> map, HttpSession session, Model model,
+							 HttpServletResponse response) throws IOException {
+		log.info("&&&&& Users_Controller 회원 정보 수정 서비스 실행 {} &&&&&");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		Users_VO uVo = new Users_VO();
+		
+		if(loginVo != null) {
+		
+			uVo.setUsers_name((String)map.get("users_name")); 
+			uVo.setUsers_tel((String)map.get("users_tel")); 
+			uVo.setUsers_addr((String)map.get("users_addr"));
+			uVo.setUsers_subtel((String)map.get("users_subtel"));
+			
+			uVo.setUsers_id((String)map.get("users_id"));			
+			
+			int n = service.updateUser(uVo);
+			
+			if(n == 1) {
+				
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('수정 완료되었습니다.');location.href='./selectOneDetail.do';</script>");
+				out.flush();
+				return null;
+				
+			} else {
+				
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('잘못된 정보를 입력하셨습니다. 다시 입력해주세요.');location.href='./updateUser.do';</script>");
+				out.flush();
+				return null;
+			}
+		
+		} else { 	
+		
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='./loginForm.do';</script>");
+			out.flush();
+			return null;
+			
+		}
 	}
 }
 

@@ -18,20 +18,16 @@
 		<table>
 			<thead>
 				<tr>
-				<c:if test="${loginVo.users_auth eq 'A'}">
-				<th>글 수정 버튼</th>
-				</c:if>
 				<th>번호</th>
 				<th>작성자</th>
 				<th>제목</th>
 				<th>작성일자</th>
-				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="list" items="${noticeLists}" varStatus="vs">
 					<tr>
 						<td>${vs.count}</td>
-						<td><a href="./selectNoticeDetail.do?noti_title=${list.noti_title}">${list.noti_title}</a></td>
+						<td><a href="./noticeDetail.do?noti_seq=${list.noti_seq}">${list.noti_title}</a></td>
 						<td>관리자</td>
 						<td>${list.noti_regdate}</td>
 					</tr>
@@ -39,7 +35,6 @@
 			</tbody>
 		</table>
 	</div>
-
 
 
 
