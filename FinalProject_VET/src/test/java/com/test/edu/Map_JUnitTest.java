@@ -2,7 +2,9 @@ package com.test.edu;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.min.edu.model.service.IMap_Service;
 import com.min.edu.vo.AnimalConn_VO;
+import com.min.edu.vo.MapRegion_VO;
 import com.min.edu.vo.MediConn_VO;
+import com.min.edu.vo.NationwideHospital_VO;
 import com.min.edu.vo.Users_VO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,12 +40,6 @@ public class Map_JUnitTest {
 		assertNotNull(lists);
 	}
 	
-//	@Test
-	public void map_hospDetailTest() {
-		Users_VO uvo = service.map_hospDetail("광명시 철산동 634");
-		System.out.println(uvo);
-		assertNotNull(uvo);
-	}
 	
 //	@Test
 	public void hosp_detailTest() {
@@ -67,4 +65,31 @@ public class Map_JUnitTest {
 		assertNotNull(hosp_id);
 	}
 	
+//	@Test
+	public void map_SidoTest() {
+		List<MapRegion_VO> lists = service.map_Sido();
+		System.out.println(lists);
+		assertNotNull(lists);
+		
+	}
+	
+//	@Test
+	public void map_SiGunGuTest() {
+		List<MapRegion_VO> lists = service.map_SiGunGu("충청북도");
+		System.out.println(lists);
+		assertNotNull(lists);
+	}
+	
+	@Test
+	public void map_RegionDataTest() {
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("si_do", "인천광역시");
+			put("si_gun_gu", "미추홀구");
+		}};
+		List<NationwideHospital_VO> hospLists = service.map_RegionData(map);
+		for (int i = 0; i < hospLists.size(); i++) {
+			System.out.println("#####"+hospLists.get(i));
+		}
+		assertNotNull(hospLists);
+	}
 }

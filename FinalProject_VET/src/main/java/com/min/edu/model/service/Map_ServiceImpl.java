@@ -1,13 +1,16 @@
 package com.min.edu.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.min.edu.model.mapper.IMap_Dao;
 import com.min.edu.vo.AnimalConn_VO;
+import com.min.edu.vo.MapRegion_VO;
 import com.min.edu.vo.MediConn_VO;
+import com.min.edu.vo.NationwideHospital_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +29,6 @@ public class Map_ServiceImpl implements IMap_Service {
 		return dao.hosp_user(auth);
 	}
 
-	@Override
-	public Users_VO map_hospDetail(String address) {
-		log.info("&&&&& Map_ServiceImpl map_hospDetail &&&&&");
-		log.info("&&&&& 전달된 파라미터 값 : {} &&&&&",address);
-		return dao.map_hospDetail(address);
-	}
 
 	@Override
 	public Users_VO hosp_detail(String users_id) {
@@ -59,6 +56,27 @@ public class Map_ServiceImpl implements IMap_Service {
 		log.info("&&&&& Map_ServiceImpl map_reqAddr &&&&&");
 		log.info("&&&&& 전달된 파라미터 값 : {} &&&&&",addr);
 		return dao.map_reqAddr(addr);
+	}
+
+	@Override
+	public List<MapRegion_VO> map_Sido() {
+		log.info("&&&&& Map_ServiceImpl map_Sido &&&&&");
+		return dao.map_Sido();
+	}
+
+	@Override
+	public List<MapRegion_VO> map_SiGunGu(String si_do) {
+		log.info("&&&&& Map_ServiceImpl map_SiGunGu &&&&&");
+		log.info("&&&&& 전달된 파라미터 값 : {} &&&&&",si_do);
+		return dao.map_SiGunGu(si_do);
+	}
+
+
+	@Override
+	public List<NationwideHospital_VO> map_RegionData(Map<String, Object> map) {
+		log.info("&&&&& Map_ServiceImpl map_RegionData &&&&&");
+		log.info("&&&&& 전달된 파라미터 값 : {} &&&&&",map);
+		return dao.map_RegionData(map);
 	}
 
 	
