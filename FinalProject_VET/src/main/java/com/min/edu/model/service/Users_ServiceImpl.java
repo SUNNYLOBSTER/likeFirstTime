@@ -97,5 +97,10 @@ public class Users_ServiceImpl implements IUsers_Service {
 		return dao.resignUser(uVo);
 	}
 	
+	@Override
+	public int updateUser(Users_VO uVo) {
+		log.info("&&&&& Users_ServiceImpl updateUser 회원정보수정(일반사용자) : {} &&&&&", uVo);
+		return dao.updateUser(uVo);
+	}
 	
 }

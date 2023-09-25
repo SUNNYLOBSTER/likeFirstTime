@@ -22,7 +22,7 @@ public class Notice_JUnitTest {
 	@Autowired
 	private INotice_Service service;
 	
-//	@Test
+	@Test
 	public void test() {
 //		List<NoticeBoard_VO> lists = service.selectNotice();
 
@@ -37,12 +37,11 @@ public class Notice_JUnitTest {
 //		nVo.setNoti_title("공지사항5 수정수정");
 //		nVo.setNoti_content("수정수정수정수정");
 	
-		Map<String, String[]> map = new HashMap<String, String[]>();
-		map.put("noti_seqs", new String[] {"N1", "N2"});
-		int n = service.deleteNotice(map);
+		String noti_seq = "N1";
+		int n = service.deleteNotice(noti_seq);
 				
 //		assertNotNull(nVo);
-		assertEquals("삭제성공", 2, n, 0);
+		assertEquals("삭제성공", 1, n, 0);
 		
 	}
 

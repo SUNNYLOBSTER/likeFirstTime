@@ -204,4 +204,13 @@ INSERT INTO HOSPITAL
 		SET USERS_STATUS='Y'
 		WHERE USERS_ID=#{users_id} AND USERS_PW = #{users_pw}
 </update>
+
+<!-- 회원정보수정(일반사용자) -->
+<update id="updateUser">
+	UPDATE USERSINFO
+		SET USERS_NAME=#{users_name}, USERS_TEL=#{users_tel}, USERS_ADDR=#{users_addr}, USERS_SUBTEL=#{users_subtel}
+		WHERE USERS_ID=#{users_id}
+</update>
+
+
 </mapper>

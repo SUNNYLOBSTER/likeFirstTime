@@ -49,9 +49,9 @@ public class Notice_ServiceImpl implements INotice_Service {
 	}
 
 	@Override
-	public int deleteNotice(Map<String, String[]> notiMap) {
+	public int deleteNotice(String noti_seq) {
 		log.info("&&&&& Users_ServiceImpl deleteNotice &&&&&");
-		return dao.deleteNotice(notiMap);
+		return dao.deleteNotice(noti_seq);
 	}
 
 }

@@ -43,8 +43,8 @@ public class Notice_DaoImpl implements INotice_Dao {
 	}
 
 	@Override
-	public int deleteNotice(Map<String, String[]> notiMap) {
-		return sqlSession.delete(NS+"deleteNotice", notiMap);
+	public int deleteNotice(String noti_seq) {
+		return sqlSession.delete(NS+"deleteNotice", noti_seq);
 	}
 
 }

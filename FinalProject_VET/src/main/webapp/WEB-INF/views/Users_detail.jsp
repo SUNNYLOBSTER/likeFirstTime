@@ -42,7 +42,7 @@
 		</table>
 		
 		<hr>
-		
+		<input type="button" value="회원정보수정" onclick="location.href='./updateUser.do'">
 		<input type="button" id="fixButton" value="회원탈퇴" onclick="location.href='./resignUser.do'">
 	</div>
 </body>

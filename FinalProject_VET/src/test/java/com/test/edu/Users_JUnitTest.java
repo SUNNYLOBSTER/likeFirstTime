@@ -23,7 +23,7 @@ public class Users_JUnitTest {
 	@Autowired
 	private IUsers_Service service;
 	
-//	@Test
+	@Test
 	public void test() {
 
 //		List<Users_VO> lists = service.selectAllUsers();
@@ -76,11 +76,20 @@ public class Users_JUnitTest {
 //		map.put("hosp_mng", "G");
 		
 		Users_VO vo = new Users_VO();
-		vo.setUsers_id("sana1@naver.com");
-		vo.setUsers_pw("1234");
+//		vo.setUsers_id("sana1@naver.com");
+//		vo.setUsers_pw("1234");
 		
-		int n = service.resignUser(vo);
+		vo.setUsers_name("박엘사");
+		vo.setUsers_tel("0318268826");
+		vo.setUsers_addr("");
+		vo.setUsers_subtel("");
+		vo.setUsers_id("sarang@gmail.com");
+		
+		int n = service.updateUser(vo);
 		assertEquals(1, n);
+		
+		
+		
 		
 	}
 

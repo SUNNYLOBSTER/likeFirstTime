@@ -23,5 +23,5 @@ public interface INotice_Service {
 	public int modifyNotice(NoticeBoard_VO nVo);
 	
 	//공지 삭제
-	public int deleteNotice(Map<String, String[]> notiMap);
+	public int deleteNotice(String noti_seq);
 }
