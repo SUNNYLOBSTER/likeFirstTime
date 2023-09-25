@@ -104,7 +104,7 @@
 	<select id="map_RegionData" resultType="com.min.edu.vo.NationwideHospital_VO">
 		SELECT 소재지전체주소 , 사업장명
 			FROM HOSPITAL_DATA hd 
-			WHERE 도로명전체주소 LIKE #{si_do} || '%' || #{si_gun_gu} || '%'
+			WHERE 도로명전체주소 LIKE #{si_do} || ' ' || #{si_gun_gu} || '%'
 	</select>
 	
 </mapper>

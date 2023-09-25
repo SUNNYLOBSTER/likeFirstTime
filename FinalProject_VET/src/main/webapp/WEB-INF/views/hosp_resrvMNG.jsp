@@ -43,7 +43,67 @@
 	</div>
 	
 	<div class="navContainer">
-		<h1>${loginVo.users_name}</h1>
+		<h2 id="hosp_infoMNG">병원정보 관리</h2>
+		<div id="hosp_infomation">
+			<table id="hosp_detail">
+					<tr>
+						<th>병원이름</th>
+						<td id="hosp_name">${hosp_info.hospital_vo[0].hosp_name}</td>
+					</tr>
+					<tr>
+						<th>병원주소</th>
+						<td id="hosp_addr">${hosp_info.users_addr}</td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td>${hosp_info.users_tel}</td>
+					</tr>
+					<tr>
+						<th>운영시간</th>
+						<td id="hosp_runtime">${hosp_time.open}시 ~ ${hosp_time.close}시</td>
+					</tr>
+					<tr>
+						<th>휴무일</th>
+						<td>${hosp_info.hospital_vo[0].hosp_off}요일</td>
+					</tr>
+					<tr>
+						<th>진료과목</th>
+						<td>
+							<c:forEach var="medi" items="${medi_lists}">
+								<c:forEach var="name" items="${medi.medicode_vo}">
+									<b>${name.medi_name}</b>
+								</c:forEach>
+							</c:forEach>
+						</td>
+					</tr>
+					<tr>
+						<th>진료동물</th>
+						<td>
+							<c:forEach var="anm" items="${anm_lists}">
+								<c:forEach var="species" items="${anm.animalcode_vo}">
+									<b>${species.anm_species}</b>
+								</c:forEach>
+							</c:forEach>
+						</td>
+					</tr>
+					<tr>
+						<th>주차</th>
+						<c:choose>
+							<c:when test="${hosp_info.hospital_vo[0].hosp_park eq 'Y'}">
+								<td>가능</td>
+							</c:when>
+							<c:otherwise>
+								<td>불가</td>
+							</c:otherwise>
+						</c:choose>
+					</tr>
+					<tr>
+						<th>병원 소개</th>
+						<td id="hosp_etc">${hosp_info.hospital_vo[0].hosp_etc}</td>
+					</tr>
+				</table>
+		</div>
+		
 		<div id="calendar"></div>
 		<div id="month_cnt"></div>
 		<div id="waitList"></div>
