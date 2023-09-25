@@ -20,35 +20,29 @@
 <script type="text/javascript" src='./js/resrv_SideNav.js'></script>
 <body>
 
-		<div class="sidenav">
-			<button id="sideNav_1" class="dropdown-btn">
-				병원정보
-			</button>
-			<div class="dropdown-container">
-			</div>
-			<button class="dropdown-btn">
-				예약관리<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-container">
-				<a onclick="resrv_calendar()">예약현황</a>
-				<a onclick="month_count()">월별 예약건수</a>
-				<a onclick="resrv_wList()">예약승인 대기명단</a>
-			</div>
-			<button class="dropdown-btn">
-				진료문의 답글
-			</button>
-			<div class="dropdown-container">
-				<a onclick="#">1</a>
-			</div>
-			<button class="dropdown-btn">
-				채팅
-			</button>
-			<div class="dropdown-container">
-				<a onclick="#">1</a>
-			</div>
+	<div class="sidenav">
+		<button id="sideNav_1" class="dropdown-btn">
+			병원정보
+		</button>
+		<div class="dropdown-container">
 		</div>
+		<button class="dropdown-btn">
+			예약관리<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-container">
+			<a onclick="resrv_calendar()">예약현황</a>
+			<a onclick="month_count()">월별 예약건수</a>
+			<a onclick="resrv_wList()">예약승인 대기명단</a>
+		</div>
+		<button class="dropdown-btn">
+			진료문의 답글
+		</button>
+		<div class="dropdown-container">
+			<a onclick="#">1</a>
+		</div>
+	</div>
+	
 	<div class="navContainer">
-		<a href="./main.do">메인화면</a>
 		<h1>${loginVo.users_name}</h1>
 		<div id="calendar"></div>
 		<div id="month_cnt"></div>
