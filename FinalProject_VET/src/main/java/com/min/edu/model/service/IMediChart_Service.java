@@ -41,5 +41,5 @@ public interface IMediChart_Service {
 	
 	public String getDetail(String medi_num);
 	
-	public String createPdf(String medi_num);
+//	public String createPdf(String medi_num);
 }
