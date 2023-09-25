@@ -57,19 +57,19 @@ public class Users_Controller {
 				if(((String)loginVo.getUsers_auth()).equals("H")) {
 					PrintWriter out;
 					out = response.getWriter();
-					out.println("<script>alert('로그인 성공'); location.href='./resrv_Select.do';</script>");
+					out.println("<script>location.href='./resrv_Select.do';</script>");
 					out.flush();
 					return null;
 				}else if(((String)loginVo.getUsers_auth()).equals("A")){
 					PrintWriter out;
 					out = response.getWriter();
-					out.println("<script>alert('로그인 성공'); location.href='./adminPage.do';</script>");
+					out.println("<script>alert('관리자 계정입니다'); location.href='./adminPage.do';</script>");
 					out.flush();
 					return null;
 				}else {
 					PrintWriter out;
 					out = response.getWriter();
-					out.println("<script>alert('로그인 성공'); location.href='./main.do';</script>");
+					out.println("<script>location.href='./main.do';</script>");
 					out.flush();
 					return null;
 				}
@@ -373,7 +373,7 @@ public class Users_Controller {
 		List<Users_VO> lists = service.selectUserDetail(users_id);
 		model.addAttribute("lists",lists);
 		
-		return "Users_detail";
+		return "users_detail";
 		
 		} else {
 			

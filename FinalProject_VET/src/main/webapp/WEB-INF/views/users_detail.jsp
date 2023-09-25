@@ -5,16 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>내 정보 상세조회</title>
+<link rel="stylesheet" href="./css/chart_detail.css">
 </head>
 <body>
 <%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
-	${lists}
-	
-	<hr>
-	
 		<h3>내 정보</h3>
-		<table>
+		<table id="chartInfo">
 			<tr>
 				<th>ID</th>
 				<td>${lists[0].users_id}</td>
@@ -40,10 +37,10 @@
 				<td>${lists[0].users_subtel}</td>
 			</tr>
 		</table>
-		
-		<hr>
-		<input type="button" value="회원정보수정" onclick="location.href='./updateUser.do'">
-		<input type="button" id="fixButton" value="회원탈퇴" onclick="location.href='./resignUser.do'">
+		<div id="buttonPart">
+			<input type="submit" value="회원정보수정" onclick="location.href='./updateUser.do'">
+			<input type="submit" id="fixButton" value="회원탈퇴" onclick="location.href='./resignUser.do'">
+		</div>
 	</div>
 </body>
 <%@ include file="./footer.jsp" %>

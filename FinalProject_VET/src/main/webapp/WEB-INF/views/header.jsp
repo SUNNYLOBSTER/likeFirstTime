@@ -100,6 +100,7 @@
 		text-align: left;
 		cursor: pointer;
 		outline: none;
+		line-height: inherit;
 	}
 	
 	.dropdown-btn {
@@ -130,9 +131,24 @@
 		margin: 50px auto;
 	}
 	.fa-caret-down {
-    float: right;
-    padding-right: 8px;
+	    float: right;
+	    padding-right: 8px;
 	}
+	
+	.container button,input[type="submit"],input[type="button"]{
+		background-color: #D7CCC8;
+		width: 110px;
+		height: 20px;
+		border-radius: 5px;
+		border: none;
+		box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+		margin: 5px;
+	}
+	
+	.container button:hover,input[type="submit"]:hover,input[type="button"]:hover{
+		background-color:  #BCAAA4;
+	}
+	
 </style>
 </head>
 <body>
@@ -153,15 +169,15 @@
 					${loginVo.users_name}님 환영합니다
 				</span>
 				<c:if test="${loginVo.users_auth eq 'A' }">
-					<input type="button" id="fixButton" value="관리자 페이지" onclick="location.href='./adminPage.do'">
+					<input type="button" value="관리자 페이지" onclick="location.href='./adminPage.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'H' }">
-					<input type="button" id="fixButton" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
+					<input type="button" value="병원 마이페이지" onclick="location.href='./resrv_Select.do'">
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
-					<input type="button" id="fixButton" value="마이페이지" onclick="location.href='./userMyPage.do'">
+					<input type="button" value="마이페이지" onclick="location.href='./selectAllChart.do'">
 				</c:if>
-				<input type="button" id="fixButton" value="로그아웃" onclick="location.href='./logout.do'">
+				<input type="button" value="로그아웃" onclick="location.href='./logout.do'">
 				
 			</div>
 		</c:otherwise>

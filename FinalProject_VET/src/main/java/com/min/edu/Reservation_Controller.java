@@ -18,12 +18,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.min.edu.model.service.IMap_Service;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IReservation_Service;
 import com.min.edu.model.service.ISchedule_Service;
+import com.min.edu.vo.AnimalConn_VO;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
+import com.min.edu.vo.MediConn_VO;
 import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.ResrvList_VO;
 import com.min.edu.vo.SchedBoard_VO;
@@ -44,9 +51,35 @@ public class Reservation_Controller {
    @Autowired
    private ISchedule_Service sche_service;
    
+   @Autowired
+   private IMap_Service map_service;
+   
    @GetMapping(value = "/resrv_Select.do")
-   public String resrv_Select() {
-      log.info("&&&&& 병원관계자 로그인 -> 병원관리 페이지 이동 &&&&&");
+   public String resrv_Select(HttpSession session, Model model) throws JsonMappingException, JsonProcessingException {
+      log.info("&&&&& 병원관계자 로그인 -> 병원 마이페이지 이동 &&&&&");
+      log.info("&&&&& 병원정보 호출 &&&&&");
+      Users_VO user_info = (Users_VO)session.getAttribute("loginVo");
+      String user_id = user_info.getUsers_id();
+//      List<Hospital_VO> hosp_time = user_info.getHospital_vo();
+      Users_VO hosp_info = map_service.hosp_detail(user_id);
+//      System.out.println(hosp_info.getHospital_vo().get(0).getHosp_time());
+      String hosp_time = hosp_info.getHospital_vo().get(0).getHosp_time();
+      hosp_time = hosp_time.replaceAll(" ", "");
+//      Gson gson = new Gson();
+//      String json = gson.toJson(hosp_time.replaceAll(" ", ""));
+//      System.out.println(json);
+      
+      ObjectMapper objectMapper = new ObjectMapper();
+      TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
+      Map<String, Object> map =  objectMapper.readValue(hosp_time, typeReference);
+      System.out.println(map);
+      
+      model.addAttribute("hosp_time", map);
+      List<AnimalConn_VO> anm_lists = map_service.hosp_anm(user_id);
+      List<MediConn_VO> medi_lists = map_service.hosp_mediDept(user_id);
+      model.addAttribute("hosp_info", hosp_info);
+      model.addAttribute("anm_lists", anm_lists);
+      model.addAttribute("medi_lists", medi_lists);
       return "hosp_resrvMNG";
    }
    

@@ -288,11 +288,7 @@ public class MediChart_Controller {
 		
 		String ext = upload.getOriginalFilename().substring(upload.getOriginalFilename().lastIndexOf("."));
 		String saveName = UUID.randomUUID().toString().replace("-", "")+ext;
-		
-//		FileBoard_VO fvo = new FileBoard_VO();
-//		fvo.setF_originname(ext);
-//		fvo.setF_storedname(saveName);
-		
+
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
 		String path="";
@@ -307,12 +303,10 @@ public class MediChart_Controller {
 			if(!storage.exists()) {
 				storage.mkdir();
 			}
-			
 			File newFile = new File(path+"/"+saveName);
 			if(!newFile.exists()) {
 				newFile.createNewFile();
 			}
-			
 			outputStream = new FileOutputStream(newFile);
 			
 			int read = 0;
@@ -366,7 +360,6 @@ public class MediChart_Controller {
 		PetsInfo_VO pvo = service.selectOneChart(medi_num);
 		
 		try {
-        	
             Document document = new Document(); // pdf 문서를 처리하는 객체
             
             Date date = new Date(); 
@@ -374,8 +367,6 @@ public class MediChart_Controller {
             String format_date = formatter.format(date);
             
             String env= System.getenv("USERPROFILE");
-            
-//            System.out.println("전체 OS 환경변수 값 : "+ env); 
             
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(env+"/Downloads/진료기록_"+format_date+".pdf"));
             
@@ -433,7 +424,6 @@ public class MediChart_Controller {
             		text += m.group(i);
             	}
             }
-            
             Matcher m2 = p.matcher(text);
             
             //추출된 <p>태그 개수만큼 잘라 붙여서 내용 출력형태 만들기
@@ -530,8 +520,6 @@ public class MediChart_Controller {
 			model.addAttribute("url","selectAllChart.do");
 			return "alert";
 		}
-		
 	}
-	
 }
 
