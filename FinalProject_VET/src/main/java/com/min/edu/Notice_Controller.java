@@ -181,10 +181,12 @@ public class Notice_Controller {
 			}
 			
 		} else {
-			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('관리자만 접근이 가능한 페이지입니다.');location.href='./insertNotice.do';</script>");
+			out.flush();
+			return null;
 		}
 		
-		return "";
 	}
 	
 	//공지사항 삭제

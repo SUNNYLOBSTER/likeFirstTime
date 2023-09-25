@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
+<link rel="stylesheet" href="./css/noti_list.css">
 </head>
 <%@ include file="./header.jsp" %>
 <body>
@@ -15,14 +16,14 @@
 <%-- ${noticeLists} --%>
 <%-- ${loginVo} --%>
 	<div>
-		<table>
-			<thead>
+		<table id="chartInfo">
+<!-- 			<thead> -->
 				<tr>
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일자</th>
-			</thead>
+<!-- 			</thead> -->
 			<tbody>
 				<c:forEach var="list" items="${noticeLists}" varStatus="vs">
 					<tr>
@@ -32,18 +33,13 @@
 						<td>${list.noti_regdate}</td>
 					</tr>
 				</c:forEach>
+				
 			</tbody>
-			<tfoot>
-				<c:if test="${loginVo.users_auth eq 'A'}">
-					<button onclick="location.href='./insertNotice.do'">새 글 작성</button>
-				</c:if>
-			</tfoot>
 		</table>
+			<c:if test="${loginVo.users_auth eq 'A'}">
+				<button class="buttons" onclick="location.href='./insertNotice.do'">새 글 작성</button>
+			</c:if>
 	</div>
-
-
-
-
 </div>
 </body>
 <%@ include file="./footer.jsp" %>

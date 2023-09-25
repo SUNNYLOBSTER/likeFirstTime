@@ -110,24 +110,39 @@ public class Users_Controller {
 	
 	@GetMapping(path="/selectUserDetail.do")
 	public String selectUserDetail (@RequestParam("users_id") String id,
-									HttpSession session, Model model) {
+									HttpSession session, Model model,
+									HttpServletResponse response) throws IOException {
 		log.info("&&&&& Users_Controller 관리자페이지 -> 회원상세조회페이지 {} {} &&&&&", session.getAttribute("loginVo"));
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
 		
 		List<Users_VO> usersDetail = service.selectUserDetail(id);
 		Users_VO hospDetail = service.selectHospitalDetail(id);
 		
 		String auth = usersDetail.get(0).getUsers_auth();
 
-		if(auth.equals("A")||auth.equals("U")) {
-			model.addAttribute("usersDetail", usersDetail);
-			return null;
+		if(loginVo != null && loginVo.getUsers_auth().equals("A")) {
 		
-		} else if (auth.equals("A")||auth.equals("H")){
-			model.addAttribute("hospDetail", hospDetail);
+				if(auth.equals("A")||auth.equals("U")) {
+					model.addAttribute("usersDetail", usersDetail);
+					return "users_selectUserDetail";
+				
+				} else if (auth.equals("A")||auth.equals("H")){
+					model.addAttribute("hospDetail", hospDetail);
+					return "users_selectUserDetail";
+				}
+		
+				return "users_selectUserDetail";
+		
+		} else {
+
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('관리자만 접근할 수 있는 페이지입니다.');location.href='./loginForm.do';</script>");
+			out.flush();
 			return null;
 		}
-		return "users_selectUserDetail";
-			
+					
 	}
 	
 	@PostMapping(path="/adminPage.do", produces="application/text; charset=UTF-8;")
