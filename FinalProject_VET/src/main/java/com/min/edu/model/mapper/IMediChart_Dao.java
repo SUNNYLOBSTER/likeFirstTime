@@ -42,5 +42,4 @@ public interface IMediChart_Dao {
 	
 	public String getDetail(String medi_num);
 	
-//	public int fileUpload(FileBoard_VO fvo);
 }

@@ -19,7 +19,6 @@ public interface IMediChart_Service {
 	public int deletePet(int pet_seq);
 	
 	public String insertNewChart(MediChart_VO mvo);
-//	public String insertNewChart(MediChart_VO mvo, FileBoard_VO fvo);
 	
 	public List<PetsInfo_VO> selectAllChart(String pet_owner);
 	
@@ -41,5 +40,4 @@ public interface IMediChart_Service {
 	
 	public String getDetail(String medi_num);
 	
-//	public String createPdf(String medi_num);
 }

@@ -10,7 +10,11 @@
 <%@ include file="./navbar.jsp" %>
 	<div id="navContainer">
 		${lists}
-	<hr>
+		<c:choose>
+			<c:when test="${lists eq null}">
+				<p>진료문의 내역이 없습니다.</p>
+			</c:when>
+		</c:choose>		
 	</div>
 </body>
 <%@ include file="./footer.jsp" %>
