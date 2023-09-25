@@ -21,12 +21,12 @@
 <div id="searchArea">
 	<select id="aCode" name="qst_species">
 		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
-		<option value="D">개</option>
-		<option value="C">고양이</option>
-		<option value="R">파충류</option>
-		<option value="B">조류</option>
+		<option value="A">개</option>
+		<option value="B">고양이</option>
+		<option value="C">파충류</option>
+		<option value="D">조류</option>
 		<option value="F">어류</option>
-		<option value="O">기타</option>
+		<option value="Z">기타</option>
 	</select>
 	<select id="aPart" name="qst_part">
 		<option disabled="disabled" selected="selected" value="">--증상 부위--</option>
@@ -79,6 +79,7 @@
 							<td class="thumbnail"></td>
 							<td class="questId">${dto.users_vo[0].users_name}</td>
 							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
+							<td class="questCategory">${dto.animalpart_vo[0].part_name}</td>
 							<td class="questTitle">❔${dto.qst_title}(1)</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>

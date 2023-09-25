@@ -6,7 +6,7 @@
 }
 
 #calendar{
-	width: 900px;
+	width: 100%;
 	margin: 0px auto;
 }
 
@@ -116,3 +116,6 @@
 	margin: 20px auto;
 	text-align: center;
 }
+
+button, input, optgroup, select, textarea{
+	font-size: 13.3px;

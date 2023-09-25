@@ -98,11 +98,6 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 		return session.selectOne(NS+"searchMediName", medi_code);
 	}
 
-//	@Override
-//	public int fileUpload(FileBoard_VO fvo) {
-//		return session.insert(NS+"fileUpload",fvo);
-//	}
-
 	@Override
 	public String getDetail(String medi_num) {
 		return session.selectOne(NS+"getDetail", medi_num);

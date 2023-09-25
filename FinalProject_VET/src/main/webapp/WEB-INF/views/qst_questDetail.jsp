@@ -37,6 +37,7 @@
 			<a>${qstDetail[0].qst_content}</a>
 		</div>
 	</div>
+	<input type="submit" value="수정하기" style="display: none;">
 <hr>
 
 <!-- 답글영역 -->
@@ -49,7 +50,7 @@
 			<div class="card">
 				<table class="questTop">
 					<tr style="border-color:red; border-style: solid;">
-						<td class="questId"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
+						<td class="replyTitle"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
 						<td class="questDate">
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -66,15 +67,13 @@
 			<div class="card">
 				<table class="questTop">
 					<tr>
-						<td class="questId"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
-<%-- 				    	<td><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td> --%>
+						<td class="replyTitle"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
 						<td class="questDate">
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 							<c:if test="${not loop_flag }">
 								<button id="openModal" type="button" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
 							</c:if>
-<!-- 					    </td> -->
 					</tr>
 				</table>
 				<div class="questBottom">
@@ -92,7 +91,7 @@
     <div class="modal-content">
         <h3>채택하시겠습니까?</h3><span class="close">&times;</span>
         <p style="font-size: 8px; color: grey;">※ 채택은 취소할 수 없습니다.</p>
-    <button id="choiceModal" onclick="result()">네!</button>
+    <button id="choiceModal" onclick="result()">네</button>
     <button id="closeModal">아니오</button>
     </div>
 </div>
