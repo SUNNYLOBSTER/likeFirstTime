@@ -64,7 +64,7 @@
 }
 	
 .questTitle{
-	width: 540px; 
+	width: 590px; 
 	
 }
 
@@ -73,7 +73,10 @@
 	text-align: right;
 }
 
-
+.replyTitle{
+	width: 750px;
+	text-align: left;
+}
 
 
 
