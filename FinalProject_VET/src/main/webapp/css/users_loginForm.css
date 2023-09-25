@@ -1,6 +1,5 @@
 @charset "UTF-8";
 #loginForm input{
-	margin: 10px auto;
     border: 1px solid #293f3a;
     padding-left: 25px;
     width: 230px;
@@ -25,6 +24,7 @@
 	padding-right: 12px;
 }
 
-#naver_id_login{
-	
+#naver_id_login img{
+	margin-top:10px;
+	width: 100%;
 }

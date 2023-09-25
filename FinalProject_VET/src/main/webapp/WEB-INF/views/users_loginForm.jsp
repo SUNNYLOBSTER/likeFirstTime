@@ -32,7 +32,7 @@
 				<tr>
 					<td colspan="2">
 					<input type="submit" value="Login" id="Login"><br>
-					<div id="loginBottom">
+					<div id="">
 						<a href="./insertUsers.do">회원가입</a>
 						<a href="./findId.do">아이디 찾기</a>
 						<a href="./findPasword.do">비밀번호 찾기</a>
