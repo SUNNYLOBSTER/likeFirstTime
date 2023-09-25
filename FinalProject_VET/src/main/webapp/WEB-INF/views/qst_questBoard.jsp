@@ -43,10 +43,11 @@
 	</select>
 	<input id="searchBar" type="text" name="qst_content" placeholder="검색어를 입력하세요" >
 	<input id="searchSubmit" type="submit" value="검색" >
+	
+	<a style="border:solid; float:right;" href="./writeQuestForm.do">새 글 작성</a><br>
 </div>
 </form>
 <div id="contentArea">
-<a style="border:solid;" href="./writeQuestForm.do">새 글 작성</a><br>
 		<c:set var="loop_flag" value="false" />
 		<c:forEach var="dto" items="${questList}">
 		<c:choose>
