@@ -38,18 +38,16 @@ public class BookMark_Controller {
 		String bm_usersid = loginVo.getUsers_id();
 		
 		int cnt = service.countBookmark(bm_usersid);
+//		System.out.println("$$$$$$$$$$$$$북마크 개수 : "+cnt);
 		if(cnt < 3) {
 			BookMark_VO bvo = new BookMark_VO();
 			bvo.setBm_hospid(bm_hospid);
 			bvo.setBm_usersid(bm_usersid);
 			int n = service.insertNewBookmark(bvo);
 			return (n>0)?"true":"false";
-		}else {
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('즐겨찾기는 3개까지 등록가능합니다.');</script>");
-			out.flush();
+		}else{
+			return "false";
 		}
-		return null;
 	}
 	
 	@GetMapping(value = "/selectAllBookmark.do")

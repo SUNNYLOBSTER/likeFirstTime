@@ -19,8 +19,8 @@
 			<thead>
 				<tr>
 				<th>번호</th>
-				<th>작성자</th>
 				<th>제목</th>
+				<th>작성자</th>
 				<th>작성일자</th>
 			</thead>
 			<tbody>
@@ -33,6 +33,11 @@
 					</tr>
 				</c:forEach>
 			</tbody>
+			<tfoot>
+				<c:if test="${loginVo.users_auth eq 'A'}">
+					<button onclick="location.href='./insertNotice.do'">새 글 작성</button>
+				</c:if>
+			</tfoot>
 		</table>
 	</div>
 

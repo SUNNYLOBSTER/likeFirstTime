@@ -24,12 +24,12 @@
 		<form>
 		<table>
 			<tr>
-				<th>작성일</th>
-				<td>${noticeDetail.noti_regdate}</td>
+				<th>제목</th>
+				<td>${noticeDetail.noti_title}</td>
 			</tr>
 			<tr>
-				<th>글 제목</th>
-				<td>${noticeDetail.noti_title}</td>
+				<th>작성일</th>
+				<td>${noticeDetail.noti_regdate}</td>
 			</tr>
 			<tr>
 				<th>작성자</th>

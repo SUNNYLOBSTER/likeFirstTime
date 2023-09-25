@@ -30,7 +30,8 @@ $(document).ready(function() {
           map.setCenter(coords);
         }
       });
-  //수정!!!!!!!!!!!!!!!!!!!!!    
+
+	//북마크 등록 여부 판단   
   	var hosp_id = document.getElementById("hosp_id").value;
   	console.log(hosp_id);
       $.ajax({
@@ -44,14 +45,11 @@ $(document).ready(function() {
 			}else if(data =="false"){
 				$("#title button").attr('id','bookmarkPart_no');
 			}
-			
 		},
 		error:function(){
-			
 		}
 	});
-      
-    });
+  });
 //--------------------------------------------------------------------------------------------
 
 //console.log(hosp_name.innerHTML);
@@ -91,15 +89,19 @@ $(document).on("click","#title button",function(){
 					url:"./insertNewBookmark.do",
 					method:"post",
 					data:{"bm_hospid":hosp_id},
-					success:function(){
+					success:function(data){
 						console.log("등록성공");
-						$("#title button").attr('id','bookmarkPart_yes');
-						alert("즐겨찾기에 등록되었습니다.");
-						location.reload();
+						if(data == "true"){
+							$("#title button").attr('id','bookmarkPart_yes');
+							alert("즐겨찾기에 등록되었습니다.");
+							location.reload();
+						}else if(data == "false"){
+							alert("즐겨찾기는 3개까지 등록가능합니다.");
+							location.reload();
+						}
 					},
 					error:function(){
 						console.log("실패");
-						alert("즐겨찾기는 3개까지 등록가능합니다.");
 					}
 				});
 			}
