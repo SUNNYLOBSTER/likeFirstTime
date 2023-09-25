@@ -15,12 +15,9 @@
 </head>
 <body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
 <div id="container">
-
 	
 	<!--  내용 작성 -->
 	<textarea id="editor" name="replyContent" required></textarea>
-
-	
 	
 </div>
 </body>
@@ -28,4 +25,4 @@
 <script type="text/javascript" src="./js/ckeditor.js"></script>
 <%@ include file="./footer.jsp" %>
 <script type="text/javascript" src="./js/qst_writeReply.js"></script>
-</html>
+</html>	
