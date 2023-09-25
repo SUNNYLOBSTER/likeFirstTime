@@ -29,15 +29,15 @@ ${noticeDetail}
 				<td> &nbsp;&nbsp; <input type="text" name="noti_title" value="${noticeDetail.noti_title}" required="required"></td>
 			</tr>
 			<tr>
-			<th>작성자</th>
-				<td> &nbsp;&nbsp; <input type="text" value="작성자" readonly="readonly"></td>
-			</tr>
-			<tr>
 			<th>작성일</th>
 				<td> &nbsp;&nbsp; <input type="text" name="noti_regdate" value="${noticeDetail.noti_regdate}" readonly="readonly"></td>
 			</tr>
 			<tr>
-			<th>글 내용</th>
+			<th>작성자</th>
+				<td> &nbsp;&nbsp; <input type="text" value="작성자" readonly="readonly"></td>
+			</tr>
+			<tr>
+			<th>내용</th>
 				<td> &nbsp;&nbsp; <input type="text" name="noti_content" value="${noticeDetail.noti_content}" required="required"></td>
 			</tr>
 		</table>
@@ -47,4 +47,5 @@ ${noticeDetail}
 	</form>
 </div>
 </body>
+<%@ include file="./footer.jsp" %>
 </html>
