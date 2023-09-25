@@ -15,6 +15,7 @@ $(document).ready(function() {
 
       // 주소를 좌표로 변환
       var address = document.getElementById("hosp_addr").innerHTML;
+      console.log(address)
       var geocoder = new kakao.maps.services.Geocoder();
       geocoder.addressSearch(address, function(result, status) {
         if (status === kakao.maps.services.Status.OK) {

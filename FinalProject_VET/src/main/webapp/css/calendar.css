@@ -98,3 +98,21 @@
 	background-color: #BCAAA4;
 }
 
+#hosp_detail{
+	width: 100%;
+	margin-top: 50px;
+}
+#hosp_detail tr{
+	height: 50px;
+}
+#hosp_detail th{
+	width: 160px;
+}
+#hosp_detail td{
+	text-align: left;	
+	padding-left: 30px;
+}
+#hosp_infoMNG{
+	margin: 20px auto;
+	text-align: center;
+}
