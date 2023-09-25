@@ -66,19 +66,15 @@
 			<div class="card">
 				<table class="questTop">
 					<tr>
-
 						<td class="questId"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
-
-				    	<td><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
-					    <td style="width:600px;">${reply.rpy_content}</td>
-
-						<td>
+<%-- 				    	<td><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td> --%>
+						<td class="questDate">
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 							<c:if test="${not loop_flag }">
 								<button id="openModal" type="button" class="btn btn-primary" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
 							</c:if>
-					    </td>
+<!-- 					    </td> -->
 					</tr>
 				</table>
 				<div class="questBottom">

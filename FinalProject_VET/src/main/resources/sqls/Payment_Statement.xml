@@ -56,7 +56,7 @@
 		VALUES(#{pnt_id},(SELECT NVL(MAX(PNT_SEQ),0)+1 FROM POINT) , SYSDATE , -3000)
 </insert>
 
-<!-- 우선답변 포인트 차감 -->
+<!-- 빠른문의 포인트 차감 -->
 <insert id="usePntOnBoard">
 	INSERT INTO POINT
 		(PNT_ID, PNT_SEQ, PNT_DATE, PNT_POINT)

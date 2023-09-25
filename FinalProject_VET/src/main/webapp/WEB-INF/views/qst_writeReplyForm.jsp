@@ -19,8 +19,9 @@
 	
 	<!--  내용 작성 -->
 	<textarea id="editor" name="replyContent" required></textarea>
-	
 
+	
+	
 </div>
 </body>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>
