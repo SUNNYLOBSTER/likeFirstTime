@@ -148,12 +148,4 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		return dao.getDetail(medi_num);
 	}
 
-	
-//	@Override
-//	public String createPdf(String medi_num) {
-//		log.info("&&&&& MediChart_ServiceImpl createPdf &&&&&");
-//		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", medi_num);
-//		
-//	}
-
 }

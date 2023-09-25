@@ -38,7 +38,6 @@ public class BookMark_Controller {
 		String bm_usersid = loginVo.getUsers_id();
 		
 		int cnt = service.countBookmark(bm_usersid);
-//		System.out.println("$$$$$$$$$$$$$북마크 개수 : "+cnt);
 		if(cnt < 3) {
 			BookMark_VO bvo = new BookMark_VO();
 			bvo.setBm_hospid(bm_hospid);
@@ -64,15 +63,20 @@ public class BookMark_Controller {
 	public String bookMarkYorN(String bm_hospid, HttpSession session) {
 		log.info("&&&&& BookMark_Controller bookMarkYorN 전달받은 파라미터 값 : {} &&&&&", bm_hospid);
 		Users_VO loginVo= (Users_VO) session.getAttribute("loginVo");
-		String bm_usersid = loginVo.getUsers_id();
 		
-		@SuppressWarnings("serial")
-		Map<String, Object> map = new HashMap<String, Object>(){{
-			put("bm_usersid", bm_usersid);
-			put("bm_hospid", bm_hospid);
-		}};
-		int cnt = service.bookMarkYorN(map);
-		return (cnt>0)?"true":"false";
+		if(loginVo == null) {
+			return "redirect:/select_HospDetail.do?hosp_id="+bm_hospid;
+		}else {
+			String bm_usersid = loginVo.getUsers_id();
+			
+			@SuppressWarnings("serial")
+			Map<String, Object> map = new HashMap<String, Object>(){{
+				put("bm_usersid", bm_usersid);
+				put("bm_hospid", bm_hospid);
+			}};
+			int cnt = service.bookMarkYorN(map);
+			return (cnt>0)?"true":"false";
+		}
 	}
 	
 	@PostMapping(value = "/deleteBookmark.do")

@@ -26,9 +26,11 @@
 						<td id="map_table" rowspan="8">
 							<div class="insertMap">
 								<div id="title">
-									<c:if test="${sessionScope.loginVo.users_auth eq 'U'}">
-										<button id="bookmarkPart_no" value="${hosp_info.users_id}" style="border: none; background-color: white;"></button>
-									</c:if>
+									<c:choose>
+										<c:when test="${sessionScope.loginVo.users_auth eq 'U'}">
+											<button id="bookmarkPart_no" value="${hosp_info.users_id}" style="border: none; background-color: white;"></button>
+										</c:when>
+									</c:choose>
 								</div>
 								<div id="map-box">
 									<div id="map"></div>

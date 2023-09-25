@@ -9,17 +9,16 @@
 <script type="text/javascript" src="./js/payment_main.js"></script>
 <link rel="stylesheet" href="./css/payment_main.css">
 </head>
-<%@ include file="./header.jsp" %>
 <body>
-	<div id="container">
+<%@ include file="./navbar.jsp" %>
+	<div class="navContainer">
 		<div id="payment_info">
-			<p>
-				포인트를 구매하여 다양한 기능을 이용해보세요!<br>
-				<b>포인트 사용법</b><br>
-				첫번째, 진료 문의글 작성 시 빠른문의글을 등록할 수 있어요.<br>
-				전문가의 답변을 보다 빠르게 받아보세요.<br>
-				두번째, 동물병원 진료 예약시 예약금을 포인트로 결제할 수 있어요.  
-			</p>
+				<h2>포인트를 구매하여 다양한 기능을 이용해보세요!</h2><br>
+				<h3>포인트 사용법</h3><br>
+				<b>첫째</b>, 진료 문의글 작성 시 빠른문의글을 등록할 수 있어요.<br>
+				&emsp;&emsp;&emsp;전문가의 답변을 보다 빠르고 정확하게 받아보세요.<br>
+				<b>둘째</b>, 동물병원 진료 예약시 예약금을 포인트로 결제할 수 있어요.<br>
+				&emsp;&emsp;&emsp;홈페이지에서 쉽게 예약을 진행하고 확정받으세요.
 		</div>
 		<input type="hidden" value="${buyer_info.buyer_tel}" id="buyer_tel">
 		<input type="hidden" value="${buyer_info.buyer_addr}" id="buyer_addr">

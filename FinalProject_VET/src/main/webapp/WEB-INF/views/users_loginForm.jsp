@@ -7,31 +7,36 @@
 <title>로그인 페이지</title>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link rel="stylesheet" href="./css/users_loginForm.css">
 </head>
 <%@ include file="./header.jsp" %>
 <body>
 	<div id="container">
 		<div style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
 		<form action="./login.do" method="post">
-			<table>
+			<div id="title">
+				<img src="./img/circle_bottom.png">
+				<h2>로그인</h2>
+			</div>
+			<table id="loginForm">
 				<tr>
-					<th>아이디</th>
 					<td>
-						<input type="text" name="users_id" required="required">
+						<input type="text" name="users_id" required="required" placeholder="username">
 					</td>
 				</tr>
 				<tr>
-					<th>비밀번호</th>
 					<td>
-						<input type="password" name="users_pw" required="required">
+						<input type="password" name="users_pw" required="required" placeholder="password">
 					</td>
 				</tr>	
 				<tr>
 					<td colspan="2">
-					<input type="submit" value="로그인">
-					<input type="button" value="회원가입" onclick="location.href='./insertUsers.do'">
-					<input type="button" value="아이디 찾기" onclick="location.href='./findId.do'">
-					<input type="button" value="비밀번호 찾기" onclick="location.href='./findPasword.do'">
+					<input type="submit" value="Login" id="Login"><br>
+					<div id="loginBottom">
+						<a href="./insertUsers.do">회원가입</a>
+						<a href="./findId.do">아이디 찾기</a>
+						<a href="./findPasword.do">비밀번호 찾기</a>
+					</div>
 					<div id="naver_id_login" style="text-align: right; margin-top: 3px;"></div>
 					</td>
 				</tr>
