@@ -22,7 +22,7 @@ function month_count(){
 		success:function(data){
 			console.log(data.lists);
 			var html = "";
-				html += "<h2>월별 예약 건수</h2>";
+				html += "<h2 id='listname'>월별 예약 건수</h2>";
 //				html += "<table>";
 //				html += "	<tr>";
 //				html += "		<th>월</th>";
@@ -47,25 +47,39 @@ function month_count(){
 				console.log(monthList);
 				console.log(monthData);
 				
+//				const footer = (tooltipItems) => {
+				var monthAmount = [];
+				
+				for(let i=0; i<monthData.length; i++){
+					monthAmount.push(monthData[i]*3000);
+				}
+				console.log(monthAmount);
+					
+				
+				
+				
 				const ctx = document.getElementById('myChart').getContext('2d');
 				const myChart = new Chart(ctx, {
 					type: 'line',
 					data: {
 						labels: monthList,
 						datasets: [{
-							label:year+"년도 예약 건수",
+							label:year+"년도 예약 건수" ,
 							data: monthData,
 							borderColor:"#3E2723",
+//							fill:true,
+							backgroundColor:"rgba(239,235,233,0.7)",
+							pointBorderWidth: 2
 						}]
 					},
 	
 					options: {
-					  responsive: true,
-					  plugins: {
-						legend: {
+					   responsive: true,
+					   plugins: {
+					      legend: {
 						  display: true
-						}
-					  }
+						  }
+					   }
 					}
 				});
 			
@@ -89,6 +103,7 @@ function resrv_wList(){
 	waitList.style.display='block';
 	$("#hosp_infomation").hide();
 	$("#hosp_modifyArea").hide();
+	$("#listname").hide();
 	
 	$.ajax({
 		url:"./resrv_waitLists.do",
@@ -98,7 +113,7 @@ function resrv_wList(){
 		success:function(data){
 //			console.log(data[0]);
 			var html = "";
-				html += "<h2>예약대기 명단</h2>"
+				html += "<h2 id='listname'>예약대기 명단</h2>"
 				html += "<table>";
 				html += "	<tr>";
 				html += "		<th>예약번호</th>";
@@ -205,6 +220,7 @@ function hosp_info(){
 	$("#waitList").hide();
 	$("#hosp_infomation").show();
 	$("#hosp_modifyArea").show();
+	$("#listname").hide();
 }
 
 

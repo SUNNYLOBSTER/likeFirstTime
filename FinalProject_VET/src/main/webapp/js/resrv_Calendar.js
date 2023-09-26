@@ -8,7 +8,7 @@ function resrv_calendar(){
 	waitList.style.display='none';
 	$("#hosp_infomation").hide();
 	$("#hosp_modifyArea").hide();
-	
+	$("#listname").hide();
 
 	
 	$(function() {

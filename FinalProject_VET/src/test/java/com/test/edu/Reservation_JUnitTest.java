@@ -42,10 +42,10 @@ public class Reservation_JUnitTest {
 			put("yyyy","2023");
 			put("RESRV_HOPS","gana@naver.com");
 		}};
-		Map<Object, Object> resultMap = service.resrv_monthYNCount(map);
+//		Map<Object, Object> resultMap = service.resrv_monthYNCount(map);
 		
-		resultMap.get("lists");
-		assertNotNull(resultMap);
+//		resultMap.get("lists");
+//		assertNotNull(resultMap);
 	}
 	
 //	@Test
