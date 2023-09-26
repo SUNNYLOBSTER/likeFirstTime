@@ -98,7 +98,7 @@ public class Reservation_Controller {
       }};
       
       Map<Object, Object> resultMap = service.resrv_monthYNCount(map);
-      
+      System.out.println(resultMap.get("lists")); 
       return resultMap;
    }
    
