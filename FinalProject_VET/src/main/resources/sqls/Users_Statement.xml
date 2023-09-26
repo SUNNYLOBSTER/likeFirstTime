@@ -212,5 +212,11 @@ INSERT INTO HOSPITAL
 		WHERE USERS_ID=#{users_id}
 </update>
 
+<!-- 아이디 찾기 -->
+<select id="findId" resultType="com.min.edu.vo.Users_VO">
+	SELECT USERS_ID
+		FROM USERSINFO u
+		WHERE USERS_NAME = #{users_name} AND USERS_TEL = #{users_tel}
+</select>
 
 </mapper>

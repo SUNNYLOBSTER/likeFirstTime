@@ -34,8 +34,8 @@
 					<input type="submit" value="Login" id="Login"><br>
 					<div id="">
 						<a href="./insertUsers.do">회원가입</a>
-						<a href="./findId.do">아이디 찾기</a>
-						<a href="./findPasword.do">비밀번호 찾기</a>
+						<a href="#" onclick="findId()">아이디 찾기</a>
+						<a href="#" onclick="findPw()">비밀번호 찾기</a>
 					</div>
 					<div id="naver_id_login" style="text-align: right; margin-top: 3px;"></div>
 					</td>
@@ -69,6 +69,13 @@
         }
         
         
+        function findId(){
+        	window.open("./findIdWindow.do","_blank", "width:200px", "height:200px")
+        }
+        
+        function findPw(){
+        	window.open("./findPwWindow.do","_blank", "width:500px", "height:500px")
+        }
     </script>
     
     
