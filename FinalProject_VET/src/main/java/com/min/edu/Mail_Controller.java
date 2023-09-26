@@ -50,7 +50,6 @@ public class Mail_Controller {
 			e.printStackTrace();
 		}
 		
-		
 	}
 	
 	@PostMapping(path="/mailSend.do")

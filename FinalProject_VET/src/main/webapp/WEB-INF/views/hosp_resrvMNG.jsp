@@ -105,7 +105,7 @@
 				</table>
 		</div>
 		<div id="hosp_modifyArea">
-			<button id="hosp_modify" onclick="">정보수정</button>
+			<button id="hosp_modify" onclick="location.href='./updateHosp.do'">정보수정</button>
 		</div>
 		
 		<div id="calendar"></div>
