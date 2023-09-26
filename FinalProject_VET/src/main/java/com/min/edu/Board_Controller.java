@@ -234,13 +234,16 @@ public class Board_Controller {
 						out.println("<script>alert('로그인 후 작성 가능합니다');location.href='./loginForm.do';</script>");
 						out.flush();
 						return null;
-				
-		
 		
 //		return "qst_questModifyForm";
 	}
 	
-	
+//	@GetMapping(value = "/reportQuest.do")
+//	public String reportQuest() {
+//		
+//		return "";
+//	}
+//	
 	
 	
 //	페이징
