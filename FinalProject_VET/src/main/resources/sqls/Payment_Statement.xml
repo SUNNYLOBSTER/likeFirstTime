@@ -12,7 +12,7 @@
 
 <!-- 결제번호별 결제내역 상세조회 -->
 <select id="selectOnePayment" resultType="com.min.edu.vo.Payment_VO">
-	SELECT PAY_NUM, PAY_ID , PAY_AMOUNT , PAY_TIME , PAY_METHOD , PAY_STATUS , MERCHANT_UID
+	SELECT PAY_NUM, PAY_ID , PAY_AMOUNT , PAY_TIME , PAY_METHOD , PAY_STATUS , MERCHANT_UID, IMP_UID
 		FROM PAYMENT
 		WHERE PAY_NUM =#{pay_num}
 </select>
@@ -22,24 +22,24 @@
 	INSERT INTO PAYMENT
 		(PAY_NUM, 
 		PAY_ID, PAY_AMOUNT, PAY_TIME,
-		PAY_STATUS, PAY_METHOD, PAY_CODE, MERCHANT_UID)
+		PAY_STATUS, PAY_METHOD, PAY_CODE, MERCHANT_UID, IMP_UID)
 		VALUES('P'||TO_CHAR(SYSDATE,'YYMMDD')||(SELECT COUNT(PAY_NUM)+1 FROM PAYMENT p), 
 				#{pay_id}, #{pay_amount}, (SYSDATE) , 
-				'Y' , 'CARD' , #{pay_code},#{merchant_uid})
+				'Y' , 'CARD' , #{pay_code},#{merchant_uid},#{imp_uid})
 </insert>
 
 <!-- 결제 취소 상태 변경 -->
 <update id="canclePayment">
 	UPDATE PAYMENT
 		SET PAY_STATUS='C'
-		WHERE MERCHANT_UID=#{merchant_uid}
+		WHERE IMP_UID=#{imp_uid}
 </update>
 
 <!-- 결제고유번호로 결제정보 조회 -->
 <select id="searchMID" resultType="com.min.edu.vo.Payment_VO">
-	SELECT PAY_NUM, PAY_ID, PAY_AMOUNT, PAY_TIME, PAY_STATUS, PAY_METHOD, PAY_CODE, MERCHANT_UID
+	SELECT PAY_NUM, PAY_ID, PAY_AMOUNT, PAY_TIME, PAY_STATUS, PAY_METHOD, PAY_CODE, MERCHANT_UID, IMP_UID
 		FROM PAYMENT
-		WHERE MERCHANT_UID =#{merchant_uid}
+		WHERE IMP_UID =#{imp_uid}
 </select>
 
 <!-- 결제금액 or 환불금액 만큼 포인트 등록 -->

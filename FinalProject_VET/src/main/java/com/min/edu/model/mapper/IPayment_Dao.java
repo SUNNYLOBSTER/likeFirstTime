@@ -14,7 +14,7 @@ public interface IPayment_Dao {
 	
 	public int insertNewPayment(Map<String, Object> map);
 	
-	public int canclePayment(String pay_num);
+	public int canclePayment(String imp_uid);
 	
 	public int insertNewPnt(Map<String, Object> map);
 	
@@ -26,6 +26,6 @@ public interface IPayment_Dao {
 	
 	public List<Point_VO> selectPntList(String pnt_id);
 	
-	public Payment_VO searchMID(String merchant_uid);
+	public Payment_VO searchMID(String imp_uid);
 
 }

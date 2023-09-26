@@ -50,7 +50,7 @@
 					</c:choose>
 			</tr>
 		</table>
-		<button id="cacelpay" onclick="cancelPay(this.value)" value="${pvo.merchant_uid}">환불</button>
+		<button id="cacelpay" onclick="cancelPay(this.value)" value="${pvo.imp_uid}">환불</button>
 		<button id="cacelpay2" onclick="location.href='./selectAllPayment.do'">이전</button>
 	</div>
 </body>

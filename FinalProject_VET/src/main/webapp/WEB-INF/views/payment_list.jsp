@@ -23,7 +23,7 @@
 				<th>결제시간</th>
 				<th>결제방식</th>
 				<th>결제상태</th>
-				<th>환불</th>
+				<th>취소</th>
 				<th></th>
 			</tr>
 			<c:forEach var="list" items="${lists}">
@@ -37,7 +37,7 @@
 					<td>${list.pay_method}</td>
 					<c:choose>
 						<c:when test="${list.pay_status eq 'Y'}">
-							 <td>결제완료</td>
+							 <td>승인</td>
 							 <c:choose>
 							 	<c:when test="${(now.time - pay_date) / (1000 * 60 * 60 * 24) <= 3}">
 							 		<td><button class="selecteBtn">신청</button></td>
@@ -45,7 +45,7 @@
 							 </c:choose>
 						</c:when>
 						<c:when test="${list.pay_status eq 'C'}">
-							<td>환불완료</td>
+							<td>취소</td>
 						</c:when>
 					</c:choose>
 				</tr>

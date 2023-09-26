@@ -4,10 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,37 @@ public class Payment_Controller {
 	@Autowired
 	private IUsers_Service user_service;
 	
+	
+IamportClient client;
+	
+	public Payment_Controller() {
+		this.client = this.getTestClient();
+	}
+	
+	IamportClient getTestClient() {
+		
+		String test_api_key = "2602544483040872";
+		String test_api_secret = "A7knp2NqgAVHcjwhHoAqTSqldQsaDnByW7ShqoJPZYtQfXdlmRpeqJsLkQpubXKxzR2bSlXV8V0Q64tu";
+		return new IamportClient(test_api_key, test_api_secret);
+	}
+	
+	void getToken() {
+		try {
+			IamportResponse<AccessToken> auth_response = client.getAuth();
+			assertNotNull(auth_response.getResponse());
+			assertNotNull(auth_response.getResponse().getToken());
+			
+			System.out.println("get token : "+ auth_response.getResponse().getToken());
+		} catch (IamportResponseException e) {
+				System.out.println(e.getMessage());
+				switch (e.getHttpStatusCode()) {
+				case 401:  System.out.println("401");break;					
+				case 500 :  System.out.println("500");break;
+				}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@GetMapping(value = "/goPayment.do")
 	public String goPayment(HttpSession session, Model model) {
@@ -80,7 +114,9 @@ public class Payment_Controller {
 		int pay_amount = Integer.parseInt(amount);
 		String pay_code = (String) map.get("pay_code");
 		String merchant_uid = (String) map.get("merchant_uid");
-		System.out.println("**************"+merchant_uid);
+		String imp_uid = (String) map.get("imp_uid");
+		
+//		this.getToken();
 		
 		@SuppressWarnings("serial")
 		Map<String, Object> payMap = new HashMap<String, Object>(){{
@@ -88,6 +124,7 @@ public class Payment_Controller {
 			put("pay_amount", pay_amount);
 			put("pay_code",pay_code);
 			put("merchant_uid",merchant_uid);
+			put("imp_uid", imp_uid);
 		}};
 		
 		@SuppressWarnings("serial")
@@ -150,85 +187,48 @@ public class Payment_Controller {
 		return "payment_cancel";
 	}
 	
-	IamportClient client;
-	
-	public Payment_Controller() {
-		this.client = this.getTestClient();
-	}
-	
-	IamportClient getTestClient() {
-		
-		String test_api_key = "2602544483040872";
-		String test_api_secret = "A7knp2NqgAVHcjwhHoAqTSqldQsaDnByW7ShqoJPZYtQfXdlmRpeqJsLkQpubXKxzR2bSlXV8V0Q64tu";
-		return new IamportClient(test_api_key, test_api_secret);
-	}
-	
-	void getToken() {
-		try {
-			IamportResponse<AccessToken> auth_response = client.getAuth();
-			assertNotNull(auth_response.getResponse());
-			assertNotNull(auth_response.getResponse().getToken());
-			
-			System.out.println("get token : "+ auth_response.getResponse().getToken());
-		} catch (IamportResponseException e) {
-				System.out.println(e.getMessage());
-				switch (e.getHttpStatusCode()) {
-				case 401:  System.out.println("401");break;					
-				case 500 :  System.out.println("500");break;
-				}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 	@PostMapping(value = "/cancelPayment.do")
 	@ResponseBody
-	public String cancelPayment(String merchant_uid, String cancel_request_amount, String imp_uid, HttpSession session) throws IOException {
-		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {} {}&&&&&",merchant_uid,cancel_request_amount,imp_uid);
+	public String cancelPayment(String cancel_request_amount, String imp_uid, HttpSession session, HttpServletResponse response) throws IOException {
+		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {}&&&&&", cancel_request_amount, imp_uid);
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String pnt_id = loginVo.getUsers_id(); //결제자
 		int pnt_point = Integer.parseInt(cancel_request_amount)*(-1);
+		System.out.println("환불금액 : "+pnt_point);
 		
-		CancelData cancelData = new CancelData(merchant_uid, true); // merchant_uid 결제 고유번호
+		CancelData cancle_data = new CancelData(imp_uid, true);
 		
 		try {
-		    IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancelData);
-		    System.out.println(payment_response);
-
-		    Payment canceledPayment = payment_response.getResponse();
-		    if (canceledPayment != null) {
-		        System.out.println("환불 성공 : " + canceledPayment.getStatus());
-		        service.canclePayment(merchant_uid);
-		        @SuppressWarnings("serial")
-		        Map<String, Object> map = new HashMap<String, Object>(){{
-		            put("pnt_id", pnt_id);
-		            put("pnt_point", pnt_point);
-		        }};
-		        service.insertNewPnt(map);
-		    } else {
-		        System.out.println("환불 정보가 없습니다");
+		    IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancle_data);
+		    if(payment_response.getResponse() == null) {
+		    	System.out.println("이미 처리된 환불입니다");
+		    }else {
+		    	@SuppressWarnings("serial")
+				Map<String, Object> map = new HashMap<String, Object>(){{
+		    		put("pnt_id", pnt_id);
+		    		put("pnt_point", pnt_point);
+		    	}};
+		    	
+		    	int n = service.canclePayment(imp_uid);
+		    	int m = service.insertNewPnt(map);
+		    	
+		    	if((n>0)&&(m>0)) {
+		    		return "true";
+		    	}
 		    }
-		} catch (IamportResponseException e) {
-		    System.out.println("환불 실패");
-		    System.out.println(e.getMessage());
+		}catch (IamportResponseException e) {
+            System.out.println(e.getMessage());
 
-		    switch (e.getHttpStatusCode()) {
-		        case 401:
-		            break;
-		        case 500:
-		            break;
-		    }
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-
-		
-		return "redirect:/selectAllPayment.do";
-	}
-	
-	
-	
-	
+            switch (e.getHttpStatusCode()) {
+                case 401:
+                	System.out.println("401");break;
+                case 500:
+                	System.out.println("500");break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return "true";
+    }
 }

@@ -24,5 +24,6 @@ public class Payment_VO {
 	private String pay_method;
 	private String pay_code;
 	private String merchant_uid;
+	private String imp_uid;
 
 }

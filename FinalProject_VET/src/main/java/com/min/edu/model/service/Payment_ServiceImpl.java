@@ -53,10 +53,10 @@ public class Payment_ServiceImpl implements IPayment_Service {
 	}
 
 	@Override
-	public int canclePayment(String pay_num) {
+	public int canclePayment(String imp_uid) {
 		log.info("&&&&& Payment_ServiceImpl canclePayment &&&&&");
-		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", pay_num);
-		return dao.canclePayment(pay_num);
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", imp_uid);
+		return dao.canclePayment(imp_uid);
 	}
 
 	@Override
@@ -96,10 +96,10 @@ public class Payment_ServiceImpl implements IPayment_Service {
 	}
 
 	@Override
-	public Payment_VO searchMID(String merchant_uid) {
+	public Payment_VO searchMID(String imp_uid) {
 		log.info("&&&&& Payment_ServiceImpl searchMID &&&&&");
-		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", merchant_uid);
-		return dao.searchMID(merchant_uid);
+		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", imp_uid);
+		return dao.searchMID(imp_uid);
 	}
 
 	
