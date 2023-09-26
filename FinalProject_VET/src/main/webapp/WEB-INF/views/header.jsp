@@ -68,6 +68,7 @@
 		margin: 5px;
 		position: absolute;
 		z-index: 99;
+		margin-left: 20px;
 	}
 	
 	.loginArea {
@@ -143,7 +144,7 @@
 </head>
 <body>
 	<header>
-		<img alt="logo" src="./img/logo.png" id="logo" onclick="location.href='./main.do'">
+		<img alt="logo" src="./img/sample2.png" id="logo" onclick="location.href='./main.do'">
 		
 		<div class="header">
 		<c:choose>
