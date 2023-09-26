@@ -122,7 +122,6 @@
 		margin: 0px auto;
 		height: 900px;
  		padding-left: 220px; 
- 		padding-top: 30px;
 	}
 	
 	#sideNav_1{
@@ -136,19 +135,9 @@
 	    padding-right: 8px;
 	}
 	
-/* 	.container button,input[type="submit"],input[type="button"]{ */
-/* 		background-color: #D7CCC8; */
-/* 		width: 110px; */
-/* 		height: 20px; */
-/* 		border-radius: 5px; */
-/* 		border: none; */
-/* 		box-shadow: 1.5px 1.5px 1.5px 0 #3E2723; */
-/* 		margin: 5px; */
-/* 	} */
-	
-/* 	.container button:hover,input[type="submit"]:hover,input[type="button"]:hover{ */
-/* 		background-color:  #BCAAA4; */
-/* 	} */
+	#point:hover{
+		font-weight: bold;
+	}
 	
 </style>
 </head>
@@ -169,6 +158,11 @@
 				<span style="color: #3e2723; font-weight: bold;">
 					${loginVo.users_name}님 환영합니다
 				</span>
+				<c:if test="${loginVo.users_auth eq 'U'}">
+					<span>
+						&emsp;Point : <a href="./selectPntList.do" id="point">${point}</a>&nbsp;
+					</span>
+				</c:if>
 				<c:if test="${loginVo.users_auth eq 'A' }">
 					<button onclick="location.href='./adminPage.do'">관리자페이지</button>
 				</c:if>

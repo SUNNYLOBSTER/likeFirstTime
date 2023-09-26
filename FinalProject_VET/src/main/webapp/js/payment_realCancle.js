@@ -15,11 +15,15 @@ function cancelPay(val){
 			reason:"테스트 결제 환불",
 			imp_uid:imp_uid
 		},
-		dataType:"json",
 		success:function(data){
-				console.log("취소완료");
-				alert("결제가 취소되었습니다.");
-				location.href="./selectAllPayment.do";
+				console.log("결제취소", data);
+				if(data == "true"){
+					alert("결제가 취소되었습니다. 환불내역을 확인해주세요.");
+					location.href="./selectAllPayment.do";
+				}else if(data == "false"){
+					alert("포인트가 부족합니다. 결제 취소 요청이 거절되었습니다.");
+					location.href="./selectAllPayment.do";
+				}
 		},
 		error:function(){
 			location.href="./selectAllPayment.do";

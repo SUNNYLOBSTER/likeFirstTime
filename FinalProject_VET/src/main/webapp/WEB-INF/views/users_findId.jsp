@@ -19,7 +19,7 @@
 			data:{"users_name":users_name, "users_tel":users_tel},
 			success:function(data){
 				console.log("요청된 결과값 : ", data);
-				if(data==""){
+				if(data=="false"){
 					info.innerHTML = "해당 정보로 가입된 아이디를 찾을 수 없습니다.";
 				} else {
 					info.innerHTML = "회원님의 아이디는 ["+data+"] 입니다.";

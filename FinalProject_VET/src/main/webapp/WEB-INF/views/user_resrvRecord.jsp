@@ -14,7 +14,7 @@
 <body>
 	<%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
-		<h2>예약 내역</h2>
+		<h3 id="listname">예약 내역</h3>
 			<table class="resrv_record">
 				<tr>
 					<th>예약번호</th>

@@ -212,6 +212,13 @@ INSERT INTO HOSPITAL
 		WHERE USERS_ID=#{users_id}
 </update>
 
+<!-- 병원정보 수정 -->
+<update id="">
+	UPDATE PROJECT.HOSPITAL
+		SET HOSP_NAME=#{hosp_name}, HOSP_TIME=#{hosp_time}, HOSP_OFF=#{hosp_off}, HOSP_PARK=#{hosp_park}, HOSP_ETC=#{hosp_etc}
+		WHERE HOSP_ID=#{hosp_id}
+</update>
+
 <!-- 아이디 찾기 -->
 <select id="findId" resultType="com.min.edu.vo.Users_VO">
 	SELECT USERS_ID

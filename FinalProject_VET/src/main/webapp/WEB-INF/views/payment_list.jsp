@@ -15,7 +15,7 @@
 <body>
 <%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
-		<h2>결제내역</h2>
+		<h3 id="listname">결제내역</h3>
 		<table id="chartInfo">
 			<tr>
 				<th>결제번호</th>

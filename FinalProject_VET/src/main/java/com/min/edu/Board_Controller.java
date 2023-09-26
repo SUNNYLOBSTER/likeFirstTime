@@ -38,23 +38,29 @@ public class Board_Controller {
 	private IBoard_Service service;
 	
 	@GetMapping(value = "/questBoard.do")
-	public String questBoard(Model model) {
+	public String questBoard(HttpSession session, Model model) {
 		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
 		List<QuestBoard_VO> lists = service.selectQuest();
 		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		
 		
 		model.addAttribute("questList", lists);
-		
 		
 		return "qst_questBoard";
 	}
 	
 	@GetMapping(value = "/questDetail.do")
-	public String questDetail(String seq, Model model) {
+	public String questDetail(HttpSession session, String seq, Model model) {
 		log.info(seq);
 		log.info("&&&&& Board_Controller 실행 qst_questDetail 이동 &&&&&");
 		List<QuestBoard_VO> qstDetail = service.selectOneBoard(seq);
 		List<ReplyBoard_VO> rpyList = service.selectReply(seq);
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		
+//		String auth = session.get
+		
 		model.addAttribute("qstDetail", qstDetail);
 		model.addAttribute("rpyList", rpyList);
 		
@@ -200,6 +206,42 @@ public class Board_Controller {
 		
 		return "qst_oneUsersFast";
 	}
+	
+// 게시글 수정
+	@GetMapping(value = "/qst_writeQuest.do")
+	public String modifyQuest(String seq, HttpSession session, HttpServletResponse response) throws IOException {
+		log.info("&&&&& Board_Controller 게시글 수정 페이지  이동 &&&&&");
+//		QuestBoard_VO vo = 
+
+				response.setContentType("text/html; charset=UTF-8");
+		
+				Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+				
+						try {
+							if(loginVo != null) {
+								session.setAttribute("loginVo", loginVo);
+								session.setMaxInactiveInterval(1800);
+								
+								PrintWriter out;
+							out = response.getWriter();
+							out.flush();
+							return "qst_writeQuestForm";
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+					}
+						PrintWriter out = response.getWriter();
+						out.println("<script>alert('로그인 후 작성 가능합니다');location.href='./loginForm.do';</script>");
+						out.flush();
+						return null;
+				
+		
+		
+//		return "qst_questModifyForm";
+	}
+	
+	
+	
 	
 //	페이징
 //	@PostMapping(value = "/page.do")

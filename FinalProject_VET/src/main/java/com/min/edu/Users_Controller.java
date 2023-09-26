@@ -2,7 +2,6 @@ package com.min.edu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,19 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
+import com.min.edu.model.mapper.IPayment_Dao;
+import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
-import retrofit2.http.GET;
 
 @Controller
 @Slf4j
@@ -34,6 +31,9 @@ public class Users_Controller {
 
 	@Autowired
 	private IUsers_Service service;
+	
+	@Autowired
+	private IPayment_Service payment_service;
 	
 	@GetMapping(path = "/loginForm.do")
 	public String loginForm() {
@@ -52,6 +52,8 @@ public class Users_Controller {
 			
 			if(loginVo != null) {
 				session.setAttribute("loginVo", loginVo);
+				int point = payment_service.selectAllPnt((String)loginVo.getUsers_id());
+				session.setAttribute("point", point);
 				session.setMaxInactiveInterval(1800);
 				
 				if(((String)loginVo.getUsers_auth()).equals("H")) {
@@ -206,7 +208,7 @@ public class Users_Controller {
 	
 	@GetMapping(path = "/insertStepTwo.do")
 	public String insertStepTwo() {
-		log.info("&&&&& Users_Controller insertUsers->insertStepTwo 페이지 이동 &&&&&");
+		log.info("&&&&& Users_Controller insertUsers-> insertStepTwo 페이지 이동 &&&&&");
 		return "users_insertUsersStepTwo";
 	}
 	
@@ -480,9 +482,13 @@ public class Users_Controller {
 		System.out.println("이름 : " + users_name + " 전화번호 : " + users_tel);
 		
 		Users_VO vo = service.findId(uVo);
-		String users_id = vo.getUsers_id();
 		
-		return (users_id.equals(null))?"":users_id;
+		if(vo==null) {
+			return "false";
+		} else {
+			String users_id = vo.getUsers_id();
+			return users_id;
+		}
 	}
 	
 }

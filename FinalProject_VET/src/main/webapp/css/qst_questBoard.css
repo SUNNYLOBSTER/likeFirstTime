@@ -11,17 +11,36 @@
 /* 	margin: 10px 10px; */
 }
 
+#content
+
 #pagingArea {
 	height: 40px;
 /* 	padding: 10px 10px 10px 10px; */
 	margin: 10px 10px;
 }
 
-.card {
+.questCard{
+	padding: 15px 15px;
 	margin: 10px;
+	height: 300px;
 	background-color: #F5F1EF;
 	border-radius: 20px;
-	box-shadow: 8px 4px #BCAAA4;
+	box-shadow: 8px 6px #BCAAA4;
+}
+
+.card-chosen{
+	padding: 15px 15px;
+	margin-bottom: 30px;
+	background-color: #F5F1EF;
+	border-radius: 20px;
+	box-shadow: 8px 6px #900020;
+}
+.card {
+	padding: 15px 15px;
+	margin-bottom: 30px;
+	background-color: #F5F1EF;
+	border-radius: 20px;
+	box-shadow: 8px 6px #BCAAA4;
 }
 
 .blank{
@@ -34,7 +53,7 @@
 }
 .questBottom{
 	padding: 10px;
-	margin: 0px 10px;
+/* 	margin: 0px 10px; */
 	width: 900px;
 	overflow:hidden;
 	
@@ -55,7 +74,7 @@
 
 .questId{
 	width: 80px;
-	text-align: right;
+	text-align: center;
 }
 
 .questCategory{

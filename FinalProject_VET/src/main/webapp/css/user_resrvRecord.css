@@ -27,3 +27,9 @@
 #cancel{
 	width: 20px;
 }
+
+#listname{
+	margin-top: 0px;
+	padding-top: 30px;
+	text-align: center;
+}
