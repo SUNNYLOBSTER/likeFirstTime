@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.min.edu.model.service.IBoard_Service;
 import com.min.edu.model.service.IPayment_Service;
+import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
 import com.min.edu.vo.Users_VO;
@@ -41,7 +42,9 @@ public class Board_Controller {
 		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
 		List<QuestBoard_VO> lists = service.selectQuest();
 		
+		
 		model.addAttribute("questList", lists);
+		
 		
 		return "qst_questBoard";
 	}
@@ -161,7 +164,7 @@ public class Board_Controller {
 		return "redirect:/questBoard.do?seq="+quest;
 	}
 	
-//	게시글 작성 후 html태크 제거하여 출력
+//	게시글 작성 후 html태그 제거하여 출력
 	@GetMapping(value = "/afterWriteQuest.do")
 	public String selectOneBoard(String seq, Model model) {
 		log.info("&&&&& Board_Controller 글 작성 후 상세페이지 이동, selectOneBoard 전달받은 값 : {}  &&&&&", seq);
@@ -197,5 +200,47 @@ public class Board_Controller {
 		
 		return "qst_oneUsersFast";
 	}
+	
+//	페이징
+//	@PostMapping(value = "/page.do")
+//	public Map<String, Object> page(@RequestParam(name="page") int selectPage,
+//									HttpSession session,
+//									Model model){
+//		log.info("RestPageController 게시판 페이지 REST 처리를 위한 page.do : {}", selectPage);
+//		log.info("RestPageController page.do 에 Session 확인 : {}, {}", session.getAttribute("loginVo"), session.getAttribute("row"));
+//		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+//		Paging_VO pVo = (Paging_VO) session.getAttribute("row");
+//		
+//		// ---- 페이징 VO 객체 값 입력
+//		pVo.setTotalCount(service.getAllBoardCount(new HashMap<String, Object>(){{
+////			put("auth",loginVo.getAuth());
+//		}}));
+//		
+//		pVo.setCountList(5);
+//		pVo.setCountPage(5);
+//		pVo.setTotalPage(pVo.getTotalCount());
+//		pVo.setPage(selectPage);
+//		pVo.setStagePage(selectPage);
+//		pVo.setEndPage(pVo.getCountPage());
+//		
+//		// ---- 게시글의 페이징 처리된 리스트
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("first", pVo.getPage()*pVo.getCountList()-(pVo.getCountList()-1));
+//		map.put("last", pVo.getPage()*pVo.getCountList());
+////		map.put("auth", loginVo.getAuth()); 
+//		List<QuestBoard_VO> lists = service.getAllBoardPage(map);
+//		
+//		// 반환되는 JSON 객체로 변환이 가능한 Map을 생성
+//		Map<String, Object> result = new HashMap<String, Object>();
+//		result.put("lists", lists);
+//		result.put("row", pVo);
+//		result.put("memId", loginVo.getId());
+		
+//		return new HashMap<String, Object>(){{
+//			put("check","return value");
+//		}};
+//		return result;
+//	}
+	
 		
 }
