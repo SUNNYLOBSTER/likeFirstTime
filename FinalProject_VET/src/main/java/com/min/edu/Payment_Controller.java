@@ -102,7 +102,6 @@ IamportClient client;
 		
 		return "payment_main";
 	}
-
 	
 	@PostMapping(value = "/insertNewPayment.do")
 	@ResponseBody
@@ -115,8 +114,6 @@ IamportClient client;
 		String pay_code = (String) map.get("pay_code");
 		String merchant_uid = (String) map.get("merchant_uid");
 		String imp_uid = (String) map.get("imp_uid");
-		
-//		this.getToken();
 		
 		@SuppressWarnings("serial")
 		Map<String, Object> payMap = new HashMap<String, Object>(){{
@@ -191,44 +188,47 @@ IamportClient client;
 	@ResponseBody
 	public String cancelPayment(String cancel_request_amount, String imp_uid, HttpSession session, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Payment_Controller cancelPayment 전달받은 parameter값 : {} {}&&&&&", cancel_request_amount, imp_uid);
-		
+		String isc = "false";
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String pnt_id = loginVo.getUsers_id(); //결제자
+		int cancel_amount = Integer.parseInt(cancel_request_amount);
 		int pnt_point = Integer.parseInt(cancel_request_amount)*(-1);
 		System.out.println("환불금액 : "+pnt_point);
 		
-		CancelData cancle_data = new CancelData(imp_uid, true);
+		int users_point = service.selectAllPnt(pnt_id);
+		System.out.println("총 포인트:"+users_point);
 		
-		try {
-		    IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancle_data);
-		    if(payment_response.getResponse() == null) {
-		    	System.out.println("이미 처리된 환불입니다");
-		    }else {
-		    	@SuppressWarnings("serial")
-				Map<String, Object> map = new HashMap<String, Object>(){{
-		    		put("pnt_id", pnt_id);
-		    		put("pnt_point", pnt_point);
-		    	}};
-		    	
-		    	int n = service.canclePayment(imp_uid);
-		    	int m = service.insertNewPnt(map);
-		    	
-		    	if((n>0)&&(m>0)) {
-		    		return "true";
-		    	}
-		    }
-		}catch (IamportResponseException e) {
-            System.out.println(e.getMessage());
-
-            switch (e.getHttpStatusCode()) {
-                case 401:
-                	System.out.println("401");break;
-                case 500:
-                	System.out.println("500");break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		return "true";
+		if(users_point >= cancel_amount) {
+			
+			CancelData cancle_data = new CancelData(imp_uid, true);
+			try {
+				IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancle_data);
+				if(payment_response.getResponse() == null) {
+					System.out.println("이미 처리된 환불입니다");
+				}else {
+					@SuppressWarnings("serial")
+					Map<String, Object> map = new HashMap<String, Object>(){{
+						put("pnt_id", pnt_id);
+						put("pnt_point", pnt_point);
+					}};
+					
+					int n = service.canclePayment(imp_uid);
+					int m = service.insertNewPnt(map);
+					isc = ((n>0)&&(m>0))?"true":"false";
+				}
+			}catch (IamportResponseException e) {
+				System.out.println(e.getMessage());
+				
+				switch (e.getHttpStatusCode()) {
+				case 401:
+					System.out.println("401");break;
+				case 500:
+					System.out.println("500");break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return isc;
     }
 }

@@ -3,6 +3,8 @@
 	font-weight: bold;
 	margin-left: 340px;
 	margin-bottom: 30px;
+	margin-top: 0px;
+	padding-top: 30px;
 }
 
 .navContainer button{
@@ -20,7 +22,8 @@
 }
 
 #newChart{
-	margin-left: 300px;
+	float: right;
+	margin-right: 20px;
 }
 
 .selectPet{
@@ -77,4 +80,8 @@
 	margin: 0 auto;
 	font-size: 15px;
 	text-align: center;
+}
+
+#petsPart{
+	width: 80%;
 }

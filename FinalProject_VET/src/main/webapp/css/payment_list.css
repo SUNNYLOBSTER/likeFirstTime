@@ -26,7 +26,7 @@
 
 #chartInfo_point{
 	margin: 20px 80px;;
-	width: 50%;
+	width: 80%;
 	border-collapse: collapse;
 	border-radius: 3px;
 }
@@ -85,4 +85,14 @@
 
 #paymentBtn:hover{
 	background-color:  #BCAAA4;
+}
+
+#listname{
+	margin-top: 0px;
+	padding-top: 30px;
+	text-align: center;
+}
+
+#point_list{
+	padding-left: 100px;
 }
