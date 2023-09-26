@@ -118,6 +118,7 @@
 
 button, input, optgroup, select, textarea{
 	font-size: 13.3px;
+}
 
 #hosp_modify{
 	width: 100%;
@@ -128,6 +129,7 @@ button, input, optgroup, select, textarea{
 	font-size: 17px;
 	text-align: center;
 }
+
 #hosp_modify:hover{
 	cursor: pointer;
 	border: 2px solid #3E2723;
