@@ -8,8 +8,9 @@
 #calendar{
 	width: 100%;
 	margin: 0px auto;
+	padding-top: 50px;
 }
-
+listname
 /* 일요일 날짜 빨간색 */
 .fc-day-sun a {
   color: red;
@@ -55,7 +56,7 @@
 }
 
 #waitList {
-	margin: 20px auto;
+	margin: 0px auto;
 	width: 100%;
 	border-collapse: collapse;
 }
@@ -112,8 +113,9 @@
 	text-align: left;	
 	padding-left: 30px;
 }
-#hosp_infoMNG, #hosp_resrvMNG{
+#hosp_infoMNG{
 	text-align: center;
+	padding-top: 30px;
 }
 
 button, input, optgroup, select, textarea{
@@ -143,4 +145,11 @@ button, input, optgroup, select, textarea{
 }
 #myChart{
 	width: 100%;
+}
+#listname{
+   font-weight: bold;
+   margin-bottom: 30px;
+   margin-top: 0px;
+   padding-top: 30px;
+   text-align: center;
 }

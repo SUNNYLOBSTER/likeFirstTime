@@ -3,6 +3,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<footer>made by 처음처럼</footer>
+<footer>made by 퍼펫트케어</footer>
 </body>
 </html>
