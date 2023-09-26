@@ -46,7 +46,7 @@
 						success:function(data){
 							console.log("결제성공");
 							if(data == "true"){
-								location.href='./selectAllPayment.do';
+								location.href='./paymentMail.do?pay_id='+buyer_email+'&imp_uid='+rsp.imp_uid;
 							}
 						},
 						error:function(){

@@ -213,8 +213,8 @@ INSERT INTO HOSPITAL
 </update>
 
 <!-- 병원정보 수정 -->
-<update id="">
-	UPDATE PROJECT.HOSPITAL
+<update id="updateHospitalDetail">
+	UPDATE HOSPITAL
 		SET HOSP_NAME=#{hosp_name}, HOSP_TIME=#{hosp_time}, HOSP_OFF=#{hosp_off}, HOSP_PARK=#{hosp_park}, HOSP_ETC=#{hosp_etc}
 		WHERE HOSP_ID=#{hosp_id}
 </update>
