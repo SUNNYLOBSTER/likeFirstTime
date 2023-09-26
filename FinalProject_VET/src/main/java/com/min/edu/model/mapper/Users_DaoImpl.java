@@ -92,4 +92,8 @@ public class Users_DaoImpl implements IUsers_Dao {
 		return session.update(NS+"updateUser", uVo);
 	}
 	
+	@Override
+	public Users_VO findId(Users_VO uVo) {
+		return session.selectOne(NS+"findId", uVo);
+	}
 }
