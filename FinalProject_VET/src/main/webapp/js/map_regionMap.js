@@ -172,7 +172,7 @@ function addMarkerInfo(data) {
 		    });
             
             //마커들 좌표의 최댓값,최솟값을 구하는 함수로 이동 
-			setMapCenterToMinMaxPosition(map2, markers2);
+			setMapCenterPosition(map2, markers2);
         }
     });
 }
@@ -183,7 +183,7 @@ function closeOverlay2() {
 }
 
 // 모든 마커의 좌표 중 최솟값,최댓값 구하여 중심 좌표를 설정하는 함수
-function setMapCenterToMinMaxPosition(map, markers) {
+function setMapCenterPosition(map, markers) {
     if (markers.length === 0) {
         return;
     }

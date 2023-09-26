@@ -122,6 +122,7 @@
 		margin: 0px auto;
 		height: 900px;
  		padding-left: 220px; 
+ 		padding-top: 30px;
 	}
 	
 	#sideNav_1{

@@ -52,5 +52,9 @@ public interface IUsers_Dao {
 	//회원정보수정(일반사용자)
 	public int updateUser(Users_VO uVo);
 	
+	//회원정보수정(병원 관계자)
+	
+	//아이디 찾기
+	public Users_VO findId(Users_VO uVo);
 		
 }

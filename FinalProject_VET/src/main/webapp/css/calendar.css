@@ -112,11 +112,33 @@
 	text-align: left;	
 	padding-left: 30px;
 }
-#hosp_infoMNG{
-	margin: 20px auto;
+#hosp_infoMNG, #hosp_resrvMNG{
 	text-align: center;
 }
 
 button, input, optgroup, select, textarea{
 	font-size: 13.3px;
+
+#hosp_modify{
+	width: 100%;
+	height: 30px;
+	background-color: #EFEBE9;
+	border: 1px solid #3E2723;
+	border-radius: 5px;
+	font-size: 17px;
+	text-align: center;
+}
+#hosp_modify:hover{
+	cursor: pointer;
+	border: 2px solid #3E2723;
+}
+#hosp_modify:active{
+	background-color: #BCAAA4;
+}
+#hosp_modifyArea{
+	width: 100px;
+	margin: 30px auto;
+}
+#myChart{
+	width: 100%;
 }

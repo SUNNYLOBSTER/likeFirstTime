@@ -457,5 +457,33 @@ public class Users_Controller {
 			
 		}
 	}
+	
+	
+	//아이디 찾기 페이지 이동
+	@GetMapping(path = "/findIdWindow.do")
+	public String findIdPage () {
+		log.info("&&&&& Users_Controller 아이디 찾기 페이지로 이동 &&&&&");
+		return "users_findId";
+	}
+	
+	
+	//아이디 찾기 Ajax 실행 결과
+	@PostMapping(path = "/findId.do")
+	@ResponseBody
+	public String findId(String users_name, String users_tel) {
+		log.info("&&&&& Users_Controller 아이디 찾기 ajax 실행 결과 {} {}  &&&&&", users_name, users_tel);
+		Users_VO uVo =  new Users_VO();
+		
+		uVo.setUsers_name(users_name);
+		uVo.setUsers_tel(users_tel);
+		
+		System.out.println("이름 : " + users_name + " 전화번호 : " + users_tel);
+		
+		Users_VO vo = service.findId(uVo);
+		String users_id = vo.getUsers_id();
+		
+		return (users_id.equals(null))?"":users_id;
+	}
+	
 }
 

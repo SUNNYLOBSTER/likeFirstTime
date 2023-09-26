@@ -103,4 +103,9 @@ public class Users_ServiceImpl implements IUsers_Service {
 		return dao.updateUser(uVo);
 	}
 	
+	@Override
+	public Users_VO findId(Users_VO uVo) {
+		log.info("&&&&& Users_ServiceImpl findId 아이디 찾기 : {} &&&&&", uVo);
+		return dao.findId(uVo);
+	}
 }

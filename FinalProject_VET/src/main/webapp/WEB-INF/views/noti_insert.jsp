@@ -5,16 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 - 새 글 작성</title>
-<%@ include file="./header.jsp" %>
-<script type="text/javascript">
-	function regdate (){
-		var today = document.getElementById("noti_regdate");
-		var date = new Date();
-		console.log(date);
-		today.innerHTML = date.toLocaleDateString();
-	}
-</script>
 </head>
+<%@ include file="./header.jsp" %>
 <body>
 	<div id="container">
 		<form action="./insertNotice.do" method="post">
@@ -38,6 +30,7 @@
 			</c:if>
 			</form>
 		</div>
+
 </body>
 <%@ include file="./footer.jsp" %>
 </html>
