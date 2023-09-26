@@ -80,7 +80,7 @@
 							<td class="thumbnail"></td>
 							<td class="questId">${dto.users_vo[0].users_name}</td>
 							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
-							<td class="questCategory">${dto.animalpart_vo[0].part_name}</td>
+							<td class="questPart">${dto.animalpart_vo[0].part_name}</td>
 							<td class="questTitle">❔${dto.qst_title}(1)</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -101,10 +101,34 @@
 
 <!-- 페이징 -->
 <div id="pagingArea">
-	<span>⏮️</span>
-	<span>⏪</span>
-	<span>⏩</span>
-	<span>⏭️</span>
+			<table>
+			<tfoot style="text-align : center;">
+				<tr>
+					<td>
+						<ul class="pagination pagination-lg">
+							<c:if test="${page.stagePage > 1}">
+								<li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
+								<c:if test="${page.stagePage - page.countPage >= 0 }">
+									<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+								</c:if>
+								
+							</c:if>
+							
+							<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1">
+								<li ${page.page == i ? 'class = active':'' }><a href="javascript:page(${i})">${i}</a></li>
+							</c:forEach>
+							
+							<c:if test="${page.page < page.totalPage }">
+								<c:if test="${page.stagePage+page.countPage < page.totalCount }">
+									<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+								</c:if>
+								<li><a href="#" onclick="pageLast(${page.totalPage})"><span class="glyphicon glyphicon-fast-forward"></span></a></li>
+							</c:if>
+						</ul>
+					</td>
+				</tr>
+			</tfoot>
+			</table>
 </div>
 
 </div>
