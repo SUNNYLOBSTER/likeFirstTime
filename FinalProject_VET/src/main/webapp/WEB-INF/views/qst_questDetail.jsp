@@ -9,8 +9,6 @@
 <meta charset="UTF-8">
 <title>게시글 상세조회</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
 </head>
 <%@ include file="./header.jsp" %>
@@ -18,10 +16,10 @@
 <%-- ${qstDetail} --%>
 <!-- <hr> -->
 <%-- ${rpyList} --%>
+<%-- ${loginVo} --%>
 <div id="container">
-
 <!-- 게시글 영역 -->
-	<div class="card">
+	<div class="questCard">
 		<table class="questTop">
 			<tr>
 				<td class="questId">${qstDetail[0].users_vo[0].users_name}</td>
@@ -36,20 +34,27 @@
 		<div >
 			<a>${qstDetail[0].qst_content}</a>
 		</div>
+<%-- 		<c:if test="${loginVo.users_id eq qstDetail[0].qst_id}"> --%>
+			<div>
+				<input type="submit"  style="float: right;" value="수정"><a onclick="location.href=.//qst_writeQuest.do"></a></input>
+			</div>
+<%-- 		</c:if> --%>
 	</div>
-	<input type="submit" value="수정하기" style="display: none;">
 <hr>
 
 <!-- 답글영역 -->
 <div id="contentArea">
+	<c:if test="${loginVo.users_auth eq 'H'}">
+		<input type="submit" value="답글 작성" onclick="location.href='./writeReplyform.do'">
+	</c:if>
 	<c:set var="loop_flag" value="false" />
 	<c:forEach var="reply" items="${rpyList}">
 	<c:choose>
 		<c:when test="${reply.rpy_chosen eq 'Y'}">
 		<c:set var="loop_flag" value="true" />
-			<div class="card">
+			<div class="card-chosen">
 				<table class="questTop">
-					<tr style="border-color:red; border-style: solid;">
+					<tr>
 						<td class="replyTitle"><a href="./select_HospDetail.do?hosp_id=${reply.rpy_id}">${reply.hospital_vo[0].hosp_name}</a></td>
 						<td class="questDate">
 						    <fmt:parseDate var="replyDate" value="${reply.rpy_regdate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -60,6 +65,9 @@
 				</table>
 				<div class="questBottom">
 					<p>${reply.rpy_content}</p>
+				<div>
+					<button style="float: right;"><a>신고</a></button>
+				</div>
 				</div>
 			</div>
 		</c:when>
@@ -77,14 +85,16 @@
 					</tr>
 				</table>
 				<div class="questBottom">
-					<p>${reply.rpy_content}</p>
+					<a>${reply.rpy_content}</a>
+				<div>
+					<button style="float: right;"><a>신고</a></button>
+				</div>
 				</div>
 			</div>
 		</c:otherwise>
 	</c:choose>
 	</c:forEach>
 </div>
-<input type="submit" value="돌아가기" onclick="location.href='./questBoard.do'">
 
 
 <div id="modalWindow" class="modal">
