@@ -47,8 +47,9 @@ function isSame() {
 		return false;
 	}
    
-    
+  
 }
+
 
  function sample6_execDaumPostcode() {
         new daum.Postcode({

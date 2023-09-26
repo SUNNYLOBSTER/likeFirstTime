@@ -74,8 +74,9 @@
         }
         
         function findPw(){
-        	window.open("./findPwWindow.do","_blank", "width:500px", "height:500px")
+        	window.open("./findPwWindow.do","_blank", "width:200px", "height:200px")
         }
+        
     </script>
     
     
