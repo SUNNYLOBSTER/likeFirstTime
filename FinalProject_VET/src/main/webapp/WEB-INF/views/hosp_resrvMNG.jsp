@@ -18,10 +18,11 @@
 </head>
 <%@ include file="./header.jsp" %>
 <script type="text/javascript" src='./js/resrv_SideNav.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script> <!-- 차트 만들어주는 js -->
 <body>
 
 	<div class="sidenav">
-		<button id="sideNav_1" class="dropdown-btn">
+		<button id="sideNav_1" class="dropdown-btn" onclick="hosp_info()">
 			병원정보
 		</button>
 		<div class="dropdown-container">
@@ -43,8 +44,8 @@
 	</div>
 	
 	<div class="navContainer">
-		<h2 id="hosp_infoMNG">병원정보 관리</h2>
 		<div id="hosp_infomation">
+		<h2 id="hosp_infoMNG">병원정보 관리</h2>
 			<table id="hosp_detail">
 					<tr>
 						<th>병원이름</th>
@@ -103,10 +104,14 @@
 					</tr>
 				</table>
 		</div>
+		<div id="hosp_modifyArea">
+			<button id="hosp_modify" onclick="">정보수정</button>
+		</div>
 		
 		<div id="calendar"></div>
 		<div id="month_cnt"></div>
 		<div id="waitList"></div>
+		<canvas id="myChart"></canvas>
 		
 		<div class="modal fade" id="resrv_detailModal" role="dialog" style="display: none;">
 	        <div class="modal-dialog">
@@ -157,5 +162,7 @@
 	  });
 	}
 </script>
+
+
 <%@ include file="./footer.jsp" %>
 </html>

@@ -1,11 +1,14 @@
 function resrv_calendar(){
 	console.log("예약현황 호출");
 	var calendar= document.getElementById("calendar");
-	var month_cnt= document.getElementById("month_cnt");
+	var myChart= document.getElementById("myChart");
 	var waitList= document.getElementById("waitList");
 	calendar.style.display='block';
-	month_cnt.style.display='none';
+	myChart.style.display='none';
 	waitList.style.display='none';
+	$("#hosp_infomation").hide();
+	$("#hosp_modifyArea").hide();
+	
 
 	
 	$(function() {
@@ -115,31 +118,31 @@ function resrv_save(){
 		$("#resrv_name").focus();
 	}else{
 		$.ajax({
-		url:"./resrv_detailModify.do",
-		method:"post",
-		data:{
-			resrv_num:resrv_num,
-			resrv_visit:resrv_visit,
-			resrv_time:resrv_time,
-			resrv_name:resrv_name,
-			resrv_tel:resrv_tel,
-			resrv_memo:resrv_memo
+			url:"./resrv_detailModify.do",
+			method:"post",
+			data:{
+				resrv_num:resrv_num,
+				resrv_visit:resrv_visit,
+				resrv_time:resrv_time,
+				resrv_name:resrv_name,
+				resrv_tel:resrv_tel,
+				resrv_memo:resrv_memo
+				},
+			success:function(result){
+				console.log(result);
+				if(result == "true"){
+					$("#resrv_detailModal").modal("hide");
+					alert("예약 수정 완료");
+					resrv_calendar();
+				}else{
+					alert("수정 실패");
+					location.reload();
+				}
 			},
-		success:function(result){
-			console.log(result);
-			if(result == "true"){
-				$("#resrv_detailModal").modal("hide");
-				alert("예약 수정 완료");
-				resrv_calendar();
-			}else{
-				alert("수정 실패");
-				location.reload();
+			error:function(){
+				alert("호출 실패")
 			}
-		},
-		error:function(){
-			alert("호출 실패")
-		}
-	});
+		});
 	}
 	
 	
