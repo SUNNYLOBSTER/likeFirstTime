@@ -15,8 +15,13 @@
 	border-radius: 5px;
 }
 
-.buttonPart{
-	margin-left: 380px;
+#writeBoard{
+	float: right;
+	margin-right: 10px;
+}
+#backToList{
+	float: left;
+	margin-left: 10px;
 }
 
 .buttonPart button{

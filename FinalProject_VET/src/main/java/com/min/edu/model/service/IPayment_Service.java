@@ -17,7 +17,7 @@ public interface IPayment_Service {
 	//결제완료시 결제금액만큼 포인트 적립 transaction
 	public int insertPaymentPoint(Map<String, Object> map);
 	
-	public int canclePayment(String pay_num);
+	public int canclePayment(String imp_uid);
 	
 	public int insertNewPnt(Map<String, Object> map);
 	
@@ -29,6 +29,6 @@ public interface IPayment_Service {
 	
 	public List<Point_VO> selectPntList(String pnt_id);
 	
-	public Payment_VO searchMID(String merchant_uid);
+	public Payment_VO searchMID(String imp_uid);
 
 }

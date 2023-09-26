@@ -2,12 +2,15 @@
 function month_count(){
 	console.log("월별 예약건수 호출");
 	var calendar= document.getElementById("calendar");
-	var month_cnt= document.getElementById("month_cnt");
+	var myChart= document.getElementById("myChart");
 	var waitList= document.getElementById("waitList");
 //	console.log(calendar.innerHTML);
 	calendar.style.display='none';
 	waitList.style.display='none';
-	month_cnt.style.display='block';
+	myChart.style.display='block';
+	$("#hosp_infomation").hide();
+	$("#hosp_modifyArea").hide();
+	
 	var date = new Date();
 	var year = date.getFullYear();
 	
@@ -19,20 +22,53 @@ function month_count(){
 		success:function(data){
 			console.log(data.lists);
 			var html = "";
-				html += "<h2>"+year+"년도</h2>";
-				html += "<table>";
-				html += "	<tr>";
-				html += "		<th>월</th>";
-				html += "		<th>예약건수</th>";
-				html += "	</tr>";
-				for(var i=0; i<data.lists.length; i++){
-				html += "	<tr>";
-				html += "		<th>"+data.lists[i].MM+"</th>";
-				html += "		<td>"+data.lists[i].Y_COUNT+"</td>";
-				html += "	</tr>";
-				}
-				html += "</table>";
+				html += "<h2>월별 예약 건수</h2>";
+//				html += "<table>";
+//				html += "	<tr>";
+//				html += "		<th>월</th>";
+//				html += "		<th>예약건수</th>";
+//				html += "	</tr>";
+//				for(var i=0; i<data.lists.length; i++){
+//				html += "	<tr>";
+//				html += "		<th>"+data.lists[i].MM+"</th>";
+//				html += "		<td>"+data.lists[i].Y_COUNT+"</td>";
+//				html += "	</tr>";
+//				}
+//				html += "</table>";
 			month_cnt.innerHTML=html;
+			
+				var monthList = [];
+				var monthData = [];
+				
+				for(let i=0; i<data.lists.length; i++){
+					monthList.push(data.lists[i].MM);
+					monthData.push(data.lists[i].Y_COUNT);
+				}
+				console.log(monthList);
+				console.log(monthData);
+				
+				const ctx = document.getElementById('myChart').getContext('2d');
+				const myChart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: monthList,
+						datasets: [{
+							label:year+"년도 예약 건수",
+							data: monthData,
+							borderColor:"#3E2723",
+						}]
+					},
+	
+					options: {
+					  responsive: true,
+					  plugins: {
+						legend: {
+						  display: true
+						}
+					  }
+					}
+				});
+			
 		},
 		error:function(){
 			alert("호출 에러");
@@ -40,14 +76,20 @@ function month_count(){
 	});
 };
 
+
+
+
 function resrv_wList(){
 	console.log("예약승인 대기명단 호출");
 	var calendar= document.getElementById("calendar");
-	var month_cnt= document.getElementById("month_cnt");
+	var myChart= document.getElementById("myChart");
 	var waitList= document.getElementById("waitList");
 	calendar.style.display='none';
-	month_cnt.style.display='none';
+	myChart.style.display='none';
 	waitList.style.display='block';
+	$("#hosp_infomation").hide();
+	$("#hosp_modifyArea").hide();
+	
 	$.ajax({
 		url:"./resrv_waitLists.do",
 		method:"post",
@@ -56,6 +98,7 @@ function resrv_wList(){
 		success:function(data){
 //			console.log(data[0]);
 			var html = "";
+				html += "<h2>예약대기 명단</h2>"
 				html += "<table>";
 				html += "	<tr>";
 				html += "		<th>예약번호</th>";
@@ -156,7 +199,12 @@ $(document).on("click",".resrv_refuse",function(){
 	}
 });
 
-
-	
+function hosp_info(){
+	$("#calendar").hide();
+	$("#myChart").hide();
+	$("#waitList").hide();
+	$("#hosp_infomation").show();
+	$("#hosp_modifyArea").show();
+}
 
 

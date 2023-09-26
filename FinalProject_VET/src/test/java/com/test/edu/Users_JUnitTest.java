@@ -79,15 +79,17 @@ public class Users_JUnitTest {
 //		vo.setUsers_id("sana1@naver.com");
 //		vo.setUsers_pw("1234");
 		
-		vo.setUsers_name("박엘사");
-		vo.setUsers_tel("0318268826");
-		vo.setUsers_addr("");
-		vo.setUsers_subtel("");
-		vo.setUsers_id("sarang@gmail.com");
+		vo.setUsers_name("김당망");
+		vo.setUsers_tel("01012341234");
+//		vo.setUsers_addr("");
+//		vo.setUsers_subtel("");
+//		vo.setUsers_id("sarang@gmail.com");
 		
-		int n = service.updateUser(vo);
-		assertEquals(1, n);
+//		int n = service.updateUser(vo);
 		
+		Users_VO uVo = service.findId(vo);
+		System.out.println(uVo);
+		assertNotNull(uVo);
 		
 		
 		

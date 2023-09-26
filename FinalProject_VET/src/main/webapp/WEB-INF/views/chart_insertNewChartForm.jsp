@@ -46,8 +46,8 @@
 					<textarea id="editor" name="medi_content"></textarea>
 		</form>
 		<div class="buttonPart">
-				<button onclick="writeChart()">글쓰기</button>
-				<button onclick="location.href='./selectAllChart.do'">전체목록</button>
+				<button onclick="writeChart()" id="writeBoard">글쓰기</button>
+				<button onclick="location.href='./selectAllChart.do'" id="backToList">전체목록</button>
 		</div>
 	</div>
 	

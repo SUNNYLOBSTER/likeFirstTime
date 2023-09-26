@@ -14,7 +14,7 @@
     font-size: 15px;
 }
 
-.navContainer button,input[type="submit"],input[type="button"]{
+.navContainer input[type="submit"],input[type="button"]{
    background-color: #D7CCC8;
    width: 110px;
    height: 20px;
@@ -25,17 +25,22 @@
    margin: 5px;
 }
 
-.navContainer button:hover,input[type="submit"]:hover,input[type="button"]:hover{
+.navContainer input[type="submit"]:hover,input[type="button"]:hover{
    background-color:  #BCAAA4;
 }
 
-.buttons{
+.buttons_left{
    float:left;
    margin-left: 100px;
 }
 
-.buttons button{
+.buttons_left button{
    margin-right: 10px;
+}
+
+.buttons_right{
+	float: right;
+	margin-right: 100px;
 }
 
 #allMenuButton{
