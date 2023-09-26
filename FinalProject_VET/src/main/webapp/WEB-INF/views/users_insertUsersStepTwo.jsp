@@ -23,7 +23,7 @@
 			type: "post",
 			data: {"users_id":users_id},
 			success: function(data){
-				//받아온 값을 확인하기 위한 콘솔
+				//받아온 값을 확인하기 위한 콘솔로그
 // 				console.log(data);
 				receiveData=data;
 			},
@@ -38,7 +38,7 @@
 	var receiveData = "";
 // 	console.log(receiveData);
 	
-	//반환 받은 난수와 입력한 값을 비교하여 일치한지 확인하는 함수
+	//반환 받은 난수와 입력한 값을 비교하여 두 값이 일치하는지 확인하는 함수
 	function isSameEmail(){
 		var certNum = document.getElementById("certNum").value;
 		console.log(certNum);

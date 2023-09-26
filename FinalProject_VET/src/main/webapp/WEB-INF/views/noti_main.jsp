@@ -17,13 +17,12 @@
 <%-- ${loginVo} --%>
 	<div>
 		<table id="chartInfo">
-<!-- 			<thead> -->
-				<tr>
+			<tr>
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일자</th>
-<!-- 			</thead> -->
+			</tr>
 			<tbody>
 				<c:forEach var="list" items="${noticeLists}" varStatus="vs">
 					<tr>

@@ -6,6 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 - 상세</title>
+<link rel="stylesheet" href="./css/noti_list.css">
+<style type="text/css">
+	input[type="button"]{
+		background-color: #D7CCC8;
+		width: 110px;
+		height: 20px;
+		border-radius: 5px;
+		color: #3E2723;
+		border: none;
+		box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+	}
+	
+	#inputButton{
+		text-align: center;
+	}
+</style>
 </head>
 <%@ include file="./header.jsp" %>
 <body>
@@ -22,27 +38,26 @@
 </script>
 	<div id="container">
 		<form>
-		<table>
+		<table id="chartInfo">
 			<tr>
 				<th>제목</th>
 				<td>${noticeDetail.noti_title}</td>
-			</tr>
-			<tr>
 				<th>작성일</th>
 				<td>${noticeDetail.noti_regdate}</td>
-			</tr>
-			<tr>
 				<th>작성자</th>
 				<td>관리자</td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td>${noticeDetail.noti_content}</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: left;">${noticeDetail.noti_content}</td>
 			</tr>
 		</table>
 		<c:if test="${loginVo.users_auth eq 'A' }">
+			<div id=inputButton>
 			<input type="button" value="수정" onclick="modi('${noticeDetail.noti_seq}')">
 			<input type="button" value="삭제" onclick="del('${noticeDetail.noti_seq}')">
+			</div>
 		</c:if>
 		</form>
 	</div>

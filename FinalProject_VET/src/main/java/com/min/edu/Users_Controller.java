@@ -24,6 +24,7 @@ import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
+import retrofit2.http.GET;
 
 @Controller
 @Slf4j
@@ -460,6 +461,20 @@ public class Users_Controller {
 		}
 	}
 	
+	//회원정보수정 (병원 관계자)
+	@GetMapping(path = "/updateHosp.do")
+	public String updateHospPage(HttpSession session, Model model,
+								 HttpServletResponse response) {
+		log.info("&&&&& Users_Controller 병원 정보 수정페이지로 이동 &&&&&");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Users_VO uVo = (Users_VO)session.getAttribute("loginVo");
+		
+		
+		
+		return null;
+	}
+	
 	
 	//아이디 찾기 페이지 이동
 	@GetMapping(path = "/findIdWindow.do")
@@ -490,6 +505,7 @@ public class Users_Controller {
 			return users_id;
 		}
 	}
+	
 	
 }
 
