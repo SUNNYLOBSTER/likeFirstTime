@@ -40,7 +40,8 @@
 							pay_id : buyer_email,
 							pay_amount : point,
 							pay_code : "kcp",
-							merchant_uid : merchant_uid
+							merchant_uid : merchant_uid,
+							imp_uid:rsp.imp_uid
 						},
 						success:function(data){
 							console.log("결제성공");

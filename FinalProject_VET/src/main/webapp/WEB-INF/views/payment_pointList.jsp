@@ -37,10 +37,10 @@
 									<td>우선답변글 등록</td>
 								</c:when>
 								<c:when test="${list.pnt_point == -10000}">
-									<td>환불</td>
+									<td>결제취소</td>
 								</c:when>
 								<c:when test="${list.pnt_point == -5000}">
-									<td>환불</td>
+									<td>결제취소</td>
 								</c:when>
 							</c:choose>
 						</c:when>

@@ -20,7 +20,7 @@
 					<c:forEach var="list" items="${lists}" varStatus="vs">
 						<c:forEach var="hlist" items="${list.hospital_vo}">
 							<tr>
-								<th>${vs.count}<th>
+								<th>&emsp;&emsp;${vs.count}<th>
 								<td>${hlist.hosp_name}</td>
 								<td>
 									<button onclick="location.href='./select_HospDetail.do?hosp_id=${hlist.hosp_id}'">예약하기</button>

@@ -34,8 +34,8 @@ public class Payment_DaoImpl implements IPayment_Dao {
 	}
 
 	@Override
-	public int canclePayment(String pay_num) {
-		return session.update(NS+"canclePayment",pay_num);
+	public int canclePayment(String imp_uid) {
+		return session.update(NS+"canclePayment",imp_uid);
 	}
 
 	@Override
@@ -64,8 +64,8 @@ public class Payment_DaoImpl implements IPayment_Dao {
 	}
 
 	@Override
-	public Payment_VO searchMID(String merchant_uid) {
-		return session.selectOne(NS+"searchMID",merchant_uid);
+	public Payment_VO searchMID(String imp_uid) {
+		return session.selectOne(NS+"searchMID",imp_uid);
 	}
 
 	

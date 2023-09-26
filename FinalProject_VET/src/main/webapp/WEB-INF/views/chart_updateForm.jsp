@@ -51,8 +51,8 @@
 				</table>
 				
 				<div id="buttonPart">
-					<button class="buttons" onclick="updateBoard()">수정하기</button>
 					<button class="buttons" onclick="location.href='./selectOneChart.do?medi_num=${pvo.medichart_vo[0].medi_num}'">취소</button>
+					<button class="buttons" onclick="updateBoard()">수정하기</button>
 				</div>
 		
 	</div>
