@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
+import com.min.edu.model.mapper.IPayment_Dao;
+import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
 import com.min.edu.vo.Users_VO;
 
@@ -34,6 +36,9 @@ public class Users_Controller {
 
 	@Autowired
 	private IUsers_Service service;
+	
+	@Autowired
+	private IPayment_Service payment_service;
 	
 	@GetMapping(path = "/loginForm.do")
 	public String loginForm() {
@@ -52,6 +57,8 @@ public class Users_Controller {
 			
 			if(loginVo != null) {
 				session.setAttribute("loginVo", loginVo);
+				int point = payment_service.selectAllPnt((String)loginVo.getUsers_id());
+				session.setAttribute("point", point);
 				session.setMaxInactiveInterval(1800);
 				
 				if(((String)loginVo.getUsers_auth()).equals("H")) {

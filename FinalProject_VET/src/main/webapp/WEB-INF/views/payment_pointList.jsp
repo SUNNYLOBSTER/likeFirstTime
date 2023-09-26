@@ -13,9 +13,9 @@
 <body>
 <%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
-		<h2>포인트내역</h2>
+		<h3 id="listname">포인트내역</h3>
 		<div id="wholePnt">
-			<p>전체 가용 포인트 : ${point}</p>
+			<p id="point_list">전체 가용 포인트 : ${point}</p>
 		</div>
 		<table id="chartInfo_point">
 			<tr>

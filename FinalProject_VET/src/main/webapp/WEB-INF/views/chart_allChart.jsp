@@ -16,21 +16,20 @@
 <%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
 			<h3 id="listname">진료기록 전체목록</h3>
-			
-			<c:choose>
-			<c:when test="${empty allPets}">
-				<p class="noneChart">등록된 반려동물 정보가 없습니다</p>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="pet" items="${allPets}" varStatus="vs">
-					<button class="selectPet" value="${pet.pet_seq}">${pet.pet_name}</button>
-				</c:forEach>
-			</c:otherwise>
-			</c:choose>
-			<button class="selectPet" onclick="location.href='./selectAllChart.do'">전체</button>
-			<span>
+			<div id="petsPart">
+				<c:choose>
+				<c:when test="${empty allPets}">
+					<p class="noneChart">등록된 반려동물 정보가 없습니다</p>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="pet" items="${allPets}" varStatus="vs">
+						<button class="selectPet" value="${pet.pet_seq}">${pet.pet_name}</button>
+					</c:forEach>
+				</c:otherwise>
+				</c:choose>
+				<button class="selectPet" onclick="location.href='./selectAllChart.do'">전체</button>
 				<button onclick="location.href='./insertNewChartForm.do'" id="newChart">진료기록 작성</button>
-			</span>
+			</div>
 			<br>
 			<div id="selectPart">
 				<select id="codeL" onchange="codeLChange()">
