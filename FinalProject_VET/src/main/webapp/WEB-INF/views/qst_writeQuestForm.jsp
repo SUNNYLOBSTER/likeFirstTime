@@ -46,20 +46,19 @@
 	<input type="checkbox" name="qst_fast" value="Y">빠른문의 게시글<br>
 
 	<!-- 제목 작성 -->
-	<input type="text" name="questTitle" style="width:100%;" required>
+	<input id="questTitle" type="text" name="questTitle" style="width:100%;" required>
 	
 	<!--  내용 작성 -->
 	<textarea id="editor" name="questContent" required></textarea>
 	
 	<!-- 완료 버튼 -->
 	<button type="submit" onclick="writeSubmit()">입력</button>
-	<button onclick="history.back(-1)">취소</button>
-
+	<input type="submit" value="취소" onclick="location.href='./questBoard.do'">
 	</form>
 </div>
 </body>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>
 <script type="text/javascript" src="./js/ckeditor.js"></script>
-<%@ include file="./footer.jsp" %>
 <script type="text/javascript" src="./js/qst_writeQuest.js"></script>
+<%@ include file="./footer.jsp" %>
 </html>

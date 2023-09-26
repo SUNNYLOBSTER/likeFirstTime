@@ -9,16 +9,14 @@
 <meta charset="UTF-8">
 <title>진료문의 게시판</title>
 
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
 </head>
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
-<form action="./selectPartQuest.do">
 <div id="searchArea">
+<form action="./selectPartQuest.do">
 	<select id="aCode" name="qst_species">
 		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
 		<option value="A">개</option>
@@ -29,6 +27,9 @@
 		<option value="Z">기타</option>
 	</select>
 	<select id="aPart" name="qst_part">
+<%-- 		<c:if test="${loginVo.users_auth eq 'H'}"> --%>
+<%-- 			<option>${}</option> --%>
+<%-- 		</c:if> --%>
 		<option disabled="disabled" selected="selected" value="">--증상 부위--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
@@ -43,10 +44,12 @@
 	</select>
 	<input id="searchBar" type="text" name="qst_content" placeholder="검색어를 입력하세요" >
 	<input id="searchSubmit" type="submit" value="검색" >
-	
-	<a style="border:solid; float:right;" href="./writeQuestForm.do">새 글 작성</a><br>
-</div>
 </form>
+	<c:if test="${loginVo.users_auth eq 'U'}">
+		<button style="float:right;" onclick="location.href='./writeQuestForm.do'">새 글 작성</button>
+	</c:if>
+</div>
+
 <div id="contentArea">
 		<c:set var="loop_flag" value="false" />
 		<c:forEach var="dto" items="${questList}">
@@ -100,36 +103,36 @@
 </div>
 
 <!-- 페이징 -->
-<div id="pagingArea">
-			<table>
-			<tfoot style="text-align : center;">
-				<tr>
-					<td>
-						<ul class="pagination pagination-lg">
-							<c:if test="${page.stagePage > 1}">
-								<li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
-								<c:if test="${page.stagePage - page.countPage >= 0 }">
-									<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-backward"></span></a></li>
-								</c:if>
+<!-- <div id="pagingArea"> -->
+<!-- 			<table> -->
+<!-- 			<tfoot style="text-align : center;"> -->
+<!-- 				<tr> -->
+<!-- 					<td> -->
+<!-- 						<ul class="pagination pagination-lg"> -->
+<%-- 							<c:if test="${page.stagePage > 1}"> --%>
+<!-- 								<li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-fast-backward"></span></a></li> -->
+<%-- 								<c:if test="${page.stagePage - page.countPage >= 0 }"> --%>
+<%-- 									<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-backward"></span></a></li> --%>
+<%-- 								</c:if> --%>
 								
-							</c:if>
+<%-- 							</c:if> --%>
 							
-							<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1">
-								<li ${page.page == i ? 'class = active':'' }><a href="javascript:page(${i})">${i}</a></li>
-							</c:forEach>
+<%-- 							<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1"> --%>
+<%-- 								<li ${page.page == i ? 'class = active':'' }><a href="javascript:page(${i})">${i}</a></li> --%>
+<%-- 							</c:forEach> --%>
 							
-							<c:if test="${page.page < page.totalPage }">
-								<c:if test="${page.stagePage+page.countPage < page.totalCount }">
-									<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-forward"></span></a></li>
-								</c:if>
-								<li><a href="#" onclick="pageLast(${page.totalPage})"><span class="glyphicon glyphicon-fast-forward"></span></a></li>
-							</c:if>
-						</ul>
-					</td>
-				</tr>
-			</tfoot>
-			</table>
-</div>
+<%-- 							<c:if test="${page.page < page.totalPage }"> --%>
+<%-- 								<c:if test="${page.stagePage+page.countPage < page.totalCount }"> --%>
+<%-- 									<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-forward"></span></a></li> --%>
+<%-- 								</c:if> --%>
+<%-- 								<li><a href="#" onclick="pageLast(${page.totalPage})"><span class="glyphicon glyphicon-fast-forward"></span></a></li> --%>
+<%-- 							</c:if> --%>
+<!-- 						</ul> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 			</tfoot> -->
+<!-- 			</table> -->
+<!-- </div> -->
 
 </div>
 </body>
