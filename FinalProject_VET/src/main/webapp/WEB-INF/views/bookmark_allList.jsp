@@ -10,7 +10,7 @@
 <body>
 <%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
-		<h2>즐겨찾기 병원</h2>
+		<h3 id="listname">즐겨찾기 병원</h3>
 		<table id="chartInfo">
 			<c:choose>
 				<c:when test="${empty lists[0].hospital_vo}">

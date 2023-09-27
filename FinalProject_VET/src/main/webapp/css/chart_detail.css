@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+#listname{
+	font-weight: bold;
+	margin-left: 340px;
+	margin-bottom: 30px;
+	margin-top: 0px;
+	padding-top: 30px;
+}
+
 #chartInfo{
    margin: 20px auto;
    width: 80%;

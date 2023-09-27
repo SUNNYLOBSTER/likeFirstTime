@@ -79,9 +79,17 @@
 	padding: 50px;
 	margin: 0 auto;
 	font-size: 15px;
-	text-align: center;
+	margin-left: 250px;
 }
 
 #petsPart{
 	width: 80%;
+}
+
+#chartPart{
+	height: calc(100vh - 190px);
+	overflow-y: scroll;
+}
+#chartPart::-webkit-scrollbar{
+	width: 0;
 }
