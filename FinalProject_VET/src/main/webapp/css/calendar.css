@@ -12,7 +12,7 @@
 }
 listname
 /* 일요일 날짜 빨간색 */
-.fc-day-sun a {
+.fc-day-sun a{
   color: red;
   text-decoration: none;
 }
@@ -31,9 +31,11 @@ listname
 
 .fc-direction-ltr .fc-daygrid-event .fc-event-time {
     font-size: 12px;
+    letter-spacing:-2px;
 }
 .fc-daygrid-dot-event .fc-event-title {
     font-size: 12px;
+    letter-spacing: -2px;
 }
 .modal-header{
 	background-color:#EFEBE9; 
@@ -147,6 +149,14 @@ button, input, optgroup, select, textarea{
 	width: 100%;
 }
 #listname{
+   font-weight: bold;
+   margin-bottom: 30px;
+   margin-top: 0px;
+   padding-top: 30px;
+   text-align: center;
+}
+
+#calhead{
    font-weight: bold;
    margin-bottom: 30px;
    margin-top: 0px;

@@ -108,7 +108,9 @@
 			<button id="hosp_modify" onclick="location.href='./updateHosp.do'">정보수정</button>
 		</div>
 		
-		<div id="calendar"></div>
+		<h2 id="calhead">이번달 예약현황</h2>
+		<div id="calendar">
+		</div>
 		<div id="month_cnt"></div>
 		<div id="waitList"></div>
 		<canvas id="myChart"></canvas>

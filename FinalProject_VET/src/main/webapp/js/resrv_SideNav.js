@@ -10,6 +10,7 @@ function month_count(){
 	myChart.style.display='block';
 	$("#hosp_infomation").hide();
 	$("#hosp_modifyArea").hide();
+	$("#calhead").hide();
 	
 	var date = new Date();
 	var year = date.getFullYear();
@@ -102,6 +103,7 @@ function resrv_wList(){
 	$("#hosp_infomation").hide();
 	$("#hosp_modifyArea").hide();
 	$("#listname").hide();
+	$("#calhead").hide();
 	
 	$.ajax({
 		url:"./resrv_waitLists.do",
@@ -219,6 +221,7 @@ function hosp_info(){
 	$("#hosp_infomation").show();
 	$("#hosp_modifyArea").show();
 	$("#listname").hide();
+	$("#calhead").hide();
 }
 
 

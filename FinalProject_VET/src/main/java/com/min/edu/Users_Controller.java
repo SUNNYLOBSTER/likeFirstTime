@@ -20,8 +20,10 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import com.google.gson.Gson;
 import com.min.edu.model.mapper.IPayment_Dao;
+import com.min.edu.model.service.INotice_Service;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
+import com.min.edu.vo.NoticeBoard_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,9 @@ public class Users_Controller {
 	
 	@Autowired
 	private IPayment_Service payment_service;
+	
+	@Autowired
+	private INotice_Service notice_service;
 	
 	@GetMapping(path = "/loginForm.do")
 	public String loginForm() {
@@ -90,8 +95,10 @@ public class Users_Controller {
 	}
 	
 	@GetMapping(path="/main.do")
-	public String main() {
+	public String main(Model model) {
 		log.info("&&&&& Users_Controller 로그인 성공 -> 메인페이지 &&&&&");
+		List<NoticeBoard_VO> notice_list = notice_service.selectAllNotice();
+		model.addAttribute("notice_list", notice_list);
 		return "main";
 	}
 	

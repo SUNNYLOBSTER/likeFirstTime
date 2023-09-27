@@ -62,7 +62,7 @@
 					<td colspan="6">
 						<ul>
 							<c:if test="${page.stagePage > 1}">
-								<li><a href="#" onclick="pageFirst('${sessionScope.loginVo.users_id}')">⏮️</a></li>
+								<li><a href="#" onclick="pageFirst('${sessionScope.loginVo.users_id}')"><img src="./img/fast_left.png"></img></a></li>
 								<c:if test="${page.stagePage - page.countPage >= 0}">
 									<li><a href="#" onclick="pagePrev(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')">◀</a></li>
 								</c:if>
@@ -72,11 +72,12 @@
 								<li ${page.page == i ? 'class=active':''}><a href="javascript:page(${i},'${sessionScope.loginVo.users_id}')">${i}</a></li>
 							</c:forEach>
 						
+							
 							<c:if test="${page.page < page.totalPage}">
 								<c:if test="${page.stagePage+page.countPage < page.totalCount}">
 									<li><a href="#" onclick="pageNext(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')">▶️</a></li>
 								</c:if>
-								<li><a href="#" onclick="pageLast(${page.totalPage},'${sessionScope.loginVo.users_id}')">⏭️</a></li>
+								<li><a href="#" onclick="pageLast(${page.totalPage},'${sessionScope.loginVo.users_id}')"><img src="./img/fast_right.png"></img></a></li>
 							</c:if>
 						</ul>
 					</td>
