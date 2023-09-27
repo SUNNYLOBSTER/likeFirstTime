@@ -1,3 +1,16 @@
+//var isLoading = false;
+//$(window).scroll(function(){
+//	if(($(window).scrollTop() + $(window).height()) >= ($(document).height() - 100)){
+//		if(!isLoading){
+//			loadMoreData();
+//		}
+//	}
+//});
+//
+//function loadMoreData(){
+//	isLoading = true;
+//}
+
 //진료코드 대분류 선택에 따른 소분류 <option>태그 생성
    function codeLChange(){
          var codeL = document.getElementById("codeL");
