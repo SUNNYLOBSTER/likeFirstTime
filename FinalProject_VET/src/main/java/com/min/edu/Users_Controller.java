@@ -288,10 +288,9 @@ public class Users_Controller {
 	
 	//회원가입(병원관계자)
 	@PostMapping(path = "/signUpHosp.do")
-	public String insertHospTwo(@RequestParam Map<String, Object> map, Model model) {
+	public String insertHospTwo(@RequestParam Map<String, Object> map, Model model, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 {} &&&&&", map);
-		
-		System.out.println(map);
+		response.setContentType("text/html; charset=UTF-8");
 		
 		String hosp_id = (String)map.get("users_id");
 		map.put("hosp_id", hosp_id);
@@ -301,31 +300,43 @@ public class Users_Controller {
 		
 		String addr = (String)map.get("addr");
 		String addrDetail = (String)map.get("addrDetail");
-		
 		String users_addr = addr+" "+addrDetail;
 		System.out.println(users_addr);
-		
 		map.put("users_addr", users_addr);
 		
 		String openTime = (String)map.get("hosp_openTime");
 		String closeTime = (String)map.get("hosp_closeTime");
-		
 		System.out.println("여는시간 : " + openTime+ "닫는 시간 : " + closeTime);
-		
 		String hosp_time = "{\"open\":\""+openTime+"\", \"close\":\""+closeTime+"\"}";
 		map.put("hosp_time", hosp_time);
 		
-		String hosp_off = (String)map.get("chk");
+		String hosp_off = (String)map.get("hosp_off");
 		map.put("hosp_off", hosp_off);
-				
+		
+		String medi_code = (String)map.get("medi_code");
+		map.put("medi_code", medi_code);
+		
+		String anm_code = (String)map.get("anm_code");
+		map.put("anm_code", anm_code);
+		
 		System.out.println(map);
 		
 		boolean isc = service.insertHosp(map);
+		int n = service.insertHospAnicode(map);
+		int m = service.insertHospMedicode(map);
+		
 		model.addAttribute("signUpVo",map);
 		
-		return (isc==true)?"users_insertHospStepThree":"redirect:/insertHospStepTwo.do";
-			
+		if (isc==true && n != 0 && m != 0) {
+			return "users_insertHospStepThree";
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('잘못된 값을 입력하셨습니다. 다시 입력해주세요.');location.href='./insertHospStepTwo.do';</script>");
+			out.flush();
+			return null;
 		}
+			
+	}
 
 	//회원 탈퇴 페이지 이동
 	@GetMapping(path = "/resignUser.do")
@@ -405,12 +416,12 @@ public class Users_Controller {
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
 		
 		if(loginVo != null) {
-		session.setAttribute("loginVo", loginVo);
-
-		String users_id = loginVo.getUsers_id();
-		List<Users_VO> lists = service.selectUserDetail(users_id);
-		model.addAttribute("lists", lists);
-		
+			session.setAttribute("loginVo", loginVo);
+	
+			String users_id = loginVo.getUsers_id();
+			List<Users_VO> lists = service.selectUserDetail(users_id);
+			model.addAttribute("lists", lists);
+			
 		return "users_updateUser";
 		
 		} else {
@@ -472,25 +483,33 @@ public class Users_Controller {
 	//회원정보수정 (병원 관계자)
 	@GetMapping(path = "/updateHosp.do")
 	public String updateHospPage(HttpSession session, Model model,
-								 HttpServletResponse response) {
-		log.info("&&&&& Users_Controller 병원 정보 수정페이지로 이동 &&&&&");
+								 HttpServletResponse response) throws IOException {
+		log.info("&&&&& Users_Controller 병원 정보 수정페이지로 이동 {} &&&&&", session);
 		response.setContentType("text/html; charset=UTF-8");
 		
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
 		
+				
 		if(loginVo != null) {
 			session.setAttribute("loginVo", loginVo);
-//			병원 이름
-//			진료시간
-//			휴일
-//			주차가능여부
-//			기타 소개사항
+	
+			String users_id = loginVo.getUsers_id();
+			List<Users_VO> lists = service.selectUserDetail(users_id);
+			model.addAttribute("lists", lists);
 			
+		return "users_updateHosp";
+		
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='./loginForm.do';</script>");
+			out.flush();
+			return null;
 		}
 		
 		
 		
-		return null;
+		
+		
 	}
 	
 	

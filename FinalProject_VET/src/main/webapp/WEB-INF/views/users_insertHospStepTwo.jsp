@@ -64,7 +64,7 @@
 		padding-block: 1px;
     	padding-inline: 6px;
 	}
-	#chk{
+	.chk{
 		width: auto;
 		height: auto;
 	}
@@ -73,6 +73,13 @@
 		height: auto;
 		padding-block: 1px;
     	padding-inline: 6px;
+	}
+	div.info{
+		display: inline-block;
+		margin: 10px 20px 0px 0px;		
+	}
+	#chkBoxes{
+		display: inline-flex;
 	}
 </style>
 </head>
@@ -104,9 +111,9 @@
 	<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
  	<br>
  	
- 	<div style="margin: 10px auto;">
+ 	<div class="info">
  	<span>운영시간을 선택해주세요</span><br>
- 	<select name="hosp_openTime" id="hosp_openTime">
+ 	<select name="hosp_openTime" id="hosp_openTime" style="margin-top: 10px">
  		<option value="">--여는 시간--</option>
  		<option value="00">오전 0시</option>
  		<option value="01">오전 1시</option>
@@ -133,7 +140,7 @@
  		<option value="22">오후 10시</option>
  		<option value="23">오후 11시</option>
  	</select>
- 	<select name="hosp_closeTime" id="hosp_closeTime">
+ 	<select name="hosp_closeTime" id="hosp_closeTime" style="margin-top: 10px">
  		<option value="">--닫는 시간--</option>
  		<option value="24">오전 0시</option>
  		<option value="01">오전 1시</option>
@@ -161,19 +168,39 @@
  		<option value="23">오후 11시</option>
  	</select>
  	</div>
- 	
- 	<div style="margin: 10px auto;">
- 	<span>휴일을 선택해주세요</span><br>
- 	<input type="checkbox" name="chk" id="chk" value="일">일요일<br>
- 	<input type="checkbox" name="chk" id="chk" value="월">월요일<br>
- 	<input type="checkbox" name="chk" id="chk" value="화">화요일<br>
- 	<input type="checkbox" name="chk" id="chk" value="수">수요일<br>
- 	<input type="checkbox" name="chk" id="chk" value="목">목요일<br>
- 	<input type="checkbox" name="chk" id="chk" value="금">금요일<br>
- 	<input type="checkbox" name="chk" id="chk" value="토">토요일<br>
+ 	<br>
+ 	<div id="chkBoxes">
+	 	<div class="info">
+		 	<span>휴일을 선택해주세요</span><br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="일">일요일<br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="월">월요일<br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="화">화요일<br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="수">수요일<br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="목">목요일<br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="금">금요일<br>
+		 	<input type="checkbox" name="hosp_off" class="chk" value="토">토요일<br>
+	 	</div>
+	 	
+	 	<div class="info">
+	 		<span>진료가능한 동물을 선택해주세요</span><br>
+	 		<input type="checkbox" name="anm_code" class="chk" value="A">개<br>
+	 		<input type="checkbox" name="anm_code" class="chk" value="B">고양이<br>
+	 		<input type="checkbox" name="anm_code" class="chk" value="C">파충류<br>
+	 		<input type="checkbox" name="anm_code" class="chk" value="D">조류<br>
+	 		<input type="checkbox" name="anm_code" class="chk" value="F">어류<br>
+	 		<input type="checkbox" name="anm_code" class="chk" value="Z">기타<br>
+	 	</div>
+	 	
+	 	<div class="info">
+	 		<span>진료과목을 선택해주세요</span><br>
+	 		<input type="checkbox" name="medi_code" class="chk" value="00">일반진료<br>
+	 		<input type="checkbox" name="medi_code" class="chk" value="01">내과<br>
+	 		<input type="checkbox" name="medi_code" class="chk" value="02">외과<br>
+	 		<input type="checkbox" name="medi_code" class="chk" value="03">접종<br>
+	 	</div>
  	</div>
- 	
- 	<div style="margin: 10px auto;">
+ 	<br>
+ 	<div class="info">
  	<span>주차 가능 여부를 선택해주세요</span>
 	<select name="hosp_park" id="hosp_park">
  		<option value="">--주차 여부--</option>
@@ -181,8 +208,8 @@
  		<option value="N">주차 불가능</option>
  	</select>
  	</div>
- 	
- 	<div style="margin: 10px auto;">
+ 	<br>
+ 	<div class="info">
  	<span>운영 형태를 선택해주세요</span>
  		<select name="hosp_mng" id="hosp_mng">
  		<option value="">--운영 형태--</option>
@@ -191,9 +218,10 @@
  		<option value="S">2차 병원</option>
  	</select>
  	</div>
- 	
+ 	<br>
+ 	<div class="info">
  	<input type="text" name="hosp_etc" id="hosp_etc" placeholder="기타 소개 사항을 작성해주세요">
- 	 	 
+ 	</div> 	 
  	<br>
  	<div>
 	 	<input type="submit" id="fixButton" value="회원가입">

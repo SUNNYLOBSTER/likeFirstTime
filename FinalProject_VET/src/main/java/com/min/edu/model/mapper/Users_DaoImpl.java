@@ -81,6 +81,16 @@ public class Users_DaoImpl implements IUsers_Dao {
 	public int insertHospInfoDetail(Map<String, Object> map) {
 		return session.insert(NS+"insertHospInfoDetail",map);
 	}
+	
+	@Override
+	public int insertHospAnicode(Map<String, Object> map) {
+		return session.insert(NS+"insertHospAnicode", map);
+	}
+
+	@Override
+	public int insertHospMedicode(Map<String, Object> map) {
+		return session.insert(NS+"insertHospMedicode", map);
+	}
 
 	@Override
 	public int resignUser(Users_VO uVo) {
@@ -90,11 +100,6 @@ public class Users_DaoImpl implements IUsers_Dao {
 	@Override
 	public int updateUser(Users_VO uVo) {
 		return session.update(NS+"updateUser", uVo);
-	}
-	
-	@Override
-	public int updateHospitalDetail(Users_VO uVo) {
-		return session.update(NS+"updateHospitalDetail", uVo);
 	}
 	
 	@Override

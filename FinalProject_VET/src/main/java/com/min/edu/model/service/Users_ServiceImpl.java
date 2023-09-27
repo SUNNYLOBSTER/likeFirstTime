@@ -93,6 +93,19 @@ public class Users_ServiceImpl implements IUsers_Service {
 	}
 	
 	@Override
+	public int insertHospAnicode(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl insertHospAnicode 병원진료동물입력 : {} &&&&&", map);
+		return dao.insertHospAnicode(map);
+	}
+	
+	@Override
+	public int insertHospMedicode(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl insertHospMedicode 병원진료과목입력 : {} &&&&&", map);
+		return dao.insertHospMedicode(map);
+	}
+	
+	
+	@Override
 	public int resignUser(Users_VO uVo) {
 		log.info("&&&&& Users_ServiceImpl resignUser 회원탈퇴 : {} &&&&&", uVo);
 		return dao.resignUser(uVo);
@@ -104,16 +117,6 @@ public class Users_ServiceImpl implements IUsers_Service {
 		return dao.updateUser(uVo);
 	}
 	
-	@Transactional(readOnly = true)
-	@Override
-	public boolean updateHospitalDetail(Users_VO uVo) {
-		log.info("&&&&& Users_ServiceImpl updateHospitalDetail 회원정보수정(병원관계자) : {} &&&&&", uVo);
-		int n = dao.updateUser(uVo);
-		int m = dao.updateHospitalDetail(uVo);
-		
-		
-		return (n+m)>0?true:false;
-	}
 	
 	
 	@Override

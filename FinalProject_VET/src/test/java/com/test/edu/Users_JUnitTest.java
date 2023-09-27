@@ -76,7 +76,7 @@ public class Users_JUnitTest {
 //		map.put("hosp_etc", "고양이 전문 병원 입니다.");
 //		map.put("hosp_mng", "G");
 		
-		Users_VO vo = new Users_VO();
+//		Users_VO vo = new Users_VO();
 //		vo.setUsers_id("sana1@naver.com");
 //		vo.setUsers_pw("1234");
 		
@@ -91,9 +91,16 @@ public class Users_JUnitTest {
 //		Users_VO uVo = service.findId(vo);
 //		System.out.println(uVo);
 		
-	
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("medi_code", "01");
+		map.put("anm_code", "A");
+		map.put("hosp_id", "juchu@naver.com");
 		
-		assertNotNull(vo);
+		int n = service.insertHospAnicode(map);
+		int m = service.insertHospMedicode(map);
+		
+		assertEquals(1, n);
+		assertEquals(1, m);
 		
 		
 		
