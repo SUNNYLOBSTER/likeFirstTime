@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>진료문의 게시판</title>
-
+<%-- ${questList} --%>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
 </head>
@@ -18,7 +18,7 @@
 <div id="searchArea">
 <form action="./selectPartQuest.do">
 	<select id="aCode" name="qst_species">
-		<option disabled="disabled" selected="selected" value="">--어떤 동물인가요?--</option>
+		<option disabled="disabled" selected="selected" value="Y">--어떤 동물인가요?--</option>
 		<option value="A">개</option>
 		<option value="B">고양이</option>
 		<option value="C">파충류</option>
@@ -27,10 +27,7 @@
 		<option value="Z">기타</option>
 	</select>
 	<select id="aPart" name="qst_part">
-<%-- 		<c:if test="${loginVo.users_auth eq 'H'}"> --%>
-<%-- 			<option>${}</option> --%>
-<%-- 		</c:if> --%>
-		<option disabled="disabled" selected="selected" value="">--증상 부위--</option>
+		<option disabled="disabled" selected="selected" value="00">--증상 부위--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
 		<option value="03">치아</option>
@@ -42,7 +39,7 @@
 		<option value="09">면역력,호흡기</option>
 		<option value="10">기타</option>
 	</select>
-	<input id="searchBar" type="text" name="qst_content" placeholder="검색어를 입력하세요" >
+	<input id="searchBar" type="text" name="qst_content" placeholder="검색어를 입력하세요">
 	<input id="searchSubmit" type="submit" value="검색" >
 </form>
 	<c:if test="${loginVo.users_auth eq 'U'}">
@@ -62,7 +59,7 @@
 							<td class="thumbnail"></td>
 							<td class="questId">${dto.users_vo[0].users_name}</td>
 							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
-							<td class="questCategory">${dto.animalpart_vo[0].part_name}</td>
+							<td class="questPart">${dto.animalpart_vo[0].part_name}</td>
 							<td class="questTitle">❓${dto.qst_title}(1)</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -71,7 +68,7 @@
 						</tr>
 					</table>
 					<div class="questBottom">
-						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a>
+						<a href="./questDetail.do?seq=${dto.qst_seq}">${content}</a>
 					</div>
 				</div>
 				<div class="blank"></div>

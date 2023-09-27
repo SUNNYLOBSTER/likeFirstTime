@@ -18,7 +18,7 @@
 	<form action="./qst_writeQuest.do" method="post">
 	<!-- 카테고리 선택 -->
 	<select id="aCode" name="qst_species" class="selectPart" >
-		<option disabled="disabled" selected="selected" >--동물 종을 선택하세요--</option>
+		<option disabled="disabled" selected="selected" value="">--동물 종을 선택하세요--</option>
 		<option value="D">개</option>
 		<option value="C">고양이</option>
 		<option value="R">파충류</option>
@@ -28,7 +28,7 @@
 	</select>
 	<input type="hidden" name="codeInput">
 	<select id="aPart" name="qst_part" class="selectPart">
-		<option disabled="disabled" selected="selected" >--증상이 있는 부위를 선택하세요--</option>
+		<option disabled="disabled" selected="selected" value="">--증상이 있는 부위를 선택하세요--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
 		<option value="03">치아</option>
@@ -42,19 +42,20 @@
 	</select>
 	<input type="hidden" name="partInput">
 	
-	<!-- 우선답변 게시글 활성화 -->
-	<input type="checkbox" name="qst_fast" value="Y">빠른문의 게시글<br>
+	<!-- 빠른문의 게시글 활성화 -->
+	<input type="checkbox" name="qst_fast" value="Y">빠른문의 게시글
+	 <a style="font-size: 8px; color: grey;">※ 빠른문의 작성 시 500포인트가 차감됩니다.</a>
 
 	<!-- 제목 작성 -->
 	<input id="questTitle" type="text" name="questTitle" style="width:100%;" required>
 	
 	<!--  내용 작성 -->
 	<textarea id="editor" name="questContent" required></textarea>
+	</form>
 	
 	<!-- 완료 버튼 -->
 	<button type="submit" onclick="writeSubmit()">입력</button>
 	<input type="submit" value="취소" onclick="location.href='./questBoard.do'">
-	</form>
 </div>
 </body>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>

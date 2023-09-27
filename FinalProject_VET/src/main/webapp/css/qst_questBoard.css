@@ -2,27 +2,33 @@
 
 #searchArea {
 	height: 60px;
-/* 	padding: 10px 10px 10px 1px; */
 	margin: 10px 10px;
 }
 
 #contentArea {
 	height: 1180px;
-/* 	margin: 10px 10px; */
 }
 
-#content
+/* #content */
 
 #pagingArea {
 	height: 40px;
-/* 	padding: 10px 10px 10px 10px; */
 	margin: 10px 10px;
+}
+
+#gapArea{
+	height: 40px;
+}
+
+#choiceBtn{
+	margin: 15px 15px;
+	color: red;
 }
 
 .questCard{
 	padding: 15px 15px;
 	margin: 10px;
-	height: 300px;
+	min-height: 300px;
 	background-color: #F5F1EF;
 	border-radius: 20px;
 	box-shadow: 8px 6px #BCAAA4;
@@ -100,8 +106,6 @@
 	width: 750px;
 	text-align: left;
 }
-
-
 
 .modal {
   display: none; 

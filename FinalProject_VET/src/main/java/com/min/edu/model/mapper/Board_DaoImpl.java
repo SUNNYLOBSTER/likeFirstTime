@@ -57,7 +57,12 @@ public class Board_DaoImpl implements IBoard_Dao {
 	public int insertQuest(QuestBoard_VO vo) {
 		return session.insert(NS+"insertQuest", vo);
 	}
-
+	
+	@Override
+	public String getMaxSeq() {
+		return session.selectOne(NS+"getMaxSeq");
+	}
+	
 	@Override
 	public int updateFastQuest(String seq) {
 		return session.update(NS+"updateFastQuest", seq);
@@ -82,6 +87,7 @@ public class Board_DaoImpl implements IBoard_Dao {
 	public int insertReply(ReplyBoard_VO vo) {
 		return session.insert(NS+"insertReply", vo);
 	}
+
 
 	@Override
 	public int modifyReply(Map<String, Object> map) {
@@ -136,11 +142,6 @@ public class Board_DaoImpl implements IBoard_Dao {
 	@Override
 	public AnimalPart_VO selectAnimalPart(String part_code) {
 		return session.selectOne(NS+"selectAnimalPart", part_code);
-	}
-
-	@Override
-	public String getMaxSeq() {
-		return session.selectOne(NS+"getMaxSeq");
 	}
 
 	@Override
