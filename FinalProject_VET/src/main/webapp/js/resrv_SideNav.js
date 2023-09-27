@@ -91,7 +91,7 @@ function month_count(){
 };
 
 function resrv_wList(){
-	console.log(page);
+//	console.log(page);
 	console.log("예약승인 대기명단 호출");
 	var calendar= document.getElementById("calendar");
 	var myChart= document.getElementById("myChart");

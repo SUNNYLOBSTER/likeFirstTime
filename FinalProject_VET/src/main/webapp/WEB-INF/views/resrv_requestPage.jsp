@@ -16,18 +16,19 @@
 </head>
 <body>
 	<div class="container">
-		<h1>${hosp_name} 예약</h1>
+		<h1 id="resrv_reqH1">${hosp_name} 예약</h1>
 		<div id="cal_area">
 			<div id="calendar"></div>
 		</div>
 		<div id="time_area">
 			<h2>예약가능 시간</h2>
 			<c:if test="${hosp_runTime ne null}">
-				<button id="hosp_run" >${hosp_runTime}</button>
+				<button id="hosp_run">${hosp_runTime}</button>
 			</c:if>
 			
 			<div id="resrv_availableTime"></div>
-			<p>예약시 예약금 3000포인트가 차감됩니다.</p>
+			<p><b>현재 보유 포인트 : ${point}</b></p>	
+			
 		</div>
 		<hr>
 		<div id="resrv_info">
@@ -57,10 +58,11 @@
 					<td colspan="2"><input type="text" name="resrv_memo" placeholder="간략한 메모를 남겨주세요"></td>
 				</tr>
 				<tr>
-					<th><input type="submit" id="submit" value="예약 신청"></th>
+					<th colspan="1"><input type="submit" id="submit" value="예약 신청"></th>
 					<td><button class="btn btn-default" id="cancel" onclick="self.close()">취소</button></td>				
 				</tr>
 			</table>
+			<p>예약시 예약금 3000포인트가 차감됩니다.</p>
 			</form>
 		</div>
 	</div>

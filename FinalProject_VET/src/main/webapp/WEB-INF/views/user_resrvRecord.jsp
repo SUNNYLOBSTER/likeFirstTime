@@ -15,7 +15,8 @@
 	<%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
 		<h3 id="listname">예약 내역</h3>
-			<table class="resrv_record">
+		<table class="resrv_record">
+			<thead>
 				<tr>
 					<th>예약번호</th>
 					<th>예약병원</th>
@@ -24,6 +25,8 @@
 					<th>예약상태</th>
 					<th id="cancel">예약취소</th>
 				</tr>
+			</thead>
+			<tbody>
 				<c:forEach var="list" items="${hosp_lists}">
 					<tr>
 						<td>${list.resrv_num}</td>
@@ -53,7 +56,33 @@
 						</td>
 					</tr>
 				</c:forEach>
-			</table>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="6">
+						<ul>
+							<c:if test="${page.stagePage > 1}">
+								<li><a href="#" onclick="pageFirst('${sessionScope.loginVo.users_id}')">⏮️</a></li>
+								<c:if test="${page.stagePage - page.countPage >= 0}">
+									<li><a href="#" onclick="pagePrev(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')">◀</a></li>
+								</c:if>
+							</c:if>
+							
+							<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1">
+								<li ${page.page == i ? 'class=active':''}><a href="javascript:page(${i},'${sessionScope.loginVo.users_id}')">${i}</a></li>
+							</c:forEach>
+						
+							<c:if test="${page.page < page.totalPage}">
+								<c:if test="${page.stagePage+page.countPage < page.totalCount}">
+									<li><a href="#" onclick="pageNext(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')">▶️</a></li>
+								</c:if>
+								<li><a href="#" onclick="pageLast(${page.totalPage},'${sessionScope.loginVo.users_id}')">⏭️</a></li>
+							</c:if>
+						</ul>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
 	</div>
 	<script type="text/javascript" src="./js/user_resrvRecord.js"></script>
 </body>

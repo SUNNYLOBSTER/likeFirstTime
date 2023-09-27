@@ -23,3 +23,25 @@ $(document).on("click",".resrv_cancel",function(){
 		}
 	});
 });
+
+function pageFirst(resrv_userid){
+	location.href = "./resrv_recordList.do?page=1&resrv_userid="+resrv_userid;
+}
+
+function pagePrev(stagePage, countPage,resrv_userid){
+	var page = (stagePage - countPage) < 0 ? 1 : (stagePage-countPage);
+	location.href = "./resrv_recordList.do?page="+page+"&resrv_userid="+resrv_userid;
+}
+
+function page(page,resrv_userid){
+	console.log("페이지 선택",page);
+	location.href="./resrv_recordList.do?page="+page+"&resrv_userid="+resrv_userid;
+}
+
+function pageNext(stagePage, countPage,resrv_userid){
+	location.href="./resrv_recordList.do?page="+(stagePage+countPage)+"&resrv_userid="+resrv_userid;
+}
+
+function pageLast(totalPage,resrv_userid){
+	location.href="./resrv_recordList.do?page="+totalPage+"&resrv_userid="+resrv_userid;
+}
