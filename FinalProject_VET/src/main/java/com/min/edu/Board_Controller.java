@@ -89,17 +89,14 @@ public class Board_Controller {
 	
 	@GetMapping(value = "/selectPartQuest.do")
 	public String selectPartQuest(@RequestParam Map<String,Object> map, Model model) {
-		
 		log.info("{}",map);
 		
 		List<QuestBoard_VO> boards = service.selectPartQuest(map);
 		log.info("{}",boards);
 		model.addAttribute("questList", boards);
 		
-		
 		return "qst_questBoard";
 	}
-	
 	
 	@GetMapping(value = "/writeQuestForm.do")
 	public String writeQuestForm(HttpSession session, HttpServletResponse response) throws IOException {
@@ -201,7 +198,6 @@ public class Board_Controller {
 	@GetMapping(value = "/qst_writeQuest.do")
 	public String modifyQuest(String seq, HttpSession session, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Board_Controller 게시글 수정 페이지  이동 &&&&&");
-//		QuestBoard_VO vo = 
 
 				response.setContentType("text/html; charset=UTF-8");
 		
