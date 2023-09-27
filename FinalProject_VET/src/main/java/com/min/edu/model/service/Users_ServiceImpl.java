@@ -1,5 +1,6 @@
 package com.min.edu.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,6 +103,18 @@ public class Users_ServiceImpl implements IUsers_Service {
 		log.info("&&&&& Users_ServiceImpl updateUser 회원정보수정(일반사용자) : {} &&&&&", uVo);
 		return dao.updateUser(uVo);
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public boolean updateHospitalDetail(Users_VO uVo) {
+		log.info("&&&&& Users_ServiceImpl updateHospitalDetail 회원정보수정(병원관계자) : {} &&&&&", uVo);
+		int n = dao.updateUser(uVo);
+		int m = dao.updateHospitalDetail(uVo);
+		
+		
+		return (n+m)>0?true:false;
+	}
+	
 	
 	@Override
 	public Users_VO findId(Users_VO uVo) {
