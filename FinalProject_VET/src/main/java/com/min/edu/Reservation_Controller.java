@@ -31,6 +31,7 @@ import com.min.edu.vo.AnimalConn_VO;
 import com.min.edu.vo.FullCalendar_VO;
 import com.min.edu.vo.Hospital_VO;
 import com.min.edu.vo.MediConn_VO;
+import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.ResrvList_VO;
 import com.min.edu.vo.SchedBoard_VO;
@@ -227,6 +228,8 @@ public class Reservation_Controller {
       if(user_vo != null) {
           if(resrv_hops != null) {
         	  Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
+        	  int point = pay_service.selectAllPnt(user_vo.getUsers_id());
+        	  model.addAttribute("point", point);
         	  if(hosp_info != null) {
         		  model.addAttribute("hosp_time", hosp_info.getHosp_time());
                   model.addAttribute("user_vo", user_vo);
@@ -267,7 +270,7 @@ public class Reservation_Controller {
        List<Reservation_VO> rLists = service.resrv_reqCal(resrv_hops);
       
        Hospital_VO hosp_info = service.resrv_reqPage(resrv_hops);
-       System.out.println(rLists);
+//       System.out.println(rLists);
        for (Reservation_VO rvo : rLists) {
     	FullCalendar_VO fvo = new FullCalendar_VO();
 		fvo.setStart(rvo.getResrv_visit());
@@ -323,17 +326,42 @@ public class Reservation_Controller {
    }
    
    @GetMapping(value = "/resrv_recordList.do")
-   public String resrv_recordList(String resrv_userid, Model model) {
+   public String resrv_recordList(String resrv_userid, Model model, HttpSession session,
+		   @RequestParam(required = false, defaultValue = "1")String page
+		   ) {
 	   log.info("&&&&& Reservation_Controller resrv_recordList &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&",resrv_userid);
-
-	   @SuppressWarnings("serial")
-	Map<String, Object> map = new HashMap<String, Object>(){{
-		   put("resrv_userid",resrv_userid);
-		   put("first","1");
-		   put("last","10");
-	   }};
-	   List<Reservation_VO> list = service.resrv_recordList(map);
+	   log.info("&&&&& 전달된 페이지 : {} &&&&&", page);
+	   
+	   Paging_VO pVo = null;
+		if(session.getAttribute("row")==null) {
+			pVo = new Paging_VO();
+			session.setAttribute("row", pVo);
+		} 
+		else {
+			pVo = (Paging_VO)session.getAttribute("row");
+		}
+		log.info("----------------현재페이지 : {}", page);
+		int selectPage = Integer.parseInt(page);
+		log.info("----------------선택된페이지 : {}", selectPage);
+		Map<String, Object> inMap = new HashMap<String, Object>();
+		inMap.put("resrv_userid", resrv_userid);
+		
+		pVo.setTotalCount(service.resrv_recordListCnt(inMap)); //총 게시물의 개수
+		pVo.setCountList(5); //출력될 게시글의 개수
+		pVo.setCountPage(5); // 화면에 몇 개의 페이지를 보여줄 건지 (페이지 그룹)
+		pVo.setTotalPage(pVo.getTotalCount()); // 총 페이지의 개수
+		pVo.setPage(selectPage); // 화면에서 선택된 페이지 번호
+		pVo.setStagePage(selectPage); // 페이지 그룹의 시작 번호
+		pVo.setEndPage(pVo.getCountPage()); // 끝 번호
+		
+		//페이징처리된 결과를 가지고 옴
+		// 현재 페이지 * 한 페이지의 글 개수 row - (한 페이지의 글 개수 row -1) : 1*5 - (5-1) = 1
+		inMap.put("first", pVo.getPage()*pVo.getCountList()-(pVo.getCountList()-1));
+		// 현재 페이지 * 한 페이지의 글 개수 row
+		inMap.put("last", pVo.getPage()*pVo.getCountList());
+		
+	   List<Reservation_VO> list = service.resrv_recordList(inMap);
 	   List<ResrvList_VO> hosp_lists = new ArrayList<ResrvList_VO>();
 	   for (int i = 0; i < list.size(); i++) {
 		   ResrvList_VO rvo = new ResrvList_VO();
@@ -348,8 +376,8 @@ public class Reservation_Controller {
 		   hosp_lists.add(rvo);
 	   }
 	   
-//	   model.addAttribute("resrv_recordList", list);
 	   model.addAttribute("hosp_lists", hosp_lists);
+	   model.addAttribute("page", pVo);
 	   return "user_resrvRecord";
    }
    

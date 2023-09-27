@@ -24,12 +24,19 @@
 	background-color: #BCAAA4;
 }
 
-#cancel{
-	width: 20px;
+.resrv_record td{
+	height: 50px;
 }
 
 #listname{
 	margin-top: 0px;
 	padding-top: 30px;
 	text-align: center;
+}
+
+table li{
+	display: inline;
+	float:none;
+    font-size: 20px;
+    margin-right: 10px;
 }
