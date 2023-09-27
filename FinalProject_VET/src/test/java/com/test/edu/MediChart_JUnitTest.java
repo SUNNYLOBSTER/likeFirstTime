@@ -3,6 +3,7 @@ package com.test.edu;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -71,11 +72,14 @@ public class MediChart_JUnitTest {
 //	}
 	
 //	@Test
-	public void selectAllChart() {
-		String medi_id = "elsa@disney.com";
-		List<PetsInfo_VO> lists = service.selectAllChart(medi_id);
-		assertNotNull(lists);
-	}
+//	public void selectAllChart() {
+//		String medi_id = "elsa@disney.com";
+//		List<PetsInfo_VO> lists = service.selectAllChart(medi_id);
+//		assertNotNull(lists);
+//		for (int i = 0; i < lists.size(); i++) {
+//			System.out.println(lists.get(i));
+//		}
+//	}
 	
 //	@Test
 //	public void selectPetChart() {
@@ -145,4 +149,20 @@ public class MediChart_JUnitTest {
 		assertNotNull(mvo);
 	}
 
+//	@Test
+	public void selectAllChartPaging() {
+		Map<String, Object> map = new HashMap<String, Object>(){{
+			put("pet_owner", "elsa@disney.com");
+			put("first", 1);
+			put("last", 4);
+			put("pet_seq",5);
+		}};
+		
+		List<PetsInfo_VO> lists = service.selectAllChartPaging(map);
+		assertNotNull(lists);
+		
+		for (int i = 0; i < lists.size(); i++) {
+			System.out.println(lists.get(i));
+		}
+	}
 }

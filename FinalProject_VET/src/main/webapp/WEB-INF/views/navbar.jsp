@@ -9,7 +9,7 @@
 <%@ include file="./header.jsp" %>
 <body>
 	<div class="sidenav">
-		<button id="sideNav_1" class="dropdown-btn" onclick="location.href='./selectAllChart.do'">
+		<button id="sideNav_1" class="dropdown-btn" onclick="location.href='./selectAllChartPaging.do'">
 			진료기록
 		</button>
 		<div class="dropdown-container">

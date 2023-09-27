@@ -171,7 +171,7 @@
 					<button onclick="location.href='./resrv_Select.do'">병원 마이페이지</button>
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
-					<button onclick="location.href='./selectAllChart.do'">마이페이지</button>
+					<button onclick="location.href='./selectAllChartPaging.do'">마이페이지</button>
 				</c:if>
 				<button onclick="location.href='./logout.do'">로그아웃</button>
 				

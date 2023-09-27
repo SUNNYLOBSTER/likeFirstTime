@@ -1,7 +1,7 @@
 @charset "UTF-8";
 #listname{
 	font-weight: bold;
-	margin-left: 340px;
+	margin-left: 410px;
 	margin-bottom: 30px;
 	margin-top: 0px;
 	padding-top: 30px;
@@ -46,7 +46,7 @@
 .detail{
 	width: 350px;
 	height: 200px;
-	margin: 25px;
+	margin: 30px 70px 30px 70px;
 	float: left;
 	border-radius: 20px;
 	background-color: #EFEBE9;
@@ -79,17 +79,37 @@
 	padding: 50px;
 	margin: 0 auto;
 	font-size: 15px;
-	margin-left: 250px;
+	margin-left: 350px;
 }
 
 #petsPart{
-	width: 80%;
+	width: 100%;
+}
+#pageBtnPart{
+	width: 100%
+}
+
+#pageBtnPart img{
+	width: 40px;
+	height: 40px;
+}
+
+#prevBtn{
+	float: left;
+}
+#nextBtn{
+	float: right;
 }
 
 #chartPart{
-	height: calc(100vh - 190px);
-	overflow-y: scroll;
+	width: 100%;
+	height: 500px;
 }
-#chartPart::-webkit-scrollbar{
-	width: 0;
-}
+
+/* #chartPart{ */
+/* 	height: calc(100vh - 190px); */
+/* 	overflow-y: scroll; */
+/* } */
+/* #chartPart::-webkit-scrollbar{ */
+/* 	width: 0; */
+/* } */

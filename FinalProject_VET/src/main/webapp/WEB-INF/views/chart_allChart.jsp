@@ -23,11 +23,11 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="pet" items="${allPets}" varStatus="vs">
-						<button class="selectPet" value="${pet.pet_seq}">${pet.pet_name}</button>
+						<button class="selectPet" value="${pet.pet_seq}" onclick="choice(this)">${pet.pet_name}</button>
 					</c:forEach>
 				</c:otherwise>
 				</c:choose>
-				<button class="selectPet" onclick="location.href='./selectAllChart.do'">전체</button>
+				<button class="selectPet" onclick="location.href='./selectAllChartPaging.do'">전체</button>
 				<button onclick="location.href='./insertNewChartForm.do'" id="newChart">진료기록 작성</button>
 			</div>
 			<br>
@@ -44,15 +44,15 @@
 				</select>
 				<button id="selectMediCode" onclick="selectCode()">조회</button>
 			</div>
-			<div id="chartPart">
 			
+			<div id="chartPart">
 				<c:choose>
-					<c:when test="${empty allCharts}">
+					<c:when test="${empty chart_lists}">
 						<p class="noneChart">등록된 진료기록이 없습니다</p>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="clist" items="${allCharts}" varStatus="vs">
-							<c:forEach var="mlist" items="${clist.medichart_vo}">
+						<c:forEach var="list" items="${chart_lists}" varStatus="vs">
+							<c:forEach var="mlist" items="${list.medichart_vo}">
 									<div class="detail"> 
 										<table class="detailTable">
 												<tr>
@@ -62,7 +62,7 @@
 												</tr>
 												<tr>
 													<th>반려동물</th>
-													<td>${clist.pet_name}</td>
+													<td>${list.pet_name}</td>
 												</tr>
 												<tr>
 													<th>진료기록</th>
@@ -78,6 +78,11 @@
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
+			</div>
+			<br>
+			<div id="pageBtnPart">
+				<a href="#" id="prevBtn" onclick="pagePrev(${page.stagePage})"><img src="./img/back.png"></a>
+				<a href="#" id="nextBtn" onclick="pageNext(${page.stagePage},${page.totalPage})"><img src="./img/forward.png"></a>
 			</div>
 	</div>
 </body>

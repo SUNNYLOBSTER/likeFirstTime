@@ -17,7 +17,7 @@
 		<div id="wholePnt">
 			<p id="point_list">전체 가용 포인트 : ${point}</p>
 		</div>
-		<table id="chartInfo_point">
+		<table id="chartInfo">
 			<tr>
 				<th>적립/사용일자</th>
 				<th>포인트</th>
