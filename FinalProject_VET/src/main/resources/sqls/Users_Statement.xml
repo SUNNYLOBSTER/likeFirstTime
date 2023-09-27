@@ -197,6 +197,18 @@ INSERT INTO HOSPITAL
 				#{hosp_off}, #{hosp_park}, #{hosp_etc}, #{hosp_mng})
 </insert>
 
+<!-- 진료동물코드 넣기 / 병원데이터입력2 -->
+<insert id="insertHospAnicode">
+INSERT INTO ANIMALCONNECT (ANM_CODE, HOSP_ID)
+	VALUES(#{anm_code}, #{hosp_id})
+</insert>
+
+<!-- 진료 과목 넣기  / 병원데이터입력3 -->
+<insert id="insertHospMedicode">
+INSERT INTO MEDICONNECT (MEDI_CODE, HOSP_ID)
+	VALUES(#{medi_code}, #{hosp_id})
+</insert>
+
 
 <!-- 회원 탈퇴 -->
 <update id="resignUser">

@@ -46,14 +46,17 @@ public interface IUsers_Dao {
 	//추가정보입력(병원관계자)
 	public int insertHospInfoDetail(Map<String, Object> map);
 	
+	//추가정보입력(병원관계자2)
+	public int insertHospAnicode(Map<String, Object> map);
+	
+	//추가정보입력(병원관계자3)
+	public int insertHospMedicode(Map<String, Object> map);
+	
 	//회원 탈퇴
 	public int resignUser(Users_VO uVo);
 	
 	//회원정보수정(일반사용자)
 	public int updateUser(Users_VO uVo);
-	
-	//회원정보수정(병원 관계자)
-	public int updateHospitalDetail(Users_VO uVo);
 	
 	//아이디 찾기
 	public Users_VO findId(Users_VO uVo);

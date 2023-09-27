@@ -99,16 +99,16 @@ function isSame() {
         }).open();
     }
 
-$(".mailCertButton").click(function(){
-	var email = $(".users_id").val();
-	console.log(email);
-	
-	$.ajax({
-		type:"get",
-		url:"./mailCheck.do?email="+email
-	});
-
-});
+//$(".mailCertButton").click(function(){
+//	var email = $(".users_id").val();
+//	console.log(email);
+//	
+//	$.ajax({
+//		type:"get",
+//		url:"./mailCheck.do?email="+email
+//	});
+//
+//});
 
 
 
