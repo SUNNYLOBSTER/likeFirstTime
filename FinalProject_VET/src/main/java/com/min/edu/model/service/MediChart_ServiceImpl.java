@@ -68,25 +68,21 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 		return dao.deletePet(pet_seq);
 	}
 	
-//	@Transactional(readOnly = true)
 	@Override
 	public String insertNewChart(MediChart_VO mvo) {
 		log.info("&&&&& MediChart_ServiceImpl insertNewChart &&&&&");
 		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", mvo);
 		int n = dao.insertNewChart(mvo);
-//		fvo.setF_ref(mvo.getMedi_num());
-//		int f = dao.fileUpload(fvo);
 		String m = (n>0)?dao.getMaxSeq():"";
-//		String m = (n>0 && f>=0)?dao.getMaxSeq():"";
 		return m;
 	}
 
-	@Override
-	public List<PetsInfo_VO> selectAllChart(String medi_id) {
-		log.info("&&&&& MediChart_ServiceImpl selectAllChart &&&&&");
-		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", medi_id);
-		return dao.selectAllChart(medi_id);
-	}
+//	@Override
+//	public List<PetsInfo_VO> selectAllChart(String medi_id) {
+//		log.info("&&&&& MediChart_ServiceImpl selectAllChart &&&&&");
+//		log.info("&&&&& 전달받은 파라미터값 : {} &&&&&", medi_id);
+//		return dao.selectAllChart(medi_id);
+//	}
 
 	@Override
 	public List<PetsInfo_VO> selectPetChart(Map<String, Object> map) {
@@ -146,6 +142,18 @@ public class MediChart_ServiceImpl implements IMediChart_Service {
 	public String getDetail(String medi_num) {
 		log.info("&&&&& MediChart_ServiceImpl getDetail &&&&&");
 		return dao.getDetail(medi_num);
+	}
+
+	@Override
+	public List<PetsInfo_VO> selectAllChartPaging(Map<String, Object> map) {
+		log.info("&&&&& MediChart_ServiceImpl selectAllChartPaging &&&&&");
+		return dao.selectAllChartPaging(map);
+	}
+
+	@Override
+	public int chartAllCount(String medi_id) {
+		log.info("&&&&& MediChart_ServiceImpl chartAllCount &&&&&");
+		return dao.chartAllCount(medi_id);
 	}
 
 }

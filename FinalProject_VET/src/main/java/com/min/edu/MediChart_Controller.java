@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -50,6 +51,7 @@ import com.min.edu.model.service.IMediChart_Service;
 import com.min.edu.vo.FileBoard_VO;
 import com.min.edu.vo.MediChart_VO;
 import com.min.edu.vo.MediCode_VO;
+import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.PetsInfo_VO;
 import com.min.edu.vo.Users_VO;
 
@@ -73,8 +75,8 @@ public class MediChart_Controller {
 		List<PetsInfo_VO> allPets = service.searchPet(pet_owner);
 		model.addAttribute("allPets",allPets);
 		
-		List<PetsInfo_VO> allCharts = service.selectAllChart(pet_owner);
-		model.addAttribute("allCharts",allCharts);
+//		List<PetsInfo_VO> allCharts = service.selectAllChart(pet_owner);
+//		model.addAttribute("allCharts",allCharts);
 		
 		List<MediCode_VO> lists = new ArrayList<MediCode_VO>();
 		
@@ -116,21 +118,19 @@ public class MediChart_Controller {
 	@ResponseBody
 	public Map<String, Object> selectPetChart(HttpSession session, String pet_seq) {
 		log.info("&&&&& MediChartController 전체진료기록 -> 반려동물별 진료기록페이지 &&&&&");
-		log.info("&&&&& MediChartController selectPetChart 전달받은 parameter값 : {} &&&&&",pet_seq);
+		log.info("&&&&& MediChartController selectPetChart 전달받은 parameter값 : {}&&&&&",pet_seq);
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String pet_owner = loginVo.getUsers_id();
 		
-		Map<String, Object> map = new HashMap<String, Object>(){{
-			put("pet_owner", pet_owner);
-			put("pet_seq", pet_seq);
-		}};
+		Map<String, Object> map = new HashMap<String, Object>();
+			map.put("pet_owner", pet_owner);
+			map.put("pet_seq", pet_seq);
 		
 		List<PetsInfo_VO> selectPetChart = service.selectPetChart(map);
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		
 		map2.put("detail", selectPetChart);
-		
 		return map2;
 	}
 	
@@ -520,6 +520,71 @@ public class MediChart_Controller {
 			model.addAttribute("url","selectAllChart.do");
 			return "alert";
 		}
+	}
+	
+	//전체 진료기록 조회 (페이징 처리)
+	@GetMapping(value = "/selectAllChartPaging.do")
+	public String selectAllChartPaging(HttpSession session, Model model, String pet_seq,
+										@RequestParam(required = false, defaultValue = "1")String page) {
+		log.info("&&&&& MediChartController selectAllChartPaging 전달받은 parameter값  페이지 :{} 동물seq: {}&&&&&",page,pet_seq);
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		String pet_owner = loginVo.getUsers_id();
+		
+		Paging_VO pVo = null;
+		if(session.getAttribute("row")==null) {
+			pVo = new Paging_VO();
+			session.setAttribute("row", pVo);
+		} 
+		else {
+			pVo = (Paging_VO)session.getAttribute("row");
+		}
+		int selectPage = Integer.parseInt(page);
+		int totalCount = service.chartAllCount(pet_owner);
+		
+		pVo.setTotalCount(totalCount);
+		pVo.setCountList(4);
+		pVo.setCountPage(1);
+		pVo.setTotalPage(pVo.getTotalCount());
+		pVo.setPage(selectPage);
+		pVo.setStagePage(selectPage);
+		pVo.setEndPage(pVo.getCountPage());
+		
+		int first = pVo.getPage()*pVo.getCountList()-(pVo.getCountList()-1);
+		int last = pVo.getPage()*pVo.getCountList();
+		
+		if(pet_seq != null) {
+			int pet_num = Integer.parseInt(pet_seq);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("pet_owner", pet_owner);
+			map.put("first",first);
+			map.put("last", last);
+			map.put("pet_seq", pet_num);
+			List<PetsInfo_VO> chart_lists = service.selectAllChartPaging(map);
+			model.addAttribute("chart_lists",chart_lists);
+		}else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("pet_owner", pet_owner);
+			map.put("first",first);
+			map.put("last", last);
+			List<PetsInfo_VO> chart_lists = service.selectAllChartPaging(map);
+			model.addAttribute("chart_lists",chart_lists);
+		}
+		
+		List<PetsInfo_VO> allPets = service.searchPet(pet_owner);
+		model.addAttribute("allPets",allPets);
+		
+		List<MediCode_VO> code_lists = new ArrayList<MediCode_VO>();
+		List<MediCode_VO> mlists =  service.selectAllMediCode();
+		
+		for(int i=0; i< mlists.size();i++) {
+			if (mlists.get(i).getMedi_code().length() == 2) {
+				code_lists.add(mlists.get(i));
+			}
+		}
+		model.addAttribute("codelists",code_lists);
+		model.addAttribute("page",pVo);
+		
+		return "chart_allChart";
 	}
 }
 

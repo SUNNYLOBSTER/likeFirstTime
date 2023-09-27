@@ -20,7 +20,7 @@ public interface IMediChart_Dao {
 	
 	public int insertNewChart(MediChart_VO mvo);
 	
-	public List<PetsInfo_VO> selectAllChart(String pet_owner);
+//	public List<PetsInfo_VO> selectAllChart(String pet_owner);
 	
 	public List<PetsInfo_VO> selectPetChart(Map<String, Object> map);
 	
@@ -41,5 +41,9 @@ public interface IMediChart_Dao {
 	public MediCode_VO searchMediName(String medi_code);
 	
 	public String getDetail(String medi_num);
+	
+	public List<PetsInfo_VO> selectAllChartPaging(Map<String, Object> map);
+	
+	public int chartAllCount(String medi_id);
 	
 }

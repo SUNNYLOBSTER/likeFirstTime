@@ -48,10 +48,10 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 		return session.insert(NS+"insertNewChart", mvo);
 	}
 
-	@Override
-	public List<PetsInfo_VO> selectAllChart(String pet_owner) {
-		return session.selectList(NS+"selectAllChart",pet_owner);
-	}
+//	@Override
+//	public List<PetsInfo_VO> selectAllChart(String pet_owner) {
+//		return session.selectList(NS+"selectAllChart",pet_owner);
+//	}
 
 	@Override
 	public List<PetsInfo_VO> selectPetChart(Map<String, Object> map) {
@@ -101,6 +101,16 @@ public class MediChart_DaoImpl implements IMediChart_Dao {
 	@Override
 	public String getDetail(String medi_num) {
 		return session.selectOne(NS+"getDetail", medi_num);
+	}
+
+	@Override
+	public List<PetsInfo_VO> selectAllChartPaging(Map<String, Object> map) {
+		return session.selectList(NS+"selectAllChartPaging",map);
+	}
+
+	@Override
+	public int chartAllCount(String medi_id) {
+		return session.selectOne(NS+"chartAllCount",medi_id);
 	}
 
 }
