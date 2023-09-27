@@ -40,3 +40,8 @@ table li{
     font-size: 20px;
     margin-right: 10px;
 }
+
+table img, table a{
+	width: 20px;
+	height: 20px;
+}

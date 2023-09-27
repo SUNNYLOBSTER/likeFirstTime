@@ -280,3 +280,8 @@ SELECT SI_GUN_GU
 SELECT 소재지전체주소 , 사업장명
 	FROM HOSPITAL_DATA hd 
 	WHERE 도로명전체주소 LIKE '인천광역시%미추홀구%';
+
+SELECT *
+	FROM REPLYBOARD r 
+	WHERE RPY_ID = 'gana@naver.com'
+		AND RPY_CHOSEN = 'Y'

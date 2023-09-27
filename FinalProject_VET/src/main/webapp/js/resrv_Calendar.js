@@ -9,6 +9,7 @@ function resrv_calendar(){
 	$("#hosp_infomation").hide();
 	$("#hosp_modifyArea").hide();
 	$("#listname").hide();
+	$("#calhead").show();
 
 	
 	$(function() {
@@ -148,8 +149,8 @@ function resrv_save(){
 	
 }
 
-function resrv_cancel(){
-	
+window.onload = function(){
+	$("#calhead").hide();
 }
 
 

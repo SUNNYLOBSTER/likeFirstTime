@@ -105,7 +105,7 @@ IamportClient client;
 	
 	@PostMapping(value = "/insertNewPayment.do")
 	@ResponseBody
-	public String insertNewPayment(@RequestParam Map<String, Object> map) {
+	public String insertNewPayment(@RequestParam Map<String, Object> map, HttpSession session) {
 		log.info("&&&&& Payment_Controller insertNewPayment 전달받은 parameter값 : {} &&&&&",map);
 		
 		String pay_id = (String) map.get("pay_id");
@@ -129,7 +129,9 @@ IamportClient client;
 			put("pnt_id", pay_id);
 			put("pnt_point",pay_amount);
 		}};
-						
+		
+		int point = service.selectAllPnt(pay_id);
+		session.setAttribute("point", point);
 		int n = service.insertNewPayment(payMap);
 		int m = service.insertNewPnt(pointMap);
 		
@@ -211,7 +213,8 @@ IamportClient client;
 						put("pnt_id", pnt_id);
 						put("pnt_point", pnt_point);
 					}};
-					
+					int point = service.selectAllPnt(pnt_id);
+					session.setAttribute("point", point);
 					int n = service.canclePayment(imp_uid);
 					int m = service.insertNewPnt(map);
 					isc = ((n>0)&&(m>0))?"true":"false";

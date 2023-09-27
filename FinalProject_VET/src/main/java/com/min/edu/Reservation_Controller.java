@@ -199,7 +199,7 @@ public class Reservation_Controller {
    
    @PostMapping(value = "/resrv_refuse.do")
    @ResponseBody
-   public String resrv_refuse(String resrv_num, String user_id) {
+   public String resrv_refuse(String resrv_num, String user_id, HttpSession session) {
       log.info("&&&&& Reservation_Controller resrv_refuse 호출 &&&&&");
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", resrv_num);
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", user_id);
@@ -210,6 +210,8 @@ public class Reservation_Controller {
 		   put("pnt_point",3000);
 	   }};
 	   int m = pay_service.insertNewPnt(map);
+	   int point = pay_service.selectAllPnt(user_id);
+	   session.setAttribute("point", point);
       int n = service.resrv_delete(resrv_num);
       return (n>0 && m>0)?"resrv_refuse":"false";
    }
@@ -287,7 +289,9 @@ public class Reservation_Controller {
    }
    
    @PostMapping(value = "/resrv_insert.do")
-   public String resrv_insert(@RequestParam Map<String, Object> resrv_map, HttpServletResponse response) throws IOException {
+   public String resrv_insert(
+		   		@RequestParam Map<String, Object> resrv_map, HttpServletResponse response, 
+		   		HttpSession session, Model model) throws IOException {
 	   log.info("&&&&& Reservation_Controller resrv_insert &&&&&");
 	   log.info("&&&&& 전달받은 파라미터 {} &&&&&", resrv_map);
 	   response.setContentType("text/html; charset=UTF-8;");
@@ -312,6 +316,8 @@ public class Reservation_Controller {
 		   resrv_vo.setResrv_userid(user_id);
 		   String resrv_num = service.resrv_insert(resrv_vo);
 		   pay_service.usePntOnResrv(user_id); 
+		   int point = pay_service.selectAllPnt(user_id);
+		   session.setAttribute("point", point);
 		   return "redirect:/resrv_detail.do?resrv_num="+resrv_num;
 	   }else {
 		   PrintWriter out = response.getWriter();
@@ -431,6 +437,8 @@ public class Reservation_Controller {
 			   put("pnt_point",3000);
 		   }};
 		   int m = pay_service.insertNewPnt(inMap);
+		   int point = pay_service.selectAllPnt(user_id);
+		   session.setAttribute("point", point);
 		   
 		   @SuppressWarnings("serial")
 		Map<String, Object> delMap = new HashMap<String, Object>(){{
