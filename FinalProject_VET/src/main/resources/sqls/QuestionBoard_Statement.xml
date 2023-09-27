@@ -158,11 +158,12 @@ SELECT q.QST_SEQ, u.USERS_NAME , q.QST_ID, q.QST_TITLE,
 
 <!-- 게시글 상세조회 및 해당 게시글의 답글 전체조회 -->
 <select id="selectOneBoard" resultMap="BoardMap">
-SELECT u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
+SELECT q.QST_ID, u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
+	 q.QST_SPECIES, q.QST_PART,
 	 q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID, r.RPY_REF, 
 	 r.RPY_CONTENT , r.RPY_STATUS, r.RPY_REGDATE
-	FROM USERSINFO u 
-	inner join QUESTBOARD q on q.QST_ID = u.USERS_ID 
+	FROM QUESTBOARD q
+	inner join USERSINFO u on q.QST_ID = u.USERS_ID 
 	left join REPLYBOARD r on q.QST_SEQ = r.RPY_REF	
 	left join HOSPITAL h on h.HOSP_ID = r.RPY_ID
 	where
@@ -170,6 +171,20 @@ SELECT u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
 	AND q.QST_SEQ = #{qst_seq}
     ORDER BY r.RPY_SEQ DESC
 </select>
+<!-- <select id="selectOneBoard" resultMap="BoardMap"> -->
+<!-- SELECT q.QST_ID, u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT, -->
+<!-- 	 q.QST_SPECIES, q.QST_PART, -->
+<!-- 	 q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID, r.RPY_REF,  -->
+<!-- 	 r.RPY_CONTENT , r.RPY_STATUS, r.RPY_REGDATE -->
+<!-- 	FROM USERSINFO u  -->
+<!-- 	inner join QUESTBOARD q on q.QST_ID = u.USERS_ID  -->
+<!-- 	left join REPLYBOARD r on q.QST_SEQ = r.RPY_REF	 -->
+<!-- 	left join HOSPITAL h on h.HOSP_ID = r.RPY_ID -->
+<!-- 	where -->
+<!-- 	(q.QST_STATUS != 'N' OR r.RPY_STATUS != 'N') -->
+<!-- 	AND q.QST_SEQ = #{qst_seq} -->
+<!--     ORDER BY r.RPY_SEQ DESC -->
+<!-- </select> -->
 
 <!-- 답글만 전체조회 -->
 <select id="selectReply" resultMap="ReplyVOMap">

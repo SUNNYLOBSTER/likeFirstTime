@@ -55,7 +55,10 @@ INSERT INTO QUESTBOARD
 		
 		
 		
-		
+INSERT INTO PROJECT.REPLYBOARD
+(RPY_SEQ, RPY_ID, RPY_REF, RPY_CONTENT, RPY_REGDATE, RPY_STATUS, RPY_CHOSEN)
+VALUES('R11', 'gana@naver.com', 'Q22', '캐터피 잘 보고 갑니다. 저희병원에 오셔서 물고기 피부를 활용한 강아지 피부 치료 코스를 받아보시기 바랍니다.', SYSDATE , 'Y' , 'N' );
+
 		
 		
 		

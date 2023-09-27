@@ -3,6 +3,7 @@ package com.min.edu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.vo.Paging_VO;
 import com.min.edu.vo.QuestBoard_VO;
 import com.min.edu.vo.ReplyBoard_VO;
+import com.min.edu.vo.Reservation_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,10 +43,16 @@ public class Board_Controller {
 	public String questBoard(HttpSession session, Model model) {
 		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
 		List<QuestBoard_VO> lists = service.selectQuest();
+		List<String> lists2 = new ArrayList<String>();
+		
+		for (int i = 0; i < lists.size(); i++) {
+			lists2.add(StringEscapeUtils.unescapeHtml4(lists.get(i).getQst_content()));
+			lists2.add(lists.get(i).getQst_seq());
+			lists2.add(lists.get(i).getQst_fast());
+		}
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-		
-		
+		model.addAttribute("lists2", lists2);
 		model.addAttribute("questList", lists);
 		
 		return "qst_questBoard";
@@ -59,9 +67,11 @@ public class Board_Controller {
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		
-//		String auth = session.get
+	    String unescapedContent = StringEscapeUtils.unescapeHtml4(qstDetail.get(0).getQst_content());
 		
+	    model.addAttribute("loginVo", loginVo);
 		model.addAttribute("qstDetail", qstDetail);
+		model.addAttribute("content", unescapedContent);
 		model.addAttribute("rpyList", rpyList);
 		
 		return "qst_questDetail";
@@ -92,7 +102,7 @@ public class Board_Controller {
 	
 	
 	@GetMapping(value = "/writeQuestForm.do")
-	public String moveWriteForm(HttpSession session, HttpServletResponse response) throws IOException {
+	public String writeQuestForm(HttpSession session, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
 		
 		response.setContentType("text/html; charset=UTF-8");
@@ -116,73 +126,53 @@ public class Board_Controller {
 				out.println("<script>alert('로그인 후 작성 가능합니다');location.href='./loginForm.do';</script>");
 				out.flush();
 				return null;
-		
-		
+				
 	}
 	
 //	게시글 작성
 	@PostMapping(value = "/qst_writeQuest.do")
 	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model, HttpServletResponse response) throws IOException {
-		log.info("&&&&& Board_Controller 실행 qst_writeQuest 작동 &&&&&");
+		log.info("&&&&& Board_Controller 실행 writeQuest 작동 &&&&&");
 		log.info("{}", map);
-		
 		response.setContentType("text/html; charset=UTF-8");
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-				try {
-					if(loginVo != null) {
-						session.setAttribute("loginVo", loginVo);
-						session.setMaxInactiveInterval(1800);
-						
-						PrintWriter out;
-					out = response.getWriter();
-					out.flush();
-					return null;
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-			}
-				PrintWriter out = response.getWriter();
-				out.println("<script>alert('로그인 정보가 없습니다');location.href='./loginForm.do';</script>");
-				out.flush();
 				
 		String qst_id = loginVo.getUsers_id();
 		
-		String qst_title = (String) map.get("questTitle");
-		String qst_content = (String) map.get("questContent");
-		String escapedContent = StringEscapeUtils.escapeHtml4(qst_content);
-		String qst_species = (String) map.get("qst_species");
-		String qst_part = (String) map.get("qst_part");
-		String qst_fast = (String) map.get("qst_fast") == null?"N":"Y";
+		   int wholePnt =  service_pay.selectAllPnt(qst_id);
+		   
+		   String qst_content = (String) map.get("questContent");
+		   String escapedContent = StringEscapeUtils.escapeHtml4(qst_content);
+		   String qst_title = (String) map.get("questTitle");
+		   String qst_species = (String) map.get("qst_species");
+		   String qst_part = (String) map.get("qst_part");
+		   String qst_fast = (String) map.get("qst_fast") == null?"N":"Y";
+		   
+		   if(wholePnt >= 500 && qst_fast == "Y") {
+			   QuestBoard_VO insertVo = new QuestBoard_VO();
+			   insertVo.setQst_id(qst_id);
+			   insertVo.setQst_content(escapedContent);
+			   insertVo.setQst_title(qst_title);
+			   insertVo.setQst_species(qst_species);
+			   insertVo.setQst_part(qst_part);
+			   insertVo.setQst_fast(qst_fast);
+			   
+			   String quest = service.insertQuest(insertVo);
+			   service_pay.usePntOnBoard(qst_id);
+			   
+			   return "redirect:/questDetail.do?seq="+quest;
+			   
+		   }else {
+			   PrintWriter out = response.getWriter();
+		       out.print("<script>alert('빠른문의 결제 포인트가 부족합니다. 포인트를 충전해주세요'); "
+		       				+ "location.href='./goPayment.do';"
+		       				+ "</script>");
+		       out.flush();
+		       out.close();
+		       return null;
+		   }
 		
-		QuestBoard_VO insertVo = new QuestBoard_VO();
-		
-		insertVo.setQst_id(qst_id);
-		insertVo.setQst_content(escapedContent);
-		insertVo.setQst_species(qst_species);
-		insertVo.setQst_part(qst_part);
-		insertVo.setQst_title(qst_title);
-		insertVo.setQst_fast(qst_fast);
-		
-		String quest = service.insertQuest(insertVo);
-		service_pay.usePntOnBoard(qst_id);
-
-		return "redirect:/questBoard.do?seq="+quest;
-	}
-	
-//	게시글 작성 후 html태그 제거하여 출력
-	@GetMapping(value = "/afterWriteQuest.do")
-	public String selectOneBoard(String seq, Model model) {
-		log.info("&&&&& Board_Controller 글 작성 후 상세페이지 이동, selectOneBoard 전달받은 값 : {}  &&&&&", seq);
-		
-		QuestBoard_VO vo = (QuestBoard_VO) service.selectOneBoard(seq);
-		
-		String unescapedContent = StringEscapeUtils.unescapeHtml4(vo.getQst_content());
-		
-		model.addAttribute("vo", vo);
-		model.addAttribute("qst_content", unescapedContent);
-		
-		return "qst_questDetail";
 	}
 	
 	@GetMapping(value="/selectUsersBoard.do")
