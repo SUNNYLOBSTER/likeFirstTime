@@ -93,6 +93,11 @@ public class Users_DaoImpl implements IUsers_Dao {
 	}
 	
 	@Override
+	public int updateHospitalDetail(Users_VO uVo) {
+		return session.update(NS+"updateHospitalDetail", uVo);
+	}
+	
+	@Override
 	public Users_VO findId(Users_VO uVo) {
 		return session.selectOne(NS+"findId", uVo);
 	}

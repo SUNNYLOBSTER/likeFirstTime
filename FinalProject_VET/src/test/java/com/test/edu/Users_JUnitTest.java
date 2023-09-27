@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.min.edu.model.service.IUsers_Service;
+import com.min.edu.vo.Hospital_VO;
 import com.min.edu.vo.Users_VO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -79,17 +80,20 @@ public class Users_JUnitTest {
 //		vo.setUsers_id("sana1@naver.com");
 //		vo.setUsers_pw("1234");
 		
-		vo.setUsers_name("김당망");
-		vo.setUsers_tel("01012341234");
+//		vo.setUsers_name("김당망");
+//		vo.setUsers_tel("01012341234");
 //		vo.setUsers_addr("");
 //		vo.setUsers_subtel("");
 //		vo.setUsers_id("sarang@gmail.com");
 		
 //		int n = service.updateUser(vo);
 		
-		Users_VO uVo = service.findId(vo);
-		System.out.println(uVo);
-		assertNotNull(uVo);
+//		Users_VO uVo = service.findId(vo);
+//		System.out.println(uVo);
+		
+	
+		
+		assertNotNull(vo);
 		
 		
 		

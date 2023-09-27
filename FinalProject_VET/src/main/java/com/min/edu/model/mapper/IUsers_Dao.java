@@ -53,6 +53,7 @@ public interface IUsers_Dao {
 	public int updateUser(Users_VO uVo);
 	
 	//회원정보수정(병원 관계자)
+	public int updateHospitalDetail(Users_VO uVo);
 	
 	//아이디 찾기
 	public Users_VO findId(Users_VO uVo);

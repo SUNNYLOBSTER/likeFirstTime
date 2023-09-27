@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.google.gson.Gson;
 import com.min.edu.model.mapper.IPayment_Dao;
@@ -468,7 +469,17 @@ public class Users_Controller {
 		log.info("&&&&& Users_Controller 병원 정보 수정페이지로 이동 &&&&&");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		Users_VO uVo = (Users_VO)session.getAttribute("loginVo");
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		
+		if(loginVo != null) {
+			session.setAttribute("loginVo", loginVo);
+//			병원 이름
+//			진료시간
+//			휴일
+//			주차가능여부
+//			기타 소개사항
+			
+		}
 		
 		
 		
