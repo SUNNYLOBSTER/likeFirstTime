@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +21,11 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import com.google.gson.Gson;
 import com.min.edu.model.mapper.IPayment_Dao;
+import com.min.edu.model.service.IChosen_Service;
 import com.min.edu.model.service.INotice_Service;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
+import com.min.edu.vo.Chosen_VO;
 import com.min.edu.vo.NoticeBoard_VO;
 import com.min.edu.vo.Users_VO;
 
@@ -41,6 +44,9 @@ public class Users_Controller {
 	
 	@Autowired
 	private INotice_Service notice_service;
+	
+	@Autowired
+	private IChosen_Service chosen_service;
 	
 	@GetMapping(path = "/loginForm.do")
 	public String loginForm() {
@@ -99,6 +105,9 @@ public class Users_Controller {
 		log.info("&&&&& Users_Controller 로그인 성공 -> 메인페이지 &&&&&");
 		List<NoticeBoard_VO> notice_list = notice_service.selectAllNotice();
 		model.addAttribute("notice_list", notice_list);
+		
+		List<Chosen_VO> chsn_list = chosen_service.chosen_rank();
+		model.addAttribute("chsn_list", chsn_list);
 		return "main";
 	}
 	
@@ -543,6 +552,13 @@ public class Users_Controller {
 		}
 	}
 	
+	@GetMapping(value = "/hosp_rpy.do")
+	public String hosp_rpy(HttpSession session, Model model) {
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		Chosen_VO cvo = chosen_service.rpy_cnt_chsn(loginVo.getUsers_id());
+		model.addAttribute("cvo", cvo);
+		return "hosp_reply";
+	}
 	
 }
 
