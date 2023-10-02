@@ -19,6 +19,7 @@
    	<mapper resource="sqls/Payment_Statement.xml"/>
    	<mapper resource="sqls/Notice_Statement.xml"/>
    	<mapper resource="sqls/BookMark_Statement.xml"/>
+   	<mapper resource="sqls/Chosen_Statement.xml"/>
 </mappers>
 
 </configuration>

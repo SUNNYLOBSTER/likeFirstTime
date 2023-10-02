@@ -50,14 +50,19 @@
 				</div>
 				<table>
 					<tr>
-						<th>1. 봄빛 동물병원</th>
+						<th>순위</th>
+						<th>동물병원</th>
+						<th>답변</th>
+						<th>채택</th>
 					</tr>
-					<tr>
-						<th>2. 다라 동물병원</th>
-					</tr>
-					<tr>
-						<th>3. 마바 동물병원</th>
-					</tr>
+					<c:forEach var="rank" items="${chsn_list}" varStatus="vs">
+							<tr>
+								<th>${vs.count}.</th>
+								<td>${rank.users_vo.users_name}</td>
+								<td>${rank.rpy_cnt}</td>
+								<td>${rank.rpy_chosen}</td>
+							</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</div>
