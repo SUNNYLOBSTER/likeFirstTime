@@ -47,7 +47,7 @@
 			</div>	
 			<div class="buttons_left">
 				<button onclick="location.href='./pdfDownload.do?medi_num=${pvo.medichart_vo[0].medi_num}'">PDF 다운로드</button>
-				<button id="allMenuButton" onclick="location.href='./selectAllChart.do'">전체목록보기</button>
+				<button id="allMenuButton" onclick="location.href='./selectAllChartPaging.do'">전체목록보기</button>
 			</div>
 	</div>	
 </body>

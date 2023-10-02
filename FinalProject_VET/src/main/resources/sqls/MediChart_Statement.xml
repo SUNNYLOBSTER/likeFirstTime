@@ -131,7 +131,7 @@
 				LEFT JOIN MEDICODE m2 ON m.MEDI_L = m2.MEDI_CODE 
 				LEFT JOIN MEDICODE m3 ON m.MEDI_S = m3.MEDI_CODE 
 				WHERE p.PET_OWNER = #{pet_owner}
-				<if test="pet_seq != null">
+				<if test="pet_seq != null and pet_seq neq ''">
 				AND PET_SEQ = #{pet_seq}
 				</if>
 				AND m.MEDI_DELFLAG ='N')

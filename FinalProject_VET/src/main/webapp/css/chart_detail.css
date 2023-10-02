@@ -39,7 +39,7 @@
 
 .buttons_left{
    float:left;
-   margin-left: 100px;
+   margin-left: 20px;
 }
 
 .buttons_left button{
@@ -48,7 +48,7 @@
 
 .buttons_right{
 	float: right;
-	margin-right: 100px;
+	margin-right: 20px;
 }
 
 #allMenuButton{
