@@ -101,6 +101,21 @@ public class Users_DaoImpl implements IUsers_Dao {
 	public int updateUser(Users_VO uVo) {
 		return session.update(NS+"updateUser", uVo);
 	}
+		
+	@Override
+	public int updateHosp(Map<String, Object> map) {
+		return session.update(NS+"updateHospitalDetail", map);
+	}
+	
+	@Override
+	public int deleteHospAnicode(Map<String, Object> map) {
+		return session.delete(NS+"deleteHospAnicode", map);
+	}
+	
+	@Override
+	public int deleteHospMedicode(Map<String, Object> map) {
+		return session.delete(NS+"deleteHospMedicode", map);
+	}
 	
 	@Override
 	public Users_VO findId(Users_VO uVo) {

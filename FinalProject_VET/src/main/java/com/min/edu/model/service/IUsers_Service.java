@@ -52,6 +52,15 @@ public interface IUsers_Service {
 	//회원정보수정(일반사용자)
 	public int updateUser(Users_VO uVo);
 
+	//회원정보수정(병원관계자)
+	public int updateHosp(Map<String, Object> map);
+		
+	//회원정보수정(병원관계자)2 - 기존 정보 삭제 후 재입력
+	public boolean updateHospAnicode(Map<String, Object> map);
+	
+	//회원정보수정(병원관계자)3 - 기존 정보 삭제 후 재입력
+	public boolean updateHospMedicode(Map<String, Object> map);
+
 	//아이디 찾기
 	public Users_VO findId(Users_VO uVo);
 		
