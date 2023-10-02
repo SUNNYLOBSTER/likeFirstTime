@@ -2,6 +2,7 @@ package com.min.edu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,15 +19,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.min.edu.model.mapper.IPayment_Dao;
+import com.min.edu.model.service.IMap_Service;
 import com.min.edu.model.service.INotice_Service;
 import com.min.edu.model.service.IPayment_Service;
 import com.min.edu.model.service.IUsers_Service;
+import com.min.edu.vo.AnimalConn_VO;
+import com.min.edu.vo.MediConn_VO;
 import com.min.edu.vo.NoticeBoard_VO;
 import com.min.edu.vo.Users_VO;
 
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 import retrofit2.http.GET;
 
 @Controller
@@ -42,12 +49,17 @@ public class Users_Controller {
 	@Autowired
 	private INotice_Service notice_service;
 	
+	@Autowired
+	private IMap_Service map_service;
+	
+	//로그인 페이지로 이동
 	@GetMapping(path = "/loginForm.do")
 	public String loginForm() {
 		log.info("&&&&& Users_Controller 메인화면 -> 로그인페이지 &&&&&");
 		return "users_loginForm";
 	}
 	
+	//로그인 실행
 	@RequestMapping(path = "/login.do")
 	public String login(@RequestParam Map<String, Object> map, HttpSession session,
 									  HttpServletResponse response) throws IOException {
@@ -94,6 +106,8 @@ public class Users_Controller {
 		return null;
 	}
 	
+	
+	//로그인 성공 후 메인 페이지로 이동 - 공지사항 확인
 	@GetMapping(path="/main.do")
 	public String main(Model model) {
 		log.info("&&&&& Users_Controller 로그인 성공 -> 메인페이지 &&&&&");
@@ -102,6 +116,7 @@ public class Users_Controller {
 		return "main";
 	}
 	
+	//로그아웃 버튼 클릭 시 세션 삭제 후 로그인 페이지로 이동
 	@GetMapping(path="/logout.do")
 	public String logout(HttpSession session) {
 		log.info("&&&&& Users_Controller 로그아웃 호출 -> 로그인페이지 &&&&&");
@@ -109,6 +124,7 @@ public class Users_Controller {
 		return "redirect:/loginForm.do";
 	}
 	
+	//관리자 계정 접속 후 관리자 페이지로 이동
 	@GetMapping(path="/adminPage.do")
 	public String adminUserList(Model model) {
 		log.info("&&&&& Users_Controller 메인페이지 -> 관리자페이지 &&&&&");
@@ -119,6 +135,7 @@ public class Users_Controller {
 		return "users_adminPage";
 	}
 	
+	//회원 아이디 클릭 시 회원 정보 상세 페이지로 이동
 	@GetMapping(path="/selectUserDetail.do")
 	public String selectUserDetail (@RequestParam("users_id") String id,
 									HttpSession session, Model model,
@@ -156,6 +173,7 @@ public class Users_Controller {
 					
 	}
 	
+	//회원 아이디 검색 기능
 	@PostMapping(path="/adminPage.do", produces="application/text; charset=UTF-8;")
 	@ResponseBody
 	public String searchUser (String keyword, HttpSession session,
@@ -174,6 +192,7 @@ public class Users_Controller {
 			}
 		}
 	
+	//권한별 조회
 	@PostMapping(path="/adminPageAuth.do", produces="application/text; charset=UTF-8;")
 	@ResponseBody
 	public String selectAuth(String auth, HttpSession session,
@@ -192,11 +211,12 @@ public class Users_Controller {
 		
 	}
 	
+	//상태별 조회
 	@PostMapping(path="/adminPageStatus.do", produces="application/text; charset=UTF-8;")
 	@ResponseBody
 	public String selectStatus(String status, HttpSession session,
 							   HttpServletResponse response) {
-		log.info("&&&&& Users_Controller 관리자페이지 권한별 조회 ajax처리 {} &&&&&", status);
+		log.info("&&&&& Users_Controller 관리자페이지 상태별 조회 ajax처리 {} &&&&&", status);
 		response.setContentType("text/html; charset=UTF-8;");
 		
 		System.out.println(status);
@@ -209,12 +229,14 @@ public class Users_Controller {
 		return selectStatusList;
 	}
 	
+	//회원가입(약관 동의 페이지로 이동)
 	@GetMapping(path = "/insertUsers.do")
 	public String insertUsers() {
 		log.info("&&&&& Users_Controller loginForm ->  insertUsers 페이지 이동 &&&&&");
 		return "users_insertUsersStepOne";
 	}
 	
+	//회원가입(약관 동의 후 정보입력 페이지로 이동)
 	@GetMapping(path = "/insertStepTwo.do")
 	public String insertStepTwo() {
 		log.info("&&&&& Users_Controller insertUsers-> insertStepTwo 페이지 이동 &&&&&");
@@ -239,7 +261,7 @@ public class Users_Controller {
 		return (n>0)?"true":"false";
 	}
 	
-	//회원가입
+	//회원가입(일반사용자)
 	@PostMapping(path = "/signUp.do")
 	public String insertUsersTwo(@RequestParam Map<String, Object> map, Model model) {
 		log.info("&&&&& Users_Controller insertStepTwo 회원가입 후 insertStepThree 페이지 이동 &&&&&");
@@ -488,25 +510,86 @@ public class Users_Controller {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
-		
 				
 		if(loginVo != null) {
 			session.setAttribute("loginVo", loginVo);
-	
 			String users_id = loginVo.getUsers_id();
-			List<Users_VO> lists = service.selectUserDetail(users_id);
-			model.addAttribute("lists", lists);
+			
+			Users_VO hosp_info = map_service.hosp_detail(users_id);
+			String hosp_time = hosp_info.getHospital_vo().get(0).getHosp_time();
+			hosp_time = hosp_time.replaceAll(" ", "");
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+		    TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
+		    Map<String, Object> map =  objectMapper.readValue(hosp_time, typeReference);
+		    System.out.println(map);
+	
+			model.addAttribute("hosp_time", hosp_time);
+			
+			List<AnimalConn_VO> anm_lists = map_service.hosp_anm(users_id);
+		    List<MediConn_VO> medi_lists = map_service.hosp_mediDept(users_id);
+						
+			model.addAttribute("hVo", hosp_info);
+			model.addAttribute("anm_lists", anm_lists);
+		    model.addAttribute("medi_lists", medi_lists);
 			
 		return "users_updateHosp";
 		
+		} else {
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='./loginForm.do';</script>");
+			out.flush();
+			return null;
+			
+		}
+		
+	}
+	
+	//회원정보수정(병원 관계자
+	@PostMapping(path = "/updateHosp.do")
+	@ResponseBody
+	public String updateHospital(@RequestParam Map<String, Object> map, Model model,
+								 HttpSession session, HttpServletResponse response) throws IOException {
+		log.info("&&&&& Users_Controller updateHospital 병원정보수정 {} &&&&&", map);
+		response.setContentType("text/html; charset=UTF-8");
+		
+		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		
+		if(loginVo != null) {
+			String hosp_id = (String)map.get("users_id");
+			map.put("hosp_id", hosp_id);
+			
+			String hosp_name = (String)map.get("users_name");
+			map.put("hosp_name", hosp_name);
+			
+			String addr = (String)map.get("users_addr");
+			map.put("users_addr", addr);
+			
+			String openTime = (String)map.get("hosp_openTime");
+			String closeTime = (String)map.get("hosp_closeTime");
+			System.out.println("여는시간 : " + openTime+ "닫는 시간 : " + closeTime);
+			String hosp_time = "{\"open\":\""+openTime+"\", \"close\":\""+closeTime+"\"}";
+			map.put("hosp_time", hosp_time);
+			
+			String medi_code = (String)map.get("medi_code");
+			map.put("medi_code", medi_code);
+			
+			String anm_code = (String)map.get("anm_code");
+			map.put("anm_code", anm_code);
+			
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('정보 수정이 완료되었습니다.');location.href='./resrv_Select.do';</script>");
+			out.flush();
+			return null;
+			
 		} else {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('로그인이 필요한 서비스입니다.');location.href='./loginForm.do';</script>");
 			out.flush();
 			return null;
 		}
-		
-		
 		
 		
 		

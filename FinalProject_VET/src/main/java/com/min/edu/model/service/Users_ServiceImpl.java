@@ -118,6 +118,23 @@ public class Users_ServiceImpl implements IUsers_Service {
 	}
 	
 	
+	@Override
+	public int updateHosp(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl updateHospital 회원정보수정(병원관계자) 1 : {} &&&&&", map);
+		return dao.updateHosp(map);
+	}
+	
+	@Override
+	public boolean updateHospAnicode(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean updateHospMedicode(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	@Override
 	public Users_VO findId(Users_VO uVo) {

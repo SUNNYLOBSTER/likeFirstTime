@@ -128,14 +128,18 @@
 	   USERS_STATUS, TO_CHAR(USERS_JOINDATE, 'YYYY-MM-DD') AS USERS_JOINDATE,  USERS_SUBTEL,
 	   USERS_ADDR, USERS_AUTH, USERS_CRN,
 	   HOSP_OFF, HOSP_TIME, HOSP_PARK,
-	   HOSP_ETC, ANM_SPECIES
-	FROM USERSINFO u JOIN HOSPITAL h
-	ON USERS_ID = HOSP_ID
-	LEFT JOIN ANIMALCONNECT a
-	ON U.USERS_ID = A.HOSP_ID
-	LEFT JOIN ANIMALCODE a2
-	ON a.ANM_CODE = a2.ANM_CODE
-	WHERE USERS_ID = #{users_id}
+	   HOSP_ETC, ANM_SPECIES , MEDI_NAME 
+			FROM USERSINFO u JOIN HOSPITAL h
+			ON USERS_ID = HOSP_ID
+			LEFT JOIN ANIMALCONNECT a
+			ON U.USERS_ID = A.HOSP_ID
+			LEFT JOIN ANIMALCODE a2
+			ON a.ANM_CODE = a2.ANM_CODE
+			LEFT JOIN MEDICONNECT m 
+			ON u.USERS_ID = m.HOSP_ID
+			LEFT JOIN MEDICODE m2 
+			ON m.MEDI_CODE = m2.MEDI_CODE 
+			WHERE USERS_ID = #{users_id}
 </select>
 
 <!-- 로그인 -->
@@ -230,6 +234,18 @@ INSERT INTO MEDICONNECT (MEDI_CODE, HOSP_ID)
 		SET HOSP_NAME=#{hosp_name}, HOSP_TIME=#{hosp_time}, HOSP_OFF=#{hosp_off}, HOSP_PARK=#{hosp_park}, HOSP_ETC=#{hosp_etc}
 		WHERE HOSP_ID=#{hosp_id}
 </update>
+
+<!-- 병원정보수정 2 -->
+<delete id="deleteHospAnicode">
+	DELETE FROM ANIMALCONNECT
+		WHERE ANM_CODE=#{anm_code} AND HOSP_ID=#{hosp_id}
+</delete>
+
+<!-- 병원정보수정 3 -->
+<delete id="deleteHospMedicode">
+	DELETE FROM MEDICONNECT
+		WHERE MEDI_CODE=#{medi_code} AND HOSP_ID=#{hosp_id}
+</delete>
 
 <!-- 아이디 찾기 -->
 <select id="findId" resultType="com.min.edu.vo.Users_VO">
