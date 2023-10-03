@@ -136,9 +136,9 @@ public class MediChart_Controller {
 	
 	
 	@GetMapping(value = "/insertNewChartForm.do")
-	public String insertNewChartForm(HttpSession session, Model model) {
+	public String insertNewChartForm(HttpSession session, Model model, String sche_content, String sche_date) {
 		log.info("&&&&& MediChartController 반려동물별 진료기록 -> 새 진료기록 작성페이지 &&&&&");
-		
+		log.info("&&&&& MediChartController insertNewChartForm 전달받은 parameter값: {} {}",sche_content, sche_date);
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String pet_owner = loginVo.getUsers_id();
 		
@@ -150,6 +150,8 @@ public class MediChart_Controller {
 			}
 		}
 		model.addAttribute("petList", petList);
+		model.addAttribute("medi_title",sche_content);
+		model.addAttribute("medi_visit",sche_date);
 		
 		return "chart_insertNewChartForm";
 	}

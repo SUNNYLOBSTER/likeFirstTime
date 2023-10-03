@@ -18,11 +18,11 @@
 		<h3 id="listname">결제내역</h3>
 		<table id="chartInfo">
 			<tr>
-				<th>결제번호</th>
-				<th>결제금액</th>
-				<th>결제시간</th>
-				<th>결제방식</th>
-				<th>결제상태</th>
+				<th>결제 번호</th>
+				<th>결제 금액</th>
+				<th>결제 시간</th>
+				<th>결제 방식</th>
+				<th>결제 상태</th>
 				<th>취소</th>
 				<th></th>
 			</tr>
@@ -51,9 +51,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<span>
-			<button id="paymentBtn" onclick="location.href='./goPayment.do'">결제하기</button>
-		</span>
 	</div>
 </body>
 <script type="text/javascript" src="./js/payment_cancel.js"></script>

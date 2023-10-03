@@ -40,7 +40,7 @@
 				</select>
 				
 				<select id="codeS">
-					<option>--질환--</option>
+					<option>--세부과목--</option>
 				</select>
 				<button id="selectMediCode" onclick="selectCode()">조회</button>
 			</div>
