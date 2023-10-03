@@ -55,8 +55,14 @@
 		</table>
 		<c:if test="${loginVo.users_auth eq 'A' }">
 			<div id=inputButton>
-			<input type="button" value="수정" onclick="modi('${noticeDetail.noti_seq}')">
-			<input type="button" value="삭제" onclick="del('${noticeDetail.noti_seq}')">
+				<input type="button" value="수정" onclick="modi('${noticeDetail.noti_seq}')">
+				<input type="button" value="삭제" onclick="del('${noticeDetail.noti_seq}')">
+				<input type="button" onclick="history.back(-1)" value="목록으로">
+			</div>
+		</c:if>
+		<c:if test="${loginVo.users_auth ne 'A'}">
+			<div id=inputButton>
+				<input type="button" onclick="history.back(-1)" value="목록으로">
 			</div>
 		</c:if>
 		</form>

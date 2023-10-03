@@ -626,6 +626,13 @@ public class Users_Controller {
 		}
 	}
 	
+	//비밀번호 찾기 페이지 이동
+		@GetMapping(path = "/findPwWindow.do")
+		public String findPwPage () {
+			log.info("&&&&& Users_Controller 비밀번호 찾기 페이지로 이동 &&&&&");
+			return "users_findPw";
+		}
+	
 	
 }
 

@@ -126,13 +126,13 @@ public class Users_ServiceImpl implements IUsers_Service {
 	
 	@Override
 	public boolean updateHospAnicode(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		log.info("&&&&& Users_ServiceImpl updateHospital 회원정보수정(병원관계자) 2 : {} &&&&&", map);
 		return false;
 	}
 	
 	@Override
 	public boolean updateHospMedicode(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		log.info("&&&&& Users_ServiceImpl updateHospital 회원정보수정(병원관계자) 3 : {} &&&&&", map);
 		return false;
 	}
 	
