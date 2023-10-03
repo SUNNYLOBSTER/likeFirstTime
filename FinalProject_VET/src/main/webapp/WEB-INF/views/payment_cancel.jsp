@@ -42,10 +42,10 @@
 				<th>결제상태</th>
 					<c:choose>
 						<c:when test="${pvo.pay_status eq 'Y'}">
-							<td>결제완료</td>
+							<td>결제 완료</td>
 						</c:when>
 						<c:when test="${pvo.pay_status eq 'C'}">
-							<td>환불완료</td>
+							<td>환불 완료</td>
 						</c:when>
 					</c:choose>
 			</tr>

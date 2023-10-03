@@ -182,7 +182,7 @@ public class Reservation_Controller {
       String sche_id = rvo.getResrv_userid();
       String sche_date = rvo.getResrv_visit();
       String sche_title = "진료예약";
-      String sche_content = hospitalName+" 예약";
+      String sche_content = hospitalName;
       String sche_hour = rvo.getResrv_time();
       String sche_minute = "00";
       SchedBoard_VO svo = new SchedBoard_VO();

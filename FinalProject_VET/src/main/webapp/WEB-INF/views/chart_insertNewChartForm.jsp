@@ -17,7 +17,14 @@
 <body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
 	<div id="container">
 		<form action="./insertNewChart.do" method="post">
-			진료날짜 : <input type="date" id="medi_visit" name="medi_visit" class="selectPart"><br>
+			<c:choose>
+				<c:when test="${not empty medi_visit}">
+					진료날짜 : <input type="date" id="medi_visit_resv" name="medi_visit" class="selectPart" value="${medi_visit}"><br>
+				</c:when>
+				<c:otherwise>
+					진료날짜 : <input type="date" id="medi_visit" name="medi_visit" class="selectPart"><br>
+				</c:otherwise>
+			</c:choose>
 			
 			진료과목 : <select id="codeL" onchange="codeLChange()" name="codeL" class="selectPart">
 						<option id="medi_l">--진료 과목--</option>
@@ -41,9 +48,17 @@
 					</select>
 					<input type="hidden" id="selectedPetInput">
 					<br>
-			진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required">
-			
-					<textarea id="editor" name="medi_content"></textarea>
+					
+				<c:choose>
+					<c:when test="${not empty medi_title}">
+						진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required" value="${medi_title}">
+					</c:when>
+					<c:otherwise>
+						진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required">
+					</c:otherwise>
+				</c:choose>
+				
+				<textarea id="editor" name="medi_content"></textarea>
 		</form>
 		<div class="buttonPart">
 				<button onclick="writeChart()" id="writeBoard">글쓰기</button>

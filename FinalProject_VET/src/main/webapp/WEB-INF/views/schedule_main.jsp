@@ -68,7 +68,8 @@
 	                <div class="modal-footer">
 	                    <button type="button" id="modifyCalendar" onclick="modifySchedule()">수정</button>
 	                    <button type="button" id="delCalendar" onclick="deleteSchedule()">삭제</button>
-	                    <button type="button" data-bs-dismiss="modal">닫기</button>
+	                    <button type="button" id="writeChart" style="display: none;" onclick="insertChart()">진료기록 작성</button>
+	                    <button type="button" data-bs-dismiss="modal" onclick="closeModal()">닫기</button>
 	                </div>
 	            </div>
 	        </div>

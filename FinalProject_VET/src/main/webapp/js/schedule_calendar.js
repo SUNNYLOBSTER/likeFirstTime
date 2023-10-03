@@ -122,6 +122,7 @@ $(document).ready(function() {
 							if($("#sche_title").val()=="진료예약"){
 								$("#modifyCalendar").hide();
 								$("#delCalendar").hide();
+								$("#writeChart").show();
 							}
 						},
 						error:function(){
@@ -188,5 +189,20 @@ function deleteSchedule(){
 			location.href='./selectAllSchedule.do';
 		}
 	});
+}
+
+function insertChart(){
+	console.log("진료기록 작성 연동");
+	
+	var sche_content = $("#sche_content").val();
+	var sche_date = $("#sche_date").val();
+	console.log(sche_content,sche_date);
+	$("#detailModal").attr("data-bs-dismiss", "modal");
+	location.href='./insertNewChartForm.do?sche_content='+sche_content+'&sche_date='+sche_date;
+
+}
+
+function closeModal(){
+	location.reload();
 }
 

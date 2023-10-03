@@ -39,8 +39,8 @@
 			결제 및 포인트<i class="fa fa-caret-down"></i>
 		</button>
 		<div class="dropdown-container">
-			<a onclick="location.href='./selectAllPayment.do'">결제내역</a>
-			<a onclick="location.href='./selectPntList.do'">포인트내역</a>
+			<a onclick="location.href='./selectPntList.do'">포인트 사용내역</a>
+			<a onclick="location.href='./selectAllPayment.do'">포인트 결제내역</a>
 		</div>
 		
 		<button class="dropdown-btn" onclick="location.href='./selectAllBookmark.do?bm_usersid=${sessionScope.loginVo.users_id}'">
