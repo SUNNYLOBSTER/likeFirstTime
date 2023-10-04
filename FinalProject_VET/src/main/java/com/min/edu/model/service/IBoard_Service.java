@@ -58,6 +58,10 @@ public interface IBoard_Service {
 	public List<QuestBoard_VO> selectUsersBoard(String qst_id);
 	
 	public List<QuestBoard_VO> selectFastBoard(String qst_id);
+	
+	public List<QuestBoard_VO> getAllBoardPage(Map<String, Object> map);
+	
+	public int getAllBoardCount(Map<String, Object> map);
 
 	
 }

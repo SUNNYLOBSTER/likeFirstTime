@@ -73,7 +73,7 @@
 						</td>
 					</tr>
 				</table>
-				<div class="questBottom">
+				<div class="replyBottom">
 					<p>${reply.rpy_content}</p>
 				</div>
 			</div>
@@ -96,7 +96,7 @@
 						</div>
 					</tr>
 				</table>
-				<div class="questBottom">
+				<div class="replyBottom">
 					<a>${reply.rpy_content}</a>
 				</div>
 			</div>

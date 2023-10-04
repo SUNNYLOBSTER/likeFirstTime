@@ -26,6 +26,9 @@ public class QuestBoard_VO {
 	private String qst_regdate;
 	private String qst_fast;
 	private String qst_status;
+	private String users_name;
+	private String anm_species;
+	private String part_name;
 	
 	private List<ReplyBoard_VO> replyboard_vo;
 	private List<FileBoard_VO> fileboard_vo;

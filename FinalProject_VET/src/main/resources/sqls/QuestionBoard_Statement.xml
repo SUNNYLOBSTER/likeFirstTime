@@ -87,58 +87,38 @@ SELECT q.QST_ID, u.USERS_NAME
 	ON q.QST_ID = u.USERS_ID
 </select>
 
-<!-- 대분류 선택 게시글 전체조회 -->
-<!-- <select id="selectCodeQuest" resultType="QuestBoard_VO"> -->
-<!-- SELECT q.QST_SEQ, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, q.QST_SPECIES, q.QST_PART, q.QST_REGDATE, q.QST_FAST  -->
-<!-- 	FROM QUESTBOARD q, USERSINFO u, ANIMALCODE a, ANIMALPART a2 -->
-<!-- 	WHERE q.QST_ID = u.USERS_ID  -->
-<!-- 	AND q.QST_SPECIES = a.ANM_CODE -->
-<!-- 	AND q.QST_PART = a2.PART_CODE -->
-<!-- 	AND (q.QST_STATUS != 'N') AND q.QST_SPECIES = #{qst_species} -->
-<!-- 	ORDER BY q.QST_REGDATE DESC -->
-<!-- </select> -->
-
 <!-- 대분류/소분류 선택 전체조회 -->
 <select id="selectPartQuest" resultMap="BoardMap">
-SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST
-	FROM QUESTBOARD q JOIN USERSINFO u 
-	ON q.QST_ID = u.USERS_ID
-	LEFT JOIN ANIMALCODE a ON q.QST_SPECIES = a.ANM_CODE
-	LEFT JOIN ANIMALPART a2 ON q.QST_PART = a2.PART_CODE
+  	SELECT 	QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_STATUS, QST_REGDATE, QST_FAST,
+  			USERS_NAME, QST_SPECIES, ANM_SPECIES, QST_PART, PART_NAME
+	FROM (
+		<![CDATA[
+		SELECT QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_STATUS, QST_REGDATE, QST_FAST,
+  			USERS_NAME, QST_SPECIES, ANM_SPECIES, QST_PART, PART_NAME,
+				ROW_NUMBER() OVER(ORDER BY QST_FAST DESC, QST_REGDATE DESC) rn
+		 	FROM QUESTBOARD q JOIN USERSINFO u  
+				ON q.QST_ID = u.USERS_ID 
+				JOIN ANIMALCODE a1
+				ON q.QST_SPECIES = a1.ANM_CODE
+				JOIN ANIMALPART a2
+				ON q.QST_PART = a2.PART_CODE 
+		]]>		 	
+  	WHERE QST_STATUS != 'N'
+		)
 	<where>
-	q.QST_STATUS != 'N'
-	<if test="!qst_species.equals('')">
-	AND q.qst_species = #{qst_species}
+	<if test="qst_species != null">
+	AND qst_species = #{qst_species}
 	</if> 
-	<if test="!qst_part.equals('') ">
-	AND q.qst_part = #{qst_part}
+	<if test="qst_part != null">
+	AND qst_part = #{qst_part}
 	</if>
-	<if test="!qst_content.equals('')">
-	AND q.qst_content LIKE '%'||#{qst_content}||'%'
+	<if test="qst_content != null">
+	AND qst_content LIKE '%'||#{qst_content}||'%'
 	</if>
+	AND rn BETWEEN #{first} AND #{last}
 	</where>
-    ORDER BY q.qst_regdate DESC
+    ORDER BY QST_FAST DESC, QST_REGDATE DESC 
 </select>
-<!-- <select id="selectPartQuest" resultType="QuestBoard_VO"> -->
-<!-- SELECT q.QST_SEQ, q.QST_ID, u.USERS_NAME, q.QST_TITLE, q.QST_CONTENT, a.ANM_SPECIES, a2.PART_NAME, q.QST_REGDATE, q.QST_FAST -->
-<!-- 	FROM QUESTBOARD q JOIN USERSINFO u  -->
-<!-- 	ON q.QST_ID = u.USERS_ID -->
-<!-- 	LEFT JOIN ANIMALCODE a ON q.QST_SPECIES = a.ANM_CODE -->
-<!-- 	LEFT JOIN ANIMALPART a2 ON q.QST_PART = a2.PART_CODE -->
-<!-- 	<where> -->
-<!-- 	q.QST_STATUS != 'N' -->
-<!-- 	<if test="q.QST_SPECIES != ''"> -->
-<!-- 	AND q.QST_SPECIES = #{qst_species} -->
-<!-- 	</if>  -->
-<!-- 	<if test="q.QST_PART != ''"> -->
-<!-- 	AND q.QST_PART = #{qst_part} -->
-<!-- 	</if> -->
-<!-- 	<if test="q.QST_CONTENT !=''"> -->
-<!-- 	AND q.QST_CONTENT LIKE '%#{qst_content}%' -->
-<!-- 	</if> -->
-<!-- 	</where> -->
-<!--     ORDER BY q.QST_REGDATE DESC -->
-<!-- </select> -->
 
 <select id="selectCodeAndPart" resultType="com.min.edu.vo.AnimalCode_VO">
 SELECT ANM_CODE, ANM_SPECIES
@@ -171,20 +151,6 @@ SELECT q.QST_ID, u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT,
 	AND q.QST_SEQ = #{qst_seq}
     ORDER BY r.RPY_SEQ DESC
 </select>
-<!-- <select id="selectOneBoard" resultMap="BoardMap"> -->
-<!-- SELECT q.QST_ID, u.USERS_NAME AS users_name, q.QST_TITLE, q.QST_CONTENT, -->
-<!-- 	 q.QST_SPECIES, q.QST_PART, -->
-<!-- 	 q.QST_REGDATE, r.RPY_SEQ, r.RPY_ID, r.RPY_REF,  -->
-<!-- 	 r.RPY_CONTENT , r.RPY_STATUS, r.RPY_REGDATE -->
-<!-- 	FROM USERSINFO u  -->
-<!-- 	inner join QUESTBOARD q on q.QST_ID = u.USERS_ID  -->
-<!-- 	left join REPLYBOARD r on q.QST_SEQ = r.RPY_REF	 -->
-<!-- 	left join HOSPITAL h on h.HOSP_ID = r.RPY_ID -->
-<!-- 	where -->
-<!-- 	(q.QST_STATUS != 'N' OR r.RPY_STATUS != 'N') -->
-<!-- 	AND q.QST_SEQ = #{qst_seq} -->
-<!--     ORDER BY r.RPY_SEQ DESC -->
-<!-- </select> -->
 
 <!-- 답글만 전체조회 -->
 <select id="selectReply" resultMap="ReplyVOMap">
@@ -349,6 +315,58 @@ SELECT PART_CODE, PART_NAME
 		WHERE QST_ID=#{qst_id}
 		AND QST_FAST='Y'
 </select>
+
+ <select id="getAllBoardPage" resultType="com.min.edu.vo.QuestBoard_VO">
+  	SELECT 	QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_STATUS, QST_REGDATE, QST_FAST,
+  			USERS_NAME, QST_SPECIES, ANM_SPECIES, QST_PART, PART_NAME
+	FROM (
+		<![CDATA[
+		SELECT QST_SEQ, QST_ID, QST_TITLE, QST_CONTENT, QST_STATUS, QST_REGDATE, QST_FAST,
+  			USERS_NAME, QST_SPECIES, ANM_SPECIES, QST_PART, PART_NAME,
+				ROW_NUMBER() OVER(ORDER BY QST_FAST DESC, QST_REGDATE DESC) rn
+		 	FROM QUESTBOARD q JOIN USERSINFO u  
+				ON q.QST_ID = u.USERS_ID 
+				JOIN ANIMALCODE a1
+				ON q.QST_SPECIES = a1.ANM_CODE
+				JOIN ANIMALPART a2
+				ON q.QST_PART = a2.PART_CODE 
+		]]>		 	
+	<where>
+  	QST_STATUS != 'N'
+	<if test="qst_species != null">
+	AND qst_species = #{qst_species}
+	</if> 
+	<if test="qst_part != null">
+	AND qst_part = #{qst_part}
+	</if>
+	<if test="qst_content != null">
+	AND qst_content LIKE '%'||#{qst_content}||'%'
+	</if>
+  	</where>
+		)
+	<where>
+	rn BETWEEN #{first} AND #{last}
+	</where>
+    ORDER BY QST_FAST DESC, QST_REGDATE DESC 
+  </select>
+  
+  <select id="getAllBoardCount" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM QUESTBOARD
+  	<where>
+  	QST_STATUS != 'N'
+	<if test="qst_species != null">
+	AND qst_species = #{qst_species}
+	</if> 
+	<if test="qst_part != null">
+	AND qst_part = #{qst_part}
+	</if>
+	<if test="qst_content != null">
+	AND qst_content LIKE '%'||#{qst_content}||'%'
+	</if>
+	</where>
+  </select>
+
+
 </mapper>
 
 

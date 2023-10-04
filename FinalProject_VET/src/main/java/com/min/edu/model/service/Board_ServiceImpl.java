@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.min.edu.model.mapper.IBoard_Dao;
 import com.min.edu.vo.AnimalCode_VO;
@@ -161,6 +162,21 @@ public class Board_ServiceImpl implements IBoard_Service {
 	public List<QuestBoard_VO> selectFastBoard(String qst_id) {
 		return dao.selectFastBoard(qst_id);
 	}
+	
+	@Override
+	public List<QuestBoard_VO> getAllBoardPage(Map<String, Object> map) {
+		log.info("BoardServiceImpl 전체글 조회 페이징");
+		log.info("BoardServiceImpl 전달 받은 페이지 권한 및 범위 {}", map);
+		return dao.getAllBoardPage(map);
+	}
+
+	@Override
+	public int getAllBoardCount(Map<String, Object> map) {
+		log.info("BoardServiceImpl 전체글 조회 카운트");
+		log.info("BoardServiceImpl 전달 받은 페이지 권한 및 범위 {}", map);
+		return dao.getAllBoardCount(map);
+	}
+	
 
 
 	

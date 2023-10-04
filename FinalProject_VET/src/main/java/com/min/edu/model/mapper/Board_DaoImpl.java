@@ -154,6 +154,16 @@ public class Board_DaoImpl implements IBoard_Dao {
 		return session.selectList(NS+"selectFastBoard",qst_id);
 	}
 
+	@Override
+	public List<QuestBoard_VO> getAllBoardPage(Map<String, Object> map) {
+		return session.selectList(NS+"getAllBoardPage", map);
+	}
+
+	@Override
+	public int getAllBoardCount(Map<String, Object> map) {
+		return session.selectOne(NS+"getAllBoardCount", map);
+	}
+
 
 
 	
