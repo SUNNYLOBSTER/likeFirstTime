@@ -8,7 +8,6 @@
 
 #map_info, #question_info{
 	width:100%;
-	border: 1px dotted #ccc;
 	padding: 5px  0px 5px 0px;
 	margin-bottom: 20px;
 	height: 310px;
@@ -28,14 +27,17 @@
 	height: 310px;
 }
 
-#mapImage, #resrvImage{
+#mapImage{
 	float: left;
 	height: 100%;
+	width: 403px;
+	padding-left: 10px;
 }
 
 #qnaImage{
 	float: right;
 	height: 100%;
+	padding-right: 10px;
 }
 
 #map_descript{
@@ -56,4 +58,13 @@
 
 #chosen{
 	border-bottom: 2px solid #3E2723;
+}
+
+.titlePart{
+	padding: 30px;
+	color:  #3E2723;
+}
+
+.contentPart{
+	padding: 30px;
 }

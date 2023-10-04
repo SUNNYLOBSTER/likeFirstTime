@@ -136,9 +136,9 @@ public class MediChart_Controller {
 	
 	
 	@GetMapping(value = "/insertNewChartForm.do")
-	public String insertNewChartForm(HttpSession session, Model model) {
+	public String insertNewChartForm(HttpSession session, Model model, String sche_content, String sche_date) {
 		log.info("&&&&& MediChartController 반려동물별 진료기록 -> 새 진료기록 작성페이지 &&&&&");
-		
+		log.info("&&&&& MediChartController insertNewChartForm 전달받은 parameter값: {} {}",sche_content, sche_date);
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		String pet_owner = loginVo.getUsers_id();
 		
@@ -150,6 +150,8 @@ public class MediChart_Controller {
 			}
 		}
 		model.addAttribute("petList", petList);
+		model.addAttribute("medi_title",sche_content);
+		model.addAttribute("medi_visit",sche_date);
 		
 		return "chart_insertNewChartForm";
 	}
@@ -268,7 +270,7 @@ public class MediChart_Controller {
 		
 		int n = service.deleteChart(medi_num);
 		
-		return n>0?"redirect:/selectAllChart.do":"redirect:/selectOneChart.do?medi_num="+medi_num;
+		return n>0?"redirect:/selectAllChartPaging.do":"redirect:/selectOneChart.do?medi_num="+medi_num;
 	}
 	
 	@RequestMapping(value="/getContent.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
@@ -513,20 +515,20 @@ public class MediChart_Controller {
 		
 		if(result.equals("success")) {
 			model.addAttribute("msg","다운로드 폴더에 PDF 파일이 저장되었습니다");
-			model.addAttribute("url","selectAllChart.do");
+			model.addAttribute("url","selectAllChartPaging.do");
 			return "alert";
 		}else {
 			model.addAttribute("msg","PDF 다운로드에 실패했습니다.");
-			model.addAttribute("url","selectAllChart.do");
+			model.addAttribute("url","selectAllChartPaging.do");
 			return "alert";
 		}
 	}
 	
 	//전체 진료기록 조회 (페이징 처리)
 	@GetMapping(value = "/selectAllChartPaging.do")
-	public String selectAllChartPaging(HttpSession session, Model model, String pet_seq,
+	public String selectAllChartPaging(HttpSession session, Model model,String pet_seq,
 										@RequestParam(required = false, defaultValue = "1")String page) {
-		log.info("&&&&& MediChartController selectAllChartPaging 전달받은 parameter값  페이지 :{} 동물seq: {}&&&&&",page,pet_seq);
+		log.info("&&&&& MediChartController selectAllChartPaging 전달받은 parameter값  페이지 :{}&&&&&",page);
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
 		String pet_owner = loginVo.getUsers_id();
 		
@@ -553,12 +555,11 @@ public class MediChart_Controller {
 		int last = pVo.getPage()*pVo.getCountList();
 		
 		if(pet_seq != null) {
-			int pet_num = Integer.parseInt(pet_seq);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("pet_owner", pet_owner);
 			map.put("first",first);
 			map.put("last", last);
-			map.put("pet_seq", pet_num);
+			map.put("pet_seq", pet_seq);
 			List<PetsInfo_VO> chart_lists = service.selectAllChartPaging(map);
 			model.addAttribute("chart_lists",chart_lists);
 		}else {
@@ -586,5 +587,6 @@ public class MediChart_Controller {
 		
 		return "chart_allChart";
 	}
+	
 }
 

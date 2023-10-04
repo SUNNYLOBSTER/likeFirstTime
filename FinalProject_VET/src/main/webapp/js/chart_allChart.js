@@ -168,7 +168,7 @@
 			}
 		}
 		console.log(pet_seq)
-		location.href="./selectAllChartPaging.do?pet_seq="+pet_seq;
+		location.href="./selectAllChartPaging.do?page=1&pet_seq="+pet_seq;
 	}
    
    function pagePrev(stagePage){
@@ -176,15 +176,24 @@
 	var pets = document.getElementsByClassName("selectPet");
 	for(let i =0 ; i< pets.length ; i++){
 		if(pets[i].classList.contains("active")){
-			pet_seq=pets[i].value;
+			pet_seq = pets[i].value;
 		}
 	}
-	console.log(stagePage);
-	var page = ((stagePage-1)<=0)?1:(stagePage-1);
-	location.href = './selectAllChartPaging.do?page='+page+'&pet_seq='+pet_seq;
+		var page = ((stagePage-1)<=0)?1:(stagePage-1);
+		location.href = './selectAllChartPaging.do?page='+page+'&pet_seq='+pet_seq;
 	}
+	
+	
 	function pageNext(stagePage, totalPage, pet_seq){
+		var pet_seq ="";
+		var pets = document.getElementsByClassName("selectPet");
+		for(let i =0 ; i< pets.length ; i++){
+			if(pets[i].classList.contains("active")){
+				pet_seq = pets[i].value;
+			}
+		}
 		var page  = ((stagePage + 1)< totalPage)?(stagePage+1):totalPage;
 		location.href='./selectAllChartPaging.do?page='+page+'&pet_seq='+pet_seq;
+		
 	}
 	

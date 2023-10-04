@@ -13,15 +13,19 @@
 		<div id="map_info">
 			<img id="mapImage" alt="지도" src="./img/map-image.jpg">
 			<div id="map_descript">
-				<h2>동물병원 찾기 및 진료예약 서비스</h2>
-				<p>내 주변 동물병원, 지역별 동물병원 찾기 서비스를 통해 진료예약 서비스를 이용해보세요!</p>
+				<h2 class="titlePart">동물병원 찾기 &amp; 진료예약</h2>
+				<p class="contentPart">내 주변, 지역별 동물병원을 빠르게 검색하고,<br>
+					간편한 진료예약을 이용해보세요!
+				</p>
 			</div>
 		</div>
 		<div id="question_info">
 			<img id="qnaImage" alt="진료문의" src="./img/qnaImage.png">
 			<div id="question_descript">
-				<h2>진료문의 서비스</h2>
-				<p>반려동물이 어디가 아픈지, 어떤 질병인지 궁금하시다면 진료문의 서비스를 이용해보세요!</p>
+				<h2 class="titlePart">진료문의</h2>
+				<p class="contentPart">소중한 우리 반려동물 어디가 아픈지, 어떤 질병인지 궁금하시다면,<br> 
+					진료문의를 통해 전문가의 빠르고 정확한 답변을 받아보세요!
+				</p>
 			</div>
 		</div>
 		<div id="notice_info">
@@ -50,14 +54,19 @@
 				</div>
 				<table>
 					<tr>
-						<th>1. 봄빛 동물병원</th>
+						<th>순위</th>
+						<th>동물병원</th>
+						<th>답변</th>
+						<th>채택</th>
 					</tr>
-					<tr>
-						<th>2. 다라 동물병원</th>
-					</tr>
-					<tr>
-						<th>3. 마바 동물병원</th>
-					</tr>
+					<c:forEach var="rank" items="${chsn_list}" varStatus="vs">
+							<tr>
+								<th>${vs.count}.</th>
+								<td>${rank.users_vo.users_name}</td>
+								<td>${rank.rpy_cnt}</td>
+								<td>${rank.rpy_chosen}</td>
+							</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</div>

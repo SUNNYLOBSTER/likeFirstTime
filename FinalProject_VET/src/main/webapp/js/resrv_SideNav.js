@@ -24,18 +24,6 @@ function month_count(){
 			console.log(data.lists);
 			var html = "";
 				html += "<h2 id='listname'>월별 예약 건수</h2>";
-//				html += "<table>";
-//				html += "	<tr>";
-//				html += "		<th>월</th>";
-//				html += "		<th>예약건수</th>";
-//				html += "	</tr>";
-//				for(var i=0; i<data.lists.length; i++){
-//				html += "	<tr>";
-//				html += "		<th>"+data.lists[i].MM+"</th>";
-//				html += "		<td>"+data.lists[i].Y_COUNT+"</td>";
-//				html += "	</tr>";
-//				}
-//				html += "</table>";
 			month_cnt.innerHTML=html;
 			
 				var monthList = [];
@@ -48,7 +36,6 @@ function month_count(){
 				console.log(monthList);
 				console.log(monthData);
 				
-//				const footer = (tooltipItems) => {
 				var monthAmount = [];
 				
 				for(let i=0; i<monthData.length; i++){
@@ -68,7 +55,6 @@ function month_count(){
 							label:year+"년도 예약 건수" ,
 							data: monthData,
 							borderColor:"#3E2723",
-//							fill:true,
 							backgroundColor:"rgba(239,235,233,0.7)",
 							pointBorderWidth: 2
 						}]
@@ -92,7 +78,6 @@ function month_count(){
 };
 
 function resrv_wList(){
-//	console.log(page);
 	console.log("예약승인 대기명단 호출");
 	var calendar= document.getElementById("calendar");
 	var myChart= document.getElementById("myChart");
@@ -111,7 +96,6 @@ function resrv_wList(){
 		dataType:"json",
 		data:{resrv_status:"W"},
 		success:function(data){
-//			console.log(data[0]);
 			var html = "";
 				html += "<h2 id='listname'>예약대기 명단</h2>"
 				html += "<table>";
@@ -169,12 +153,13 @@ $(document).on("click",".resrv_confirm",function(){
 				resrv_btn.style.display="none";
 				resrv_refuseBtn.style.display="none";
 				resrv_btn.parentNode.innerHTML="확정";
+				location.href="./resrv_confirmMail.do?resrv_num="+resrv_num;
 			}else{
-				
+				alert("예약 확정을 할 수 없습니다.");
 			}
 		},
 		error:function(){
-			
+			alert("예약 확정을 할 수 없습니다.");
 		}
 	});
 });
@@ -201,12 +186,13 @@ $(document).on("click",".resrv_refuse",function(){
 					resrv_btn.style.display="none";
 					resrv_confirmBtn.style.display="none";
 					resrv_btn.parentNode.innerHTML="거절";
+					location.href="./resrv_refuseMail.do?resrv_num="+resrv_num;
 				}else{
-					
+					alert("예약 확정을 할 수 없습니다.");
 				}
 			},
 			error:function(){
-				
+				alert("예약 확정을 할 수 없습니다.");
 			}
 		});
 	}else{

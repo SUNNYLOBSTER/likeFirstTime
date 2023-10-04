@@ -15,11 +15,11 @@
 	<div class="navContainer">
 		<h3 id="listname">포인트내역</h3>
 		<div id="wholePnt">
-			<p id="point_list">전체 가용 포인트 : ${point}</p>
+			<p id="point_list">전체 가용 포인트 : <b id="allPoint">${point}</b></p>
 		</div>
 		<table id="chartInfo">
 			<tr>
-				<th>적립/사용일자</th>
+				<th>적립 / 사용 일자</th>
 				<th>포인트</th>
 				<th>이용내역</th>
 			</tr>
@@ -37,21 +37,24 @@
 									<td>우선답변글 등록</td>
 								</c:when>
 								<c:when test="${list.pnt_point == -10000}">
-									<td>결제취소</td>
+									<td>결제 취소(환불)</td>
 								</c:when>
 								<c:when test="${list.pnt_point == -5000}">
-									<td>결제취소</td>
+									<td>결제 취소(환불)</td>
 								</c:when>
 							</c:choose>
 						</c:when>
 						<c:when test="${list.pnt_point ne null && list.pnt_point > 0}">
 							<td>${list.pnt_point}&nbsp;충전</td>
-							<td>충전</td>
+							<td>포인트 충전</td>
 						</c:when>
 					</c:choose>
 				</tr>
 			</c:forEach>
 		</table>
+		<span>
+			<button id="paymentBtn" onclick="location.href='./goPayment.do'">충전하기</button>
+		</span>
 	</div>
 </body>
 <%@ include file="./footer.jsp" %>

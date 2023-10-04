@@ -136,7 +136,12 @@
 	    padding-right: 8px;
 	}
 	
-	#point:hover{
+	#wholepoint{
+		color: #1000E5;
+		text-decoration: underline;
+	}
+	
+	#wholepoint:hover {
 		font-weight: bold;
 	}
 	
@@ -161,7 +166,7 @@
 				</span>
 				<c:if test="${loginVo.users_auth eq 'U'}">
 					<span>
-						&emsp;Point : <a href="./selectPntList.do" id="point">${point}</a>&nbsp;
+						&emsp;Point : <a href="./selectPntList.do" id="wholepoint">${point}</a>&nbsp;
 					</span>
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'A' }">

@@ -40,6 +40,9 @@
 							<c:when test="${list.resrv_status eq 'N'}">
 								<td>취소</td>
 							</c:when>
+							<c:when test="${list.resrv_status eq 'X'}">
+								<td>거절</td>
+							</c:when>
 							<c:otherwise>
 								<td>대기중</td>
 							</c:otherwise>
@@ -64,7 +67,7 @@
 							<c:if test="${page.stagePage > 1}">
 								<li><a href="#" onclick="pageFirst('${sessionScope.loginVo.users_id}')"><img src="./img/fast_left.png"></img></a></li>
 								<c:if test="${page.stagePage - page.countPage >= 0}">
-									<li><a href="#" onclick="pagePrev(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')">◀</a></li>
+									<li><a href="#" onclick="pagePrev(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')"><img src="./img/back.png"></img></a></li>
 								</c:if>
 							</c:if>
 							
@@ -75,7 +78,7 @@
 							
 							<c:if test="${page.page < page.totalPage}">
 								<c:if test="${page.stagePage+page.countPage < page.totalCount}">
-									<li><a href="#" onclick="pageNext(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')">▶️</a></li>
+									<li><a href="#" onclick="pageNext(${page.stagePage}, ${page.countPage},'${sessionScope.loginVo.users_id}')"><img src="./img/forward.png"></img></a></li>
 								</c:if>
 								<li><a href="#" onclick="pageLast(${page.totalPage},'${sessionScope.loginVo.users_id}')"><img src="./img/fast_right.png"></img></a></li>
 							</c:if>

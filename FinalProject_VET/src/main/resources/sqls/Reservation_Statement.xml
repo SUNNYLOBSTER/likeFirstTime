@@ -101,6 +101,12 @@
 				WHERE RESRV_NUM = #{resrv_num}
 	</update>
 	
+	<update id="resrv_updateToX">
+		UPDATE RESERVATION 
+			SET RESRV_STATUS = 'X'  
+				WHERE RESRV_NUM = #{resrv_num}
+	</update>
+	
 	<delete id="resrv_delete">
 		DELETE FROM RESERVATION WHERE RESRV_NUM = #{resrv_num}
 	</delete>

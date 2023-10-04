@@ -13,7 +13,14 @@
 <body>
 
 	<div id="container">
-		<div id="hosp_mapSearch"><h2>동물병원 찾기</h2></div>
+		<div id="hosp_mapSearch">
+			<h2>동물병원 찾기</h2>
+			<p id="map_info">
+				브라우저의 내 위치정보를 허용해보세요!<br>
+				주변 동물병원의 위치와 상세정보를 확인하실 수 있습니다.<br>
+				*지도에 표시된 하늘색 원은 현재 위치에서 반경 3km 범위를 나타냅니다.*
+			</p>
+		</div>
 		<div id="map_area">
 			<ul id="map_ul">
 				<li class="li_btn"><button id="map_btn2" onclick="showSelect()">지역별 동물병원 찾기</button></li>

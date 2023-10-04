@@ -66,9 +66,6 @@ public class Reservation_Controller {
 //      System.out.println(hosp_info.getHospital_vo().get(0).getHosp_time());
       String hosp_time = hosp_info.getHospital_vo().get(0).getHosp_time();
       hosp_time = hosp_time.replaceAll(" ", "");
-//      Gson gson = new Gson();
-//      String json = gson.toJson(hosp_time.replaceAll(" ", ""));
-//      System.out.println(json);
       
       ObjectMapper objectMapper = new ObjectMapper();
       TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
@@ -182,7 +179,7 @@ public class Reservation_Controller {
       String sche_id = rvo.getResrv_userid();
       String sche_date = rvo.getResrv_visit();
       String sche_title = "진료예약";
-      String sche_content = hospitalName+" 예약";
+      String sche_content = hospitalName;
       String sche_hour = rvo.getResrv_time();
       String sche_minute = "00";
       SchedBoard_VO svo = new SchedBoard_VO();
@@ -193,7 +190,6 @@ public class Reservation_Controller {
       svo.setSche_hour(sche_hour);
       svo.setSche_minute(sche_minute);
       sche_service.insertNewSchedule(svo);
-
    	  return (n>0)?"confirm":"false";
    }
    
@@ -209,10 +205,11 @@ public class Reservation_Controller {
 		   put("pnt_id",user_id);
 		   put("pnt_point",3000);
 	   }};
+	   int n = service.resrv_updateToX(resrv_num);
 	   int m = pay_service.insertNewPnt(map);
 	   int point = pay_service.selectAllPnt(user_id);
+	   System.out.println(point);
 	   session.setAttribute("point", point);
-      int n = service.resrv_delete(resrv_num);
       return (n>0 && m>0)?"resrv_refuse":"false";
    }
    
@@ -384,7 +381,7 @@ public class Reservation_Controller {
 	   
 	   model.addAttribute("hosp_lists", hosp_lists);
 	   model.addAttribute("page", pVo);
-	   return "user_resrvRecord";
+	   return "users_resrvRecord";
    }
    
    @PostMapping(value = "/resrv_detailModify.do")

@@ -163,3 +163,8 @@ button, input, optgroup, select, textarea{
    padding-top: 30px;
    text-align: center;
 }
+
+#writeChart{
+	width: 150px;
+	
+}

@@ -35,11 +35,10 @@
 			<a onclick="month_count()">월별 예약건수</a>
 			<a onclick="resrv_wList()">예약승인 대기명단</a>
 		</div>
-		<button class="dropdown-btn">
+		<button class="dropdown-btn" onclick="location.href='./hosp_rpy.do'">
 			진료문의 답글
 		</button>
 		<div class="dropdown-container">
-			<a onclick="#">1</a>
 		</div>
 	</div>
 	
