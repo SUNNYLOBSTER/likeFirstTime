@@ -1,19 +1,33 @@
 @charset "UTF-8";
 
 #searchArea {
-	height: 60px;
+	height: 40px;
 	margin: 10px 10px;
 }
 
 #contentArea {
-	height: 1180px;
+	height: 800px;
+	max-height: 800px;
+	
 }
 
-/* #content */
-
 #pagingArea {
-	height: 40px;
+	height: 50px;
 	margin: 10px 10px;
+	display: flex;
+	justify-content: center;
+}
+
+
+.pages {
+	display: flex;
+    justify-content: center;
+}
+
+.pages li{
+    font-size: 20px;
+    margin-right: 20px;
+
 }
 
 #gapArea{
@@ -36,14 +50,14 @@
 
 .card-chosen{
 	padding: 15px 15px;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	background-color: #F5F1EF;
 	border-radius: 20px;
 	box-shadow: 8px 6px #900020;
 }
 .card {
 	padding: 15px 15px;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 	background-color: #F5F1EF;
 	border-radius: 20px;
 	box-shadow: 8px 6px #BCAAA4;
@@ -74,13 +88,26 @@
     -webkit-box-orient: vertical;
 }
 
+.replyBottom{
+	padding: 10px;
+	width: 900px;
+	overflow:hidden;
+    word-wrap: break-word;
+	white-space: normal;
+    line-height: 1.2;
+    text-align: left;
+/*     display: -webkit-box; */
+/*     -webkit-line-clamp: 3; */
+/*     -webkit-box-orient: vertical; */
+}
+
 .thumbnail{
 	width: 50px;
 }
 
 .questId{
 	width: 80px;
-	text-align: center;
+	text-align: left;
 }
 
 .questCategory{

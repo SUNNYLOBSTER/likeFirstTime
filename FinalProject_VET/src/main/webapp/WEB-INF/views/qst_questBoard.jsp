@@ -10,15 +10,17 @@
 <title>진료문의 게시판</title>
 <%-- ${questList} --%>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/paging.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
 </head>
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
 <div id="searchArea">
-<form action="./selectPartQuest.do">
+<form action="./questBoard.do">
+	<input type="hidden" name="page" value="${page.page}"/>
 	<select id="aCode" name="qst_species">
-		<option disabled="disabled" selected="selected" value="Y">--어떤 동물인가요?--</option>
+		<option disabled="disabled" selected="selected" value=" ">--어떤 동물인가요?--</option>
 		<option value="A">개</option>
 		<option value="B">고양이</option>
 		<option value="C">파충류</option>
@@ -27,7 +29,7 @@
 		<option value="Z">기타</option>
 	</select>
 	<select id="aPart" name="qst_part">
-		<option disabled="disabled" selected="selected" value="00">--증상 부위--</option>
+		<option disabled="disabled" selected="selected" value=" ">--증상 부위--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
 		<option value="03">치아</option>
@@ -57,10 +59,10 @@
 					<table class="questTop">	
 						<tr>
 							<td class="thumbnail"></td>
-							<td class="questId">${dto.users_vo[0].users_name}</td>
-							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
-							<td class="questPart">${dto.animalpart_vo[0].part_name}</td>
-							<td class="questTitle">❓${dto.qst_title}(1)</td>
+							<td class="questId">${dto.users_name}</td>
+							<td class="questCategory">${dto.anm_species}</td>
+							<td class="questPart">${dto.part_name}</td>
+							<td class="questTitle">❓${dto.qst_title}</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 								<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -68,7 +70,7 @@
 						</tr>
 					</table>
 					<div class="questBottom">
-						<a href="./questDetail.do?seq=${dto.qst_seq}">${content}</a>
+						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a>
 					</div>
 				</div>
 				<div class="blank"></div>
@@ -78,10 +80,10 @@
 					<table class="questTop">
 						<tr>
 							<td class="thumbnail"></td>
-							<td class="questId">${dto.users_vo[0].users_name}</td>
-							<td class="questCategory">${dto.animalcode_vo[0].anm_species}</td>
-							<td class="questPart">${dto.animalpart_vo[0].part_name}</td>
-							<td class="questTitle">❔${dto.qst_title}(1)</td>
+							<td class="questId">${dto.users_name}</td>
+							<td class="questCategory">${dto.anm_species}</td>
+							<td class="questPart">${dto.part_name}</td>
+							<td class="questTitle">❔${dto.qst_title}</td>
 							<td class="questDate">
 								<fmt:parseDate var="questDate" value="${dto.qst_regdate}" pattern="yyyy-MM-dd HH:mm"/>
 								<fmt:formatDate value="${questDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -96,40 +98,30 @@
 			</c:otherwise>
 		</c:choose>
 		</c:forEach>
-	
 </div>
 
 <!-- 페이징 -->
-<!-- <div id="pagingArea"> -->
-<!-- 			<table> -->
-<!-- 			<tfoot style="text-align : center;"> -->
-<!-- 				<tr> -->
-<!-- 					<td> -->
-<!-- 						<ul class="pagination pagination-lg"> -->
-<%-- 							<c:if test="${page.stagePage > 1}"> --%>
-<!-- 								<li><a href="#" onclick="pageFirst()"><span class="glyphicon glyphicon-fast-backward"></span></a></li> -->
-<%-- 								<c:if test="${page.stagePage - page.countPage >= 0 }"> --%>
-<%-- 									<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-backward"></span></a></li> --%>
-<%-- 								</c:if> --%>
-								
-<%-- 							</c:if> --%>
-							
-<%-- 							<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1"> --%>
-<%-- 								<li ${page.page == i ? 'class = active':'' }><a href="javascript:page(${i})">${i}</a></li> --%>
-<%-- 							</c:forEach> --%>
-							
-<%-- 							<c:if test="${page.page < page.totalPage }"> --%>
-<%-- 								<c:if test="${page.stagePage+page.countPage < page.totalCount }"> --%>
-<%-- 									<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-step-forward"></span></a></li> --%>
-<%-- 								</c:if> --%>
-<%-- 								<li><a href="#" onclick="pageLast(${page.totalPage})"><span class="glyphicon glyphicon-fast-forward"></span></a></li> --%>
-<%-- 							</c:if> --%>
-<!-- 						</ul> -->
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</tfoot> -->
-<!-- 			</table> -->
-<!-- </div> -->
+<div id="pagingArea">
+	<ul class="pages">
+		<c:if test="${page.stagePage > 1}">
+			<li ><a href="#" onclick="pageFirst()"><span>|◀</span></a></li>
+			<c:if test="${page.stagePage - page.countPage >= 0 }">
+				<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span>◀</span></a></li>
+			</c:if>
+		</c:if>
+		
+		<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1">
+			<li ${page.page == i ? 'class = active':'' }><a href="javascript:page(${i}, '${queryString}')">${i}</a></li>
+		</c:forEach>
+		
+		<c:if test="${page.page < page.totalPage }">
+			<c:if test="${page.stagePage+page.countPage < page.totalCount }">
+				<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span>▶</span></a></li>
+			</c:if>
+			<li><a href="#" onclick="pageLast(${page.totalPage})"><span>▶|</span></a></li>
+		</c:if>
+	</ul>
+</div>
 
 </div>
 </body>

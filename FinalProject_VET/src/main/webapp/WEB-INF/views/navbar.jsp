@@ -56,13 +56,6 @@
 			<a onclick="location.href='./selectOneDetail.do'">조회 및 수정</a>
 		</div>
 		
-<!-- 		<button class="dropdown-btn"> -->
-<!-- 			채팅<i class="fa fa-caret-down"></i> -->
-<!-- 		</button> -->
-<!-- 		<div class="dropdown-container"> -->
-<!-- 			<a onclick="#">1</a> -->
-<!-- 		</div> -->
-		
 	</div>
 </body>
 <script type="text/javascript">

@@ -4,9 +4,12 @@ package com.min.edu;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -39,24 +42,28 @@ public class Board_Controller {
 	@Autowired
 	private IBoard_Service service;
 	
-	@GetMapping(value = "/questBoard.do")
-	public String questBoard(HttpSession session, Model model) {
-		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
-		List<QuestBoard_VO> lists = service.selectQuest();
-		List<String> lists2 = new ArrayList<String>();
-		
-		for (int i = 0; i < lists.size(); i++) {
-			lists2.add(StringEscapeUtils.unescapeHtml4(lists.get(i).getQst_content()));
-			lists2.add(lists.get(i).getQst_seq());
-			lists2.add(lists.get(i).getQst_fast());
-		}
-		
-		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-		model.addAttribute("lists2", lists2);
-		model.addAttribute("questList", lists);
-		
-		return "qst_questBoard";
-	}
+//	@GetMapping(value = "/questBoard.do")
+//	public String questBoard(HttpSession session, Model model) {
+//		log.info("&&&&& Board_Controller 실행 qst_questBoard 이동 &&&&&");
+//		List<QuestBoard_VO> lists = service.selectQuest();
+//		List<String> lists2 = new ArrayList<String>();
+//		
+//		for (int i = 0; i < lists.size(); i++) {
+//			lists2.add(StringEscapeUtils.unescapeHtml4(lists.get(i).getQst_content()));
+//			lists2.add(lists.get(i).getQst_seq());
+//			lists2.add(lists.get(i).getQst_fast());
+//		}
+//		
+//		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+//		model.addAttribute("lists2", lists2);
+//		model.addAttribute("questList", lists);
+//		
+//		
+//		return "qst_questBoard";
+//	}
+	
+	
+	
 	
 	@GetMapping(value = "/questDetail.do")
 	public String questDetail(HttpSession session, String seq, Model model) {
@@ -91,9 +98,9 @@ public class Board_Controller {
 	public String selectPartQuest(@RequestParam Map<String,Object> map, Model model) {
 		log.info("{}",map);
 		
-		List<QuestBoard_VO> boards = service.selectPartQuest(map);
-		log.info("{}",boards);
-		model.addAttribute("questList", boards);
+//		List<QuestBoard_VO> boards = service.selectPartQuest(map);
+//		log.info("{}",boards);
+//		model.addAttribute("questList", boards);
 		
 		return "qst_questBoard";
 	}
@@ -229,49 +236,59 @@ public class Board_Controller {
 //		
 //		return "";
 //	}
-//	
-	
 	
 //	페이징
-//	@PostMapping(value = "/page.do")
-//	public Map<String, Object> page(@RequestParam(name="page") int selectPage,
-//									HttpSession session,
-//									Model model){
-//		log.info("RestPageController 게시판 페이지 REST 처리를 위한 page.do : {}", selectPage);
-//		log.info("RestPageController page.do 에 Session 확인 : {}, {}", session.getAttribute("loginVo"), session.getAttribute("row"));
-//		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
-//		Paging_VO pVo = (Paging_VO) session.getAttribute("row");
-//		
-//		// ---- 페이징 VO 객체 값 입력
-//		pVo.setTotalCount(service.getAllBoardCount(new HashMap<String, Object>(){{
-////			put("auth",loginVo.getAuth());
-//		}}));
-//		
-//		pVo.setCountList(5);
-//		pVo.setCountPage(5);
-//		pVo.setTotalPage(pVo.getTotalCount());
-//		pVo.setPage(selectPage);
-//		pVo.setStagePage(selectPage);
-//		pVo.setEndPage(pVo.getCountPage());
-//		
-//		// ---- 게시글의 페이징 처리된 리스트
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("first", pVo.getPage()*pVo.getCountList()-(pVo.getCountList()-1));
-//		map.put("last", pVo.getPage()*pVo.getCountList());
-////		map.put("auth", loginVo.getAuth()); 
-//		List<QuestBoard_VO> lists = service.getAllBoardPage(map);
-//		
-//		// 반환되는 JSON 객체로 변환이 가능한 Map을 생성
-//		Map<String, Object> result = new HashMap<String, Object>();
-//		result.put("lists", lists);
-//		result.put("row", pVo);
-//		result.put("memId", loginVo.getId());
+	@GetMapping(value = "/questBoard.do")
+	public String boardList(Model model, HttpSession session, HttpServletRequest req,
+			@RequestParam Map<String,Object> map) {
 		
-//		return new HashMap<String, Object>(){{
-//			put("check","return value");
-//		}};
-//		return result;
-//	}
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		String page = (String) map.get("page");
+		log.info("BoardController 게시글 전체 값을 저장하여 이동하는 boardList");
+		log.info("BoardController 게시글 조회 전달된 page : {}", page);
+		
+		Paging_VO pVo = new Paging_VO();
+		List<String> lists2 = new ArrayList<String>();
+		
+		log.info("----------현재 페이지 : {} ", page);
+		
+		int selectPage = Integer.parseInt(page == null?"1":page);
+		map.put("page", selectPage);
+		log.info("----------선택된 페이지 : {} ", selectPage);
+		
+		pVo.setTotalCount(service.getAllBoardCount(map)); // 총 게시물의 갯수
+		pVo.setCountList(5);	// 출력된 게시글의 갯수
+		pVo.setCountPage(5);	// 화면에 몇개의 페이지를 보여줄건지 (페이지 그룹)
+		pVo.setTotalPage(pVo.getTotalCount());	// 총 페이지의 갯수
+		pVo.setPage(selectPage); // 화면에서 선택된 페이지 변호
+		pVo.setStagePage(selectPage); // 페이지 그룹과 시작번호
+		pVo.setEndPage(pVo.getCountPage()); // 끝번호 
+		
+		map.put("first", pVo.getPage()*pVo.getCountList() - (pVo.getCountList()-1));
+		map.put("last", pVo.getPage()*pVo.getCountList());
+		
+		List<QuestBoard_VO> questList = service.getAllBoardPage(map);
+		
+		for (int i = 0; i < questList.size(); i++) {
+			lists2.add(StringEscapeUtils.unescapeHtml4(questList.get(i).getQst_content()));
+			lists2.add(questList.get(i).getQst_seq());
+			lists2.add(questList.get(i).getQst_fast());
+		}
+		
+		log.info("전달된 값 {}", questList);
+		
+		model.addAttribute("lists2", lists2);
+		model.addAttribute("questList", questList);
+		model.addAttribute("page", pVo);
+	    log.info("queryString  :  " + req.getQueryString());
+	    String queryString = req.getQueryString() == null ? "" : req.getQueryString();
+	    
+	    queryString = queryString.replaceFirst("page=[0-9]*", "");
+	    log.info("queryString  :  " + queryString);
+		model.addAttribute("queryString", queryString);
+		
+		return "qst_questBoard";
+	}
 	
 		
 }
