@@ -637,7 +637,16 @@ public class Users_Controller {
 		}
 	}
 	
-	@GetMapping(value = "/hosp_rpy.do")
+
+	//비밀번호 찾기 페이지 이동
+		@GetMapping(path = "/findPwWindow.do")
+		public String findPwPage () {
+			log.info("&&&&& Users_Controller 비밀번호 찾기 페이지로 이동 &&&&&");
+			return "users_findPw";
+		}
+	
+  //병원 마이페이지에서 진료답변보기 기능
+  @GetMapping(value = "/hosp_rpy.do")
 	public String hosp_rpy(HttpSession session, Model model) {
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
 		Chosen_VO cvo = chosen_service.rpy_cnt_chsn(loginVo.getUsers_id());

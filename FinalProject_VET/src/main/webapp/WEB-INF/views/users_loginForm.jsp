@@ -37,7 +37,7 @@
 						<a href="#" onclick="findId()">아이디 찾기</a>
 						<a href="#" onclick="findPw()">비밀번호 찾기</a>
 					</div>
-					<div id="naver_id_login" style="text-align: right; margin-top: 3px;"></div>
+<!-- 					<div id="naver_id_login" style="text-align: right; margin-top: 3px;"></div> -->
 					</td>
 				</tr>
 			</table>
@@ -47,26 +47,26 @@
     <!-- //네이버 로그인 버튼 노출 영역 -->
     
     <script type="text/javascript">
-        var naver_id_login = new naver_id_login("VULq_T6rjXHVJh5qCkut", "http://localhost:8080/FinalProject_VET/main.do");
-        var state = naver_id_login.getUniqState();
+<!--         var naver_id_login = new naver_id_login("VULq_T6rjXHVJh5qCkut", "http://localhost:8080/FinalProject_VET/main.do"); -->
+<!--         var state = naver_id_login.getUniqState(); -->
         
-        naver_id_login.setButton("green", 3 , 40);
-        naver_id_login.setState(state);
+<!--         naver_id_login.setButton("green", 3 , 40); -->
+<!--         naver_id_login.setState(state); -->
         
-        naver_id_login.setPopup();
-        naver_id_login.init_naver_id_login();
+<!--         naver_id_login.setPopup(); -->
+<!--         naver_id_login.init_naver_id_login(); -->
         
-        var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
-        // 접근 토큰 값 출력
-        alert(naver_id_login.oauthParams.access_token);
-        // 네이버 사용자 프로필 조회
-        naver_id_login.get_naver_userprofile("naverSignInCallback()");
-        // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-        function naverSignInCallback() {
-          alert(naver_id_login.getProfileData('email'));
-          alert(naver_id_login.getProfileData('nickname'));
-          alert(naver_id_login.getProfileData('age'));
-        }
+<!--         var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL"); -->
+<!--         // 접근 토큰 값 출력 -->
+<!--         alert(naver_id_login.oauthParams.access_token); -->
+<!--         // 네이버 사용자 프로필 조회 -->
+<!--         naver_id_login.get_naver_userprofile("naverSignInCallback()"); -->
+<!--         // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function -->
+<!--         function naverSignInCallback() { -->
+<!--           alert(naver_id_login.getProfileData('email')); -->
+<!--           alert(naver_id_login.getProfileData('nickname')); -->
+<!--           alert(naver_id_login.getProfileData('age')); -->
+<!--         } -->
         
         
         function findId(){
@@ -77,7 +77,7 @@
         	window.open("./findPwWindow.do","_blank", "width:200px", "height:200px")
         }
         
-    </script>
+	 </script>
     
     
 	</div>

@@ -63,3 +63,9 @@
 div>div>form>input>#keyword{
 	text-align: right;
 }
+
+#searchSpace{
+	display: block;
+    text-align: right;
+    margin: 10px 190px;
+}
