@@ -42,7 +42,6 @@
 		border-right: 2px solid #3E2723;
     }
     #hosp_mapSearch{
-    	width:200px;
     	margin: 0px auto;
     	text-align: center;
     }
@@ -108,4 +107,7 @@
  		border: 2px solid #3E2723;
  		font-weight: bold;
  		
+ 	}
+ 	#map_info{
+ 		text-align: center;
  	}

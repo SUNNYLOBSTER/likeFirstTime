@@ -27,6 +27,9 @@ public interface IReservation_Service {
 	//예약확정(Y) 상태에서 예약취소(N) 상태로 변경
 	public int resrv_updateToN(String resrv_num);
 	
+	//예약대기(W)에서 예약거절(X) 상태로 변경
+	public int resrv_updateToX(String resrv_num);
+	
 	//예약 신청화면에 가져올 병원의 운영정보
 	public Hospital_VO resrv_reqPage(String hosp_id);
 	

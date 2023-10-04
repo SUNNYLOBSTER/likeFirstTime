@@ -55,6 +55,11 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 	public int resrv_updateToN(String resrv_num) {
 		return session.update(NS+"resrv_updateToN",resrv_num);
 	}
+	
+	@Override
+	public int resrv_updateToX(String resrv_num) {
+		return session.update(NS+"resrv_updateToX",resrv_num);
+	}
 
 	@Override
 	public int resrv_delete(String resrv_num) {
@@ -105,6 +110,8 @@ public class Reservation_DaoImpl implements IReservation_Dao {
 	public int resrv_detailModify(Reservation_VO rvo) {
 		return session.update(NS+"resrv_detailModify",rvo);
 	}
+
+	
 
 
 }
