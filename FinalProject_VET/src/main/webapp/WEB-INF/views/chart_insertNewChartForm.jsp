@@ -51,7 +51,7 @@
 					
 				<c:choose>
 					<c:when test="${not empty medi_title}">
-						진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required" value="${medi_title}">
+						진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required" value="${medi_title} 진료">
 					</c:when>
 					<c:otherwise>
 						진료제목 : <input type="text" id="medi_title" name="medi_title" maxlength="25" required="required">
