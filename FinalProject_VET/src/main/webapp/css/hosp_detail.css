@@ -36,6 +36,10 @@
 	height: 26px;
 }
 
+#bookmarkPart_no:hover, #bookmarkPart_yes:hover{
+	cursor: pointer;
+}
+
 #bookmarkPart{
 	position: absolute;
 }

@@ -133,7 +133,7 @@ public class Mail_Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/selectAllPayment.do";
+		return "redirect:/selectPntList.do";
 	}
 	
 	//결제 취소 메일 전송

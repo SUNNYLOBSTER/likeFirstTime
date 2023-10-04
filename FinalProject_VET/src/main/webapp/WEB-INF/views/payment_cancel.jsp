@@ -21,7 +21,7 @@
 <%@ include file="./navbar.jsp" %>
 	<div class="navContainer">
 		<h2>결제 상세내역</h2>
-		<table id="chartInfo_point">
+		<table id="chartInfo">
 			<tr>
 				<th>결제번호</th>
 				<td>${pvo.pay_num}</td>
@@ -50,8 +50,10 @@
 					</c:choose>
 			</tr>
 		</table>
-		<button id="cacelpay" onclick="cancelPay(this.value)" value="${pvo.imp_uid}">환불</button>
-		<button id="cacelpay2" onclick="location.href='./selectAllPayment.do'">이전</button>
+		<div id="buttonPart">
+			<button id="cacelpay" onclick="cancelPay(this.value)" value="${pvo.imp_uid}">환불</button>
+			<button id="cacelpay2" onclick="location.href='./selectAllPayment.do'">이전</button>
+		</div>
 	</div>
 </body>
 <script type="text/javascript" src="./js/payment_realCancle.js"></script>

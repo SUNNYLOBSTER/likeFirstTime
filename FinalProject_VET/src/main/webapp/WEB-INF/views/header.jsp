@@ -166,7 +166,7 @@
 				</span>
 				<c:if test="${loginVo.users_auth eq 'U'}">
 					<span>
-						&emsp;Point : <a href="./selectPntList.do" id="wholepoint">${point}</a>&nbsp;
+						&emsp;Point : <a href="./selectPntList.do" id="wholepoint">${sessionScope.point}</a>&nbsp;
 					</span>
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'A' }">

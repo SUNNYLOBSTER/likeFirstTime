@@ -162,7 +162,7 @@ IamportClient client;
 		model.addAttribute("lists",lists);
 		
 		int point = service.selectAllPnt(pnt_id);
-		model.addAttribute("point",point);
+		session.setAttribute("point", point);
 		
 		return "payment_pointList";
 	}

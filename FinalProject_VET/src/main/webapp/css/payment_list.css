@@ -77,3 +77,8 @@
 #allPoint{
 	color:#1000E5;
 }
+
+#buttonPart{
+	float: right;
+	margin-right: 20px;
+}
