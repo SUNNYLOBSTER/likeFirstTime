@@ -19,12 +19,12 @@
 	<!-- 카테고리 선택 -->
 	<select id="aCode" name="qst_species" class="selectPart">
 		<option disabled="disabled" selected="selected" value="">--동물 종을 선택하세요--</option>
-		<option value="D">개</option>
-		<option value="C">고양이</option>
-		<option value="R">파충류</option>
-		<option value="B">조류</option>
+		<option value="A">개</option>
+		<option value="B">고양이</option>
+		<option value="C">파충류</option>
+		<option value="D">조류</option>
 		<option value="F">어류</option>
-		<option value="O">기타</option>
+		<option value="Z">기타</option>
 	</select>
 	<input type="hidden" name="codeInput" required="required">
 	<select id="aPart" name="qst_part" class="selectPart" >
@@ -43,7 +43,7 @@
 	<input type="hidden" name="partInput" required="required">
 	
 	<!-- 빠른문의 게시글 활성화 -->
-	<input type="checkbox" name="qst_fast" value="Y">빠른문의 게시글
+	<input type="checkbox" name="qst_fast" value="Y"><a style="font-size: 12px;">빠른문의 게시글</a>
 	 <a style="font-size: 8px; color: grey;">※ 빠른문의 작성 시 500포인트가 차감됩니다.</a>
 
 	<!-- 제목 작성 -->
@@ -54,8 +54,8 @@
 	</form>
 	
 	<!-- 완료 버튼 -->
-	<button type="submit" onclick="writeSubmit()">입력</button>
-	<input type="submit" value="취소" onclick="location.href='./questBoard.do'">
+	<button class="basicBtn" type="submit" onclick="writeSubmit()">입력</button>
+	<input class="basicBtn" type="submit" value="취소" onclick="location.href='./questBoard.do'">
 	
 </div>
 </body>

@@ -15,16 +15,16 @@
 </head>
 <body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
 <div id="detailContainer">
-	<form action="./writeQuest.do" method="post">
+	<form action="./writeModify.do" method="post">
 	<!-- 카테고리 선택 -->
 	<select id="aCode" name="qst_species" class="selectPart">
 		<option disabled="disabled" selected="selected" value="">--동물 종을 선택하세요--</option>
-		<option value="D">개</option>
-		<option value="C">고양이</option>
-		<option value="R">파충류</option>
-		<option value="B">조류</option>
+		<option value="A">개</option>
+		<option value="B">고양이</option>
+		<option value="C">파충류</option>
+		<option value="D">조류</option>
 		<option value="F">어류</option>
-		<option value="O">기타</option>
+		<option value="Z">기타</option>
 	</select>
 	<input type="hidden" name="codeInput" required="required">
 	<select id="aPart" name="qst_part" class="selectPart">
@@ -62,7 +62,7 @@
 </body>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>
 <script type="text/javascript" src="./js/ckeditor.js"></script>
-<script type="text/javascript" src="./js/qst_writeQuest.js"></script>
+<script type="text/javascript" src="./js/qst_modifyQuest.js"></script>
 
 <script type="text/javascript">
 	editor.setData('${dto.unescapeContent}');

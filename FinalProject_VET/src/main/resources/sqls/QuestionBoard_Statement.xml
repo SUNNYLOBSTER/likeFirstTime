@@ -200,7 +200,7 @@ WHERE QST_SEQ=#{qst_seq}
 <!-- 게시글 수정 -->
 <update id="modifyQuest" >
 UPDATE QUESTBOARD
-SET QST_CONTENT=#{qst_content}, QST_SPECIES=#{qst_species}, QST_PART=#{qst_part}
+SET QST_CONTENT=#{qst_content}, QST_TITLE=#{qst_title}, QST_SPECIES=#{qst_species}, QST_PART=#{qst_part}
 WHERE QST_SEQ=#{qst_seq}
 </update>
 

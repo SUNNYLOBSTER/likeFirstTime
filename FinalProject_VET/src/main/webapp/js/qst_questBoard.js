@@ -73,6 +73,11 @@ function writeReplyForm(){
 	
 }
 
+function writeModifyForm(){
+	writeReplyArea.style.display = "block";
+	
+}
+
 //  submit 버튼 동작 
 function replySubmit(){
 	const data = editor.getData();

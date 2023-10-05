@@ -17,7 +17,7 @@
 <div id="container">
 
 <div id="searchArea">
-<form action="./questBoard.do">
+<form id="formQuest" action="./questBoard.do">
 	<input type="hidden" name="page" value="${page.page}"/>
 	<select id="aCode" name="qst_species">
 		<option disabled="disabled" selected="selected" value=" ">--어떤 동물인가요?--</option>
@@ -104,9 +104,9 @@
 <div id="pagingArea">
 	<ul class="pages">
 		<c:if test="${page.stagePage > 1}">
-			<li ><a href="#" onclick="pageFirst()"><span>⏮️</span></a></li>
+			<li ><a href="#" onclick="pageFirst()"><span>《</span></a></li>
 			<c:if test="${page.stagePage - page.countPage >= 0 }">
-				<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span>⏪</span></a></li>
+				<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span>〈</span></a></li>
 			</c:if>
 		</c:if>
 		
@@ -116,9 +116,9 @@
 		
 		<c:if test="${page.page < page.totalPage }">
 			<c:if test="${page.stagePage+page.countPage < page.totalCount }">
-				<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span>⏩</span></a></li>
+				<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span>〉</span></a></li>
 			</c:if>
-			<li><a href="#" onclick="pageLast(${page.totalPage})"><span>⏭️</span></a></li>
+			<li><a href="#" onclick="pageLast(${page.totalPage})"><span>》</span></a></li>
 		</c:if>
 	</ul>
 </div>

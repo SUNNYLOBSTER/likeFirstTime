@@ -84,11 +84,17 @@ public class Board_Controller {
 //			unescapedReply.put("rpy_seq",rpyList.get(i).getRpy_seq());
 //			unescapedReply.put("rpy_chosen",rpyList.get(i).getRpy_chosen());
 //		}
+	    
+		if(loginVo == null) {
+			model.addAttribute("msg", "접근 권한이 없습니다.");
+			model.addAttribute("url", "./questBoard.do");
+			return "alert";
+		}
+	    
 	    System.out.println(unescapedContent);
 	    model.addAttribute("loginVo", loginVo);
 		model.addAttribute("qstDetail", qstDetail);
 		model.addAttribute("content", unescapedContent);
-//		model.addAttribute("rpyList", rpyList);
 		model.addAttribute("rpyList", rpyList);
 		return "qst_questDetail";
 	}
@@ -164,7 +170,12 @@ public class Board_Controller {
 		   String qst_part = (String) map.get("qst_part");
 		   String qst_fast = (String) map.get("qst_fast") == null?"N":"Y";
 		   
-		   if(wholePnt >= 500 && qst_fast == "Y" ) {
+			if(qst_species == null || qst_part == null) {
+				model.addAttribute("msg", "카테고리를 선택해주세요.");
+				model.addAttribute("url", "./questBoard.do");
+				return "alert";
+				
+			}else if(wholePnt >= 500 && qst_fast == "Y" ) {
 			   QuestBoard_VO insertVo = new QuestBoard_VO();
 			   insertVo.setQst_id(qst_id);
 			   insertVo.setQst_content(escapedContent);
@@ -291,6 +302,7 @@ public class Board_Controller {
 			@RequestParam Map<String,Object> map) {
 		
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		
 		String page = (String) map.get("page");
 		log.info("BoardController 게시글 전체 값을 저장하여 이동하는 boardList");
 		log.info("BoardController 게시글 조회 전달된 page : {}", page);
@@ -316,7 +328,7 @@ public class Board_Controller {
 		map.put("last", pVo.getPage()*pVo.getCountList());
 		
 		List<QuestBoard_VO> questList = service.getAllBoardPage(map);
-		
+
 		for (int i = 0; i < questList.size(); i++) {
 			lists2.add(StringEscapeUtils.unescapeHtml4(questList.get(i).getQst_content()));
 			lists2.add(questList.get(i).getQst_seq());
@@ -362,7 +374,72 @@ public class Board_Controller {
 
 		}
 		
-		
+//		게시글 작성
+		@PostMapping(value = "/writeModify.do")
+		public String modifyQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model, HttpServletResponse response) throws IOException {
+			log.info("&&&&& Board_Controller 실행 writeQuest 작동 &&&&&");
+			log.info("{}", map);
+			response.setContentType("text/html; charset=UTF-8");
+			
+			Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+					
+			String qst_id = loginVo.getUsers_id();
+			
+			   int wholePnt =  service_pay.selectAllPnt(qst_id);
+			   
+			   String qst_content = (String) map.get("questContent");
+			   String escapedContent = StringEscapeUtils.escapeHtml4(qst_content);
+			   String qst_title = (String) map.get("questTitle");
+			   String qst_species = (String) map.get("qst_species");
+			   String qst_part = (String) map.get("qst_part");
+			   String qst_fast = (String) map.get("qst_fast") == null?"N":"Y";
+			   
+				if(qst_species == null || qst_part == null) {
+					model.addAttribute("msg", "카테고리를 선택해주세요.");
+					model.addAttribute("url", "./questBoard.do");
+					return "alert";
+					
+				}else if(wholePnt >= 500 && qst_fast == "Y" ) {
+				   QuestBoard_VO insertVo = new QuestBoard_VO();
+				   insertVo.setQst_id(qst_id);
+				   insertVo.setQst_content(escapedContent);
+				   insertVo.setQst_title(qst_title);
+				   insertVo.setQst_species(qst_species);
+				   insertVo.setQst_part(qst_part);
+				   insertVo.setQst_fast(qst_fast);
+				   
+				   String quest = service.insertQuest(insertVo);
+				   service_pay.usePntOnBoard(qst_id);
+				   int point = service_pay.selectAllPnt(qst_id);
+				   session.setAttribute("point", point);
+				   
+				   return "redirect:/questDetail.do?seq="+quest;
+				   
+			   }else if(qst_fast == "N"){
+				   QuestBoard_VO insertVo = new QuestBoard_VO();
+				   insertVo.setQst_id(qst_id);
+				   insertVo.setQst_content(escapedContent);
+				   insertVo.setQst_title(qst_title);
+				   insertVo.setQst_species(qst_species);
+				   insertVo.setQst_part(qst_part);
+				   insertVo.setQst_fast(qst_fast);
+				   
+				   String quest = service.insertQuest(insertVo);
+				   
+				   return "redirect:/questDetail.do?seq="+quest;
+				   
+			   }else if(wholePnt < 500){
+				   PrintWriter out = response.getWriter();
+			       out.print("<script>alert('빠른문의 결제 포인트가 부족합니다. 포인트를 충전해주세요'); "
+			       				+ "location.href='./goPayment.do';"
+			       				+ "</script>");
+			       out.flush();
+			       out.close();
+			       return "redirect:/questBoard.do";
+			   }
+			   return null;
+			
+		}
 	
 		
 }
