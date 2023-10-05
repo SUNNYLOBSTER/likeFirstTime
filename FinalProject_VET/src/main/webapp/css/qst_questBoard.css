@@ -35,6 +35,11 @@
 	justify-content: center;
 }
 
+#formQuest{
+	width: 800px; 
+	float: left;
+}
+
 .basicBtn{
 	background-color: #D7CCC8;
 	width: 110px;
@@ -208,10 +213,9 @@
 }
 
 figure[class='image']>img{
-	
 
-    object-fit: contain;
-    width: 100%;
+/*     object-fit: contain; */
+    max-width: 600x;
 }
 
 
