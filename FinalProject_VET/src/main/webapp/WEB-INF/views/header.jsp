@@ -144,7 +144,13 @@
 	#wholepoint:hover {
 		font-weight: bold;
 	}
-	
+	.fixButton{
+		width: auto;
+		height: auto;
+		padding-block: 1px;
+    	padding-inline: 6px;
+    	border-width: 1px;
+	}
 </style>
 </head>
 <body>
@@ -170,15 +176,15 @@
 					</span>
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'A' }">
-					<button onclick="location.href='./adminPage.do'">관리자페이지</button>
+					<button class="fixButton" onclick="location.href='./adminPage.do'">관리자페이지</button>
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'H' }">
-					<button onclick="location.href='./resrv_Select.do'">병원 마이페이지</button>
+					<button class="fixButton" onclick="location.href='./resrv_Select.do'">병원 마이페이지</button>
 				</c:if>
 				<c:if test="${loginVo.users_auth eq 'U' }">
-					<button onclick="location.href='./selectAllChartPaging.do'">마이페이지</button>
+					<button class="fixButton" onclick="location.href='./selectAllChartPaging.do'">마이페이지</button>
 				</c:if>
-				<button onclick="location.href='./logout.do'">로그아웃</button>
+				<button class="fixButton" onclick="location.href='./logout.do'">로그아웃</button>
 				
 			</div>
 		</c:otherwise>

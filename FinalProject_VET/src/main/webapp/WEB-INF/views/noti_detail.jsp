@@ -40,29 +40,29 @@
 		<form>
 		<table id="chartInfo">
 			<tr>
-				<th>제목</th>
-				<td>${noticeDetail.noti_title}</td>
-				<th>작성일</th>
-				<td>${noticeDetail.noti_regdate}</td>
-				<th>작성자</th>
-				<td>관리자</td>
+				<th width="10%">제목</th>
+				<td width="40%">${noticeDetail.noti_title}</td>
+				<th width="10%">작성일</th>
+				<td width="20%">${noticeDetail.noti_regdate}</td>
+				<th width="10%">작성자</th>
+				<td width="10%">관리자</td>
 			</tr>
 			<tr>
 			</tr>
 			<tr>
-				<td colspan="2" style="text-align: left;">${noticeDetail.noti_content}</td>
+				<td colspan="6" style="text-align: left;">${noticeDetail.noti_content}</td>
 			</tr>
 		</table>
 		<c:if test="${loginVo.users_auth eq 'A' }">
 			<div id=inputButton>
 				<input type="button" value="수정" onclick="modi('${noticeDetail.noti_seq}')">
 				<input type="button" value="삭제" onclick="del('${noticeDetail.noti_seq}')">
-				<input type="button" onclick="history.back(-1)" value="목록으로">
+				<input type="button" onclick="location.href='./notice.do'" value="목록으로">
 			</div>
 		</c:if>
 		<c:if test="${loginVo.users_auth ne 'A'}">
 			<div id=inputButton>
-				<input type="button" onclick="history.back(-1)" value="목록으로">
+				<input type="button" onclick="location.href='./notice.do'" value="목록으로">
 			</div>
 		</c:if>
 		</form>

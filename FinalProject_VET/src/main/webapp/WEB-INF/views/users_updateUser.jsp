@@ -8,13 +8,18 @@
 <link rel="stylesheet" href="./css/chart_detail.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style type="text/css">
+	#buttonArea{
+		display: block;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 <%@ include file="./navbar.jsp" %>
 <div class="navContainer">
 	<h3>내 정보 수정</h3>
 	<form action="./updateUser.do" method="post">
-		<div class="form-group">
 			<table id="chartInfo">
 				<tr>
 				<th>ID</th>
@@ -41,10 +46,11 @@
 					<td> &nbsp;&nbsp; <input class="form-control" type="text" name="users_subtel" value="${lists[0].users_subtel}"></td>
 				</tr>
 			</table>
-		</div>
 		<br>
-		<input type="submit" value="수정" style="margin-left: 460px;">
-		<input type="button" value="취소" onclick="location.href='./selectOneDetail.do'">
+		<div id="buttonArea">
+			<input type="submit" value="수정">
+			<input type="button" value="취소" onclick="location.href='./selectOneDetail.do'">
+		</div>
 	</form>
 </div>
 <script type="text/javascript">

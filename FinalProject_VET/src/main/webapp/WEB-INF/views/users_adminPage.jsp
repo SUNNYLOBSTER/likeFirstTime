@@ -26,8 +26,7 @@
 <!-- </select> -->
 
 
-<!-- 값은 잘 넘어가는데 리스트가 다르게 뿌려짐.. 수정이 필요함쓰 -->
-<div id="navContainer">
+<div id="container">
 	<div id="searchSpace">
 		<input type="text" name="keyword" id="keyword">
 		<input type="button" onclick="searchUserId()" value="검색" id="searchUserId">
@@ -39,15 +38,15 @@
 		<!-- 	<input class="buttons" type="button" onclick="searchUserId()" value="검색" id="searchUserId"> -->
 		<!-- 	<input type="text" name="keyword" id="keyword"> -->
 		<!-- 	<input class="buttons" type="button" value="회원 상태 변경" id="statusChange"> -->
-			<table id=chartInfo>
+			<table id="chartInfo">
 				<thead>
 					<tr>
-						<th><input type="checkbox" onclick="allChk(this.checked)"></th>
-						<th>번호</th>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>전화번호</th>
-						<th>
+<!-- 						<th width="5%"><input type="checkbox" onclick="allChk(this.checked)"></th> -->
+						<th width="5%">번호</th>
+						<th width="20%">아이디</th>
+						<th width="25%">이름</th>
+						<th width="10%">전화번호</th>
+						<th width="10%">
 							<select name="userStatus" id="userStatus" onchange="selectStatus()">
 								<option value="">상태</option>
 								<option value="N">활동중</option>
@@ -55,7 +54,7 @@
 								<option value="Y">탈퇴</option>
 							</select>				
 						</th>
-						<th>
+						<th width="10%">
 							<select name="userAuth" id="userAuth" onchange="selectAuth()">
 								<option value="">권한</option>
 								<option value="U">일반사용자</option>
@@ -63,14 +62,14 @@
 								<option value="A">관리자</option>
 							</select>
 						</th>
-						<th>사업자등록번호</th>
-						<th>가입일</th>
+						<th width="10%">사업자등록번호</th>
+						<th width="10%">가입일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="vo" items="${listsVo}" varStatus="vs">
 						<tr>
-							<td><input type="checkbox" name="chkId" value="${vo.users_id}"> </td>
+<%-- 							<td><input type="checkbox" name="chkId" value="${vo.users_id}"> </td> --%>
 							<td>${vs.count}</td>
 							<td><a href="./selectUserDetail.do?users_id=${vo.users_id}">${vo.users_id}</a></td>
 							<td>${vo.users_name}</td>
@@ -107,6 +106,7 @@
 			
 		</form>
 		</div>
+		
 	</div>
 </body>
 <%@ include file="./footer.jsp" %>

@@ -18,6 +18,17 @@
 		border: none;
 		box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
 	}
+	#cancel{
+		background-color: #D7CCC8;
+		width: 110px;
+		height: 20px;
+		border-radius: 5px;
+		color: #3E2723;
+		border: none;
+		box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
+	}
+	
+		
 	#inputButton{
 		text-align: center;
 	}
@@ -60,7 +71,7 @@
 			</tr>
 			<tr>
 			<th>작성자</th>
-				<td> &nbsp;&nbsp; <input type="text" value="작성자" readonly="readonly"></td>
+				<td> &nbsp;&nbsp; <input type="text" value="관리자" readonly="readonly"></td>
 			</tr>
 		</table>
 		<br>
@@ -68,7 +79,8 @@
 		<input type="hidden" name="noti_seq" value="${noticeDetail.noti_seq}">
 		<br>
 		<div id="inputButton">
-		<input type="submit" value="수정">
+			<input type="submit" value="수정">
+			<input type="button" id="cancel" onclick="history.back(-1)" value="취소">
 		</div>
 	</form>
 </div>

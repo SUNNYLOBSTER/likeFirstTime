@@ -25,11 +25,11 @@ function selectAuth() {
 			varHtml += "<table id='chartInfo'>                  ";
 			varHtml += "<thead>                  ";
 			varHtml += "<tr>                     ";
-			varHtml += "<th>번호</th>            ";
-			varHtml += "<th>아이디</th>          ";
-			varHtml += "<th>이름</th>            ";
-			varHtml += "<th>전화번호</th>        ";
-			varHtml += "<th>";
+			varHtml += "<th width='5%'>번호</th>            ";
+			varHtml += "<th width='20%'>아이디</th>          ";
+			varHtml += "<th width='25%'>이름</th>            ";
+			varHtml += "<th width='10%'>전화번호</th>        ";
+			varHtml += "<th width='10%'>";
 			varHtml += "<select name='userStatus' id='userStatus' onchange='selectStatus()'>";
 			varHtml += "<option value=''>상태</option>";
 			varHtml += "<option value='N'>활동중</option>";
@@ -37,7 +37,7 @@ function selectAuth() {
 			varHtml += "<option value='Y'>탈퇴</option>";
 			varHtml += "</select>";
 			varHtml += "</th>";
-			varHtml += "<th>";
+			varHtml += "<th width='10%'>";
 			varHtml += "<select name='userAuth' id='userAuth' onchange='selectAuth()'>";
 			varHtml += "	<option value=''>권한</option>                            ";
 			varHtml += "	<option value='U'>일반사용자</option>                     ";
@@ -45,8 +45,8 @@ function selectAuth() {
 			varHtml += "	<option value='A'>관리자</option>                         ";
 			varHtml += "</select>                                                     ";
 			varHtml += "</th>            ";
-			varHtml += "<th>사업자등록번호</th>  ";
-			varHtml += "<th>가입일</th>          ";
+			varHtml += "<th width='10%'>사업자등록번호</th>  ";
+			varHtml += "<th width='10%'>가입일</th>          ";
 			varHtml += "</tr>                    ";
 			varHtml += "</thead>					";
 
@@ -123,11 +123,11 @@ function selectStatus() {
 				varHtml += "<table id='chartInfo'>";
 				varHtml += "<thead>                  ";
 				varHtml += "<tr>                     ";
-				varHtml += "<th>번호</th>            ";
-				varHtml += "<th>아이디</th>          ";
-				varHtml += "<th>이름</th>            ";
-				varHtml += "<th>전화번호</th>        ";
-				varHtml += "<th>";
+				varHtml += "<th width='5%'>번호</th>            ";
+				varHtml += "<th width='20%'>아이디</th>          ";
+				varHtml += "<th width='25%'>이름</th>            ";
+				varHtml += "<th width='10%'>전화번호</th>        ";
+				varHtml += "<th width='10%'>";
 				varHtml += "<select name='userStatus' id='userStatus' onchange='selectStatus()'>";
 				varHtml += "<option value=''>상태</option>";
 				varHtml += "<option value='N'>활동중</option>";
@@ -135,7 +135,7 @@ function selectStatus() {
 				varHtml += "<option value='Y'>탈퇴</option>";
 				varHtml += "</select>";
 				varHtml += "</th>";
-				varHtml += "<th>";
+				varHtml += "<th width='10%'>";
 				varHtml += "<select name='userAuth' id='userAuth' onchange='selectAuth()'>";
 				varHtml += "	<option value=''>권한</option>                            ";
 				varHtml += "	<option value='U'>일반사용자</option>                     ";
@@ -143,8 +143,8 @@ function selectStatus() {
 				varHtml += "	<option value='A'>관리자</option>                         ";
 				varHtml += "</select>                                                     ";
 				varHtml += "</th>            ";
-				varHtml += "<th>사업자등록번호</th>  ";
-				varHtml += "<th>가입일</th>          ";
+				varHtml += "<th width='10%'>사업자등록번호</th>  ";
+				varHtml += "<th width='10%'>가입일</th>          ";
 				varHtml += "</tr>                    ";
 				varHtml += "</thead>					";
 				varHtml += "<tbody>";
@@ -167,11 +167,11 @@ function selectStatus() {
 				varHtml += "<table id='chartInfo'>";
 				varHtml += "<thead>                  ";
 				varHtml += "<tr>                     ";
-				varHtml += "<th>번호</th>            ";
-				varHtml += "<th>아이디</th>          ";
-				varHtml += "<th>이름</th>            ";
-				varHtml += "<th>전화번호</th>        ";
-				varHtml += "<th>";
+				varHtml += "<th width='5%'>번호</th>            ";
+				varHtml += "<th width='20%'>아이디</th>          ";
+				varHtml += "<th width='25%'>이름</th>            ";
+				varHtml += "<th width='10%'>전화번호</th>        ";
+				varHtml += "<th width='10%'>";
 				varHtml += "<select name='userStatus' id='userStatus' onchange='selectStatus()'>";
 				varHtml += "<option value=''>상태</option>";
 				varHtml += "<option value='N'>활동중</option>";
@@ -179,7 +179,7 @@ function selectStatus() {
 				varHtml += "<option value='Y'>탈퇴</option>";
 				varHtml += "</select>";
 				varHtml += "</th>";
-				varHtml += "<th>";
+				varHtml += "<th width='10%'>";
 				varHtml += "<select name='userAuth' id='userAuth' onchange='selectAuth()'>";
 				varHtml += "	<option value=''>권한</option>                            ";
 				varHtml += "	<option value='U'>일반사용자</option>                     ";
@@ -187,8 +187,8 @@ function selectStatus() {
 				varHtml += "	<option value='A'>관리자</option>                         ";
 				varHtml += "</select>                                                     ";
 				varHtml += "</th>            ";
-				varHtml += "<th>사업자등록번호</th>  ";
-				varHtml += "<th>가입일</th>          ";
+				varHtml += "<th width='10%'>사업자등록번호</th>  ";
+				varHtml += "<th width='10%'>가입일</th>          ";
 				varHtml += "</tr>                    ";
 				varHtml += "</thead>					";
 
@@ -223,6 +223,7 @@ function selectStatus() {
 				}
 
 				varHtml += "</tbody>";
+				
 			}
 
 			$("#info").html(varHtml);
@@ -259,7 +260,7 @@ function searchUserId() {
 
 	console.log(keyword);
 
-	if (keyword.length >= 1) {
+	if (keyword.length >= 2) {
 		$.ajax({
 			url: "./adminPage.do",
 			type: "POST",
@@ -277,11 +278,11 @@ function searchUserId() {
 					varHtml += "<table id='chartInfo'>";
 					varHtml += "<thead>                  ";
 					varHtml += "<tr>                     ";
-					varHtml += "<th>번호</th>            ";
-					varHtml += "<th>아이디</th>          ";
-					varHtml += "<th>이름</th>            ";
-					varHtml += "<th>전화번호</th>        ";
-					varHtml += "<th>";
+					varHtml += "<th width='5%'>번호</th>            ";
+					varHtml += "<th width='20%'>아이디</th>          ";
+					varHtml += "<th width='25%'>이름</th>            ";
+					varHtml += "<th width='10%'>전화번호</th>        ";
+					varHtml += "<th width='10%'>";
 					varHtml += "<select name='userStatus' id='userStatus' onchange='selectStatus()'>";
 					varHtml += "<option value=''>상태</option>";
 					varHtml += "<option value='N'>활동중</option>";
@@ -289,7 +290,7 @@ function searchUserId() {
 					varHtml += "<option value='Y'>탈퇴</option>";
 					varHtml += "</select>";
 					varHtml += "</th>";
-					varHtml += "<th>";
+					varHtml += "<th width='10%'>";
 					varHtml += "<select name='userAuth' id='userAuth' onchange='selectAuth()'>";
 					varHtml += "	<option value=''>권한</option>                            ";
 					varHtml += "	<option value='U'>일반사용자</option>                     ";
@@ -297,8 +298,8 @@ function searchUserId() {
 					varHtml += "	<option value='A'>관리자</option>                         ";
 					varHtml += "</select>                                                     ";
 					varHtml += "</th>            ";
-					varHtml += "<th>사업자등록번호</th>  ";
-					varHtml += "<th>가입일</th>          ";
+					varHtml += "<th width='10%'>사업자등록번호</th>  ";
+					varHtml += "<th width='10%'>가입일</th>          ";
 					varHtml += "</tr>                    ";
 					varHtml += "</thead>					";
 					varHtml += "<tbody>";
@@ -306,6 +307,7 @@ function searchUserId() {
 					varHtml += "<td colspan='8'>회원이 존재하지 않습니다.</td>";
 					
 					varHtml += "</tbody>";
+					varHtml += "</div>";
 					
 					$("#info").html(varHtml);
 						
@@ -316,15 +318,16 @@ function searchUserId() {
 					console.log(msg[0], typeof msg[0]);
 					var varHtml = "";
 
+					varHtml += "<div id='navContainer'>      ";
 					varHtml += "<div id='userList'>      ";
 					varHtml += "<table id='chartInfo'>";
 					varHtml += "<thead>                  ";
 					varHtml += "<tr>                     ";
-					varHtml += "<th>번호</th>            ";
-					varHtml += "<th>아이디</th>          ";
-					varHtml += "<th>이름</th>            ";
-					varHtml += "<th>전화번호</th>        ";
-					varHtml += "<th>";
+					varHtml += "<th width='5%'>번호</th>            ";
+					varHtml += "<th width='20%'>아이디</th>          ";
+					varHtml += "<th width='25%'>이름</th>            ";
+					varHtml += "<th width='10%'>전화번호</th>        ";
+					varHtml += "<th width='10%'>";
 					varHtml += "<select name='userStatus' id='userStatus' onchange='selectStatus()'>";
 					varHtml += "<option value=''>상태</option>";
 					varHtml += "<option value='N'>활동중</option>";
@@ -332,7 +335,7 @@ function searchUserId() {
 					varHtml += "<option value='Y'>탈퇴</option>";
 					varHtml += "</select>";
 					varHtml += "</th>";
-					varHtml += "<th>";
+					varHtml += "<th width='10%'>";
 					varHtml += "<select name='userAuth' id='userAuth' onchange='selectAuth()'>";
 					varHtml += "	<option value=''>권한</option>                            ";
 					varHtml += "	<option value='U'>일반사용자</option>                     ";
@@ -340,8 +343,8 @@ function searchUserId() {
 					varHtml += "	<option value='A'>관리자</option>                         ";
 					varHtml += "</select>                                                     ";
 					varHtml += "</th>            ";
-					varHtml += "<th>사업자등록번호</th>  ";
-					varHtml += "<th>가입일</th>          ";
+					varHtml += "<th width='10%'>사업자등록번호</th>  ";
+					varHtml += "<th width='10%'>가입일</th>          ";
 					varHtml += "</tr>                    ";
 					varHtml += "</thead>					";
 
@@ -386,8 +389,10 @@ function searchUserId() {
 		});
 
 	} else {
-		info.innerHTML = "검색어를 2자 이상 입력해주세요.";
-	}
+		
+					info.innerHTML = "검색어를 2자 이상 입력해주세요.";
+					$("#info").html(varHtml);
+		}
 }
 
 
