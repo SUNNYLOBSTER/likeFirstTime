@@ -125,15 +125,15 @@ public class Users_ServiceImpl implements IUsers_Service {
 	}
 	
 	@Override
-	public boolean updateHospAnicode(Map<String, Object> map) {
-		log.info("&&&&& Users_ServiceImpl updateHospital 회원정보수정(병원관계자) 2 : {} &&&&&", map);
-		return false;
+	public int deleteHospAnicode(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl deleteHospAnicode 회원정보수정(병원관계자) 진료동물 : {} &&&&&", map);
+		return dao.deleteHospAnicode(map);
 	}
 	
 	@Override
-	public boolean updateHospMedicode(Map<String, Object> map) {
-		log.info("&&&&& Users_ServiceImpl updateHospital 회원정보수정(병원관계자) 3 : {} &&&&&", map);
-		return false;
+	public int deleteHospMedicode(Map<String, Object> map) {
+		log.info("&&&&& Users_ServiceImpl deleteHospMedicode 회원정보수정(병원관계자) 진료과목 : {} &&&&&", map);
+		return dao.deleteHospMedicode(map);
 	}
 	
 	@Override

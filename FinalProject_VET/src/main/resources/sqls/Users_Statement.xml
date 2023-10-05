@@ -238,13 +238,13 @@ INSERT INTO MEDICONNECT (MEDI_CODE, HOSP_ID)
 <!-- 병원정보수정 2 -->
 <delete id="deleteHospAnicode">
 	DELETE FROM ANIMALCONNECT
-		WHERE ANM_CODE=#{anm_code} AND HOSP_ID=#{hosp_id}
+		WHERE HOSP_ID=#{hosp_id}
 </delete>
 
 <!-- 병원정보수정 3 -->
 <delete id="deleteHospMedicode">
 	DELETE FROM MEDICONNECT
-		WHERE MEDI_CODE=#{medi_code} AND HOSP_ID=#{hosp_id}
+		WHERE HOSP_ID=#{hosp_id}
 </delete>
 
 <!-- 아이디 찾기 -->

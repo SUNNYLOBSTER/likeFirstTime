@@ -57,7 +57,6 @@ public class Users_Controller {
 	
 	@Autowired
 	private IChosen_Service chosen_service;
-	private IMap_Service map_service;
 	
 	//로그인 페이지로 이동
   
@@ -513,7 +512,7 @@ public class Users_Controller {
 		}
 	}
 	
-	//회원정보수정 (병원 관계자)
+	//회원정보수정페이지 이동(병원 관계자)
 	@GetMapping(path = "/updateHosp.do")
 	public String updateHospPage(HttpSession session, Model model,
 								 HttpServletResponse response) throws IOException {
@@ -521,28 +520,18 @@ public class Users_Controller {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		System.out.println(loginVo);
 				
 		if(loginVo != null) {
 			session.setAttribute("loginVo", loginVo);
+			
 			String users_id = loginVo.getUsers_id();
+			System.out.println(users_id);
 			
-			Users_VO hosp_info = map_service.hosp_detail(users_id);
-			String hosp_time = hosp_info.getHospital_vo().get(0).getHosp_time();
-			hosp_time = hosp_time.replaceAll(" ", "");
+			Users_VO hosp_info = service.selectHospitalDetail(users_id);
+			System.out.println(hosp_info);
 			
-			ObjectMapper objectMapper = new ObjectMapper();
-		    TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
-		    Map<String, Object> map =  objectMapper.readValue(hosp_time, typeReference);
-		    System.out.println(map);
-	
-			model.addAttribute("hosp_time", hosp_time);
-			
-			List<AnimalConn_VO> anm_lists = map_service.hosp_anm(users_id);
-		    List<MediConn_VO> medi_lists = map_service.hosp_mediDept(users_id);
-						
-			model.addAttribute("hVo", hosp_info);
-			model.addAttribute("anm_lists", anm_lists);
-		    model.addAttribute("medi_lists", medi_lists);
+			model.addAttribute("hosp_info", hosp_info);
 			
 		return "users_updateHosp";
 		
@@ -557,7 +546,7 @@ public class Users_Controller {
 		
 	}
 	
-	//회원정보수정(병원 관계자
+	//회원정보수정(병원 관계자)
 	@PostMapping(path = "/updateHosp.do")
 	@ResponseBody
 	public String updateHospital(@RequestParam Map<String, Object> map, Model model,
@@ -566,16 +555,31 @@ public class Users_Controller {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
+		log.info("찍어보자 {} " , map);
 		
 		if(loginVo != null) {
+			
+			Users_VO updateHospVo = new Users_VO();
+			
 			String hosp_id = (String)map.get("users_id");
 			map.put("hosp_id", hosp_id);
+			updateHospVo.setUsers_id(hosp_id);
 			
 			String hosp_name = (String)map.get("users_name");
 			map.put("hosp_name", hosp_name);
+			updateHospVo.setUsers_name(hosp_name);
 			
 			String addr = (String)map.get("users_addr");
 			map.put("users_addr", addr);
+			updateHospVo.setUsers_addr(addr);
+			
+			String hosp_tel = (String)map.get("users_tel");
+			map.put("users_tel", hosp_tel);
+			updateHospVo.setUsers_tel(hosp_tel);
+			
+			String hosp_subtel = (String)map.get("users_subtel");
+			map.put("users_subtel", hosp_subtel);
+			updateHospVo.setUsers_subtel(hosp_subtel);
 			
 			String openTime = (String)map.get("hosp_openTime");
 			String closeTime = (String)map.get("hosp_closeTime");
@@ -589,11 +593,36 @@ public class Users_Controller {
 			String anm_code = (String)map.get("anm_code");
 			map.put("anm_code", anm_code);
 			
+			int n = service.deleteHospAnicode(map);
+			int m = service.deleteHospMedicode(map);
 			
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('정보 수정이 완료되었습니다.');location.href='./resrv_Select.do';</script>");
-			out.flush();
-			return null;
+			int o = service.insertHospAnicode(map);
+			int p = service.insertHospMedicode(map);
+			
+			int q = service.updateUser(updateHospVo);
+			int r = service.updateHosp(map);
+			
+			
+			if(n+m+o+p+q+r<=6) {
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('정보 수정이 완료되었습니다.');location.href='./resrv_Select.do';</script>");
+				out.flush();
+				return null;
+				
+			} else if (n+m+o+p+q+r==0) {
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('잘못된 정보입니다. 다시 입력해주세요.');location.href='./updateHosp.do';</script>");
+				out.flush();
+				return null;
+				
+			} else {
+				
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('잘못된 정보입니다. 다시 입력해주세요.');location.href='./updateHosp.do';</script>");
+				out.flush();
+				return null;
+				
+			}
 			
 		} else {
 			PrintWriter out = response.getWriter();

@@ -92,12 +92,12 @@ public class Users_JUnitTest {
 //		System.out.println(uVo);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("medi_code", "01");
-		map.put("anm_code", "A");
-		map.put("hosp_id", "juchu@naver.com");
+		map.put("medi_code", "00");
+		map.put("anm_code", "B");
+		map.put("hosp_id", "panananan@naver.com");
 		
-		int n = service.insertHospAnicode(map);
-		int m = service.insertHospMedicode(map);
+		int n = service.deleteHospAnicode(map);
+		int m = service.deleteHospMedicode(map);
 		
 		assertEquals(1, n);
 		assertEquals(1, m);
