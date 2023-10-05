@@ -11,18 +11,10 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
 <link rel="stylesheet" href="./css/ckeditor.css">
-<link rel="stylesheet" href="./css/index.css">
 <%@ include file="./header.jsp" %>
 </head>
 <body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
-<body>
-<%-- ${qstDetail} --%>
-<%-- ${rpyList} --%>
-<%-- ${content} --%>
-<%-- ${qstDetail[0].qst_id} --%>
-<hr>
-<%-- ${loginVo.users_id} --%>
-<div id="container">
+<div id="detailContainer">
 <!-- 게시글 영역 -->
 	<div class="questCard">
 		<table class="questTop">
@@ -45,15 +37,25 @@
 	<div id="gapArea">
 	<c:if test="${loginVo.users_id eq qstDetail[0].qst_id}">
 <%-- 		<c:if test="${loginVo.users_id eq qstDetail[0].user_vo[0].users_id}"> --%>
-			<input type="submit" style="float:right;" value="수정"><a onclick="location.href=.//qst_writeQuest.do"></a></input>
+			<input class="basicBtn" type="button" style="float:right;" value="수정" onclick="location.href='./qst_modifyQuest.do?seq=${qstDetail[0].qst_seq}'">
 	</c:if>
 		<c:if test="${loginVo.users_auth eq 'H'}">
-			<input type="submit" style="float:right;" value="답글 작성" onclick="location.href='./writeReplyform.do'">
+			<input class="basicBtn" type="submit" style="float:right;" value="답글 작성" onclick="writeReplyForm()">
 		</c:if>
 	</div>
 <hr>
-<!-- 답글영역 -->
-<div id="contentArea">
+
+<!-- 답글 작성영역 -->
+<!-- rpy_ref, rpy_content -->
+<div id="writeReplyArea">
+	<form action="./writeReply.do" method="post">
+	<input type="hidden" name="rpy_ref" value="${qstDetail[0].qst_seq}"/>
+	<textarea id="writeReplyHere" name="rpy_content" required="required"></textarea>
+	<input class="basicBtn" type="submit" style="float:right;" value="작성" onclick="replySubmit()">
+	</form>
+</div>
+
+<div id="replyArea">
 	<c:set var="loop_flag" value="false" />
 	<c:forEach var="reply" items="${rpyList}">
 	<c:choose>
@@ -68,7 +70,7 @@
 						    <fmt:formatDate value="${replyDate}" pattern="yyyy-MM-dd HH:mm"/>
 						    <button id="openModal" type="button" style="display:none;" class="btn" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
 							<div>
-								<button style="float:right;"><a>신고</a></button>
+								<button class="basicBtn" style="float:right;" onclick="location.href='./select_HospDetail.do?hosp_id=${reply.rpy_id}'">예약하기</button>
 							</div>
 						</td>
 					</tr>
@@ -89,10 +91,9 @@
 						<div>
 							<c:if test="${not loop_flag }">
 								<c:if test="${loginVo.users_id eq qstDetail[0].qst_id}">
-									<button id="openModal" type="button" class="choiceBtn" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
+									<button class="basicBtn" id="openModal" type="button" class="choiceBtn" onclick="selected('${reply.rpy_seq}')" value="${reply.rpy_seq}">채택하기</button>
 								</c:if>
 							</c:if>
-							<button style="margin-left:15px; float:right;"><a>신고</a></button>
 						</div>
 					</tr>
 				</table>
@@ -105,10 +106,6 @@
 	</c:forEach>
 </div>
 
-<!-- 답변작성  -->
-<div style="display: none;">
-	<textarea id="editor" name="questContent" required></textarea>
-</div>
 
 <!-- 답변채택 모달 -->
 <div id="modalWindow" class="modal">
@@ -132,6 +129,6 @@
 </body>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>
 <script type="text/javascript" src="./js/ckeditor.js"></script>
-<%@ include file="./footer.jsp" %>
 <script type="text/javascript" src="./js/qst_questBoard.js"></script>
+<%@ include file="./footer.jsp" %>
 </html>

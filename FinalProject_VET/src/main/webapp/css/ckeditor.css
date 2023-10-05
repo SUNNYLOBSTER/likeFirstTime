@@ -481,12 +481,12 @@ main .message h2 {
 	font-size: .8rem;
 }
 
-footer {
-	margin: calc(2*var(--ck-sample-base-spacing)) var(--ck-sample-base-spacing);
-	font-size: .8em;
-	text-align: center;
-	color: rgba(0,0,0,.4);
-}
+/* footer { */
+/* 	margin: calc(2*var(--ck-sample-base-spacing)) var(--ck-sample-base-spacing); */
+/* 	font-size: .8em; */
+/* 	text-align: center; */
+/* 	color: rgba(0,0,0,.4); */
+/* } */
 
 /* --------- RWD --------------------------------------------------------------------------------------------------- */
 @media screen and ( max-width: 800px ) {
