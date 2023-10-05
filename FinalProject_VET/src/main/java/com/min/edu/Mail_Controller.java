@@ -181,7 +181,7 @@ public class Mail_Controller {
 	
 	//예약 확정 메일 전송
 	@GetMapping(value = "/resrv_confirmMail.do")
-	public String resrv_confirmMail(String resrv_num) {
+	public void resrv_confirmMail(String resrv_num) {
 		log.info("&&&&& Mail_Controller paymentMail 전달받은 parameter값 : {} &&&&&", resrv_num);
 		
 		Reservation_VO resrv_vo = resrv_service.resrv_detail(resrv_num);
@@ -212,12 +212,11 @@ public class Mail_Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/resrv_Select.do";
 	}
 	
 	//예약 거절 메일 전송
 	@GetMapping(value = "/resrv_refuseMail.do")
-	public String resrv_refuseMail(String resrv_num) {
+	public void resrv_refuseMail(String resrv_num) {
 		log.info("&&&&& Mail_Controller paymentMail 전달받은 parameter값 : {} &&&&&", resrv_num);
 		
 		Reservation_VO resrv_vo = resrv_service.resrv_detail(resrv_num);
@@ -245,7 +244,6 @@ public class Mail_Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/resrv_Select.do";
 	}
 	
 }
