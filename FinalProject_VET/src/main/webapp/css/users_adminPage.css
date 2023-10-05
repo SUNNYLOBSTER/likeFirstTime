@@ -2,9 +2,15 @@
 
 #chartInfo{
 	margin: 20px auto;
-	width: 80%;
+	width: 100%;
 	border-collapse: collapse;
 	border-radius: 3px;
+	table-layout: fixed;
+}
+
+#container{
+	width: 1200px;
+	height: 1400px;
 }
 
 #chartInfo th,tr,td{
@@ -67,5 +73,5 @@ div>div>form>input>#keyword{
 #searchSpace{
 	display: block;
     text-align: right;
-    margin: 10px 190px;
+    margin-top: 20px;
 }

@@ -11,7 +11,7 @@
 		height: 20px;
 		margin: 3px;
 	}
-	#fixButton{
+	.fixButton{
 		width: auto;
 		height: auto;
 		padding-block: 1px;
@@ -19,6 +19,7 @@
 	}
 	.container{
 		text-align: center;
+		height: 800px;
 	}
 </style>
 <script type="text/javascript">
@@ -50,7 +51,8 @@
 		<span id="checkId"></span>
 		<br>
 		<input type="password" name="users_pw" placeholder="비밀번호를 입력해주세요" required="required"><br><br>
-		<input type="submit" id="fixButton" value="회원탈퇴">
+		<input type="submit" class="fixButton" value="회원탈퇴">
+		<input type="button" class="fixButton" value="취소" onclick="history.back(-1)">
 	</form>
 	</div>
 	</div>

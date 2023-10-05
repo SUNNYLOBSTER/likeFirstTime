@@ -119,7 +119,7 @@ public class Users_Controller {
 	@GetMapping(path="/main.do")
 	public String main(Model model) {
 		log.info("&&&&& Users_Controller 로그인 성공 -> 메인페이지 &&&&&");
-		List<NoticeBoard_VO> notice_list = notice_service.selectAllNotice();
+		List<NoticeBoard_VO> notice_list = notice_service.selectNotice();
 		model.addAttribute("notice_list", notice_list);
 		
 		List<Chosen_VO> chsn_list = chosen_service.chosen_rank();
