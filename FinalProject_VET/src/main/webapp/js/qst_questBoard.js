@@ -68,7 +68,21 @@ function result(){
 	});
 }
 
+function writeReplyForm(){
+	writeReplyArea.style.display = "block";
+	
+}
 
+//  submit 버튼 동작 
+function replySubmit(){
+	const data = editor.getData();
+	$("#editor").text(data);	
+	
+	
+   observer.disconnect();
+   $("form").eq(0).submit();
+	
+}
 
 
 

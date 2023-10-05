@@ -9,15 +9,15 @@
 <meta charset="UTF-8">
 <title>새 게시글 작성 화면</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet" href="./css/qst_questBoard.css">
 <link rel="stylesheet" href="./css/ckeditor.css">
-<link rel="stylesheet" href="./css/index.css">
 <%@ include file="./header.jsp" %>
 </head>
 <body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
-<div id="container">
-	<form action="./qst_writeQuest.do" method="post">
+<div id="detailContainer">
+	<form action="./writeQuest.do" method="post">
 	<!-- 카테고리 선택 -->
-	<select id="aCode" name="qst_species" class="selectPart" >
+	<select id="aCode" name="qst_species" class="selectPart">
 		<option disabled="disabled" selected="selected" value="">--동물 종을 선택하세요--</option>
 		<option value="D">개</option>
 		<option value="C">고양이</option>
@@ -26,8 +26,8 @@
 		<option value="F">어류</option>
 		<option value="O">기타</option>
 	</select>
-	<input type="hidden" name="codeInput">
-	<select id="aPart" name="qst_part" class="selectPart">
+	<input type="hidden" name="codeInput" required="required">
+	<select id="aPart" name="qst_part" class="selectPart" >
 		<option disabled="disabled" selected="selected" value="">--증상이 있는 부위를 선택하세요--</option>
 		<option value="01">피부</option>
 		<option value="02">눈</option>
@@ -40,7 +40,7 @@
 		<option value="09">면역력,호흡기</option>
 		<option value="10">기타</option>
 	</select>
-	<input type="hidden" name="partInput">
+	<input type="hidden" name="partInput" required="required">
 	
 	<!-- 빠른문의 게시글 활성화 -->
 	<input type="checkbox" name="qst_fast" value="Y">빠른문의 게시글
@@ -56,6 +56,7 @@
 	<!-- 완료 버튼 -->
 	<button type="submit" onclick="writeSubmit()">입력</button>
 	<input type="submit" value="취소" onclick="location.href='./questBoard.do'">
+	
 </div>
 </body>
 <script type="text/javascript" src="./lib/ckeditor5-39.0.1/build/ckeditor.js"></script>

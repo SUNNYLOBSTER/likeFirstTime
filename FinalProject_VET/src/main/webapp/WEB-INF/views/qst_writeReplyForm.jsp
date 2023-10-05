@@ -10,14 +10,17 @@
 <title>답글 작성화면</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <link rel="stylesheet" href="./css/ckeditor.css">
-<link rel="stylesheet" href="./css/index.css">
 <%@ include file="./header.jsp" %>
 </head>
 <body data-editor="ClassicEditor" data-collaboration="false" data-revision-history="false">
 <div id="container">
-	
-	<!--  내용 작성 -->
+	<form action="./writeReply.do">
 	<textarea id="editor" name="replyContent" required></textarea>
+	
+	</form>
+	<!-- 완료 버튼 -->
+	<button type="submit" onclick="writeSubmit()">입력</button>
+	<input type="submit" value="취소" onclick="location.href='./questBoard.do'">
 	
 </div>
 </body>

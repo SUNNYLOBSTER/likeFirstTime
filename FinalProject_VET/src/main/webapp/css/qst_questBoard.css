@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+#detailContainer {
+		width: 1000px;
+		min-height: 900px;
+		height: 900px auto;
+		margin: 0px auto;
+   		padding: 0px;
+}
+
 #searchArea {
 	height: 40px;
 	margin: 10px 10px;
@@ -10,12 +18,31 @@
 	max-height: 800px;
 	
 }
+#replyArea {
+	height: 400px auto;
+	
+}
+
+#writeReplyArea {
+	margin-bottom: 40px;
+	display: none;
+}
 
 #pagingArea {
 	height: 50px;
 	margin: 10px 10px;
 	display: flex;
 	justify-content: center;
+}
+
+.basicBtn{
+	background-color: #D7CCC8;
+	width: 110px;
+	height: 20px;
+	border-radius: 5px;
+	font: #3E2723;
+	border: none;
+	box-shadow: 1.5px 1.5px 1.5px 0 #3E2723;
 }
 
 
@@ -153,7 +180,12 @@
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 40%;
+}
+
+#writeReplyHere{
+	width: 1000px;
+	height: 300px; 
 }
 
 /* The Close Button */
@@ -174,4 +206,13 @@
 .hidden {
   display: none;
 }
+
+figure[class='image']>img{
+	
+
+    object-fit: contain;
+    width: 100%;
+}
+
+
 

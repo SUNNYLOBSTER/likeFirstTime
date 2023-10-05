@@ -25,41 +25,16 @@ $(document).ready(function(){
    
 });
 
-// 대분류 선택
-var codeInput = function(){
-	console.log("동물 종은 : "+ value);
-	$("#codeInput").val(value);
+function writeReplyForm(){
+	writeReplyArea.style.display = "block";
+	
 }
 
-// 소분류 선택
-var partInput = function(){
-	console.log("증상 부위는: "+ value);
-	$("#partInput").val(value);
-}
 
 //  submit 버튼 동작 
 function writeSubmit(){
 	const data = editor.getData();
 	$("editor").text(data);
-	
-//	let aCode = $('#aCode').val();
-//	let aPart = $('#aPart').val();
-//	let questTitle = $('#questTitle').val();
-//	console.log(aCode, aPart, questTitle);
-//	
-//	if(aCode == "--동물 종을 선택하세요--"){
-//		alert("동물 종을 선택하세요");
-//		document.getElementById("aCode").focus();
-//		return false;
-//	}else if(aPart == "--증상이 있는 부위를 선택하세요--"){
-//		alert("증상이 있는 부위를 선택하세요");
-//		document.getElementById("aPart").focus();
-//		return false;
-//	}else if(questTitle == ""){
-//		alert("제목을 입력하세요");
-//		document.getElementById("questTitle").focus();
-//		return false;
-//	}
 	
    observer.disconnect();
    $("form").eq(0).submit();

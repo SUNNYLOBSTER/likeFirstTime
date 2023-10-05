@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>진료문의 게시판</title>
-<%-- ${questList} --%>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="./js/paging.js"></script>
 <link rel="stylesheet" href="./css/qst_questBoard.css">
@@ -16,6 +15,7 @@
 <%@ include file="./header.jsp" %>
 <body>
 <div id="container">
+
 <div id="searchArea">
 <form action="./questBoard.do">
 	<input type="hidden" name="page" value="${page.page}"/>
@@ -42,10 +42,10 @@
 		<option value="10">기타</option>
 	</select>
 	<input id="searchBar" type="text" name="qst_content" placeholder="검색어를 입력하세요">
-	<input id="searchSubmit" type="submit" value="검색" >
+	<input class="basicBtn" id="searchSubmit" type="submit" value="검색" >
 </form>
 	<c:if test="${loginVo.users_auth eq 'U'}">
-		<button style="float:right;" onclick="location.href='./writeQuestForm.do'">새 글 작성</button>
+		<button class="basicBtn" style="float:right;" onclick="location.href='./writeQuestForm.do'">새 글 작성</button>
 	</c:if>
 </div>
 
@@ -70,7 +70,7 @@
 						</tr>
 					</table>
 					<div class="questBottom">
-						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a>
+						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.unescapeContent}</a>
 					</div>
 				</div>
 				<div class="blank"></div>
@@ -91,7 +91,7 @@
 						</tr>
 					</table>
 					<div class="questBottom">
-						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.qst_content}</a>
+						<a href="./questDetail.do?seq=${dto.qst_seq}">${dto.unescapeContent}</a>
 					</div>
 				</div>
 				<div class="blank"></div>
@@ -104,9 +104,9 @@
 <div id="pagingArea">
 	<ul class="pages">
 		<c:if test="${page.stagePage > 1}">
-			<li ><a href="#" onclick="pageFirst()"><span>|◀</span></a></li>
+			<li ><a href="#" onclick="pageFirst()"><span>⏮️</span></a></li>
 			<c:if test="${page.stagePage - page.countPage >= 0 }">
-				<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span>◀</span></a></li>
+				<li><a href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><span>⏪</span></a></li>
 			</c:if>
 		</c:if>
 		
@@ -116,9 +116,9 @@
 		
 		<c:if test="${page.page < page.totalPage }">
 			<c:if test="${page.stagePage+page.countPage < page.totalCount }">
-				<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span>▶</span></a></li>
+				<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span>⏩</span></a></li>
 			</c:if>
-			<li><a href="#" onclick="pageLast(${page.totalPage})"><span>▶|</span></a></li>
+			<li><a href="#" onclick="pageLast(${page.totalPage})"><span>⏭️</span></a></li>
 		</c:if>
 	</ul>
 </div>

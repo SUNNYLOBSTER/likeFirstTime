@@ -40,7 +40,7 @@ var partInput = function(){
 // submit 버튼 동작 
 function writeSubmit(){
 	const data = editor.getData();
-	$("editor").text(data);
+	$("#editor").text(data);
 	
 	let aCode = $('#aCode').val();
 	let aPart = $('#aPart').val();

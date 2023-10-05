@@ -64,26 +64,36 @@ public class Board_Controller {
 	
 	
 	
-	
+//	게시글 상세조회 및 해당 게시글의 답글 전체조회
 	@GetMapping(value = "/questDetail.do")
 	public String questDetail(HttpSession session, String seq, Model model) {
 		log.info(seq);
 		log.info("&&&&& Board_Controller 실행 qst_questDetail 이동 &&&&&");
 		List<QuestBoard_VO> qstDetail = service.selectOneBoard(seq);
 		List<ReplyBoard_VO> rpyList = service.selectReply(seq);
-		
+		System.out.println(rpyList);
 		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 		
 	    String unescapedContent = StringEscapeUtils.unescapeHtml4(qstDetail.get(0).getQst_content());
 		
+//		List<String> unescapedReply = new ArrayList<String>();
+//	    Map<String, Object> unescapedReply = new HashMap<String, Object>();
+	    
+//		for (int i = 0; i < rpyList.size(); i++) {
+//			unescapedReply.put("rpy_content",StringEscapeUtils.unescapeHtml4(rpyList.get(i).getRpy_content()));
+//			unescapedReply.put("rpy_seq",rpyList.get(i).getRpy_seq());
+//			unescapedReply.put("rpy_chosen",rpyList.get(i).getRpy_chosen());
+//		}
+	    System.out.println(unescapedContent);
 	    model.addAttribute("loginVo", loginVo);
 		model.addAttribute("qstDetail", qstDetail);
 		model.addAttribute("content", unescapedContent);
+//		model.addAttribute("rpyList", rpyList);
 		model.addAttribute("rpyList", rpyList);
-		
 		return "qst_questDetail";
 	}
 
+//	답변 채택
 	@GetMapping(value = "/chooseReply.do")
 	public String choiceReply(String seq) {
 		log.info("&&&&& Board_Controller choiceReply 실행  &&&&&");
@@ -105,6 +115,7 @@ public class Board_Controller {
 		return "qst_questBoard";
 	}
 	
+//	게시글 작성화면 이동
 	@GetMapping(value = "/writeQuestForm.do")
 	public String writeQuestForm(HttpSession session, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
@@ -134,7 +145,7 @@ public class Board_Controller {
 	}
 	
 //	게시글 작성
-	@PostMapping(value = "/qst_writeQuest.do")
+	@PostMapping(value = "/writeQuest.do")
 	public String writeQuest(@RequestParam Map<String, Object> map, HttpSession session, Model model, HttpServletResponse response) throws IOException {
 		log.info("&&&&& Board_Controller 실행 writeQuest 작동 &&&&&");
 		log.info("{}", map);
@@ -153,7 +164,7 @@ public class Board_Controller {
 		   String qst_part = (String) map.get("qst_part");
 		   String qst_fast = (String) map.get("qst_fast") == null?"N":"Y";
 		   
-		   if(wholePnt >= 500 && qst_fast == "Y") {
+		   if(wholePnt >= 500 && qst_fast == "Y" ) {
 			   QuestBoard_VO insertVo = new QuestBoard_VO();
 			   insertVo.setQst_id(qst_id);
 			   insertVo.setQst_content(escapedContent);
@@ -164,18 +175,34 @@ public class Board_Controller {
 			   
 			   String quest = service.insertQuest(insertVo);
 			   service_pay.usePntOnBoard(qst_id);
+			   int point = service_pay.selectAllPnt(qst_id);
+			   session.setAttribute("point", point);
 			   
 			   return "redirect:/questDetail.do?seq="+quest;
 			   
-		   }else {
+		   }else if(qst_fast == "N"){
+			   QuestBoard_VO insertVo = new QuestBoard_VO();
+			   insertVo.setQst_id(qst_id);
+			   insertVo.setQst_content(escapedContent);
+			   insertVo.setQst_title(qst_title);
+			   insertVo.setQst_species(qst_species);
+			   insertVo.setQst_part(qst_part);
+			   insertVo.setQst_fast(qst_fast);
+			   
+			   String quest = service.insertQuest(insertVo);
+			   
+			   return "redirect:/questDetail.do?seq="+quest;
+			   
+		   }else if(wholePnt < 500){
 			   PrintWriter out = response.getWriter();
 		       out.print("<script>alert('빠른문의 결제 포인트가 부족합니다. 포인트를 충전해주세요'); "
 		       				+ "location.href='./goPayment.do';"
 		       				+ "</script>");
 		       out.flush();
 		       out.close();
-		       return null;
+		       return "redirect:/questBoard.do";
 		   }
+		   return null;
 		
 	}
 	
@@ -201,43 +228,64 @@ public class Board_Controller {
 		return "qst_oneUsersFast";
 	}
 	
-// 게시글 수정
-	@GetMapping(value = "/qst_writeQuest.do")
-	public String modifyQuest(String seq, HttpSession session, HttpServletResponse response) throws IOException {
-		log.info("&&&&& Board_Controller 게시글 수정 페이지  이동 &&&&&");
+//	답글작성화면 이동
+	@GetMapping(value = "/writeReplyForm.do")
+	public String writeReplyform(HttpSession session, HttpServletResponse response) throws IOException {
+	log.info("&&&&& Board_Controller 실행 moveWriteForm 이동 &&&&&");
+	
+	response.setContentType("text/html; charset=UTF-8");
+	
+	Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+	
+			try {
+				if(loginVo != null) {
+					session.setAttribute("loginVo", loginVo);
+					session.setMaxInactiveInterval(1800);
+					
+					PrintWriter out;
+				out = response.getWriter();
+				out.flush();
+				return "qst_writeReplyForm";
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+		}
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 후 작성 가능합니다');location.href='./loginForm.do';</script>");
+			out.flush();
+			return null;
+}
+	
+//	답글작성
+	@PostMapping(value = "/writeReply.do")
+	public String writeReply(@RequestParam Map<String, Object> map, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
+		
+				PrintWriter out = response.getWriter();
 
+				log.info("&&&&& Board_Controller 실행 writeReply 작동 &&&&&");
+				log.info("{}", map);
 				response.setContentType("text/html; charset=UTF-8");
-		
-				Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");
 				
-						try {
-							if(loginVo != null) {
-								session.setAttribute("loginVo", loginVo);
-								session.setMaxInactiveInterval(1800);
-								
-								PrintWriter out;
-							out = response.getWriter();
-							out.flush();
-							return "qst_writeQuestForm";
-							}
-						} catch (IOException e) {
-							e.printStackTrace();
-					}
-						PrintWriter out = response.getWriter();
-						out.println("<script>alert('로그인 후 작성 가능합니다');location.href='./loginForm.do';</script>");
-						out.flush();
-						return null;
-		
-//		return "qst_questModifyForm";
-	}
+				String rpy_id = loginVo.getUsers_id();
+				
+				   String rpy_content = (String) map.get("rpy_content");
+				   String escapedContent = StringEscapeUtils.escapeHtml4(rpy_content);
+				   
+					   QuestBoard_VO insertVo = new QuestBoard_VO();
+					   ReplyBoard_VO insertReply = new ReplyBoard_VO();
+					   insertReply.setRpy_id(rpy_id);
+					   insertReply.setRpy_content(escapedContent);
+					   insertReply.setRpy_ref((String) map.get("rpy_ref"));
+					   
+					   int reply = service.insertReply(insertReply);
+					   
+					   return "redirect:/questDetail.do?seq="+insertReply.getRpy_ref();
+					   
+			}
 	
-//	@GetMapping(value = "/reportQuest.do")
-//	public String reportQuest() {
-//		
-//		return "";
-//	}
-	
-//	페이징
+//	페이징+전체조회 
 	@GetMapping(value = "/questBoard.do")
 	public String boardList(Model model, HttpSession session, HttpServletRequest req,
 			@RequestParam Map<String,Object> map) {
@@ -280,6 +328,7 @@ public class Board_Controller {
 		model.addAttribute("lists2", lists2);
 		model.addAttribute("questList", questList);
 		model.addAttribute("page", pVo);
+//		model.addAttribute("content", unescapedContent);
 	    log.info("queryString  :  " + req.getQueryString());
 	    String queryString = req.getQueryString() == null ? "" : req.getQueryString();
 	    
@@ -289,6 +338,31 @@ public class Board_Controller {
 		
 		return "qst_questBoard";
 	}
+	
+	// 게시글 수정
+		@GetMapping(value = "/qst_modifyQuest.do")
+		public String modifyQuest(String seq, HttpSession session, Model model) {
+			log.info("&&&&& Board_Controller 게시글 수정 페이지  이동 &&&&&");
+			
+			Users_VO loginVo = (Users_VO) session.getAttribute("loginVo");		
+			
+			// 수정 대상 게시글 조회
+			List<QuestBoard_VO> qstDetail = service.selectOneBoard(seq);
+			
+			// 일치하지 않으면 alert 띄우고 전체리스트로 리다이랙트
+			if(loginVo == null || !qstDetail.get(0).getQst_id().equals(loginVo.getUsers_id()) ) {
+				model.addAttribute("msg", "접근 권한이 없습니다.");
+				model.addAttribute("url", "./questBoard.do");
+				return "alert";
+			}
+			
+			// 일치하면 수정페이지로 이동 
+			model.addAttribute("dto", qstDetail.get(0));
+			return "qst_questModifyForm";
+
+		}
+		
+		
 	
 		
 }

@@ -2,6 +2,8 @@ package com.min.edu.vo;
 
 import java.util.List;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -36,5 +38,9 @@ public class QuestBoard_VO {
 	private List<AnimalCode_VO> animalcode_vo;
 	private List<Users_VO> users_vo;
 	private List<Hospital_VO> hospital_vo;
+	
+	public String getUnescapeContent() {
+		return StringEscapeUtils.unescapeHtml4(qst_content);
+	}
 	
 }
