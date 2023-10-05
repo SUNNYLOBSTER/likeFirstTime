@@ -61,9 +61,7 @@ public class Reservation_Controller {
       log.info("&&&&& 병원정보 호출 &&&&&");
       Users_VO user_info = (Users_VO)session.getAttribute("loginVo");
       String user_id = user_info.getUsers_id();
-//      List<Hospital_VO> hosp_time = user_info.getHospital_vo();
       Users_VO hosp_info = map_service.hosp_detail(user_id);
-//      System.out.println(hosp_info.getHospital_vo().get(0).getHosp_time());
       String hosp_time = hosp_info.getHospital_vo().get(0).getHosp_time();
       hosp_time = hosp_time.replaceAll(" ", "");
       

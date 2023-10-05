@@ -1,4 +1,4 @@
-package com.min.edu.Utils;
+package com.min.edu.utils;
 
 import java.io.UnsupportedEncodingException;
 
@@ -11,7 +11,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 //메일전송 라이브러리
 public class MailUtils {
-	
 	private JavaMailSender mailSender;
 	private MimeMessage message;
 	private MimeMessageHelper messageHelper;
