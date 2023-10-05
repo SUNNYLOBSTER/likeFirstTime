@@ -121,4 +121,9 @@ public class Users_DaoImpl implements IUsers_Dao {
 	public Users_VO findId(Users_VO uVo) {
 		return session.selectOne(NS+"findId", uVo);
 	}
+	
+	@Override
+	public int findPw(Users_VO uVo) {
+		return session.update(NS+"findPw", uVo);
+	}
 }

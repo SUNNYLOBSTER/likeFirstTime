@@ -254,4 +254,11 @@ INSERT INTO MEDICONNECT (MEDI_CODE, HOSP_ID)
 		WHERE USERS_NAME = #{users_name} AND USERS_TEL = #{users_tel}
 </select>
 
+<!-- 비밀번호 변경 -->
+<update id="findPw">
+	UPDATE USERSINFO
+		SET USERS_PW=#{users_pw}
+		WHERE USERS_ID=#{users_id}
+</update>
+
 </mapper>

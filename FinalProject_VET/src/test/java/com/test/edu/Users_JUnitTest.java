@@ -91,18 +91,23 @@ public class Users_JUnitTest {
 //		Users_VO uVo = service.findId(vo);
 //		System.out.println(uVo);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("medi_code", "00");
-		map.put("anm_code", "B");
-		map.put("hosp_id", "panananan@naver.com");
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("medi_code", "00");
+//		map.put("anm_code", "B");
+//		map.put("hosp_id", "panananan@naver.com");
+//		
+//		int n = service.deleteHospAnicode(map);
+//		int m = service.deleteHospMedicode(map);
 		
-		int n = service.deleteHospAnicode(map);
-		int m = service.deleteHospMedicode(map);
+//		assertEquals(1, n);
+//		assertEquals(1, m);
+		
+		Users_VO uVo = new Users_VO();
+		uVo.setUsers_id("panananan@naver.com");
+		uVo.setUsers_pw("789456");
+		int n = service.findPw(uVo);
 		
 		assertEquals(1, n);
-		assertEquals(1, m);
-		
-		
 		
 	}
 

@@ -667,15 +667,15 @@ public class Users_Controller {
 	}
 	
 
-	//비밀번호 찾기 페이지 이동
+	//비밀번호 찾기 팝업 오픈
 		@GetMapping(path = "/findPwWindow.do")
-		public String findPwPage () {
+		public String findPwPageOne () {
 			log.info("&&&&& Users_Controller 비밀번호 찾기 페이지로 이동 &&&&&");
 			return "users_findPw";
 		}
 	
-  //병원 마이페이지에서 진료답변보기 기능
-  @GetMapping(value = "/hosp_rpy.do")
+	//병원 마이페이지에서 진료답변보기 기능
+    @GetMapping(value = "/hosp_rpy.do")
 	public String hosp_rpy(HttpSession session, Model model) {
 		Users_VO loginVo = (Users_VO)session.getAttribute("loginVo");
 		Chosen_VO cvo = chosen_service.rpy_cnt_chsn(loginVo.getUsers_id());
@@ -683,5 +683,43 @@ public class Users_Controller {
 		return "hosp_reply";
 	}
 	
-}
+  
+  	//비밀번호 변경 페이지 이동
+  	@GetMapping(path ="/modifyPw.do")
+ 	public String findPwPageTwo () {
+  		log.info("&&&&& Users_Controller 비밀번호 찾기 페이지로 이동 {} &&&&&");
+  		return "users_changePw";
+  	}
+  	
+  	//비밀번호 변경
+  	@PostMapping(path ="/modifyPw.do")
+  	public String findPw(@RequestParam Map<String, Object> map, HttpServletResponse response) throws IOException {
+  		
+  		Users_VO uVo = new Users_VO();
+  		String id = (String)map.get("users_id");
+  		String pw = (String)map.get("users_pw");
+  		
+  		System.out.println(id);
+  		System.out.println(pw);
+  		
+  		uVo.setUsers_id(id);
+  		uVo.setUsers_pw(pw);
+  		
+  		System.out.println(uVo);
+  		int n = service.findPw(uVo);
+  		
+  		if(n==1) {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('비밀번호 수정이 완료되었습니다.');window.close();</script>");
+			out.flush();
+			return null;
+			
+		} else {
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('잘못된 정보입니다. 다시 입력해주세요.');location.href='./modifyPw.do';</script>");
+			out.flush();
+			return null;
+		}
+  	}
 
+}

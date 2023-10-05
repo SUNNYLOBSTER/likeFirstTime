@@ -35,7 +35,7 @@
 					<div id="">
 						<a href="./insertUsers.do">회원가입</a>
 						<a href="#" onclick="findId()">아이디 찾기</a>
-						<a href="#" onclick="alert('준비중입니다.');">비밀번호 찾기</a>
+						<a href="#" onclick="findPw()">비밀번호 찾기</a>
 					</div>
 <!-- 					<div id="naver_id_login" style="text-align: right; margin-top: 3px;"></div> -->
 					</td>

@@ -141,4 +141,10 @@ public class Users_ServiceImpl implements IUsers_Service {
 		log.info("&&&&& Users_ServiceImpl findId 아이디 찾기 : {} &&&&&", uVo);
 		return dao.findId(uVo);
 	}
+	
+	@Override
+	public int findPw(Users_VO uVo) {
+		log.info("&&&&& Users_ServiceImpl findPw 비밀번호 변경 : {} &&&&&", uVo);
+		return dao.findPw(uVo);
+	}
 }

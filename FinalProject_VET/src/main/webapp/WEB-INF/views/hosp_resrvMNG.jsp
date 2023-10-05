@@ -105,6 +105,7 @@
 		</div>
 		<div id="hosp_modifyArea">
 			<button id="hosp_modify" onclick="location.href='./updateHosp.do';">정보수정</button>
+			<button style="margin-top: 10px" id="hosp_resign" onclick="location.href='./resignUser.do'">회원탈퇴</button>
 		</div>
 		
 		<h2 id="calhead">이번달 예약현황</h2>
