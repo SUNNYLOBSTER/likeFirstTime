@@ -56,7 +56,7 @@
       
       <br><br>
       <div id="buttonArea">
-	      <input type="button" value="내 반려동물 보기" onclick="location.href='./selectPetsDetail.do'">
+<!-- 	      <input type="button" value="내 반려동물 보기" onclick="location.href='./selectPetsDetail.do'"> -->
 	      <input type="button" value="내 정보 수정" onclick="location.href='./updateUser.do'">
 	      <input type="button" value="회원탈퇴" onclick="location.href='./resignUser.do'">
       </div>

@@ -42,37 +42,35 @@
 	</div>
 	
 	<div class="navContainer">
-<%-- 		${loginVo} --%>
-<%-- 		${hVo} --%>
 			
 	<form action="./updateHosp.do" method="post">
 		<div class="form-group">
-		<br><br>
+			<br>
 			<table id="chartInfo">
 				<tr>
 				<th>ID</th>
-					<td> <input class="form-control" type="text" name="users_id" value="${hVo.users_id}" readonly="readonly"></td>
+					<td> <input class="form-control" type="text" name="users_id" value="${loginVo.users_id}" readonly="readonly"></td>
 				</tr>
 				<tr>
 				<th>병원이름</th>
-					<td> <input class="form-control" type="text" name="users_name" id="users_name" value="${hVo.hospital_vo[0].hosp_name}" required="required"></td>
+					<td> <input class="form-control" type="text" name="users_name" id="users_name" value="${hosp_info.users_name}" required="required"></td>
 				</tr>
 				<tr>
 				<tr>
 				<th>사업자등록번호</th>
-					<td> <input class="form-control" type="text" name="users_crn" id="users_crn" value="${hVo.users_crn}" required="required"></td>
+					<td> <input class="form-control" type="text" name="users_crn" id="users_crn" value="${hosp_info.users_crn}" required="required"></td>
 				</tr>
 				<tr>
 				<th>병원주소</th>
-					<td> <input class="form-control" type="text" name="users_addr" value="${hVo.users_addr}" required="required"></td>
+					<td> <input class="form-control" type="text" name="users_addr" value="${hosp_info.users_addr}" required="required"></td>
 				</tr>
 				<tr>
 				<th>전화번호</th>
-					<td> <input class="form-control" type="text" name="users_tel" value="${hVo.users_tel}" required="required"></td>
+					<td> <input class="form-control" type="text" name="users_tel" value="${hosp_info.users_tel}" required="required"></td>
 				</tr>
 				<tr>
 				<th>추가전화번호</th>
-					<td> <input class="form-control" type="text" name="users_subtel" value="${hVo.users_subtel}"></td>
+					<td> <input class="form-control" type="text" name="users_subtel" value="${hosp_info.users_subtel}"></td>
 				</tr>
 				<tr>
 				<th>운영시간</th> <!-- 새로 입력하는 방식으로 selectbox -->
@@ -138,7 +136,7 @@
 				</tr>
 				<tr>
 				<th>휴무일</th>
-					<td> <input class="form-control" type="text" name="hosp_off" value="현재 선택 : ${hVo.hospital_vo[0].hosp_off}요일" readonly="readonly">
+					<td> <input class="form-control" type="text" name="hosp_off_original" value="현재 선택 : ${hosp_info.hospital_vo[0].hosp_off}요일" readonly="readonly">
 						<div class="info">
 							<span>변경하고자 하는 요일을 선택해주세요</span>
 							<select name="hosp_off">
@@ -187,7 +185,7 @@
 				<th>주차 가능 여부</th>
 					<td>
 						<c:choose>
-							<c:when test="${hVo.hospital_vo[0].hosp_park eq 'Y'}">
+							<c:when test="${hosp_info.hospital_vo[0].hosp_park eq 'Y'}">
 								현재 선택 : 가능							
 							</c:when>
 							<c:otherwise>
@@ -206,14 +204,14 @@
 				</tr>
 				<tr>
 				<th>병원 소개</th>
-					<td><input class="form-control" type="text" name="hosp_etc" value="${hVo.hospital_vo[0].hosp_etc}"></td>
+					<td><input class="form-control" type="text" name="hosp_etc" value="${hosp_info.hospital_vo[0].hosp_etc}"></td>
 				</tr>
 			</table>
 		</div>
 		<br>
 		<div class="buttonPart">
 			<input type="submit" value="수정">
-			<input type="button" value="취소" onclick="location.href='./selectOneDetail.do'">
+			<input type="button" value="취소" onclick="location.href='./resrv_Select.do'">
 		</div>
 	</form>
 		

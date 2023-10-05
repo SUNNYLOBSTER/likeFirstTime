@@ -238,13 +238,13 @@ INSERT INTO MEDICONNECT (MEDI_CODE, HOSP_ID)
 <!-- 병원정보수정 2 -->
 <delete id="deleteHospAnicode">
 	DELETE FROM ANIMALCONNECT
-		WHERE ANM_CODE=#{anm_code} AND HOSP_ID=#{hosp_id}
+		WHERE HOSP_ID=#{hosp_id}
 </delete>
 
 <!-- 병원정보수정 3 -->
 <delete id="deleteHospMedicode">
 	DELETE FROM MEDICONNECT
-		WHERE MEDI_CODE=#{medi_code} AND HOSP_ID=#{hosp_id}
+		WHERE HOSP_ID=#{hosp_id}
 </delete>
 
 <!-- 아이디 찾기 -->
@@ -253,5 +253,12 @@ INSERT INTO MEDICONNECT (MEDI_CODE, HOSP_ID)
 		FROM USERSINFO u
 		WHERE USERS_NAME = #{users_name} AND USERS_TEL = #{users_tel}
 </select>
+
+<!-- 비밀번호 변경 -->
+<update id="findPw">
+	UPDATE USERSINFO
+		SET USERS_PW=#{users_pw}
+		WHERE USERS_ID=#{users_id}
+</update>
 
 </mapper>

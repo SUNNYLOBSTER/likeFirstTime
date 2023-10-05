@@ -168,3 +168,18 @@ button, input, optgroup, select, textarea{
 	width: 150px;
 	
 }
+
+#hosp_resign{
+  width: 100%;
+	height: 30px;
+	background-color: #EFEBE9;
+	border: 1px solid #3E2723;
+	border-radius: 5px;
+	font-size: 17px;
+	text-align: center;
+}
+
+#hosp_modifyArea{
+	display: block;
+	text-align: center;
+}

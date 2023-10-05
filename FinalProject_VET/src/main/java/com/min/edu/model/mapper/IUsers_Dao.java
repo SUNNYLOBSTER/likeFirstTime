@@ -69,5 +69,8 @@ public interface IUsers_Dao {
 	
 	//아이디 찾기
 	public Users_VO findId(Users_VO uVo);
+	
+	//비밀번호 변경
+	public int findPw(Users_VO uVo);
 		
 }
