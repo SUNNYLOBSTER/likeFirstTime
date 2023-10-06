@@ -38,7 +38,7 @@ function sidoChange(){
 function regionSearch(){
 	var sido = document.getElementById("option_sido");
 	var selectedSiDo = sido.options[sido.selectedIndex].value;
-	console.log(selectedSiDo);
+//	console.log(selectedSiDo);
 	if(selectedSiDo=="세종특별자치시"){
 		$("#map").hide();
 		$("#regionMap").show();
@@ -122,7 +122,7 @@ function addMarkerInfo(data) {
     geocoder.addressSearch(data.소재지전체주소, function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
 	
-			console.log(data.소재지전체주소)
+//			console.log(data.소재지전체주소)
             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
             var marker = new kakao.maps.Marker({
@@ -187,12 +187,10 @@ function setMapCenterPosition(map, markers) {
     if (markers.length === 0) {
         return;
     }
-
     var minLat = markers[0].getPosition().getLat();
     var maxLat = markers[0].getPosition().getLat();
     var minLng = markers[0].getPosition().getLng();
     var maxLng = markers[0].getPosition().getLng();
-
     // 최솟값과 최댓값 찾기
     for (var i = 1; i < markers.length; i++) {
         var position = markers[i].getPosition();
@@ -212,7 +210,6 @@ function setMapCenterPosition(map, markers) {
             maxLng = lng;
         }
     }
-
     // 중심 좌표 설정
     var centerLat = (minLat + maxLat) / 2;
     var centerLng = (minLng + maxLng) / 2;

@@ -38,6 +38,7 @@ public class Map_Controller {
 		return "map_main";
 	}
 	
+	// 시/도 호출
 	@PostMapping(value = "/siGunGuLists.do")
 	@ResponseBody
 	public String siGunGuLists(String si_do) {
@@ -49,6 +50,9 @@ public class Map_Controller {
 		return json;
 	}
 	
+	/*
+	 *  시/군/구 호출 후 전국 동물병원 현황 데이터에서 해당 지역의 주소 및 사업장명 호출
+	 */
 	@PostMapping(value = "/nationwideHosp.do")
 	@ResponseBody
 	public String nationwideHosp(@RequestParam Map<String, Object> map) {
