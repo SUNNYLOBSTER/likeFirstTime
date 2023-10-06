@@ -20,7 +20,7 @@ function resrv_calendar(){
 		});
 
 		request.done(function(data) {
-//			console.log(data); // 가져온 일정
+			console.log(data); // 가져온 일정
 			var today = new Date(); // 오늘 날짜 가져오기
 			var calendarEl = document.getElementById('calendar'); //캘린더 뿌려질 위치
 			

@@ -7,10 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +57,9 @@ public class Reservation_Controller {
    
    @Autowired
    private IMap_Service map_service;
+   
+   @Autowired
+   private JavaMailSender mailSender;
    
    @GetMapping(value = "/resrv_Select.do")
    public String resrv_Select(HttpSession session, Model model) throws JsonMappingException, JsonProcessingException {
@@ -163,6 +169,9 @@ public class Reservation_Controller {
       return json;
    }
    
+   /*
+    * 일반 사용자의 예약을 승인처리하는 컨트롤러 메소드
+    */
    @PostMapping(value = "/resrv_confirm.do")
    @ResponseBody
    public String resrv_confirm(String resrv_num) {
@@ -172,7 +181,6 @@ public class Reservation_Controller {
       Reservation_VO rvo = service.resrv_detail(resrv_num);
       
       String hospitalName = service.hosp_name(rvo.getResrv_hops());
-//      System.out.println("###############"+hospitalName);
       
       String sche_id = rvo.getResrv_userid();
       String sche_date = rvo.getResrv_visit();
@@ -180,6 +188,33 @@ public class Reservation_Controller {
       String sche_content = hospitalName;
       String sche_hour = rvo.getResrv_time();
       String sche_minute = "00";
+      
+      //예약 확정 메일 전송
+      String subject = "[퍼펫트케어] 예약이 확정되었습니다.";
+	  String content = "퍼펫트케어에서 신청하신 예약이 확정되었습니다.\n"
+				      +"예약번호는 " + resrv_num + " 입니다.\n"
+					  +"방문날짜는 " + sche_date + " 입니다.\n"
+					  +"자세한 예약내역은 퍼펫트케어 홈페이지를 방문해주세요.\n"
+					  +"\n퍼펫트케어를 이용해주셔서 감사합니다.";
+	  String from = "likeFirstTime1010@gmail.com";
+	  String to = sche_id;
+	
+	  try {
+	    	MimeMessage mail = mailSender.createMimeMessage();
+	    	MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+		
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content);
+
+			mailSender.send(mail);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+      
+	  //일반 사용자 일정에 추가
       SchedBoard_VO svo = new SchedBoard_VO();
       svo.setSche_id(sche_id);
       svo.setSche_date(sche_date);
@@ -199,7 +234,7 @@ public class Reservation_Controller {
       log.info("&&&&& 전달받은 파라미터 값 : {} &&&&&", user_id);
 
       @SuppressWarnings("serial")
-	Map<String, Object> map = new HashMap<String, Object>(){{
+      Map<String, Object> map = new HashMap<String, Object>(){{
 		   put("pnt_id",user_id);
 		   put("pnt_point",3000);
 	   }};
@@ -208,6 +243,32 @@ public class Reservation_Controller {
 	   int point = pay_service.selectAllPnt(user_id);
 	   System.out.println(point);
 	   session.setAttribute("point", point);
+	   
+	   Reservation_VO resrv_vo = service.resrv_detail(resrv_num);
+		String send_userID = resrv_vo.getResrv_userid();
+		
+		String subject = "[퍼펫트케어] 예약이 거절되었습니다.";
+		String content = "퍼펫트케어에서 신청하신 예약이 거절되었습니다.\n"
+				+"예약이 거절되어 예약금 3000포인트가 반환되었습니다.\n"
+				+"\n퍼펫트케어를 이용해주셔서 감사합니다.";
+		String from = "likeFirstTime1010@gmail.com";
+		String to = send_userID;
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+			
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content);
+			
+			mailSender.send(mail);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	   
       return (n>0 && m>0)?"resrv_refuse":"false";
    }
    

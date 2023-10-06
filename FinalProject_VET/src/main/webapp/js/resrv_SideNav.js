@@ -21,7 +21,7 @@ function month_count(){
 		dataType:"json",
 		data:{yyyy:year},
 		success:function(data){
-			console.log(data.lists);
+//			console.log(data.lists);
 			var html = "";
 				html += "<h2 id='listname'>월별 예약 건수</h2>";
 			month_cnt.innerHTML=html;
@@ -35,16 +35,6 @@ function month_count(){
 				}
 				console.log(monthList);
 				console.log(monthData);
-				
-				var monthAmount = [];
-				
-				for(let i=0; i<monthData.length; i++){
-					monthAmount.push(monthData[i]*3000);
-				}
-				console.log(monthAmount);
-					
-				
-				
 				
 				const ctx = document.getElementById('myChart').getContext('2d');
 				const myChart = new Chart(ctx, {
@@ -69,6 +59,7 @@ function month_count(){
 					   }
 					}
 				});
+				console.log(myChart);
 			
 		},
 		error:function(){
@@ -153,7 +144,6 @@ $(document).on("click",".resrv_confirm",function(){
 				resrv_btn.style.display="none";
 				resrv_refuseBtn.style.display="none";
 				resrv_btn.parentNode.innerHTML="확정";
-				location.href="./resrv_confirmMail.do?resrv_num="+resrv_num;
 			}else{
 				alert("예약 확정을 할 수 없습니다.");
 			}
@@ -186,7 +176,6 @@ $(document).on("click",".resrv_refuse",function(){
 					resrv_btn.style.display="none";
 					resrv_confirmBtn.style.display="none";
 					resrv_btn.parentNode.innerHTML="거절";
-					location.href="./resrv_refuseMail.do?resrv_num="+resrv_num;
 				}else{
 					alert("예약 확정을 할 수 없습니다.");
 				}
