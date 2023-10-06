@@ -41,7 +41,7 @@ public class Mail_Controller {
 	private IReservation_Service resrv_service;
 	
 	public void sendMailTest() {
-		log.info("&&&&& Mail_Controller 메일 보냅니다요 &&&&&");
+		log.info("&&&&& Mail_Controller 메일 보냅니다 &&&&&");
 		
 		String subject = "[처음처럼] Email 인증번호 입니다.";
 		String content = "메일 테스트 내용";
