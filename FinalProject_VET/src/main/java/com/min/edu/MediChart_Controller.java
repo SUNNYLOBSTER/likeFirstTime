@@ -368,6 +368,7 @@ public class MediChart_Controller {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
             String format_date = formatter.format(date);
             
+            // System 환경변수 중 사용자 디렉토리 경로 가져오기
             String env= System.getenv("USERPROFILE");
             
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(env+"/Downloads/진료기록_"+format_date+".pdf"));
