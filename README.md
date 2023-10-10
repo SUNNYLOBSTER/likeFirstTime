@@ -1,8 +1,6 @@
-# likeFirstTime
+# perPetCare (동물병원 연결 플랫폼)
 
-🌈 Final Project **"perPetcare"** (동물병원 연결 플랫폼)
-
-🖥️ 구디아카데미 67기 공공데이터 융합 자바/스프링 개발자 양성과정
+🖥️ 구디아카데미 67기 공공데이터 융합 자바/스프링 개발자 양성과정 Final Project
 
 📅 2023. 08 ~ 2023. 10
 
