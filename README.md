@@ -28,12 +28,11 @@
     
 🦎 김준태
 
-   **문서관리자**
+    **문서관리자**
 
-   진료문의 게시판
+    진료문의 게시판
 
-   Contact : kjt8733@gmail.com
-
+    Contact : kjt8733@gmail.com
    
 🦜 유리나
 
